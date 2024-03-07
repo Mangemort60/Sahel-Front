@@ -5,7 +5,12 @@ export default {
     './src/**/*.{html,js,jsx,ts,tsx}',
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        kaki: '#A4AC86',
+        darkerKaki: '#72785C',
+      },
+    },
   },
   plugins: [require('preline/plugin')],
 }
