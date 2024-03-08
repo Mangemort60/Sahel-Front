@@ -1,8 +1,13 @@
 import layeredWaves from '../../assets/layeredWaves.svg'
+import { useAppSelector } from '../../redux/hooks'
 import { FormRequest } from './FormRequest'
 import { QuoteReview } from './QuoteReview'
 
 export const FormSection = () => {
+  const isSubmitted = useAppSelector((state) => state.form.isSubmitted)
+
+  console.log(isSubmitted)
+
   return (
     <div>
       {' '}
@@ -17,8 +22,7 @@ export const FormSection = () => {
         <h1 className="text-black sm:text-5xl sm:w-1/3 text-3xl font-light">
           Remplissez ce formulaire et obtenez votre devis en quelques minutes !
         </h1>
-        <FormRequest />
-        <QuoteReview />
+        {isSubmitted ? <QuoteReview /> : <FormRequest />}
       </div>
     </div>
   )
