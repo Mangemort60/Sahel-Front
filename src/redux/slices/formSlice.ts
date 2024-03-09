@@ -4,13 +4,15 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 interface FormState {
   formData: Record<string, any>
   quote: number | null
-  isSubmitted: boolean
+  currentStep: string
+  isLoading: boolean
 }
 
 const initialState: FormState = {
   formData: {},
   quote: null,
-  isSubmitted: false,
+  currentStep: 'form',
+  isLoading: false,
 }
 
 export const formSlice = createSlice({
@@ -23,13 +25,17 @@ export const formSlice = createSlice({
     setQuote: (state, action: PayloadAction<number>) => {
       state.quote = action.payload
     },
-    setIsSubmitted: (state, action: PayloadAction<boolean>) => {
+    setCurrentStep: (state, action: PayloadAction<string>) => {
       // Action pour mettre à jour isSubmitted
-      state.isSubmitted = action.payload
+      state.currentStep = action.payload
+    },
+    setIsLoading: (state, action: PayloadAction<boolean>) => {
+      state.isLoading = action.payload
     },
   },
 })
 
-export const { setFormData, setQuote, setIsSubmitted } = formSlice.actions
+export const { setFormData, setQuote, setCurrentStep, setIsLoading } =
+  formSlice.actions
 
 export default formSlice.reducer

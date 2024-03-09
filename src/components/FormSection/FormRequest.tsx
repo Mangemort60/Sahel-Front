@@ -1,10 +1,11 @@
-import { Button } from '../Buttons/Button'
+import { Button } from '../common/Button'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import {
   setFormData as setReduxFormData,
   setQuote as setReduxQuote,
-  setIsSubmitted,
+  setCurrentStep,
+  setIsLoading,
 } from '../../redux/slices/formSlice'
 import axios from 'axios'
 
@@ -20,9 +21,9 @@ export const FormRequest = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    dispatch(setIsSubmitted(true))
+    dispatch(setCurrentStep('review'))
     dispatch(setReduxFormData(formData))
-    console.log('form submitted')
+    dispatch(setIsLoading(true))
 
     try {
       const response = await axios.post('http://localhost:3000/quote', {
@@ -30,10 +31,12 @@ export const FormRequest = () => {
         sizeRange: formData.sizeRange,
         fruitBasketSelected: formData.fruitBasketSelected,
       })
-      setReduxQuote(response.data.totalPrice)
+      dispatch(setReduxQuote(response.data.totalPrice))
       console.log(response.data.totalPrice)
     } catch (err) {
       console.error(err)
+    } finally {
+      dispatch(setIsLoading(false)) // Après la requête
     }
   }
 
@@ -132,6 +135,7 @@ export const FormRequest = () => {
           label={'Soumettre'}
           hoverColor={'hover:bg-darkerKaki'}
           bgColor={'bg-kaki'}
+          onClick={() => {}}
         />
       </form>
     </div>

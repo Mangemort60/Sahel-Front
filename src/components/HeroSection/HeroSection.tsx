@@ -1,4 +1,4 @@
-import { Button } from '../Buttons/Button'
+import { Button } from '../common/Button'
 import homeImage from '../../assets/homeImage.webp'
 
 export const HeroSection = () => {
