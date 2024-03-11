@@ -3,7 +3,7 @@ interface ButtonProps {
   bgColor: string
   hoverColor: string
   type?: 'button' | 'submit' | 'reset'
-  onClick: () => void
+  onClick?: () => void
 }
 
 export const Button = ({

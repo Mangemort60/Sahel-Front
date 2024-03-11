@@ -1,46 +1,72 @@
-import type { DatePickerProps } from 'antd'
-import { DatePicker, Space } from 'antd'
+import { useEffect, useState } from 'react'
+import { DatePicker, DatePickerProps, Space } from 'antd'
+import { useDispatch } from 'react-redux'
 import axios from 'axios'
 import dayjs, { Dayjs } from 'dayjs'
-import { useEffect, useState } from 'react'
 import isSameOrBefore from 'dayjs/plugin/isSameOrBefore'
 import utc from 'dayjs/plugin/utc'
-
-const onChange: DatePickerProps['onChange'] = (date, dateString) => {
-  console.log(date, dateString)
-}
+import { setServiceDate } from '../../redux/slices/formSlice'
 
 dayjs.extend(isSameOrBefore)
 dayjs.extend(utc)
 
+// Définissez le type pour les données de comptage des réservations
+interface ReservationCount {
+  date: string
+  count: number
+}
+
 export const CustomDatePicker = () => {
-  const [reservedDates, setReservedDates] = useState<Dayjs[]>([])
+  const [reservationCounts, setReservationCounts] = useState<
+    ReservationCount[]
+  >([])
+
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    const fetchReservedDates = async () => {
+    // Remplacez 'http://localhost:3000/reservation-counts' par l'URL de votre endpoint
+    const fetchReservationCounts = async () => {
       try {
-        const { data } = await axios.get<string[]>(
+        const { data } = await axios.get<ReservationCount[]>(
           'http://localhost:3000/reserved-dates',
-        ) // Remplacez par l'URL de votre endpoint
-        setReservedDates(data.map((dateStr) => dayjs.utc(dateStr)))
+        )
+        setReservationCounts(data)
       } catch (error) {
-        console.error('Error fetching reserved dates:', error)
+        console.error('Error fetching reservation counts:', error)
       }
     }
 
-    fetchReservedDates()
+    fetchReservationCounts()
   }, [])
 
   const disabledDate = (current: Dayjs) => {
-    // Utiliser dayjs pour la comparaison
+    // Assurez-vous que la comparaison avec 'current' se fait en UTC
     return (
-      reservedDates.some((date) => date.isSame(current, 'day')) ||
-      current.isSameOrBefore(dayjs().add(1, 'day').startOf('day'))
+      reservationCounts.some(
+        ({ date, count }) =>
+          dayjs.utc(date).isSame(current, 'day') && count >= 3,
+      ) || current.isSameOrBefore(dayjs.utc().startOf('day'), 'day')
     )
   }
+
+  const onChange: DatePickerProps['onChange'] = (date, dateString) => {
+    // dateString peut être une chaîne ou un tableau de chaînes; gérer selon le cas
+    if (Array.isArray(dateString)) {
+      console.log('RangePicker selected dates:', dateString)
+    } else {
+      console.log('DatePicker selected date:', dateString)
+      dispatch(setServiceDate(dateString))
+    }
+  }
+
   return (
     <Space direction="vertical">
-      <DatePicker onChange={onChange} disabledDate={disabledDate} />
+      <DatePicker
+        size="large"
+        onChange={onChange}
+        disabledDate={disabledDate}
+        placeholder="Choisir une date"
+      />
     </Space>
   )
 }

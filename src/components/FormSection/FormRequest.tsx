@@ -73,7 +73,7 @@ export const FormRequest = () => {
             id="sizeRange"
             className="block mb-2 text-sm font-medium text-gray-900"
           >
-            Surface à nettoyer en m2
+            Surface à nettoyer en m2 (par niveau)
           </label>
           <select
             id="areaSize"

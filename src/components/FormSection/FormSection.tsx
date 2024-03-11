@@ -6,7 +6,6 @@ import { QuoteReview } from './QuoteReview'
 
 export const FormSection = () => {
   const currentStep = useAppSelector((state) => state.form.currentStep)
-  console.log(currentStep)
 
   const renderStep = () => {
     switch (currentStep) {
