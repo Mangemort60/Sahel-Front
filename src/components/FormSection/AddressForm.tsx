@@ -1,54 +1,42 @@
-import { FormEvent } from 'react'
 import { useDispatch } from 'react-redux'
 import { addressFormSchema } from '../../schemas/addressFormSchema'
 import { Button } from '../common/Button'
 import { setBookingFormData } from '../../redux/slices/formSlice'
 import { useAppSelector } from '../../redux/hooks'
+import { SubmitHandler, useForm } from 'react-hook-form'
+import { z } from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+
+// Typage des données du formulaire basé sur le schéma Zod
+type FormData = z.infer<typeof addressFormSchema>
 
 export const AddressForm = () => {
   const dispatch = useDispatch()
   const serviceDate = useAppSelector((state) => state.form.serviceDate)
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormData>({
+    resolver: zodResolver(addressFormSchema),
+  })
+
+  const onSubmit: SubmitHandler<FormData> = (data) => {
+    console.log(data)
+    console.log('submitted')
 
     if (!serviceDate) {
       alert('Veuillez sélectionner une date avant de soumettre.')
       return
     }
-
-    const target = event.target as typeof event.target & {
-      country: { value: string }
-      city: { value: string }
-      address: { value: string }
-      address2: { value: string }
-      specialInstructions: { value: string }
-      phone: { value: string }
-    }
-
-    // Création d'un objet avec les données du formulaire
-    const formData = {
-      country: target.country.value,
-      city: target.city.value,
-      address: target.address.value,
-      address2: target.address2.value,
-      specialInstructions: target.specialInstructions.value,
-      phone: target.phone.value,
-    }
-
-    // Validation des données du formulaire
-    const result = addressFormSchema.safeParse(formData)
-    if (!result.success) {
-      console.error(result.error)
-      // Ici, gérez l'affichage des erreurs de validation
-      return
-    }
-    dispatch(setBookingFormData(formData))
+    console.log(data) // Pour déboguer
+    dispatch(setBookingFormData(data))
   }
   return (
     <>
       <form
-        onSubmit={handleSubmit}
+        onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col gap-2 space-y-4  w-full"
       >
         <div>
@@ -59,6 +47,7 @@ export const AddressForm = () => {
             Pays
           </label>
           <input
+            {...register('country')}
             className="bg-gray-50 border-b-2 border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-not-allowed"
             type="text"
             name="country"
@@ -75,6 +64,7 @@ export const AddressForm = () => {
             Ville
           </label>
           <input
+            {...register('city')}
             className="bg-gray-50 border-b-2 border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-not-allowed"
             type="text"
             name="city"
@@ -88,15 +78,19 @@ export const AddressForm = () => {
             htmlFor="address"
             className="block mb-2 text-sm font-medium text-gray-900"
           >
-            Adresse
+            Adresse*
           </label>
           <input
+            {...register('address')}
             className="border-b-2 border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
             type="text"
             name="address"
             id="address"
             placeholder="Entrez votre rue et numéro de maison"
           />
+          {errors.address && (
+            <p className="text-red-600 text-xs ">{errors.address.message}</p>
+          )}
         </div>
         <div>
           <label
@@ -106,6 +100,7 @@ export const AddressForm = () => {
             Complément d'adresse (facultatif)
           </label>
           <input
+            {...register('address2')}
             className="border-b-2 border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
             type="text"
             name="address2"
@@ -121,6 +116,7 @@ export const AddressForm = () => {
             Instructions spéciales
           </label>
           <textarea
+            {...register('specialInstructions')}
             className="border-b-2 border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
             name="specialInstructions"
             id="specialInstructions"
@@ -133,15 +129,19 @@ export const AddressForm = () => {
             htmlFor="phone"
             className="block mb-2 text-sm font-medium text-gray-900"
           >
-            Numéro de téléphone
+            Numéro de téléphone*
           </label>
           <input
+            {...register('phone')}
             className="border-b-2 border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
             type="tel"
             name="phone"
             id="phone"
             placeholder="Numéro de téléphone"
           />
+          {errors.phone && (
+            <p className="text-red-600 text-xs ">{errors.phone.message}</p>
+          )}
         </div>
         <Button
           bgColor="bg-kaki"
