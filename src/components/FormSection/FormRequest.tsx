@@ -8,36 +8,58 @@ import {
   setIsLoading,
 } from '../../redux/slices/formSlice'
 import axios from 'axios'
+import { useForm } from 'react-hook-form'
+import { useAppSelector } from '../../redux/hooks'
 
 export const FormRequest = () => {
+  const isLoading = useAppSelector((state) => state.form.isLoading)
   const [formData, setFormData] = useState({
     numberOfFloors: '',
     sizeRange: '',
     fruitBasketSelected: false,
     beforeOrAfter: '',
   })
+  const [errorForm, setErrorForm] = useState('')
 
   const dispatch = useDispatch()
 
+  const { register } = useForm()
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    dispatch(setCurrentStep('review'))
-    dispatch(setReduxFormData(formData))
-    dispatch(setIsLoading(true))
+
+    const { numberOfFloors, sizeRange, beforeOrAfter, fruitBasketSelected } =
+      formData
+    console.log('Form data:', formData) // Ajout d'un log pour vérifier les données du formulaire
 
     try {
+      if (
+        !numberOfFloors ||
+        !sizeRange ||
+        !beforeOrAfter ||
+        typeof fruitBasketSelected !== 'boolean' // Check for boolean type
+      ) {
+        setErrorForm('Veuillez remplir tous les champs')
+        console.log('error form : ', errorForm)
+
+        return // Prevent further execution if validation fails
+      }
+      dispatch(setCurrentStep('review'))
+      dispatch(setIsLoading(true))
       const response = await axios.post('http://localhost:3000/quote', {
         numberOfFloors: parseInt(formData.numberOfFloors, 10),
         sizeRange: formData.sizeRange,
         fruitBasketSelected: formData.fruitBasketSelected,
       })
       dispatch(setReduxQuote(response.data.totalPrice))
-      console.log(response.data.totalPrice)
+      dispatch(setReduxFormData(formData))
     } catch (err) {
       console.error(err)
     } finally {
       dispatch(setIsLoading(false)) // Après la requête
     }
+
+    console.log('form request is loading : ', isLoading)
   }
 
   return (
@@ -46,6 +68,7 @@ export const FormRequest = () => {
         onSubmit={handleSubmit}
         className="max-w-sm mx-auto h-full flex flex-col justify-evenly"
       >
+        <p className="text-red-600 text-sm ">{errorForm && errorForm}</p>
         <div>
           <label
             id="nbrOfFloors"
@@ -54,11 +77,12 @@ export const FormRequest = () => {
             Nombre d'étages à nettoyer
           </label>
           <select
+            {...register('nbrOfFloors')}
             id="nbrOfFloors"
             onChange={(e) =>
               setFormData({ ...formData, numberOfFloors: e.target.value })
             }
-            className="bg-gray-50 border-b-2 border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-gray-300 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className="bg-gray-50 border-b-2 border-gray-300  text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-gray-300 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500"
           >
             <option selected className="text-white"></option>
             <option value="1">1</option>
@@ -76,6 +100,7 @@ export const FormRequest = () => {
             Surface à nettoyer en m2 (par niveau)
           </label>
           <select
+            {...register('areaSize')}
             id="areaSize"
             onChange={(e) =>
               setFormData({ ...formData, sizeRange: e.target.value })
@@ -97,6 +122,7 @@ export const FormRequest = () => {
             Souhaitez vous un nettoyage avant ou après votre arrivée
           </label>
           <select
+            {...register('beforeOrAfter')}
             id="beforeOrAfter"
             onChange={(e) =>
               setFormData({ ...formData, beforeOrAfter: e.target.value })
@@ -116,6 +142,7 @@ export const FormRequest = () => {
             Souhaitez vous une corbeille de fruit ?
           </label>
           <select
+            {...register('fruitsBasket')}
             id="fruitsBasket"
             onChange={(e) =>
               setFormData({

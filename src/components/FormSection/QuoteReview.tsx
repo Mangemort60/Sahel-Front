@@ -11,9 +11,9 @@ export const QuoteReview = () => {
   const totalPrice = useAppSelector((state) => state.form.quote)
   const isLoading = useAppSelector((state) => state.form.isLoading)
 
-  const dispatch = useDispatch()
+  console.log('QuoteReview is loading : ', isLoading)
 
-  console.log(totalPrice)
+  const dispatch = useDispatch()
 
   const formatSizeRange = (sizeRange: string) => {
     switch (sizeRange) {
@@ -31,7 +31,6 @@ export const QuoteReview = () => {
   }
 
   const handleReserveClick = () => {
-    console.log('reserve click submitted')
     dispatch(setCurrentStep('booking'))
   }
 
@@ -69,7 +68,7 @@ export const QuoteReview = () => {
           onClick={handleReserveClick}
         />
         {isLoading ? (
-          <Spinner /> // Remplacez cela par votre composant Spinner
+          <Spinner />
         ) : (
           <p className="mr-12  text-black text-2xl font-thin">
             Total TTC : <span className="font-bold">{totalPrice} €</span>

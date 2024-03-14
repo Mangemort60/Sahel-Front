@@ -6,6 +6,7 @@ import dayjs, { Dayjs } from 'dayjs'
 import isSameOrBefore from 'dayjs/plugin/isSameOrBefore'
 import utc from 'dayjs/plugin/utc'
 import { setServiceDate } from '../../redux/slices/formSlice'
+import { useAppSelector } from '../../redux/hooks'
 
 dayjs.extend(isSameOrBefore)
 dayjs.extend(utc)
@@ -22,6 +23,10 @@ export const CustomDatePicker = () => {
   >([])
 
   const dispatch = useDispatch()
+
+  const isBeforeOrAfter = useAppSelector(
+    (state) => state.form.formData.beforeOrAfter,
+  )
 
   useEffect(() => {
     // Remplacez 'http://localhost:3000/reservation-counts' par l'URL de votre endpoint
@@ -40,12 +45,18 @@ export const CustomDatePicker = () => {
   }, [])
 
   const disabledDate = (current: Dayjs) => {
-    // Assurez-vous que la comparaison avec 'current' se fait en UTC
+    // La condition vérifie si la date courante est avant "aujourd'hui + 15 jours". Cela désactive toutes les dates jusqu'à 15 jours à partir d'aujourd'hui inclus.
+    const isWithin15DaysFromToday =
+      isBeforeOrAfter === 'before' &&
+      current.isBefore(dayjs().add(15, 'day').startOf('day'))
+
     return (
       reservationCounts.some(
         ({ date, count }) =>
           dayjs.utc(date).isSame(current, 'day') && count >= 3,
-      ) || current.isSameOrBefore(dayjs.utc().startOf('day'), 'day')
+      ) ||
+      (isBeforeOrAfter === 'before' && isWithin15DaysFromToday) ||
+      current.isSameOrBefore(dayjs().startOf('day'), 'day')
     )
   }
 

@@ -6,11 +6,13 @@ import { useAppSelector } from '../../redux/hooks'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useNavigate } from 'react-router-dom'
 
 // Typage des données du formulaire basé sur le schéma Zod
 type FormData = z.infer<typeof addressFormSchema>
 
 export const AddressForm = () => {
+  const navigate = useNavigate()
   const dispatch = useDispatch()
   const serviceDate = useAppSelector((state) => state.form.serviceDate)
 
@@ -32,6 +34,7 @@ export const AddressForm = () => {
     }
     console.log(data) // Pour déboguer
     dispatch(setBookingFormData(data))
+    navigate('/checkout-form', { replace: true })
   }
   return (
     <>
