@@ -9,8 +9,8 @@ import HowItWorks from './pages/HowItWorks'
 import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
 import SubscriptionPage from './pages/SubscriptionPage'
-import CheckoutForm from './components/PaymentSection/CheckoutForm'
-import { StripeCheckoutForm } from './components/PaymentSection/StripeCheckoutForm'
+import CheckoutForm from './components/PaymentSection/StripeCheckoutForm'
+import { StripeCheckout } from './components/PaymentSection/StripeCheckout'
 
 function App() {
   return (
@@ -25,10 +25,7 @@ function App() {
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/subscribe" element={<SubscriptionPage />} />
           <Route path="/checkout-form" element={<CheckoutForm />} />
-          <Route
-            path="/stripe-checkout-form"
-            element={<StripeCheckoutForm />}
-          />
+          <Route path="/stripe-checkout-form" element={<StripeCheckout />} />
         </Routes>
       </MainLayout>
     </>

@@ -1,21 +1,45 @@
-import { PaymentElement } from '@stripe/react-stripe-js'
-import { Elements } from '@stripe/react-stripe-js'
-import { loadStripe } from '@stripe/stripe-js'
-import { useLocation } from 'react-router-dom'
+import { PaymentElement, useStripe, useElements } from '@stripe/react-stripe-js'
+import { Button } from '../common/Button' // Assurez-vous que le chemin d'importation est correct
 
 export const StripeCheckoutForm = () => {
-  const location = useLocation()
-  const { clientSecret } = location.state || {}
+  const stripe = useStripe()
+  const elements = useElements()
 
-  const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY)
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
 
-  const handleSubmit = () => {}
+    if (!stripe || !elements) {
+      console.log("Stripe.js hasn't loaded yet.")
+      return
+    }
+
+    const result = await stripe.confirmPayment({
+      elements,
+      confirmParams: {
+        return_url: 'http://localhost:5173/',
+      },
+    })
+
+    if (result.error) {
+      console.error('PAIEMENT ERROR ', result.error.message)
+    } else {
+      console.log('Payment processed or in process')
+    }
+  }
+
   return (
-    <form id="payment-form" onSubmit={handleSubmit}>
-      <Elements stripe={stripePromise} options={{ clientSecret }}>
+    <div className="w-1/2 m-auto">
+      <form id="payment-form" onSubmit={handleSubmit}>
         <PaymentElement />
-      </Elements>
-      <button id="submit"></button>
-    </form>
+        <Button
+          bgColor="bg-blue-900"
+          hoverColor="bg-blue-500"
+          type="submit"
+          label="Payer"
+        />
+      </form>
+    </div>
   )
 }
+
+export default StripeCheckoutForm
