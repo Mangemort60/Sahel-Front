@@ -45,26 +45,26 @@ export const CustomDatePicker = () => {
   }, [])
 
   const disabledDate = (current: Dayjs) => {
-    // La condition vérifie si la date courante est avant "aujourd'hui + 15 jours". Cela désactive toutes les dates jusqu'à 15 jours à partir d'aujourd'hui inclus.
+    // Utilisez la date courante sans conversion UTC pour aligner avec le stockage local des dates
+    const today = dayjs().startOf('day')
+    const isTodayOrBefore = current.isSameOrBefore(today, 'day')
+
+    // Vérifie si la date est dans les 15 jours à venir pour certaines réservations
     const isWithin15DaysFromToday =
       isBeforeOrAfter === 'before' &&
-      current.isBefore(dayjs().add(15, 'day').startOf('day'))
+      current.isBefore(today.add(15, 'day'), 'day')
 
-    return (
-      reservationCounts.some(
-        ({ date, count }) =>
-          dayjs.utc(date).isSame(current, 'day') && count >= 3,
-      ) ||
-      (isBeforeOrAfter === 'before' && isWithin15DaysFromToday) ||
-      current.isSameOrBefore(dayjs().startOf('day'), 'day')
+    // Vérifie si la date a atteint le nombre maximal de réservations
+    const isFullyBooked = reservationCounts.some(
+      ({ date, count }) => dayjs(date).isSame(current, 'day') && count >= 3,
     )
+
+    return isTodayOrBefore || isWithin15DaysFromToday || isFullyBooked
   }
 
   const onChange: DatePickerProps['onChange'] = (date, dateString) => {
-    // dateString peut être une chaîne ou un tableau de chaînes; gérer selon le cas
-    if (Array.isArray(dateString)) {
-      console.log('RangePicker selected dates:', dateString)
-    } else {
+    // Vérifiez que dateString est une chaîne, pas un tableau de chaînes
+    if (typeof dateString === 'string') {
       console.log('DatePicker selected date:', dateString)
       dispatch(setServiceDate(dateString))
     }

@@ -11,7 +11,7 @@ import RegisterPage from './pages/RegisterPage'
 import SubscriptionPage from './pages/SubscriptionPage'
 import CheckoutForm from './components/PaymentSection/StripeCheckoutForm'
 import { StripeCheckout } from './components/PaymentSection/StripeCheckout'
-
+import { PaymentStatus } from './pages/PaymentStatus'
 function App() {
   return (
     <>
@@ -26,6 +26,7 @@ function App() {
           <Route path="/subscribe" element={<SubscriptionPage />} />
           <Route path="/checkout-form" element={<CheckoutForm />} />
           <Route path="/stripe-checkout-form" element={<StripeCheckout />} />
+          <Route path="/payment-status" element={<PaymentStatus />} />
         </Routes>
       </MainLayout>
     </>

@@ -1,12 +1,17 @@
 import { PaymentElement, useStripe, useElements } from '@stripe/react-stripe-js'
 import { Button } from '../common/Button' // Assurez-vous que le chemin d'importation est correct
+import { useDispatch } from 'react-redux'
+import { setCurrentStep } from '../../redux/slices/formSlice'
 
 export const StripeCheckoutForm = () => {
   const stripe = useStripe()
   const elements = useElements()
+  const dispatch = useDispatch()
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+
+    dispatch(setCurrentStep('form'))
 
     if (!stripe || !elements) {
       console.log("Stripe.js hasn't loaded yet.")
@@ -16,7 +21,7 @@ export const StripeCheckoutForm = () => {
     const result = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: 'http://localhost:5173/',
+        return_url: 'http://localhost:5173/payment-status',
       },
     })
 

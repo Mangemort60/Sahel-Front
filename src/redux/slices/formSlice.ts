@@ -33,7 +33,6 @@ export const formSlice = createSlice({
       state.quote = action.payload
     },
     setCurrentStep: (state, action: PayloadAction<string>) => {
-      // Action pour mettre à jour isSubmitted
       state.currentStep = action.payload
     },
     setIsLoading: (state, action: PayloadAction<boolean>) => {
