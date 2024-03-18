@@ -74,22 +74,26 @@ export const AddressForm = () => {
             readOnly
           />
         </div>
+
         <div>
           <label
-            htmlFor="city"
+            id="nbrOfFloors"
             className="block mb-2 text-sm font-medium text-gray-900"
           >
             Ville
           </label>
-          <input
+          <select
             {...register('city')}
-            className="bg-gray-50 border-b-2 border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-not-allowed"
-            type="text"
-            name="city"
             id="city"
-            value="Saïdia"
-            readOnly
-          />
+            className="bg-gray-50 border-b-2 border-gray-300  text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-gray-300 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          >
+            <option value="" disabled>
+              Choisir une ville
+            </option>
+            <option value="Saïdia">Saïdia et ses alentours</option>
+            <option value="Berkane">Berkane et ses alentours</option>
+            <option value="Ahfir">Ahfir et ses alentours</option>{' '}
+          </select>
         </div>
         <div>
           <label

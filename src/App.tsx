@@ -1,6 +1,6 @@
 import './App.css'
 import './assets/css/main.css'
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, Navigate } from 'react-router-dom'
 import MainLayout from './layouts/MainLayout'
 import AboutPage from './pages/AboutPage'
 import HomePage from './pages/HomePage'
@@ -9,10 +9,17 @@ import HowItWorks from './pages/HowItWorks'
 import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
 import SubscriptionPage from './pages/SubscriptionPage'
-import CheckoutForm from './components/PaymentSection/StripeCheckoutForm'
 import { StripeCheckout } from './components/PaymentSection/StripeCheckout'
 import { PaymentStatus } from './pages/PaymentStatus'
+import { useAppSelector } from './redux/hooks'
+
 function App() {
+  const canAccessPayment = useAppSelector(
+    (state) => state.form.hasCompletedPayment,
+  )
+
+  console.log(canAccessPayment)
+
   return (
     <>
       <MainLayout>
@@ -24,8 +31,16 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/subscribe" element={<SubscriptionPage />} />
-          <Route path="/checkout-form" element={<CheckoutForm />} />
-          <Route path="/stripe-checkout-form" element={<StripeCheckout />} />
+          <Route
+            path="/stripe-checkout-form"
+            element={
+              !canAccessPayment ? (
+                <StripeCheckout />
+              ) : (
+                <Navigate to="/" replace />
+              )
+            }
+          />
           <Route path="/payment-status" element={<PaymentStatus />} />
         </Routes>
       </MainLayout>

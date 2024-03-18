@@ -9,6 +9,8 @@ export const QuoteReview = () => {
     useAppSelector((state) => state.form.formData)
 
   const totalPrice = useAppSelector((state) => state.form.quote)
+  console.log(totalPrice)
+
   const isLoading = useAppSelector((state) => state.form.isLoading)
 
   console.log('QuoteReview is loading : ', isLoading)

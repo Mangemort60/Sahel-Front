@@ -6,6 +6,7 @@ import {
   setQuote as setReduxQuote,
   setCurrentStep,
   setIsLoading,
+  setHasCompletedPayment,
 } from '../../redux/slices/formSlice'
 import axios from 'axios'
 import { useForm } from 'react-hook-form'
@@ -22,6 +23,7 @@ export const FormRequest = () => {
   const [errorForm, setErrorForm] = useState('')
 
   const dispatch = useDispatch()
+  dispatch(setHasCompletedPayment(false))
 
   const { register } = useForm()
 
@@ -42,10 +44,11 @@ export const FormRequest = () => {
         setErrorForm('Veuillez remplir tous les champs')
         console.log('error form : ', errorForm)
 
-        return // Prevent further execution if validation fails
+        return
       }
       dispatch(setCurrentStep('review'))
       dispatch(setIsLoading(true))
+
       const response = await axios.post('http://localhost:3000/quote', {
         numberOfFloors: parseInt(formData.numberOfFloors, 10),
         sizeRange: formData.sizeRange,

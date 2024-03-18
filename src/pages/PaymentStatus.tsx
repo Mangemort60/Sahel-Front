@@ -3,7 +3,11 @@ import axios from 'axios'
 import { AlertSuccess } from '../components/common/AlertSuccess'
 import { AlertError } from '../components/common/AlertError'
 import { useReservationData } from '../redux/hooks'
-import { createReservation } from '../services/createReservation'
+import { useDispatch } from 'react-redux'
+import {
+  setCurrentStep,
+  setHasCompletedPayment,
+} from '../redux/slices/formSlice'
 
 type Message = {
   title: string
@@ -16,8 +20,8 @@ export const PaymentStatus = () => {
     description: '',
   })
   const [error, setError] = useState<Message>({ title: '', description: '' })
-  const [reservationCreated, setReservationCreated] = useState(false)
-  console.log('PaymentStatus rendered')
+
+  const dispatch = useDispatch()
 
   // Utilisez le hook personnalisé pour obtenir les données de réservation
   const reservationData = useReservationData()
@@ -26,44 +30,41 @@ export const PaymentStatus = () => {
     const urlParams = new URLSearchParams(window.location.search)
     const paymentIntentId = urlParams.get('payment_intent')
 
-    if (!reservationCreated) {
+    if (paymentIntentId) {
       axios
-        .get(`http://localhost:3000/check-payment-intent`, {
-          params: { payment_intent: paymentIntentId },
+        .post(`http://localhost:3000/check-payment-intent`, {
+          paymentIntentId,
+          reservationData, // Inclure les données de réservation dans la requête POST
         })
         .then((response) => {
           const { success, message } = response.data
 
+          console.log(response.data)
+
           if (success) {
             setMessage({
               title: 'Succès',
-              description: 'Paiement réussi ',
+              description: 'Paiement réussi et réservation créée.',
             })
             setError(null)
-            console.log('Paiement réussi', message)
-            // Redirection ou mise à jour de l'interface utilisateur
-
-            // Création de la réservation si le paiement est réussi
-            createReservation(reservationData).then(() => {
-              setReservationCreated(true) // Met à jour l'état pour indiquer que la réservation a été créée
-            })
+            dispatch(setHasCompletedPayment(true))
+            dispatch(setCurrentStep('form'))
           } else {
             setError({
               title: 'Erreur',
-              description: 'Paiement échoué ou en attente: ',
+              description: message || 'Paiement échoué ou en attente.',
             })
             setMessage(null)
-            console.error('Paiement échoué ou en attente')
-            // Afficher un message d'erreur ou d'attente à l'utilisateur
           }
         })
         .catch((error) => {
           setError({
             title: 'Erreur',
-            description: 'Erreur lors de la vérification du paiement ',
+            description:
+              'Erreur lors de la vérification du paiement et de la création de la réservation.',
           })
           setMessage(null)
-          console.error('Erreur lors de la vérification du paiement', error)
+          console.log(error)
         })
     }
   }, [])

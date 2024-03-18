@@ -8,6 +8,7 @@ interface FormState {
   currentStep: string
   isLoading: boolean
   serviceDate: string
+  hasCompletedPayment: boolean
 }
 
 const initialState: FormState = {
@@ -17,6 +18,7 @@ const initialState: FormState = {
   currentStep: 'form',
   isLoading: false,
   serviceDate: '',
+  hasCompletedPayment: false,
 }
 
 export const formSlice = createSlice({
@@ -41,6 +43,9 @@ export const formSlice = createSlice({
     setServiceDate: (state, action: PayloadAction<string>) => {
       state.serviceDate = action.payload
     },
+    setHasCompletedPayment: (state, action: PayloadAction<boolean>) => {
+      state.hasCompletedPayment = action.payload
+    },
   },
 })
 
@@ -51,6 +56,7 @@ export const {
   setIsLoading,
   setServiceDate,
   setBookingFormData,
+  setHasCompletedPayment,
 } = formSlice.actions
 
 export default formSlice.reducer

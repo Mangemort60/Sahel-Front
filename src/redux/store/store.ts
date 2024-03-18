@@ -1,13 +1,14 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import { persistStore, persistReducer } from 'redux-persist'
-import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
 import formReducer from '../slices/formSlice'
+import localStorage from 'redux-persist/es/storage'
+import sessionStorage from 'redux-persist/es/storage/session'
 // Importez d'autres reducers ici si nécessaire
 
 // Configuration globale de Redux Persist
 const rootPersistConfig = {
   key: 'root',
-  storage,
+  storage: sessionStorage,
   blacklist: ['currentStep', 'isLoading'], // Exclure certains champs de la persistance au niveau de l'état global
 }
 
