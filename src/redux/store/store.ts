@@ -1,7 +1,6 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import { persistStore, persistReducer } from 'redux-persist'
 import formReducer from '../slices/formSlice'
-import localStorage from 'redux-persist/es/storage'
 import sessionStorage from 'redux-persist/es/storage/session'
 // Importez d'autres reducers ici si nécessaire
 
