@@ -4,6 +4,7 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { registerSchema } from '../schemas/registerFormSchema'
 import axios from 'axios'
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 type FormData = z.infer<typeof registerSchema>
 
@@ -52,17 +53,17 @@ const RegisterPage = () => {
             </h1>
             <p className="mt-2 text-sm text-gray-600 ">
               Déjà un compte ?{' '}
-              <a
+              <Link
                 className="text-blue-600 decoration-2 hover:underline font-medium "
-                href="../examples/html/signup.html"
+                to="/login"
               >
                 Connectez vous
-              </a>
+              </Link>
             </p>
           </div>
 
           <div className="mt-5">
-            <button
+            {/* <button
               type="button"
               className="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none "
             >
@@ -95,27 +96,9 @@ const RegisterPage = () => {
 
             <div className="py-3 flex items-center text-xs text-gray-400 uppercase before:flex-[1_1_0%] before:border-t before:border-gray-200 before:me-6 after:flex-[1_1_0%] after:border-t after:border-gray-200 after:ms-6 ">
               Ou
-            </div>
+            </div> */}
 
             <form onSubmit={handleSubmit(onSubmit)}>
-              <div>
-                <label htmlFor="firstname" className="block text-sm mb-2">
-                  Prénom
-                </label>
-                <input
-                  {...register('firstname')}
-                  type="text"
-                  id="firstname"
-                  name="firstname"
-                  className="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
-                  required
-                />
-                {errors.firstname && (
-                  <p className="text-xs text-red-600 mt-2">
-                    {errors.firstname.message}
-                  </p>
-                )}
-              </div>
               <div>
                 <label htmlFor="name" className="block text-sm mb-2">
                   Nom
@@ -131,6 +114,24 @@ const RegisterPage = () => {
                 {errors.name && (
                   <p className="text-xs text-red-600 mt-2">
                     {errors.name.message}
+                  </p>
+                )}
+              </div>
+              <div>
+                <label htmlFor="firstname" className="block text-sm mb-2">
+                  Prénom
+                </label>
+                <input
+                  {...register('firstname')}
+                  type="text"
+                  id="firstname"
+                  name="firstname"
+                  className="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+                  required
+                />
+                {errors.firstname && (
+                  <p className="text-xs text-red-600 mt-2">
+                    {errors.firstname.message}
                   </p>
                 )}
               </div>
@@ -254,14 +255,15 @@ const RegisterPage = () => {
                 <div className="flex items-center">
                   <div className="flex">
                     <input
-                      id="remember-me"
-                      name="remember-me"
+                      {...register('termsAccepted')}
+                      id="termsAccepted"
+                      name="termsAccepted"
                       type="checkbox"
                       className="shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500 "
                     />
                   </div>
                   <div className="ms-3">
-                    <label htmlFor="remember-me" className="text-sm ">
+                    <label htmlFor="termsAccepted" className="text-sm ">
                       J'accepte{' '}
                       <a
                         className="text-blue-600 decoration-2 hover:underline font-medium "
@@ -270,6 +272,11 @@ const RegisterPage = () => {
                         les termes et conditions
                       </a>
                     </label>
+                    {errors.termsAccepted && (
+                      <p className="text-xs text-red-600">
+                        {errors.termsAccepted.message}
+                      </p>
+                    )}
                   </div>
                 </div>
                 <button

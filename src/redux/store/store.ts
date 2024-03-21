@@ -1,6 +1,7 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import { persistStore, persistReducer } from 'redux-persist'
 import formReducer from '../slices/formSlice'
+import userReducer from '../slices/userSlice'
 import sessionStorage from 'redux-persist/es/storage/session'
 // Importez d'autres reducers ici si nécessaire
 
@@ -14,6 +15,7 @@ const rootPersistConfig = {
 const rootReducer = combineReducers({
   // Incluez ici tous vos reducers
   form: formReducer,
+  user: userReducer,
   // autres reducers...
 })
 

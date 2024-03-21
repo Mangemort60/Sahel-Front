@@ -15,6 +15,11 @@ export const registerSchema = z
           'Le mot de passe doit contenir au moins une lettre minuscule, une lettre majuscule, un chiffre et un caractère spécial (!@?#$%^&*)',
       }),
     confirmPassword: z.string(),
+    termsAccepted: z
+      .boolean()
+      .refine((val) => val === true, {
+        message: 'Vous devez accepter les termes et conditions.',
+      }),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: 'Les mots de passe ne correspondent pas',
