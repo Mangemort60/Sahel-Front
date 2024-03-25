@@ -1,14 +1,13 @@
+import React from 'react'
+import { Outlet } from 'react-router-dom'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 
-interface MainLayoutProps {
-  children: React.ReactNode
-}
-
-const MainLayout: React.FC<MainLayoutProps> = ({ children }) => (
+const MainLayout: React.FC = () => (
   <>
     <Header />
-    {children}
+    <Outlet />{' '}
+    {/* Ici, Outlet rendra le composant correspondant à la route actuelle */}
     <Footer />
   </>
 )

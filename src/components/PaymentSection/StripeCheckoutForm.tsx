@@ -2,11 +2,33 @@ import { PaymentElement, useStripe, useElements } from '@stripe/react-stripe-js'
 import { Button } from '../common/Button' // Assurez-vous que le chemin d'importation est correct
 import { useDispatch } from 'react-redux'
 import { setCurrentStep } from '../../redux/slices/formSlice'
+import { useAppSelector } from '../../redux/hooks'
 
 export const StripeCheckoutForm = () => {
   const stripe = useStripe()
   const elements = useElements()
   const dispatch = useDispatch()
+
+  const { numberOfFloors, sizeRange, fruitBasketSelected, beforeOrAfter } =
+    useAppSelector((state) => state.form.formData)
+
+  const quote = useAppSelector((state) => state.form.quote)
+  const serviceDate = useAppSelector((state) => state.form.serviceDate)
+
+  const formatSizeRange = (sizeRange: string) => {
+    switch (sizeRange) {
+      case 'lessThan40':
+        return 'Moins de 40m²'
+      case 'from40to80':
+        return 'Entre 40m² et 80m²'
+      case 'from80to120':
+        return 'Entre 80m² et 120m²'
+      case 'moreThan120':
+        return 'Plus de 120m²'
+      default:
+        return sizeRange
+    }
+  }
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -33,8 +55,8 @@ export const StripeCheckoutForm = () => {
   }
 
   return (
-    <div className="w-1/2 m-auto">
-      <form id="payment-form" onSubmit={handleSubmit}>
+    <div className="mt-8 flex justify-evenly gap-8">
+      <form id="payment-form" onSubmit={handleSubmit} className="w-1/3">
         <PaymentElement />
         <Button
           bgColor="bg-blue-900"
@@ -43,6 +65,38 @@ export const StripeCheckoutForm = () => {
           label="Payer"
         />
       </form>
+      <div className="flex flex-col gap-4">
+        <h2 className="font-semibold text-xl  border-b-2 py-2">
+          Récapitulatif de votre commande
+        </h2>
+        <div className="flex justify-between">
+          <p>Nombre d'étages</p>
+          <p className="text-gray-500">{numberOfFloors}</p>
+        </div>
+        <div className="flex justify-between">
+          <p>Surface</p>
+          <p className="text-gray-500">{formatSizeRange(sizeRange)}</p>
+        </div>
+
+        <div className="flex justify-between">
+          <p>Panier de fruits</p>
+          <p className="text-gray-500">{fruitBasketSelected ? 'oui' : 'non'}</p>
+        </div>
+        <div className="flex justify-between">
+          <p>
+            Le nettoyage sera fait{' '}
+            {beforeOrAfter === 'Before' ? 'avant' : 'après'} votre arrivée
+          </p>
+        </div>
+        <div className="flex justify-between ">
+          <p>Date du nettoyage prévu</p>
+          <p className="text-gray-500">{serviceDate}</p>
+        </div>
+        <div className="flex justify-between  border-t-2 py-2">
+          <p className="font-semibold">Prix total TTC </p>
+          <p>{quote} €</p>
+        </div>
+      </div>
     </div>
   )
 }

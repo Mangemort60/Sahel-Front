@@ -33,7 +33,7 @@ export const StripeCheckout = () => {
   }
 
   return (
-    <div className="w-1/2 m-auto">
+    <div className="my-28">
       <Elements stripe={stripePromise} options={{ clientSecret, appearance }}>
         <StripeCheckoutForm />
       </Elements>

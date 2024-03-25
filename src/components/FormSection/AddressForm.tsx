@@ -55,7 +55,7 @@ export const AddressForm = () => {
     <>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col gap-2 space-y-4  w-full"
+        className="flex flex-col gap-2 space-y-4  w-full mt-2"
       >
         <div>
           <label
@@ -87,7 +87,7 @@ export const AddressForm = () => {
             id="city"
             className="bg-gray-50 border-b-2 border-gray-300  text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-gray-300 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500"
           >
-            <option value="" disabled>
+            <option selected disabled className="text-gray-500">
               Choisir une ville
             </option>
             <option value="Saïdia">Saïdia et ses alentours</option>
@@ -142,7 +142,7 @@ export const AddressForm = () => {
             className="border-b-2 border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
             name="specialInstructions"
             id="specialInstructions"
-            placeholder="Instructions spéciales pour trouver votre domicile (facultatif)"
+            placeholder="Instructions spéciales pour accéder à votre domicile (facultatif)"
             rows={4}
           ></textarea>
         </div>
@@ -165,12 +165,14 @@ export const AddressForm = () => {
             <p className="text-red-600 text-xs ">{errors.phone.message}</p>
           )}
         </div>
-        <Button
-          bgColor="bg-kaki"
-          hoverColor="bg-darkerKaki"
-          type="submit"
-          label="réserver"
-        />
+        <div className="ml-auto">
+          <Button
+            bgColor="bg-kaki"
+            hoverColor="bg-darkerKaki"
+            type="submit"
+            label="réserver"
+          />
+        </div>
       </form>
     </>
   )

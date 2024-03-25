@@ -14,7 +14,13 @@ import {
 } from 'firebase/auth'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { setIsLoggedIn } from '../redux/slices/userSlice'
+import {
+  setEmail,
+  setFirstName,
+  setIsLoggedIn,
+  setShortId,
+  setUserName,
+} from '../redux/slices/userSlice'
 
 type FormData = z.infer<typeof loginSchema>
 
@@ -62,6 +68,10 @@ const LoginPage = () => {
         },
       })
 
+      dispatch(setUserName(response.data.name))
+      dispatch(setFirstName(response.data.firstName))
+      dispatch(setEmail(userCredential.user.email))
+      dispatch(setShortId(response.data.shortId))
       console.log('Données utilisateur récupérées:', response.data)
     } catch (error) {
       if (axios.isAxiosError(error)) {

@@ -3,6 +3,8 @@ import { useAppSelector } from '../../redux/hooks'
 import { Spinner } from '../common/Spinner'
 import { useDispatch } from 'react-redux'
 import { setCurrentStep } from '../../redux/slices/formSlice'
+import { FaArrowLeft } from 'react-icons/fa'
+import { Link } from 'react-router-dom'
 
 export const QuoteReview = () => {
   const { numberOfFloors, sizeRange, fruitBasketSelected, beforeOrAfter } =
@@ -13,7 +15,7 @@ export const QuoteReview = () => {
 
   const isLoading = useAppSelector((state) => state.form.isLoading)
 
-  console.log('QuoteReview is loading : ', isLoading)
+  const isLoggedIn = useAppSelector((state) => state.user.isLoggedIn)
 
   const dispatch = useDispatch()
 
@@ -36,10 +38,21 @@ export const QuoteReview = () => {
     dispatch(setCurrentStep('booking'))
   }
 
+  const handleReturnClick = () => {
+    dispatch(setCurrentStep('form'))
+  }
+
   return (
     <div className="flex flex-col justify-start items-start p-6 bg-white sm:w-1/3 w-full  mt-4 max-w-[460px] h-auto shadow-lg rounded-md">
-      <div className="text-black text-2xl">Récapitulatif de votre demande</div>
-      <div className="text-black mt-14 ">
+      <button
+        onClick={() => handleReturnClick()}
+        className="text-gray-400 mb-4 flex items-center gap-2"
+      >
+        <FaArrowLeft />
+        <p>Retour</p>
+      </button>
+      <div className="text-black text-2xl">Récapitulatif du devis</div>
+      <div className="text-black mt-6 ">
         <p className="w-full mt-4">Nombre d'étages a nettoyer :</p>
         <p className="border-b-gray-100 border-b-2 mt-6 text-gray-500 font-thin  ">
           {numberOfFloors}
@@ -59,24 +72,47 @@ export const QuoteReview = () => {
           {fruitBasketSelected ? 'oui' : 'non'}
         </p>
       </div>
-      <div className="w-full flex justify-between items-end mt-16">
-        {/* ici proposer de créer un compte ou de se connecter à la place du boutton
+      {isLoggedIn ? (
+        <div className="w-full flex justify-between items-end mt-6">
+          {/* ici proposer de créer un compte ou de se connecter à la place du boutton
         reservation si le user est pas connecté */}
-        <Button
-          bgColor="bg-kaki"
-          label="reserver"
-          hoverColor="bg-darkerKaki"
-          type="button"
-          onClick={handleReserveClick}
-        />
-        {isLoading ? (
-          <Spinner />
-        ) : (
-          <p className="mr-12  text-black text-2xl font-thin">
+          {isLoading ? (
+            <Spinner />
+          ) : (
+            <p className="  text-black text-2xl font-thin">
+              Total TTC : <span className="font-bold">{totalPrice} €</span>
+            </p>
+          )}
+          <Button
+            bgColor="bg-kaki"
+            label="reserver"
+            hoverColor="bg-darkerKaki"
+            type="button"
+            onClick={handleReserveClick}
+          />
+        </div>
+      ) : (
+        <div className="text-gray-500 text-sm flex flex-col gap-1 ">
+          <p className="my-8  text-black text-2xl font-thin">
             Total TTC : <span className="font-bold">{totalPrice} €</span>
           </p>
-        )}
-      </div>
+          <p>
+            <Link
+              to="/register"
+              className="text-blue-700 font-semibold underline"
+            >
+              Créez un compte
+            </Link>{' '}
+            pour réserver
+          </p>
+          <p>
+            Déjà un compte ?{' '}
+            <Link to="/login" className="text-blue-700 font-semibold underline">
+              Connectez vous
+            </Link>
+          </p>
+        </div>
+      )}
     </div>
   )
 }

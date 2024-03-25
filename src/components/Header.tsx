@@ -1,9 +1,31 @@
 import { Link } from 'react-router-dom'
 import logo from '../assets/Logo-2-copie.webp'
 import { useAppSelector } from '../redux/hooks'
+import { signOut } from 'firebase/auth'
+import { auth } from '../../firebase-config'
+import { useAppDispatch } from '../redux/hooks'
+import { setIsLoggedIn } from '../redux/slices/userSlice'
+import { useState } from 'react'
+import { AlertSuccess } from './common/AlertSuccess'
 
 const Header = () => {
+  const [isLoggedOut, setIsLoggedOut] = useState(false)
   const isLoggedIn = useAppSelector((state) => state.user.isLoggedIn)
+  const dispatch = useAppDispatch()
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth)
+      console.log('Déconnexion réussie')
+      dispatch(setIsLoggedIn(false))
+      setIsLoggedOut(true)
+      setTimeout(() => {
+        setIsLoggedOut(false)
+      }, 5000)
+    } catch (error) {
+      console.error('Erreur lors de la déconnexion:', error)
+    }
+  }
 
   return (
     <>
@@ -83,7 +105,8 @@ const Header = () => {
                 {isLoggedIn ? (
                   <Link
                     className="flex items-center gap-x-2 font-medium text-gray-500 hover:text-blue-600 sm:border-s sm:border-gray-300 sm:my-6 sm:ps-6 dark:border-gray-700 dark:text-gray-400 dark:hover:text-blue-500"
-                    to="/login"
+                    to="/"
+                    onClick={() => handleLogout()}
                   >
                     <svg
                       className="flex-shrink-0 size-4"
@@ -120,6 +143,9 @@ const Header = () => {
           </div>
         </nav>
       </header>
+      {isLoggedOut && (
+        <AlertSuccess description="Deconnexion réussi" title="A bientôt !" />
+      )}
     </>
   )
 }

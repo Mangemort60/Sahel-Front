@@ -69,7 +69,7 @@ export const FormRequest = () => {
     <div className="bg-white sm:w-1/3 w-full max-w-[460px] h-2/3 shadow-lg rounded-md">
       <form
         onSubmit={handleSubmit}
-        className="max-w-sm mx-auto h-full flex flex-col justify-evenly"
+        className="max-w-sm mx-auto h-full flex flex-col justify-evenly px-6"
       >
         <p className="text-red-600 text-sm ">{errorForm && errorForm}</p>
         <div>
@@ -160,13 +160,15 @@ export const FormRequest = () => {
             <option value="2">non</option>
           </select>
         </div>
-        <Button
-          type="submit"
-          label={'Soumettre'}
-          hoverColor={'hover:bg-darkerKaki'}
-          bgColor={'bg-kaki'}
-          onClick={() => {}}
-        />
+        <div className="ml-auto">
+          <Button
+            type="submit"
+            label={'Soumettre'}
+            hoverColor={'hover:bg-darkerKaki'}
+            bgColor={'bg-kaki'}
+            onClick={() => {}}
+          />
+        </div>
       </form>
     </div>
   )

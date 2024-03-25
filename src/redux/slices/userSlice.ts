@@ -4,7 +4,7 @@ interface UserState {
   name: string
   firstName: string
   shortId: string
-  email: string
+  email: string | null
   isLoggedIn: boolean
 }
 
@@ -12,7 +12,7 @@ const initialState: UserState = {
   name: '',
   firstName: '',
   shortId: '',
-  email: '',
+  email: null,
   isLoggedIn: false,
 }
 
@@ -29,7 +29,7 @@ export const userSlice = createSlice({
     setShortId: (state, action: PayloadAction<string>) => {
       state.shortId = action.payload
     },
-    setEmail: (state, action: PayloadAction<string>) => {
+    setEmail: (state, action: PayloadAction<string | null>) => {
       state.email = action.payload
     },
     setIsLoggedIn: (state, action: PayloadAction<boolean>) => {

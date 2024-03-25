@@ -11,6 +11,10 @@ export const useReservationData = () => {
   const bookingFormData = useAppSelector((state) => state.form.bookingFormData)
   const quote = useAppSelector((state) => state.form.quote)
   const serviceDate = useAppSelector((state) => state.form.serviceDate)
+  const name = useAppSelector((state) => state.user.name)
+  const firstName = useAppSelector((state) => state.user.firstName)
+  const shortId = useAppSelector((state) => state.user.shortId)
+  const email = useAppSelector((state) => state.user.email)
 
   // Correctement combinez formData et bookingFormData dans la structure attendue
   const reservationData = {
@@ -18,6 +22,10 @@ export const useReservationData = () => {
     bookingFormData, // bookingFormData est aussi un objet imbriqué
     quote,
     serviceDate,
+    name,
+    firstName,
+    shortId,
+    email,
   }
 
   return reservationData // Retournez l'objet de données de réservation complet
