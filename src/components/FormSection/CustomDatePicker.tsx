@@ -65,8 +65,9 @@ export const CustomDatePicker = () => {
   const onChange: DatePickerProps['onChange'] = (date, dateString) => {
     // Vérifiez que dateString est une chaîne, pas un tableau de chaînes
     if (typeof dateString === 'string') {
-      console.log('DatePicker selected date:', dateString)
-      dispatch(setServiceDate(dateString))
+      const formattedDate = dayjs(dateString).format('DD-MM-YYYY')
+      console.log('DatePicker selected date:', formattedDate)
+      dispatch(setServiceDate(formattedDate))
     }
   }
 
