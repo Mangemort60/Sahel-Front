@@ -1,6 +1,9 @@
 import { Link } from 'react-router-dom'
+import { useAppSelector } from '../../redux/hooks'
 
 export const Sidebar = () => {
+  const user = useAppSelector((state) => state.user)
+
   return (
     <>
       <button
@@ -35,7 +38,7 @@ export const Sidebar = () => {
             href="#"
             aria-label="Brand"
           >
-            Brand
+            Bonjour {user.firstName}
           </a>
         </div>
         <nav

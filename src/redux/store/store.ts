@@ -1,25 +1,33 @@
+import storageSession from 'redux-persist/lib/storage/session'
+import { persistReducer } from 'redux-persist'
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
-import { persistStore, persistReducer } from 'redux-persist'
 import formReducer from '../slices/formSlice'
 import userReducer from '../slices/userSlice'
-import sessionStorage from 'redux-persist/es/storage/session'
-// Importez d'autres reducers ici si nécessaire
+import persistStore from 'redux-persist/es/persistStore'
 
-// Configuration globale de Redux Persist
-const rootPersistConfig = {
-  key: 'root',
-  storage: sessionStorage,
-  blacklist: ['currentStep', 'isLoading'], // Exclure certains champs de la persistance au niveau de l'état global
+// Configuration spécifique de Redux Persist pour le formReducer
+const formPersistConfig = {
+  key: 'form',
+  storage: storageSession,
+  blacklist: ['currentStep', 'isLoading'], // Exclure certains champs spécifiques du formReducer
 }
 
+// Appliquer la persistance au formReducer avec sa configuration spécifique
+const persistedFormReducer = persistReducer(formPersistConfig, formReducer)
+
 const rootReducer = combineReducers({
-  // Incluez ici tous vos reducers
-  form: formReducer,
-  user: userReducer,
-  // autres reducers...
+  form: persistedFormReducer, // Utiliser le reducer persisté
+  user: userReducer, // Pas de configuration spécifique de persistance ici, mais vous pourriez en ajouter une similaire si nécessaire
+  // Ajoutez d'autres reducers ici...
 })
 
-// Appliquer la persistance au rootReducer avec la configuration globale
+// Configuration globale de Redux Persist pour le rootReducer
+const rootPersistConfig = {
+  key: 'root',
+  storage: storageSession,
+  // Pas besoin de blacklist ici si vous gérez la persistance spécifiquement pour chaque reducer
+}
+
 const persistedReducer = persistReducer(rootPersistConfig, rootReducer)
 
 export const store = configureStore({

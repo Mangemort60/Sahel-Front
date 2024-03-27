@@ -7,6 +7,7 @@ import { useAppDispatch } from '../redux/hooks'
 import { setIsLoggedIn } from '../redux/slices/userSlice'
 import { useState } from 'react'
 import { AlertSuccess } from './common/AlertSuccess'
+import Cookies from 'js-cookie'
 
 const Header = () => {
   const [isLoggedOut, setIsLoggedOut] = useState(false)
@@ -19,6 +20,7 @@ const Header = () => {
       console.log('Déconnexion réussie')
       dispatch(setIsLoggedIn(false))
       setIsLoggedOut(true)
+      Cookies.remove('token')
       setTimeout(() => {
         setIsLoggedOut(false)
       }, 5000)
@@ -103,26 +105,47 @@ const Header = () => {
 
               <div>
                 {isLoggedIn ? (
-                  <Link
-                    className="flex items-center gap-x-2 font-medium text-gray-500 hover:text-blue-600 sm:border-s sm:border-gray-300 sm:my-6 sm:ps-6 dark:border-gray-700 dark:text-gray-400 dark:hover:text-blue-500"
-                    to="/"
-                    onClick={() => handleLogout()}
-                  >
-                    <svg
-                      className="flex-shrink-0 size-4"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      fill="currentColor"
-                      viewBox="0 0 16 16"
+                  <div className="flex">
+                    <Link
+                      className="flex items-center gap-x-2 font-medium text-gray-500 hover:text-blue-600  sm:my-6 sm:ps-6 "
+                      to="/client-dashboard"
                     >
-                      <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
-                    </svg>
-                    Se deconnecter
-                  </Link>
+                      <svg
+                        className="flex-shrink-0 size-4"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        fill="currentColor"
+                        viewBox="0 0 16 16"
+                      >
+                        <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
+                      </svg>
+                      Mon espace
+                    </Link>
+                    <Link
+                      className="flex items-center gap-x-2 font-medium  text-gray-500 hover:text-blue-600 sm:border-s sm:border-gray-300 ml-2 sm:my-6 sm:ps-6 "
+                      to="/"
+                      onClick={() => handleLogout()}
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="22"
+                        height="22"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="#000000"
+                        strokeWidth="1"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <path d="M16 17l5-5-5-5M19.8 12H9M13 22a10 10 0 1 1 0-20" />
+                      </svg>
+                      Se deconnecter
+                    </Link>
+                  </div>
                 ) : (
                   <Link
-                    className="flex items-center gap-x-2 font-medium text-gray-500 hover:text-blue-600 sm:border-s sm:border-gray-300 sm:my-6 sm:ps-6 dark:border-gray-700 dark:text-gray-400 dark:hover:text-blue-500"
+                    className="flex items-center gap-x-2 font-medium text-gray-500 hover:text-blue-600  sm:my-6 sm:ps-6 "
                     to="/login"
                   >
                     <svg

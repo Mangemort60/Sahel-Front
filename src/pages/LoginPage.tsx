@@ -21,6 +21,8 @@ import {
   setShortId,
   setUserName,
 } from '../redux/slices/userSlice'
+import Cookies from 'js-cookie'
+import { useAppSelector } from '../redux/hooks'
 
 type FormData = z.infer<typeof loginSchema>
 
@@ -30,6 +32,8 @@ const LoginPage = () => {
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
+
+  const shortId = useAppSelector((state) => state.user.shortId)
 
   const {
     register,
@@ -59,12 +63,15 @@ const LoginPage = () => {
       navigate('/')
 
       // Récupère le token d'authentification Firebase
-      const token = await userCredential.user.getIdToken()
+      const authToken = await userCredential.user.getIdToken()
+
+      console.log('TOKEN', authToken)
+      console.log('shortID', shortId)
 
       // Envoie une requête au serveur pour récupérer les données supplémentaires de l'utilisateur
       const response = await axios.get('http://localhost:3000/auth/login', {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${authToken}`,
         },
       })
 
@@ -72,6 +79,12 @@ const LoginPage = () => {
       dispatch(setFirstName(response.data.firstName))
       dispatch(setEmail(userCredential.user.email))
       dispatch(setShortId(response.data.shortId))
+
+      Cookies.set('token', authToken, { expires: 7 })
+      Cookies.set('userId', shortId)
+
+      console.log('shortID : ', shortId)
+
       console.log('Données utilisateur récupérées:', response.data)
     } catch (error) {
       if (axios.isAxiosError(error)) {
