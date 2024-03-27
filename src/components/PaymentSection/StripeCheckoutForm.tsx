@@ -3,8 +3,10 @@ import { Button } from '../common/Button' // Assurez-vous que le chemin d'import
 import { useDispatch } from 'react-redux'
 import { setCurrentStep } from '../../redux/slices/formSlice'
 import { useAppSelector } from '../../redux/hooks'
+import { useState } from 'react'
 
 export const StripeCheckoutForm = () => {
+  const [isLoading, setIsLoading] = useState(false)
   const stripe = useStripe()
   const elements = useElements()
   const dispatch = useDispatch()
@@ -32,25 +34,36 @@ export const StripeCheckoutForm = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-
+    setIsLoading(true) // Démarre le chargement avant la tentative de soumission
     dispatch(setCurrentStep('form'))
 
     if (!stripe || !elements) {
       console.log("Stripe.js hasn't loaded yet.")
+      setIsLoading(false) // Arrête le chargement si Stripe ou elements n'est pas chargé
       return
     }
 
-    const result = await stripe.confirmPayment({
-      elements,
-      confirmParams: {
-        return_url: 'http://localhost:5173/payment-status',
-      },
-    })
+    try {
+      const result = await stripe.confirmPayment({
+        elements,
+        confirmParams: {
+          return_url: 'http://localhost:5173/payment-status',
+        },
+      })
 
-    if (result.error) {
-      console.error('PAIEMENT ERROR ', result.error.message)
-    } else {
-      console.log('Payment processed or in process')
+      if (result.error) {
+        // Gère l'erreur de paiement
+        console.error('PAIEMENT ERROR ', result.error.message)
+      } else {
+        // Paiement traité ou en cours de traitement
+        console.log('Payment processed or in process')
+      }
+    } catch (error) {
+      // Gère les erreurs potentielles dans la promesse confirmPayment
+      console.error('Error during payment confirmation: ', error)
+    } finally {
+      // Arrête le chargement une fois la soumission traitée ou en cas d'erreur
+      setIsLoading(false)
     }
   }
 
@@ -63,6 +76,7 @@ export const StripeCheckoutForm = () => {
           hoverColor="bg-blue-500"
           type="submit"
           label="Payer"
+          isLoading={isLoading}
         />
       </form>
       <div className="flex flex-col gap-4">

@@ -12,12 +12,18 @@ const formPersistConfig = {
   blacklist: ['currentStep', 'isLoading'], // Exclure certains champs spécifiques du formReducer
 }
 
+const userPersistConfig = {
+  key: 'user',
+  storage: storageSession,
+}
+
 // Appliquer la persistance au formReducer avec sa configuration spécifique
 const persistedFormReducer = persistReducer(formPersistConfig, formReducer)
+const persistedUserReducer = persistReducer(userPersistConfig, userReducer)
 
 const rootReducer = combineReducers({
   form: persistedFormReducer, // Utiliser le reducer persisté
-  user: userReducer, // Pas de configuration spécifique de persistance ici, mais vous pourriez en ajouter une similaire si nécessaire
+  user: persistedUserReducer, // Pas de configuration spécifique de persistance ici, mais vous pourriez en ajouter une similaire si nécessaire
   // Ajoutez d'autres reducers ici...
 })
 

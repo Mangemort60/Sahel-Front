@@ -33,8 +33,6 @@ const LoginPage = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
-  const shortId = useAppSelector((state) => state.user.shortId)
-
   const {
     register,
     handleSubmit,
@@ -65,9 +63,6 @@ const LoginPage = () => {
       // Récupère le token d'authentification Firebase
       const authToken = await userCredential.user.getIdToken()
 
-      console.log('TOKEN', authToken)
-      console.log('shortID', shortId)
-
       // Envoie une requête au serveur pour récupérer les données supplémentaires de l'utilisateur
       const response = await axios.get('http://localhost:3000/auth/login', {
         headers: {
@@ -81,9 +76,6 @@ const LoginPage = () => {
       dispatch(setShortId(response.data.shortId))
 
       Cookies.set('token', authToken, { expires: 7 })
-      Cookies.set('userId', shortId)
-
-      console.log('shortID : ', shortId)
 
       console.log('Données utilisateur récupérées:', response.data)
     } catch (error) {
@@ -257,7 +249,15 @@ const LoginPage = () => {
                   type="submit"
                   className="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none "
                 >
-                  Sign in
+                  {isLoading ? (
+                    <div
+                      className="animate-spin inline-block size-6 border-[3px] border-current border-t-transparent text-white rounded-full"
+                      role="status"
+                      aria-label="loading"
+                    ></div>
+                  ) : (
+                    'Se connecter'
+                  )}
                 </button>
               </div>
             </form>

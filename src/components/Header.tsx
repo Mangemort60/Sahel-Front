@@ -43,7 +43,7 @@ const Header = () => {
             <div className="sm:hidden">
               <button
                 type="button"
-                className="hs-collapse-toggle size-9 flex justify-center items-center text-sm font-semibold rounded-lg border border-gray-200 text-gray-800 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                className="hs-collapse-toggle size-9 flex justify-center items-center text-sm font-semibold rounded-lg border border-gray-200 text-gray-800 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none "
                 data-hs-collapse="#navbar-collapse-with-animation"
                 aria-controls="navbar-collapse-with-animation"
                 aria-label="Toggle navigation"

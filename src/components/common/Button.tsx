@@ -4,6 +4,7 @@ interface ButtonProps {
   hoverColor: string
   type?: 'button' | 'submit' | 'reset'
   onClick?: () => void
+  isLoading?: boolean
 }
 
 export const Button = ({
@@ -12,6 +13,7 @@ export const Button = ({
   hoverColor,
   type,
   onClick,
+  isLoading,
 }: ButtonProps) => {
   return (
     <button
@@ -22,7 +24,15 @@ export const Button = ({
     `}
       onClick={onClick}
     >
-      {label}
+      {isLoading ? (
+        <div
+          className="animate-spin inline-block size-6 border-[3px] border-current border-t-transparent text-white rounded-full"
+          role="status"
+          aria-label="loading"
+        ></div>
+      ) : (
+        label
+      )}
     </button>
   )
 }
