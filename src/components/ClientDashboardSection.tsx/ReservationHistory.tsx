@@ -10,17 +10,38 @@ interface Reservation {
   }
   serviceDate: string
   quote: number
+  formData: {
+    sizeRange: string | undefined
+    numberOfFloors: string
+    beforeOrAfter: string
+    fruitBasketSelected: string
+  }
 }
 
 export const ReservationHistory = () => {
   const [reservations, setReservations] = useState<Reservation[]>([])
+  const [selectedReservation, setSelectedReservation] =
+    useState<Reservation | null>(null)
+
   const [_isLoading, setIsLoading] = useState(true)
   const [_error, setError] = useState('')
-  console.log('state reservation', reservations)
 
   const shortID = useAppSelector((state) => state.user.shortId)
 
-  console.log('SHORT ID :', shortID)
+  const formatSizeRange = (sizeRange: string | undefined) => {
+    switch (sizeRange) {
+      case 'lessThan40':
+        return 'Moins de 40m²'
+      case 'from40to80':
+        return 'Entre 40m² et 80m²'
+      case 'from80to120':
+        return 'Entre 80m² et 120m²'
+      case 'moreThan120':
+        return 'Plus de 120m²'
+      default:
+        return sizeRange
+    }
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -112,8 +133,9 @@ export const ReservationHistory = () => {
                           type="button"
                           className="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg text-blue-900 hover:text-blue-500 disabled:opacity-50 disabled:pointer-events-none "
                           data-hs-overlay="#hs-basic-modal"
+                          onClick={() => setSelectedReservation(reservation)}
                         >
-                          Aperçu
+                          Détails
                         </button>
                       </td>
                     </tr>
@@ -129,14 +151,14 @@ export const ReservationHistory = () => {
         className="hs-overlay hs-overlay-open:opacity-100 hs-overlay-open:duration-500 hidden size-full fixed top-0 start-0 z-[80] opacity-0 overflow-x-hidden transition-all overflow-y-auto pointer-events-none"
       >
         <div className="hs-overlay-open:opacity-100 hs-overlay-open:duration-500 opacity-0 transition-all sm:max-w-lg sm:w-full m-3 sm:mx-auto">
-          <div className="flex flex-col bg-white border shadow-sm rounded-xl pointer-events-auto dark:bg-gray-800 dark:border-gray-700 dark:shadow-slate-700/[.7]">
-            <div className="flex justify-between items-center py-3 px-4 border-b dark:border-gray-700">
-              <h3 className="font-bold text-gray-800 dark:text-white">
-                Modal title
+          <div className="flex flex-col bg-white border shadow-sm rounded-xl pointer-events-auto ">
+            <div className="flex justify-between items-center py-3 px-4 border-b ">
+              <h3 className="font-bold m-auto text-gray-800 ">
+                Votre reservation
               </h3>
               <button
                 type="button"
-                className="flex justify-center items-center size-7 text-sm font-semibold rounded-full border border-transparent text-gray-800 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-gray-700 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                className="flex justify-center items-center size-7 text-sm font-semibold rounded-full border border-transparent text-gray-800 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none "
                 data-hs-overlay="#hs-basic-modal"
               >
                 <span className="sr-only">Close</span>
@@ -157,25 +179,52 @@ export const ReservationHistory = () => {
                 </svg>
               </button>
             </div>
-            <div className="p-4 overflow-y-auto">
-              <p className="mt-1 text-gray-800 dark:text-gray-400">
-                This is a wider card with supporting text below as a natural
-                lead-in to additional content.
-              </p>
+            <div className="p-4 overflow-y-auto flex flex-col gap-3">
+              <div className="flex justify-between">
+                <p>Nombre d'étages</p>
+                <p className="text-gray-500">
+                  {selectedReservation?.formData?.numberOfFloors}
+                </p>
+              </div>
+              <div className="flex justify-between">
+                <p>Surface</p>
+                <p className="text-gray-500">
+                  {formatSizeRange(selectedReservation?.formData?.sizeRange)}
+                </p>
+              </div>
+
+              <div className="flex justify-between">
+                <p>Panier de fruits</p>
+                <p className="text-gray-500">
+                  {selectedReservation?.formData?.fruitBasketSelected
+                    ? 'oui'
+                    : 'non'}
+                </p>
+              </div>
+              <div className="flex justify-between">
+                <p>
+                  Le nettoyage sera fait{' '}
+                  {selectedReservation?.formData?.fruitBasketSelected ===
+                  'Before'
+                    ? 'avant'
+                    : 'après'}{' '}
+                  votre arrivée
+                </p>
+              </div>
+              <div className="flex justify-between ">
+                <p>Date du nettoyage prévu</p>
+                <p className="text-gray-500">
+                  {selectedReservation?.serviceDate}
+                </p>
+              </div>
             </div>
-            <div className="flex justify-end items-center gap-x-2 py-3 px-4 border-t dark:border-gray-700">
+            <div className="flex justify-end items-center gap-x-2 py-3 px-4 ">
               <button
                 type="button"
                 className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
                 data-hs-overlay="#hs-basic-modal"
               >
-                Close
-              </button>
-              <button
-                type="button"
-                className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-              >
-                Save changes
+                Fermer
               </button>
             </div>
           </div>
