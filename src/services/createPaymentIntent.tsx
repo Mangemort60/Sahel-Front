@@ -11,7 +11,7 @@ const createPaymentIntent = async (
 ): Promise<PaymentIntentResponse> => {
   try {
     // Utilisez axios.post pour envoyer une requête POST
-    const response = await axios.post('http://localhost:3000/create-payment', {
+    const response = await axios.post('http://localhost:3001/create-payment', {
       amount,
     })
 

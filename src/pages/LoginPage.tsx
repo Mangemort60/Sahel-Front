@@ -64,7 +64,7 @@ const LoginPage = () => {
       const authToken = await userCredential.user.getIdToken()
 
       // Envoie une requête au serveur pour récupérer les données supplémentaires de l'utilisateur
-      const response = await axios.get('http://localhost:3000/auth/login', {
+      const response = await axios.get('http://localhost:3001/auth/login', {
         headers: {
           Authorization: `Bearer ${authToken}`,
         },

@@ -26,6 +26,7 @@ export const useReservationData = () => {
     firstName,
     shortId,
     email,
+    agent: '',
   }
 
   return reservationData // Retournez l'objet de données de réservation complet

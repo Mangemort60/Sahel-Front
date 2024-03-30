@@ -17,6 +17,7 @@ interface Reservation {
     beforeOrAfter: string
     fruitBasketSelected: string
   }
+  status: string
 }
 
 export const ReservationHistory = () => {
@@ -58,7 +59,7 @@ export const ReservationHistory = () => {
           return
         }
         const response = await axios.get(
-          'http://localhost:3000/mes-reservations',
+          'http://localhost:3001/mes-reservations',
           {
             params: { shortID },
           },
@@ -112,8 +113,10 @@ export const ReservationHistory = () => {
                     </th>
                     <th
                       scope="col"
-                      className="px-6 py-3 text-end text-xs font-medium text-gray-500 uppercase"
-                    ></th>
+                      className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
+                    >
+                      status
+                    </th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200 ">
@@ -131,10 +134,12 @@ export const ReservationHistory = () => {
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 ">
                         {reservation.quote} €
                       </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 ">
+                        {reservation.status}
+                      </td>
                       <td className="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
-                        {' '}
                         <button
-                          className="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-sm border border-gray-400 text-gray-800 hover:border-gray-500 hover:text-gray-500 disabled:opacity-50"
+                          className="py-3 px-4 text-sm font-semibold rounded-sm border border-gray-400 text-gray-800 hover:border-gray-500 hover:text-gray-500 disabled:opacity-50"
                           onClick={() => {
                             setSelectedReservation(reservation)
                             setIsModalOpen(true)

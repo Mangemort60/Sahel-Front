@@ -49,7 +49,7 @@ export const FormRequest = () => {
       dispatch(setCurrentStep('review'))
       dispatch(setIsLoading(true))
 
-      const response = await axios.post('http://localhost:3000/quote', {
+      const response = await axios.post('http://localhost:3001/quote', {
         numberOfFloors: parseInt(formData.numberOfFloors, 10),
         sizeRange: formData.sizeRange,
         fruitBasketSelected: formData.fruitBasketSelected,

@@ -29,11 +29,10 @@ export const CustomDatePicker = () => {
   )
 
   useEffect(() => {
-    // Remplacez 'http://localhost:3000/reservation-counts' par l'URL de votre endpoint
     const fetchReservationCounts = async () => {
       try {
         const { data } = await axios.get<ReservationCount[]>(
-          'http://localhost:3000/reserved-dates',
+          'http://localhost:3001/reserved-dates',
         )
         setReservationCounts(data)
       } catch (error) {
@@ -56,7 +55,8 @@ export const CustomDatePicker = () => {
 
     // Vérifie si la date a atteint le nombre maximal de réservations
     const isFullyBooked = reservationCounts.some(
-      ({ date, count }) => dayjs(date).isSame(current, 'day') && count >= 3,
+      ({ date, count }) =>
+        dayjs(date, 'DD-MM-YYYY').isSame(current, 'day') && count >= 3,
     )
 
     return isTodayOrBefore || isWithin15DaysFromToday || isFullyBooked

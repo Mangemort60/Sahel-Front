@@ -9,7 +9,7 @@ type ReservationData = {
 
 export const createReservation = async (reservationData: ReservationData) => {
   axios
-    .post('http://localhost:3000/reservations', reservationData)
+    .post('http://localhost:3001/reservations', reservationData)
     .then((response) => {
       console.log('Réservation créée avec succès', response.data)
       // Gérez la réussite de la création de réservation, par exemple, en redirigeant l'utilisateur ou en affichant un message de succès

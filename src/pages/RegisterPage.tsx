@@ -22,7 +22,7 @@ const RegisterPage = () => {
   const onSubmit: SubmitHandler<FormData> = async (data) => {
     setIsLoading(true)
     try {
-      const response = await axios.post('http://localhost:3000/auth/register', {
+      const response = await axios.post('http://localhost:3001/auth/register', {
         name: data.name,
         firstName: data.firstname, // Assurez-vous que cela correspond à la clé dans votre schéma Zod et dans votre formulaire
         email: data.email,

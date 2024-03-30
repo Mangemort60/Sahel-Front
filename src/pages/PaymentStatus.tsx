@@ -32,7 +32,7 @@ export const PaymentStatus = () => {
 
     if (paymentIntentId) {
       axios
-        .post(`http://localhost:3000/check-payment-intent`, {
+        .post(`http://localhost:3001/check-payment-intent`, {
           paymentIntentId,
           reservationData, // Inclure les données de réservation dans la requête POST
         })
