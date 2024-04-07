@@ -63,11 +63,17 @@ export const CustomDatePicker = () => {
   }
 
   const onChange: DatePickerProps['onChange'] = (date, dateString) => {
-    // Vérifiez que dateString est une chaîne, pas un tableau de chaînes
-    if (typeof dateString === 'string') {
-      const formattedDate = dayjs(dateString).format('DD-MM-YYYY')
-      console.log('DatePicker selected date:', formattedDate)
-      dispatch(setServiceDate(formattedDate))
+    // Vérifiez que l'objet date n'est pas nul
+    if (date) {
+      // Convertissez l'objet Dayjs en objet Date JavaScript
+      const dateObject = date.toDate()
+
+      // Vous pouvez maintenant stocker cet objet Date directement
+      dispatch(setServiceDate(dateObject))
+
+      // Pour l'affichage ou le debug, formatez la date en 'DD MM YYYY'
+      const displayDate = dayjs(date).format('DD MM YYYY')
+      console.log('DatePicker selected date:', displayDate)
     }
   }
 

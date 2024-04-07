@@ -17,6 +17,11 @@ export const AddressForm = () => {
   const dispatch = useDispatch()
   const serviceDate = useAppSelector((state) => state.form.serviceDate)
   const amount = useAppSelector((state) => state.form.quote)
+  const email = useAppSelector((state) => state.user.email)
+  const shortId = useAppSelector((state) => state.user.shortId)
+  const name = useAppSelector((state) => state.user.name)
+
+  console.log(email)
 
   const {
     register,
@@ -35,7 +40,12 @@ export const AddressForm = () => {
     // Assurez-vous que amount est non null et est un nombre
     if (typeof amount === 'number') {
       try {
-        const { clientSecret } = await createPaymentIntent(amount)
+        const { clientSecret } = await createPaymentIntent(
+          amount,
+          email,
+          shortId,
+          name,
+        )
         console.log('Client Secret reçu:', clientSecret)
         dispatch(setBookingFormData(data))
         navigate('/stripe-checkout-form', {

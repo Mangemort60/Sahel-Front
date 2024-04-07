@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux'
 import { setCurrentStep } from '../../redux/slices/formSlice'
 import { useAppSelector } from '../../redux/hooks'
 import { useState } from 'react'
+import dayjs from 'dayjs'
 
 export const StripeCheckoutForm = () => {
   const [isLoading, setIsLoading] = useState(false)
@@ -104,7 +105,9 @@ export const StripeCheckoutForm = () => {
         </div>
         <div className="flex justify-between ">
           <p>Date du nettoyage prévu</p>
-          <p className="text-gray-500">{serviceDate}</p>
+          <p className="text-gray-500">
+            {dayjs(serviceDate).format('DD MM YYYY')}
+          </p>
         </div>
         <div className="flex justify-between  border-t-2 py-2">
           <p className="font-semibold">Prix total TTC </p>

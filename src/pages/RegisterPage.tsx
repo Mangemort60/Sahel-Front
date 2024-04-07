@@ -5,11 +5,14 @@ import { registerSchema } from '../schemas/registerFormSchema'
 import axios from 'axios'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 type FormData = z.infer<typeof registerSchema>
 
 const RegisterPage = () => {
   const [isLoading, setIsLoading] = useState(false)
+
+  const navigate = useNavigate()
 
   const {
     register,
@@ -28,7 +31,7 @@ const RegisterPage = () => {
         email: data.email,
         password: data.password,
       })
-
+      navigate('/login', { state: { success: true } })
       console.log('User created successfully:', response.data)
       // Vous pouvez ici gérer la réponse de succès, par exemple en redirigeant l'utilisateur ou en affichant un message de succès
     } catch (error) {

@@ -8,11 +8,17 @@ interface PaymentIntentResponse {
 
 const createPaymentIntent = async (
   amount: number,
+  email: string | null,
+  shortId: string,
+  name: string,
 ): Promise<PaymentIntentResponse> => {
   try {
     // Utilisez axios.post pour envoyer une requête POST
     const response = await axios.post('http://localhost:3001/create-payment', {
       amount,
+      email,
+      shortId,
+      name,
     })
 
     // Avec Axios, la réponse est automatiquement traitée et placée dans `response.data`
