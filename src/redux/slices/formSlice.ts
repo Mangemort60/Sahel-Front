@@ -7,7 +7,7 @@ interface FormState {
   quote: number | null
   currentStep: string
   isLoading: boolean
-  serviceDate: Date | null
+  serviceDate: string | null
   hasCompletedPayment: boolean
 }
 
@@ -40,7 +40,7 @@ export const formSlice = createSlice({
     setIsLoading: (state, action: PayloadAction<boolean>) => {
       state.isLoading = action.payload
     },
-    setServiceDate: (state, action: PayloadAction<Date | null>) => {
+    setServiceDate: (state, action: PayloadAction<string | null>) => {
       state.serviceDate = action.payload
     },
     setHasCompletedPayment: (state, action: PayloadAction<boolean>) => {

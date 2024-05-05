@@ -5,7 +5,6 @@ export const MyInfos = () => {
 
   return (
     <div className="flex flex-col gap-4  my-8">
-      <h1 className="m-auto text-xl font-light uppercase">Mes informations</h1>
       <div className="flex gap-6 font-extralight">
         <div className="">
           <p>Nom</p>

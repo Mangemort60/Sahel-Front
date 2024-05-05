@@ -37,9 +37,9 @@ const Header = () => {
           aria-label="Global"
         >
           <div className="flex items-center justify-between">
-            <div>
+            <Link to={'/'}>
               <img className="h-24" src={logo} alt="logo sahel" />
-            </div>
+            </Link>
             <div className="sm:hidden">
               <button
                 type="button"

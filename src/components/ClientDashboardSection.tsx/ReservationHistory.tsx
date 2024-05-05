@@ -1,8 +1,15 @@
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { useAppSelector } from '../../redux/hooks'
 import Modal from '../common/Modal'
+
+type StatusColorMap = {
+  [key: string]: string
+  'à venir': 'text-blue-500'
+  'en cours': 'text-green-500'
+  terminée: 'text-gray-500'
+  suspendue: 'text-red-500'
+}
 
 interface Reservation {
   bookingFormData: {
@@ -18,6 +25,8 @@ interface Reservation {
     fruitBasketSelected: string
   }
   status: string
+  bookingStatus: string
+  serviceStatus: string
 }
 
 export const ReservationHistory = () => {
@@ -26,6 +35,13 @@ export const ReservationHistory = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   console.log('selectedReservation', selectedReservation)
+
+  const statusColorMap: StatusColorMap = {
+    'à venir': 'text-blue-500',
+    'en cours': 'text-green-500',
+    terminée: 'text-gray-500',
+    suspendue: 'text-red-500',
+  }
 
   const [_isLoading, setIsLoading] = useState(true)
   const [_error, setError] = useState('')
@@ -77,46 +93,50 @@ export const ReservationHistory = () => {
 
   return (
     <div>
-      <div className=" text-xl  font-thin flex justify-center my-8 uppercase">
-        <Link to="overview">historique</Link>
-      </div>
-      <div className="flex flex-col">
+      <div className="flex flex-col mt-8">
         <div className="-m-1.5 overflow-x-auto">
           <div className="p-1.5 min-w-full inline-block align-middle">
-            <div className="overflow-hidden">
-              <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                <thead>
+            <div className="overflow-hidden rounded-sm shadow-md">
+              <table className="min-w-full ">
+                <thead className="bg-[#ab5e3f] text-white">
                   <tr>
                     <th
                       scope="col"
-                      className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
+                      className="px-6 py-3 text-start text-xs font-medium  uppercase"
                     >
                       Ville
                     </th>
                     <th
                       scope="col"
-                      className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
+                      className="px-6 py-3 text-start text-xs font-medium  uppercase"
                     >
                       Adresse
                     </th>
                     <th
                       scope="col"
-                      className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
+                      className="px-6 py-3 text-start text-xs font-medium  uppercase"
                     >
                       Date prévue
                     </th>
                     <th
                       scope="col"
-                      className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
+                      className="px-6 py-3 text-start text-xs font-medium  uppercase"
                     >
                       Montant
                     </th>
                     <th
                       scope="col"
-                      className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
+                      className="px-6 py-3 text-start text-xs font-medium  uppercase"
                     >
-                      status
+                      status réservation
                     </th>
+                    <th
+                      scope="col"
+                      className="px-6 py-3 text-start text-xs font-medium  uppercase"
+                    >
+                      status prestation
+                    </th>
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200 ">
@@ -134,9 +154,15 @@ export const ReservationHistory = () => {
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 ">
                         {reservation.quote} €
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 ">
-                        {reservation.status}
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-green-500 font-bold">
+                        {reservation.bookingStatus}
                       </td>
+                      <td
+                        className={`px-6 py-4 whitespace-nowrap text-sm font-bold ${statusColorMap[reservation.serviceStatus] || 'text-gray-500'}`}
+                      >
+                        {reservation.serviceStatus}
+                      </td>
+
                       <td className="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
                         <button
                           className="py-3 px-4 text-sm font-semibold rounded-sm border border-gray-400 text-gray-800 hover:border-gray-500 hover:text-gray-500 disabled:opacity-50"

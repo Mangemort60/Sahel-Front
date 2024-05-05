@@ -163,7 +163,7 @@ export const FormRequest = () => {
         <div className="ml-auto">
           <Button
             type="submit"
-            label={'Soumettre'}
+            label={'Calculer le prix'}
             hoverColor={'hover:bg-darkerKaki'}
             bgColor={'bg-kaki'}
             onClick={() => {}}

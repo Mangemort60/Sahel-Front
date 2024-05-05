@@ -2,7 +2,7 @@ import { z } from 'zod'
 
 export const addressFormSchema = z.object({
   country: z.string(),
-  city: z.string(),
+  city: z.string().min(1, 'Veuillez séléctionner une ville'),
   address: z.string().min(5, { message: "L'adresse est requise" }),
   address2: z.string().optional(),
   specialInstructions: z.string().optional(),

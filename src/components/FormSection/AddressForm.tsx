@@ -90,20 +90,27 @@ export const AddressForm = () => {
             id="nbrOfFloors"
             className="block mb-2 text-sm font-medium text-gray-900"
           >
-            Ville
+            Ville*
           </label>
           <select
             {...register('city')}
             id="city"
+            aria-placeholder="choisir"
             className="bg-gray-50 border-b-2 border-gray-300  text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-gray-300 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500"
           >
-            <option selected disabled className="text-gray-500">
-              Choisir une ville
-            </option>
+            <option
+              value={''}
+              disabled
+              selected
+              className="text-gray-500"
+            ></option>
             <option value="Saïdia">Saïdia et ses alentours</option>
             <option value="Berkane">Berkane et ses alentours</option>
             <option value="Ahfir">Ahfir et ses alentours</option>{' '}
           </select>
+          {errors.city && (
+            <p className="text-red-600 text-xs ">{errors.city.message}</p>
+          )}
         </div>
         <div>
           <label

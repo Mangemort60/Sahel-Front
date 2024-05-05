@@ -61,22 +61,19 @@ export const CustomDatePicker = () => {
 
     return isTodayOrBefore || isWithin15DaysFromToday || isFullyBooked
   }
-
   const onChange: DatePickerProps['onChange'] = (date, dateString) => {
     // Vérifiez que l'objet date n'est pas nul
     if (date) {
-      // Convertissez l'objet Dayjs en objet Date JavaScript
-      const dateObject = date.toDate()
+      // Formatez la date en 'DD-MM-YYYY' pour le stockage
+      const formattedDate = date.format('DD-MM-YYYY')
 
-      // Vous pouvez maintenant stocker cet objet Date directement
-      dispatch(setServiceDate(dateObject))
+      // Stockez la date formattée dans le Redux store
+      dispatch(setServiceDate(formattedDate))
 
-      // Pour l'affichage ou le debug, formatez la date en 'DD MM YYYY'
-      const displayDate = dayjs(date).format('DD MM YYYY')
-      console.log('DatePicker selected date:', displayDate)
+      // Log pour le débogage
+      console.log('DatePicker selected date:', formattedDate)
     }
   }
-
   return (
     <Space direction="vertical">
       <DatePicker
