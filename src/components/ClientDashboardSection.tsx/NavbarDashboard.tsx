@@ -4,13 +4,12 @@ import { Link } from 'react-router-dom'
 const NavbarDashboard = () => {
   const [isActive, setIsActive] = useState('reservations')
 
-  const handleClick = (tab) => {
+  const handleClick = (tab: string) => {
     setIsActive(tab)
   }
 
   return (
     <div>
-      {' '}
       <div className="text-sm font-medium text-center text-black  border-gray-200">
         <ul className="flex flex-wrap -mb-px">
           <Link className="me-2" to={'/client-dashboard/reservations'}>
