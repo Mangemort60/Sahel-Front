@@ -38,6 +38,19 @@ const NavbarDashboard = () => {
               Mes infos
             </a>
           </Link>
+          <Link className="me-2" to={'/client-dashboard/chatBox'}>
+            <a
+              href="#"
+              className={`inline-block p-4 border-b-2 ${
+                isActive === 'my-info'
+                  ? 'border-gray-500 rounded-t-lg'
+                  : 'border-transparent hover:border-gray-500 text-gray-500'
+              }`}
+              onClick={() => handleClick('chatBox')}
+            >
+              Messagerie
+            </a>
+          </Link>
         </ul>
       </div>
     </div>

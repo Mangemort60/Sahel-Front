@@ -3,6 +3,7 @@ import { Content } from '../components/ClientDashboardSection.tsx/Content'
 import { ReservationHistory } from '../components/ClientDashboardSection.tsx/ReservationHistory'
 import { MyInfos } from '../components/ClientDashboardSection.tsx/MyInfos'
 import NavbarDashboard from '../components/ClientDashboardSection.tsx/NavbarDashboard'
+import ChatBox from '../components/ClientDashboardSection.tsx/chatBox'
 
 export const ClientDashboard = () => {
   return (
@@ -14,6 +15,7 @@ export const ClientDashboard = () => {
           <Route index element={<ReservationHistory />} />
           <Route path="reservations" element={<ReservationHistory />} />
           <Route path="my-info" element={<MyInfos />} />
+          <Route path="chatBox" element={<ChatBox />} />
         </Route>
       </Routes>
     </div>
