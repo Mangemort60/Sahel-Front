@@ -1,12 +1,8 @@
-import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useAppSelector } from '../../redux/hooks'
 
 const NavbarDashboard = () => {
-  const [isActive, setIsActive] = useState('reservations')
-
-  const handleClick = (tab: string) => {
-    setIsActive(tab)
-  }
+  const selectedTab = useAppSelector((state) => state.ui.activeTab)
 
   return (
     <div>
@@ -16,11 +12,10 @@ const NavbarDashboard = () => {
             <a
               href="#"
               className={`inline-block p-4 border-b-2 ${
-                isActive === 'reservations'
+                selectedTab === 'reservations'
                   ? 'border-gray-500 rounded-t-lg'
                   : 'border-transparent hover:border-gray-500 text-gray-500'
               }`}
-              onClick={() => handleClick('reservations')}
             >
               Mes réservations
             </a>
@@ -29,28 +24,25 @@ const NavbarDashboard = () => {
             <a
               href="#"
               className={`inline-block p-4 border-b-2 ${
-                isActive === 'my-info'
+                selectedTab === 'my-info'
                   ? 'border-gray-500 rounded-t-lg'
                   : 'border-transparent hover:border-gray-500 text-gray-500'
               }`}
-              onClick={() => handleClick('my-info')}
             >
               Mes infos
             </a>
           </Link>
-          <Link className="me-2" to={'/client-dashboard/chatBox'}>
-            <a
-              href="#"
+          {/* <div className="me-2">
+            <div
               className={`inline-block p-4 border-b-2 ${
-                isActive === 'my-info'
+                selectedTab === 'chatBox'
                   ? 'border-gray-500 rounded-t-lg'
                   : 'border-transparent hover:border-gray-500 text-gray-500'
               }`}
-              onClick={() => handleClick('chatBox')}
             >
               Messagerie
-            </a>
-          </Link>
+            </div>
+          </div> */}
         </ul>
       </div>
     </div>

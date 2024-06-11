@@ -6,23 +6,18 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { loginSchema } from '../schemas/loginFormSchema'
 import { auth } from '../../firebase-config'
-import {
-  signInWithEmailAndPassword,
-  setPersistence,
-  browserLocalPersistence,
-  browserSessionPersistence,
-} from 'firebase/auth'
+import { signInWithEmailAndPassword } from 'firebase/auth'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import {
   setEmail,
   setFirstName,
   setIsLoggedIn,
+  setRole,
   setShortId,
   setUserName,
 } from '../redux/slices/userSlice'
 import Cookies from 'js-cookie'
-import { useAppSelector } from '../redux/hooks'
 import { useLocation } from 'react-router-dom'
 import { AlertSuccess } from '../components/common/AlertSuccess'
 
@@ -92,6 +87,7 @@ const LoginPage = () => {
       dispatch(setFirstName(response.data.firstName))
       dispatch(setEmail(userCredential.user.email))
       dispatch(setShortId(response.data.shortId))
+      dispatch(setRole(response.data.role))
 
       Cookies.set('token', authToken, { expires: 7 })
 

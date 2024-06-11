@@ -2,6 +2,10 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useAppSelector } from '../../redux/hooks'
 import Modal from '../common/Modal'
+import { Link } from 'react-router-dom'
+import { useAppDispatch } from '../../redux/hooks'
+import { setActiveTab, setReservationId } from '../../redux/slices/uiSlice'
+import { Badge } from '@mui/material'
 
 type StatusColorMap = {
   [key: string]: string
@@ -12,6 +16,7 @@ type StatusColorMap = {
 }
 
 interface Reservation {
+  id: string
   bookingFormData: {
     city: string
     address: string
@@ -33,8 +38,10 @@ export const ReservationHistory = () => {
   const [reservations, setReservations] = useState<Reservation[]>([])
   const [selectedReservation, setSelectedReservation] = useState<Reservation>()
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [newMessages, setNewMessages] = useState<NewMessagesType>({})
+  console.log('newMessages:', newMessages)
 
-  console.log('selectedReservation', selectedReservation)
+  const dispatch = useAppDispatch()
 
   const statusColorMap: StatusColorMap = {
     'à venir': 'text-blue-500',
@@ -63,15 +70,24 @@ export const ReservationHistory = () => {
     }
   }
 
-  useEffect(() => {
-    const fetchData = async () => {
-      console.log('fetch data')
+  // Interface pour un message
+  interface Message {
+    reservationId: string
+    text: string
+    created: string
+    role: string
+    readByClient: boolean
+  }
 
-      setIsLoading(true)
+  type NewMessagesType = {
+    [reservationId: string]: number
+  }
+
+  useEffect(() => {
+    const fetchReservations = async () => {
       try {
         if (!shortID) {
           console.error('ID utilisateur non disponible')
-          setIsLoading(false)
           return
         }
         const response = await axios.get(
@@ -83,13 +99,42 @@ export const ReservationHistory = () => {
         setReservations(response.data)
       } catch (error) {
         console.error('Erreur lors de la récupération des données', error)
-        setError('Une erreur est survenue lors de la récupération des données.')
-      } finally {
-        setIsLoading(false)
       }
     }
-    fetchData()
-  }, [])
+
+    const fetchNewMessages = async () => {
+      try {
+        const response = await axios.get<Message[]>(
+          'http://localhost:3001/new-messages',
+        )
+        console.log('API Response:', response.data) // Ajout d'un log pour voir la réponse de l'API
+        const messages = response.data.reduce<NewMessagesType>(
+          (acc, message) => {
+            console.log('Processing message:', message)
+            if (
+              !message.readByClient &&
+              (message.role === 'Admin' || message.role === 'superAdmin')
+            ) {
+              if (!acc[message.reservationId]) {
+                acc[message.reservationId] = 0
+              }
+              acc[message.reservationId]++
+            }
+            return acc
+          },
+          {},
+        )
+        console.log('Processed Messages:', messages) // Ajout d'un log pour voir les messages traités
+        setNewMessages(messages)
+      } catch (error) {
+        console.error('Error fetching new messages:', error)
+      }
+    }
+    fetchReservations()
+    fetchNewMessages()
+    const interval = setInterval(fetchNewMessages, 10000) // Polling toutes les 10 secondes
+    return () => clearInterval(interval)
+  }, [shortID])
 
   return (
     <div>
@@ -137,6 +182,7 @@ export const ReservationHistory = () => {
                       status prestation
                     </th>
                     <th></th>
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200 ">
@@ -173,6 +219,28 @@ export const ReservationHistory = () => {
                         >
                           Détails
                         </button>{' '}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
+                        <Link
+                          to={`/client-dashboard/chatBox/${reservation.id}`}
+                          onClick={() => {
+                            dispatch(setActiveTab('chatbox'))
+                            dispatch(setReservationId(reservation.id))
+                          }}
+                        >
+                          <Badge
+                            badgeContent={newMessages[reservation.id]}
+                            color="error"
+                            anchorOrigin={{
+                              vertical: 'top',
+                              horizontal: 'right',
+                            }}
+                          >
+                            <button className="py-3 px-4 text-sm font-semibold rounded-sm border border-gray-400 text-gray-800 hover:border-gray-500 hover:text-gray-500 disabled:opacity-50">
+                              Messagerie
+                            </button>
+                          </Badge>{' '}
+                        </Link>
                       </td>
                     </tr>
                   ))}

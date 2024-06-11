@@ -3,6 +3,7 @@ export default {
   content: [
     'node_modules/preline/dist/*.js',
     './src/**/*.{html,js,jsx,ts,tsx}',
+    './node_modules/flowbite/**/*.js',
   ],
   theme: {
     extend: {
@@ -12,5 +13,5 @@ export default {
       },
     },
   },
-  plugins: [require('preline/plugin')],
+  plugins: [require('preline/plugin'), require('flowbite/plugin')],
 }

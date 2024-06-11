@@ -3,6 +3,7 @@ import { persistReducer } from 'redux-persist'
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import formReducer from '../slices/formSlice'
 import userReducer from '../slices/userSlice'
+import uiReducer from '../slices/uiSlice'
 import persistStore from 'redux-persist/es/persistStore'
 
 // Configuration spécifique de Redux Persist pour le formReducer
@@ -17,13 +18,21 @@ const userPersistConfig = {
   storage: storageSession,
 }
 
+const uiPersistConfig = {
+  key: 'ui',
+  storage: storageSession,
+}
+
 // Appliquer la persistance au formReducer avec sa configuration spécifique
 const persistedFormReducer = persistReducer(formPersistConfig, formReducer)
 const persistedUserReducer = persistReducer(userPersistConfig, userReducer)
+const persistedUiReducer = persistReducer(uiPersistConfig, uiReducer)
 
 const rootReducer = combineReducers({
   form: persistedFormReducer, // Utiliser le reducer persisté
-  user: persistedUserReducer, // Pas de configuration spécifique de persistance ici, mais vous pourriez en ajouter une similaire si nécessaire
+  user: persistedUserReducer,
+  ui: persistedUiReducer,
+  // Pas de configuration spécifique de persistance ici, mais vous pourriez en ajouter une similaire si nécessaire
   // Ajoutez d'autres reducers ici...
 })
 
