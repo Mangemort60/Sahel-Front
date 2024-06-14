@@ -8,7 +8,7 @@ const NavbarDashboard = () => {
     <div>
       <div className="text-sm font-medium text-center text-black  border-gray-200">
         <ul className="flex flex-wrap -mb-px">
-          <Link className="me-2" to={'/client-dashboard/reservations'}>
+          <Link className="me-2" to={'/client-dashboard'}>
             <a
               href="#"
               className={`inline-block p-4 border-b-2 ${

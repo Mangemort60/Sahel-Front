@@ -1,6 +1,7 @@
 // src/app/hooks.ts
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 import type { RootState, AppDispatch } from '../redux/store/store'
+import { useEffect, useState } from 'react'
 
 // Utilisez tout au long de votre application au lieu de useDispatch et useSelector
 export const useAppDispatch: () => AppDispatch = useDispatch
@@ -30,4 +31,28 @@ export const useReservationData = () => {
   }
 
   return reservationData // Retournez l'objet de données de réservation complet
+}
+
+export const useWindowSize = () => {
+  const [windowSize, setWindowSize] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  })
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      })
+    }
+
+    window.addEventListener('resize', handleResize)
+
+    handleResize()
+
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
+  return windowSize
 }

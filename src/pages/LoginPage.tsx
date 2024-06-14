@@ -71,7 +71,6 @@ const LoginPage = () => {
       )
       console.log("L'utilisateur est connecté", userCredential.user)
       dispatch(setIsLoggedIn(true))
-      navigate('/')
 
       // Récupère le token d'authentification Firebase
       const authToken = await userCredential.user.getIdToken()
@@ -92,6 +91,9 @@ const LoginPage = () => {
       Cookies.set('token', authToken, { expires: 7 })
 
       console.log('Données utilisateur récupérées:', response.data)
+      const redirectTo =
+        new URLSearchParams(location.search).get('redirectTo') || '/'
+      navigate(redirectTo)
     } catch (error) {
       if (axios.isAxiosError(error)) {
         // Gestion des erreurs retournées par le serveur
