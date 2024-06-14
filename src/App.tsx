@@ -12,23 +12,27 @@ import { StripeCheckout } from './components/PaymentSection/StripeCheckout'
 import { PaymentStatus } from './pages/PaymentStatus'
 import { useAppSelector } from './redux/hooks'
 import { ClientDashboard } from './pages/ClientDashboard'
+import { useRef } from 'react'
 
 function App() {
   const canAccessPayment = useAppSelector(
     (state) => state.form.hasCompletedPayment,
   )
 
-  console.log(canAccessPayment)
+  const formSectionRef = useRef(null)
 
   return (
     <>
       <Routes>
         <Route path="/" element={<MainLayout />}>
-          <Route index element={<HomePage />} />
+          <Route index element={<HomePage formSectionRef={formSectionRef} />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/how-it-works" element={<HowItWorks />} />
-          <Route path="/login" element={<LoginPage />} />
+          <Route
+            path="/login"
+            element={<LoginPage formSectionRef={formSectionRef} />}
+          />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/client-dashboard/*" element={<ClientDashboard />} />
           <Route

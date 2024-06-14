@@ -20,10 +20,11 @@ import {
 import Cookies from 'js-cookie'
 import { useLocation } from 'react-router-dom'
 import { AlertSuccess } from '../components/common/AlertSuccess'
+import { useAppSelector } from '../redux/hooks'
 
 type FormData = z.infer<typeof loginSchema>
 
-const LoginPage = () => {
+const LoginPage = ({ formSectionRef }) => {
   const [isLoading, setIsLoading] = useState(false)
   const [rememberMe, setRememberMe] = useState(false)
   const location = useLocation()
@@ -31,10 +32,13 @@ const LoginPage = () => {
     location.state && location.state.success,
   )
 
-  console.log(isSuccess)
+  if (formSectionRef.current) {
+    formSectionRef.current.scrollIntoView({ behavior: 'smooth' })
+  }
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const formStep = useAppSelector((state) => state.form.currentStep)
 
   useEffect(() => {
     // Définir isSuccess à false après 3 secondes pour masquer l'alerte de succès
@@ -91,9 +95,12 @@ const LoginPage = () => {
       Cookies.set('token', authToken, { expires: 7 })
 
       console.log('Données utilisateur récupérées:', response.data)
+      if (formStep === 'review') {
+        navigate('/')
+      }
       const redirectTo =
         new URLSearchParams(location.search).get('redirectTo') || '/'
-      navigate(redirectTo)
+      navigate(`${redirectTo}#formSection`)
     } catch (error) {
       if (axios.isAxiosError(error)) {
         // Gestion des erreurs retournées par le serveur

@@ -8,6 +8,7 @@ import { setIsLoggedIn } from '../redux/slices/userSlice'
 import { useState } from 'react'
 import { AlertSuccess } from './common/AlertSuccess'
 import Cookies from 'js-cookie'
+import { setCurrentStep } from '../redux/slices/formSlice'
 
 const Header = () => {
   const [isLoggedOut, setIsLoggedOut] = useState(false)
@@ -19,6 +20,7 @@ const Header = () => {
       await signOut(auth)
       console.log('Déconnexion réussie')
       dispatch(setIsLoggedIn(false))
+      dispatch(setCurrentStep('form'))
       setIsLoggedOut(true)
       Cookies.remove('token')
       setTimeout(() => {

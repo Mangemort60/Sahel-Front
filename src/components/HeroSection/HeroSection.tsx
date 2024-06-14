@@ -1,7 +1,14 @@
 import { Button } from '../common/Button'
 import homeImage from '../../assets/homeImage.webp'
 
-export const HeroSection = () => {
+export const HeroSection = ({ formSectionRef }) => {
+  const handleSubscribeClick = () => {
+    // Faire défiler la page jusqu'au FormSection
+    if (formSectionRef.current) {
+      formSectionRef.current.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
+
   return (
     <>
       <div
@@ -23,6 +30,7 @@ export const HeroSection = () => {
             label={'souscrire'}
             hoverColor={'hover:bg-darkerKaki'}
             bgColor={'bg-kaki'}
+            onClick={handleSubscribeClick}
           />
         </div>
       </div>

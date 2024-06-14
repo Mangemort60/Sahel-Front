@@ -46,6 +46,7 @@ export const formSlice = createSlice({
     setHasCompletedPayment: (state, action: PayloadAction<boolean>) => {
       state.hasCompletedPayment = action.payload
     },
+    resetFormState: () => initialState,
   },
 })
 

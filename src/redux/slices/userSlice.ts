@@ -44,6 +44,7 @@ export const userSlice = createSlice({
     setRole: (state, action: PayloadAction<string>) => {
       state.role = action.payload
     },
+    resetUserState: () => initialState,
   },
 })
 

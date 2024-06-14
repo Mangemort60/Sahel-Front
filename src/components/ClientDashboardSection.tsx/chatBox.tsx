@@ -106,7 +106,7 @@ const ChatBox = () => {
 
   return (
     <div className="mt-8">
-      <Link to={'/client-dashboard/reservations'}>
+      <Link to={'/client-dashboard'}>
         <button className="text-gray-400 mb-8 flex items-center gap-2">
           <FaArrowLeft />
           <p>Retour aux réservations</p>

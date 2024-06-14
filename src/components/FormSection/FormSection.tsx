@@ -3,8 +3,9 @@ import { useAppSelector } from '../../redux/hooks'
 import { BookingRequest } from './BookingRequest'
 import { FormRequest } from './FormRequest'
 import { QuoteReview } from './QuoteReview'
+import React from 'react'
 
-export const FormSection = () => {
+export const FormSection = React.forwardRef((_, ref) => {
   const currentStep = useAppSelector((state) => state.form.currentStep)
 
   const renderStep = () => {
@@ -21,7 +22,7 @@ export const FormSection = () => {
   }
 
   return (
-    <div>
+    <div ref={ref}>
       {' '}
       <div
         className="h-screen flex sm:flex-row flex-col sm:justify-evenly justify-between items-center p-4 text-white mb-44"
@@ -38,4 +39,4 @@ export const FormSection = () => {
       </div>
     </div>
   )
-}
+})
