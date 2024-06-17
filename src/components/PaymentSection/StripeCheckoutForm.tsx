@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux'
 import { setCurrentStep } from '../../redux/slices/formSlice'
 import { useAppSelector } from '../../redux/hooks'
 import { useState } from 'react'
+import getSiteUrl from '../../utils/getSiteUrl'
 
 export const StripeCheckoutForm = () => {
   const [isLoading, setIsLoading] = useState(false)
@@ -36,6 +37,7 @@ export const StripeCheckoutForm = () => {
     event.preventDefault()
     setIsLoading(true) // Démarre le chargement avant la tentative de soumission
     dispatch(setCurrentStep('form'))
+    const siteUrl = getSiteUrl()
 
     if (!stripe || !elements) {
       console.log("Stripe.js hasn't loaded yet.")
@@ -47,7 +49,7 @@ export const StripeCheckoutForm = () => {
       const result = await stripe.confirmPayment({
         elements,
         confirmParams: {
-          return_url: 'http://localhost:5173/payment-status',
+          return_url: `${siteUrl}/payment-status`,
         },
       })
 

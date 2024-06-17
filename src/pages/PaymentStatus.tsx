@@ -8,6 +8,7 @@ import {
   setCurrentStep,
   setHasCompletedPayment,
 } from '../redux/slices/formSlice'
+import getApiUrl from '../utils/getApiUrl'
 
 type Message = {
   title: string
@@ -20,7 +21,7 @@ export const PaymentStatus = () => {
     description: '',
   })
   const [error, setError] = useState<Message>({ title: '', description: '' })
-
+  const apiUrl = getApiUrl()
   const dispatch = useDispatch()
 
   // Utilisez le hook personnalisé pour obtenir les données de réservation
@@ -32,7 +33,7 @@ export const PaymentStatus = () => {
 
     if (paymentIntentId) {
       axios
-        .post(`http://localhost:3001/check-payment-intent`, {
+        .post(`${apiUrl}/check-payment-intent`, {
           paymentIntentId,
           reservationData, // Inclure les données de réservation dans la requête POST
         })

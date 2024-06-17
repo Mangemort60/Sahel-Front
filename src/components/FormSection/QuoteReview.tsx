@@ -5,10 +5,12 @@ import { useDispatch } from 'react-redux'
 import { setCurrentStep } from '../../redux/slices/formSlice'
 import { FaArrowLeft } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
+import getApiUrl from '../../utils/getApiUrl'
 
 export const QuoteReview = () => {
   const { numberOfFloors, sizeRange, fruitBasketSelected, beforeOrAfter } =
     useAppSelector((state) => state.form.formData)
+  console.log('API URL', getApiUrl())
 
   const totalPrice = useAppSelector((state) => state.form.quote)
   console.log(totalPrice)

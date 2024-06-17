@@ -7,6 +7,7 @@ import isSameOrBefore from 'dayjs/plugin/isSameOrBefore'
 import utc from 'dayjs/plugin/utc'
 import { setServiceDate } from '../../redux/slices/formSlice'
 import { useAppSelector } from '../../redux/hooks'
+import getApiUrl from '../../utils/getApiUrl'
 
 dayjs.extend(isSameOrBefore)
 dayjs.extend(utc)
@@ -18,6 +19,7 @@ interface ReservationCount {
 }
 
 export const CustomDatePicker = () => {
+  const apiUrl = getApiUrl()
   const [reservationCounts, setReservationCounts] = useState<
     ReservationCount[]
   >([])
@@ -32,7 +34,7 @@ export const CustomDatePicker = () => {
     const fetchReservationCounts = async () => {
       try {
         const { data } = await axios.get<ReservationCount[]>(
-          'http://localhost:3001/reserved-dates',
+          `${apiUrl}/reserved-dates`,
         )
         setReservationCounts(data)
       } catch (error) {

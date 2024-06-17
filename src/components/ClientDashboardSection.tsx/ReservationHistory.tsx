@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 import { useAppDispatch } from '../../redux/hooks'
 import { setActiveTab, setReservationId } from '../../redux/slices/uiSlice'
 import { Badge } from '@mui/material'
+import getApiUrl from '../../utils/getApiUrl'
 
 type StatusColorMap = {
   [key: string]: string
@@ -42,6 +43,7 @@ export const ReservationHistory = () => {
   console.log('newMessages:', newMessages)
 
   const dispatch = useAppDispatch()
+  const apiUrl = getApiUrl()
 
   const statusColorMap: StatusColorMap = {
     'à venir': 'text-blue-500',
@@ -90,12 +92,9 @@ export const ReservationHistory = () => {
           console.error('ID utilisateur non disponible')
           return
         }
-        const response = await axios.get(
-          'http://localhost:3001/mes-reservations',
-          {
-            params: { shortID },
-          },
-        )
+        const response = await axios.get(`${apiUrl}/mes-reservations`, {
+          params: { shortID },
+        })
         setReservations(response.data)
       } catch (error) {
         console.error('Erreur lors de la récupération des données', error)
@@ -104,9 +103,7 @@ export const ReservationHistory = () => {
 
     const fetchNewMessages = async () => {
       try {
-        const response = await axios.get<Message[]>(
-          'http://localhost:3001/new-messages',
-        )
+        const response = await axios.get<Message[]>(`${apiUrl}/new-messages`)
         console.log('API Response:', response.data) // Ajout d'un log pour voir la réponse de l'API
         const messages = response.data.reduce<NewMessagesType>(
           (acc, message) => {

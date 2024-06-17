@@ -11,7 +11,7 @@ import {
 import axios from 'axios'
 import { useForm } from 'react-hook-form'
 import { useAppSelector } from '../../redux/hooks'
-
+import getApiUrl from '../../utils/getApiUrl'
 export const FormRequest = () => {
   const isLoading = useAppSelector((state) => state.form.isLoading)
   const [formData, setFormData] = useState({
@@ -24,6 +24,7 @@ export const FormRequest = () => {
 
   const dispatch = useDispatch()
   dispatch(setHasCompletedPayment(false))
+  const apiUrl = getApiUrl()
 
   const { register } = useForm()
 
@@ -32,7 +33,8 @@ export const FormRequest = () => {
 
     const { numberOfFloors, sizeRange, beforeOrAfter, fruitBasketSelected } =
       formData
-    console.log('Form data:', formData) // Ajout d'un log pour vérifier les données du formulaire
+    console.log('Form dataa:', formData) // Ajout d'un log pour vérifier les données du formulaire
+    console.log(apiUrl)
 
     try {
       if (
@@ -49,7 +51,7 @@ export const FormRequest = () => {
       dispatch(setCurrentStep('review'))
       dispatch(setIsLoading(true))
 
-      const response = await axios.post('http://localhost:3001/quote', {
+      const response = await axios.post(`${apiUrl}/quote`, {
         numberOfFloors: parseInt(formData.numberOfFloors, 10),
         sizeRange: formData.sizeRange,
         fruitBasketSelected: formData.fruitBasketSelected,

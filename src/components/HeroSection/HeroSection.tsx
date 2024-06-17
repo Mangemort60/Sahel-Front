@@ -1,7 +1,12 @@
 import { Button } from '../common/Button'
 import homeImage from '../../assets/homeImage.webp'
+import { RefObject } from 'react'
 
-export const HeroSection = ({ formSectionRef }) => {
+interface SectionProps {
+  formSectionRef: RefObject<HTMLDivElement>
+}
+
+export const HeroSection = ({ formSectionRef }: SectionProps) => {
   const handleSubscribeClick = () => {
     // Faire défiler la page jusqu'au FormSection
     if (formSectionRef.current) {

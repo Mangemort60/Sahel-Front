@@ -1,6 +1,7 @@
 // services/createPaymentIntent.ts
 
 import axios from 'axios'
+import getApiUrl from '../utils/getApiUrl'
 
 interface PaymentIntentResponse {
   clientSecret: string
@@ -12,9 +13,11 @@ const createPaymentIntent = async (
   shortId: string,
   name: string,
 ): Promise<PaymentIntentResponse> => {
+  const apiUrl = getApiUrl()
+
   try {
     // Utilisez axios.post pour envoyer une requête POST
-    const response = await axios.post('http://localhost:3001/create-payment', {
+    const response = await axios.post(`${apiUrl}/create-payment`, {
       amount,
       email,
       shortId,

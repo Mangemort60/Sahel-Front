@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { useEffect, useState } from 'react'
+import { RefObject, useEffect, useState } from 'react'
 import axios from 'axios'
 import { loginSchema } from '../schemas/loginFormSchema'
 import { auth } from '../../firebase-config'
@@ -21,10 +21,15 @@ import Cookies from 'js-cookie'
 import { useLocation } from 'react-router-dom'
 import { AlertSuccess } from '../components/common/AlertSuccess'
 import { useAppSelector } from '../redux/hooks'
+import getApiUrl from '../utils/getApiUrl'
 
 type FormData = z.infer<typeof loginSchema>
 
-const LoginPage = ({ formSectionRef }) => {
+interface SectionProps {
+  formSectionRef: RefObject<HTMLDivElement>
+}
+
+const LoginPage = ({ formSectionRef }: SectionProps) => {
   const [isLoading, setIsLoading] = useState(false)
   const [rememberMe, setRememberMe] = useState(false)
   const location = useLocation()
@@ -60,6 +65,7 @@ const LoginPage = ({ formSectionRef }) => {
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
     setIsLoading(true)
+    const apiUrl = getApiUrl()
 
     try {
       // Définir la persistance en fonction de l'état rememberMe
@@ -80,7 +86,7 @@ const LoginPage = ({ formSectionRef }) => {
       const authToken = await userCredential.user.getIdToken()
 
       // Envoie une requête au serveur pour récupérer les données supplémentaires de l'utilisateur
-      const response = await axios.get('http://localhost:3001/auth/login', {
+      const response = await axios.get(`${apiUrl}/auth/login`, {
         headers: {
           Authorization: `Bearer ${authToken}`,
         },
@@ -95,9 +101,12 @@ const LoginPage = ({ formSectionRef }) => {
       Cookies.set('token', authToken, { expires: 7 })
 
       console.log('Données utilisateur récupérées:', response.data)
-      if (formStep === 'review') {
+
+      if (formStep === 'form') {
         navigate('/')
+        return
       }
+
       const redirectTo =
         new URLSearchParams(location.search).get('redirectTo') || '/'
       navigate(`${redirectTo}#formSection`)

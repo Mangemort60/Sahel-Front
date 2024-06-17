@@ -10,12 +10,15 @@ import { FaArrowLeft } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import { auth, storage } from '../../../firebase-config' // Importez votre configuration Firebase
 import { getDownloadURL, ref } from 'firebase/storage'
+import getApiUrl from '../../utils/getApiUrl'
 
 const ChatBox = () => {
   const reservationId = useAppSelector((state) => state.ui.reservationId)
   const sender = useAppSelector((state) => state.user.name)
   const [messages, setMessages] = useState<Message[]>([])
   const userRole = useAppSelector((state) => state.user.role)
+
+  const apiUrl = getApiUrl()
 
   interface Message {
     sender: string
@@ -27,9 +30,10 @@ const ChatBox = () => {
 
   useEffect(() => {
     const fetchMessages = async () => {
+      const apiUrl = getApiUrl()
       try {
         const response = await axios.get<Message[]>(
-          `http://localhost:3001/reservations/${reservationId}/messages`,
+          `${apiUrl}/reservations/${reservationId}/messages`,
         )
 
         const messagesWithUrls = await Promise.all(
@@ -61,7 +65,7 @@ const ChatBox = () => {
     const markMessagesAsReadByClient = async () => {
       try {
         await axios.put(
-          `http://localhost:3001/reservations/${reservationId}/messages/read-by-client`,
+          `${apiUrl}/reservations/${reservationId}/messages/read-by-client`,
         )
       } catch (error) {
         console.error('Error marking messages as read by agent:', error)
@@ -92,7 +96,7 @@ const ChatBox = () => {
 
     try {
       await axios.post<Message>(
-        `http://localhost:3001/reservations/${reservationId}/messages`,
+        `${apiUrl}/reservations/${reservationId}/messages`,
         messagePayload,
       )
       setMessages((prevMessages) => [...prevMessages, messagePayload])

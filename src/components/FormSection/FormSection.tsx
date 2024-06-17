@@ -23,7 +23,6 @@ export const FormSection = React.forwardRef((_, ref) => {
 
   return (
     <div ref={ref}>
-      {' '}
       <div
         className="h-screen flex sm:flex-row flex-col sm:justify-evenly justify-between items-center p-4 text-white mb-44"
         style={{

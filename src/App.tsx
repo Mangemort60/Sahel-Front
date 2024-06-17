@@ -12,14 +12,14 @@ import { StripeCheckout } from './components/PaymentSection/StripeCheckout'
 import { PaymentStatus } from './pages/PaymentStatus'
 import { useAppSelector } from './redux/hooks'
 import { ClientDashboard } from './pages/ClientDashboard'
-import { useRef } from 'react'
+import { RefObject, useRef } from 'react'
 
 function App() {
   const canAccessPayment = useAppSelector(
     (state) => state.form.hasCompletedPayment,
   )
 
-  const formSectionRef = useRef(null)
+  const formSectionRef: RefObject<HTMLDivElement> = useRef(null)
 
   return (
     <>
