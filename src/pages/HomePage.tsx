@@ -1,4 +1,4 @@
-import { RefObject, useEffect, useRef } from 'react'
+import { RefObject, useEffect } from 'react'
 import { FormSection } from '../components/FormSection/FormSection'
 import { HeroSection } from '../components/HeroSection/HeroSection'
 import { useLocation } from 'react-router-dom'
