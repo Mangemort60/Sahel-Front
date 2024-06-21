@@ -1,4 +1,4 @@
-import layeredWaves from '../../../public/layeredWaves.svg'
+import layeredWaves from '../../../public/layeredWaves.webp'
 import { useAppSelector } from '../../redux/hooks'
 import { BookingRequest } from './BookingRequest'
 import { FormRequest } from './FormRequest'
