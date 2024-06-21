@@ -31,7 +31,7 @@ export const FormSection = React.forwardRef((_, ref) => {
           backgroundPosition: 'center',
         }}
       >
-        <h1 className="text-black sm:text-5xl sm:w-1/3 text-3xl font-light sm:mt-0 mt-8">
+        <h1 className="text-secondaryDarkBlue sm:text-5xl sm:w-1/3 text-3xl font-light sm:mt-0 mt-8">
           Remplissez ce formulaire et obtenez votre devis en quelques minutes !
         </h1>
         {renderStep()}

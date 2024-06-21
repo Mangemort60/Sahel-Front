@@ -74,10 +74,10 @@ export const StripeCheckoutForm = () => {
       <form id="payment-form" onSubmit={handleSubmit} className="sm:w-1/3 ">
         <PaymentElement />
         <Button
-          bgColor="bg-blue-900"
-          hoverColor="bg-blue-500"
+          hoverColor={'hover:bg-secondaryLightBlue'}
+          bgColor={'bg-secondaryRegularBlue'}
           type="submit"
-          label="Payer"
+          label="Valider et payer"
           isLoading={isLoading}
         />
       </form>

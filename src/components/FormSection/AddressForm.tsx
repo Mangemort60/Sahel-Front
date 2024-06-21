@@ -160,7 +160,7 @@ export const AddressForm = () => {
             name="specialInstructions"
             id="specialInstructions"
             placeholder="Instructions spéciales pour accéder à votre domicile (facultatif)"
-            rows={4}
+            rows={2}
           ></textarea>
         </div>
         <div>
@@ -184,10 +184,10 @@ export const AddressForm = () => {
         </div>
         <div className="ml-auto">
           <Button
-            bgColor="bg-kaki"
-            hoverColor="bg-darkerKaki"
+            hoverColor={'hover:bg-secondaryLightBlue'}
+            bgColor={'bg-secondaryRegularBlue'}
             type="submit"
-            label="réserver"
+            label="Reserver"
           />
         </div>
       </form>

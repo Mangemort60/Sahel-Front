@@ -86,9 +86,9 @@ export const QuoteReview = () => {
             </p>
           )}
           <Button
-            bgColor="bg-kaki"
-            label="reserver"
-            hoverColor="bg-darkerKaki"
+            label="Reserver"
+            hoverColor={'hover:bg-secondaryLightBlue'}
+            bgColor={'bg-secondaryRegularBlue'}
             type="button"
             onClick={handleReserveClick}
           />

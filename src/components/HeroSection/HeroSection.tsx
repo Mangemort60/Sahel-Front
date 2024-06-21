@@ -32,9 +32,9 @@ export const HeroSection = ({ formSectionRef }: SectionProps) => {
             Profitez pleinement de votre séjour sans les tracas du quotidien
           </p>
           <Button
-            label={'souscrire'}
-            hoverColor={'hover:bg-darkerKaki'}
-            bgColor={'bg-kaki'}
+            label={'Souscrire'}
+            hoverColor={'hover:bg-secondaryLightBlue'}
+            bgColor={'bg-secondaryRegularBlue'}
             onClick={handleSubscribeClick}
           />
         </div>

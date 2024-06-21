@@ -166,8 +166,8 @@ export const FormRequest = () => {
           <Button
             type="submit"
             label={'Calculer le prix'}
-            hoverColor={'hover:bg-darkerKaki'}
-            bgColor={'bg-kaki'}
+            hoverColor={'hover:bg-secondaryLightBlue'}
+            bgColor={'bg-secondaryRegularBlue'}
             onClick={() => {}}
           />
         </div>
