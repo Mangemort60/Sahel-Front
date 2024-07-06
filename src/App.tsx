@@ -13,6 +13,8 @@ import { PaymentStatus } from './pages/PaymentStatus'
 import { useAppSelector } from './redux/hooks'
 import { ClientDashboard } from './pages/ClientDashboard'
 import { RefObject, useRef } from 'react'
+import ForgotPassword from './pages/ForgotPassword'
+import ResetPassword from './pages/ResetPassword'
 
 function App() {
   const canAccessPayment = useAppSelector(
@@ -34,6 +36,8 @@ function App() {
             element={<LoginPage formSectionRef={formSectionRef} />}
           />
           <Route path="/register" element={<RegisterPage />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />3
+          <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/client-dashboard/*" element={<ClientDashboard />} />
           <Route
             path="/stripe-checkout-form"

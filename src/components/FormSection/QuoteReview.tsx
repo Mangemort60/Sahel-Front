@@ -45,7 +45,7 @@ export const QuoteReview = () => {
   }
 
   return (
-    <div className="flex flex-col justify-start items-start p-6 bg-white sm:w-1/3 w-full  mt-4 max-w-[460px] h-auto shadow-lg rounded-md">
+    <div className="w-full flex flex-col gap-4 justify-evenly">
       <button
         onClick={() => handleReturnClick()}
         className="text-gray-400 mb-4 flex items-center gap-2"
@@ -75,28 +75,35 @@ export const QuoteReview = () => {
         </p>
       </div>
       {isLoggedIn ? (
-        <div className="w-full flex justify-between items-end mt-6">
+        <div className="w-full flex flex-col gap-4 items-center justify-between mt-6">
           {/* ici proposer de créer un compte ou de se connecter à la place du boutton
         reservation si le user est pas connecté */}
           {isLoading ? (
             <Spinner />
           ) : (
-            <p className="  text-black text-2xl font-thin">
-              Total TTC : <span className="font-bold">{totalPrice} €</span>
+            <p className="  text-black text-1xl font-thin">
+              Total TTC :{' '}
+              <span className="font-bold text-4xl text-secondaryDarkBlue ">
+                {totalPrice} €
+              </span>
             </p>
           )}
           <Button
             label="Reserver"
-            hoverColor={'hover:bg-secondaryLightBlue'}
-            bgColor={'bg-secondaryRegularBlue'}
+            hoverColor={'hover:bg-secondaryRegularBlue'}
+            bgColor={'bg-secondaryLightBlue'}
             type="button"
             onClick={handleReserveClick}
+            largeButton={true}
           />
         </div>
       ) : (
         <div className="text-gray-500 text-sm flex flex-col gap-1 ">
-          <p className="my-8  text-black text-2xl font-thin">
-            Total TTC : <span className="font-bold">{totalPrice} €</span>
+          <p className="my-8  text-black text-1xl font-thin">
+            Total TTC :{' '}
+            <span className="font-bold text-4xl text-secondaryDarkBlue">
+              {totalPrice} €
+            </span>
           </p>
           <p>
             <Link

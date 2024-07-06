@@ -5,6 +5,7 @@ interface ButtonProps {
   type?: 'button' | 'submit' | 'reset'
   onClick?: () => void
   isLoading?: boolean
+  largeButton?: boolean
 }
 
 export const Button = ({
@@ -14,12 +15,13 @@ export const Button = ({
   type,
   onClick,
   isLoading,
+  largeButton,
 }: ButtonProps) => {
   return (
     <button
       type={type}
       className={`
-      mt-4 py-3 px-4 max-w-36 inline-flex items-center justify-center gap-x-2 text-sm font-semibold rounded-sm border border-transparent text-white
+      mt-4 py-3 px-4 ${largeButton ? 'w-full' : 'max-w-36'} w-full inline-flex items-center justify-center gap-x-2 text-sm font-semibold rounded-sm border border-transparent text-white
       ${hoverColor} ${bgColor} disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600
     `}
       onClick={onClick}

@@ -12,7 +12,7 @@ export const BookingRequest = () => {
   }
 
   return (
-    <div className="flex flex-col gap-3 justify-start items-start p-6 bg-white sm:w-1/3 w-full  mt-4 max-w-[460px] h-auto shadow-lg rounded-md">
+    <div className="w-full flex flex-col gap-4 justify-evenly">
       <button
         onClick={() => handleReturnClick()}
         className="text-gray-400 mb-4 flex items-center gap-2"

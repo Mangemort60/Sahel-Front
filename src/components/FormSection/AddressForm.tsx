@@ -62,12 +62,11 @@ export const AddressForm = () => {
     }
   }
   return (
-    <>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col gap-2 space-y-4  w-full mt-2"
-      >
-        <div>
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="flex flex-col gap-2 space-y-4  w-full my-4"
+    >
+      {/* <div>
           <label
             htmlFor="country"
             className="block mb-2 text-sm font-medium text-gray-900"
@@ -76,121 +75,120 @@ export const AddressForm = () => {
           </label>
           <input
             {...register('country')}
-            className="bg-gray-50 border-b-2 border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-not-allowed"
+            className="bg-gray-50 border-b-2 border-b-gray-200 border-0 text-gray-900 text-sm block w-full p-2.5 dark:border-gray-300  cursor-not-allowed"
             type="text"
             name="country"
             id="country"
             value="Maroc"
             readOnly
           />
-        </div>
+        </div> */}
 
-        <div>
-          <label
-            id="nbrOfFloors"
-            className="block mb-2 text-sm font-medium text-gray-900"
-          >
-            Ville*
-          </label>
-          <select
-            {...register('city')}
-            id="city"
-            aria-placeholder="choisir"
-            className="bg-gray-50 border-b-2 border-gray-300  text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-gray-300 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          >
-            <option
-              value={''}
-              disabled
-              selected
-              className="text-gray-500"
-            ></option>
-            <option value="Saïdia">Saïdia et ses alentours</option>
-            <option value="Berkane">Berkane et ses alentours</option>
-            <option value="Ahfir">Ahfir et ses alentours</option>{' '}
-          </select>
-          {errors.city && (
-            <p className="text-red-600 text-xs ">{errors.city.message}</p>
-          )}
-        </div>
-        <div>
-          <label
-            htmlFor="address"
-            className="block mb-2 text-sm font-medium text-gray-900"
-          >
-            Adresse*
-          </label>
-          <input
-            {...register('address')}
-            className="border-b-2 border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-            type="text"
-            name="address"
-            id="address"
-            placeholder="Entrez votre rue et numéro de maison"
-          />
-          {errors.address && (
-            <p className="text-red-600 text-xs ">{errors.address.message}</p>
-          )}
-        </div>
-        <div>
-          <label
-            htmlFor="address2"
-            className="block mb-2 text-sm font-medium text-gray-900"
-          >
-            Complément d'adresse (facultatif)
-          </label>
-          <input
-            {...register('address2')}
-            className="border-b-2 border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-            type="text"
-            name="address2"
-            id="address2"
-            placeholder="Appartement, bâtiment, étage"
-          />
-        </div>
-        <div>
-          <label
-            htmlFor="specialInstructions"
-            className="block mb-2 text-sm font-medium text-gray-900"
-          >
-            Instructions spéciales
-          </label>
-          <textarea
-            {...register('specialInstructions')}
-            className="border-b-2 border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-            name="specialInstructions"
-            id="specialInstructions"
-            placeholder="Instructions spéciales pour accéder à votre domicile (facultatif)"
-            rows={2}
-          ></textarea>
-        </div>
-        <div>
-          <label
-            htmlFor="phone"
-            className="block mb-2 text-sm font-medium text-gray-900"
-          >
-            Numéro de téléphone*
-          </label>
-          <input
-            {...register('phone')}
-            className="border-b-2 border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-            type="tel"
-            name="phone"
-            id="phone"
-            placeholder="Numéro de téléphone"
-          />
-          {errors.phone && (
-            <p className="text-red-600 text-xs ">{errors.phone.message}</p>
-          )}
-        </div>
-        <div className="ml-auto">
-          <Button
-            hoverColor={'hover:bg-secondaryLightBlue'}
-            bgColor={'bg-secondaryRegularBlue'}
-            type="submit"
-            label="Reserver"
-          />
-        </div>
-      </form>
-    </>
+      <div>
+        <label
+          id="nbrOfFloors"
+          className="block mb-2 text-sm font-medium text-gray-900"
+        >
+          Ville (Maroc)*
+        </label>
+        <select
+          {...register('city')}
+          id="city"
+          aria-placeholder="choisir"
+          className="border-b-2 border-b-gray-200 border-0 text-gray-900 text-sm block w-full p-2.5 dark:border-gray-300 "
+        >
+          <option
+            value={''}
+            disabled
+            selected
+            className="text-gray-500"
+          ></option>
+          <option value="Saïdia">Saïdia et ses alentours</option>
+          <option value="Berkane">Berkane et ses alentours</option>
+          <option value="Ahfir">Ahfir et ses alentours</option>{' '}
+        </select>
+        {errors.city && (
+          <p className="text-red-600 text-xs ">{errors.city.message}</p>
+        )}
+      </div>
+      <div>
+        <label
+          htmlFor="address"
+          className="block mb-2 text-sm font-medium text-gray-900"
+        >
+          Adresse*
+        </label>
+        <input
+          {...register('address')}
+          className="border-b-2 border-b-gray-200 border-0 text-gray-900 text-sm block w-full p-2.5 dark:border-gray-300 "
+          type="text"
+          name="address"
+          id="address"
+          placeholder="Entrez votre rue et numéro de maison"
+        />
+        {errors.address && (
+          <p className="text-red-600 text-xs ">{errors.address.message}</p>
+        )}
+      </div>
+      <div>
+        <label
+          htmlFor="address2"
+          className="block mb-2 text-sm font-medium text-gray-900"
+        >
+          Complément d'adresse (facultatif)
+        </label>
+        <input
+          {...register('address2')}
+          className="border-b-2 border-b-gray-200 border-0 text-gray-900 text-sm block w-full p-2.5 dark:border-gray-300 "
+          type="text"
+          name="address2"
+          id="address2"
+          placeholder="Appartement, bâtiment, étage"
+        />
+      </div>
+      <div>
+        <label
+          htmlFor="specialInstructions"
+          className="block mb-2 text-sm font-medium text-gray-900"
+        >
+          Instructions spéciales
+        </label>
+        <textarea
+          {...register('specialInstructions')}
+          className="border-b-2 border-b-gray-200 border-0 text-gray-900 text-sm block w-full p-2.5 dark:border-gray-300 "
+          name="specialInstructions"
+          id="specialInstructions"
+          placeholder="Instructions spéciales pour accéder à votre domicile (facultatif)"
+          rows={2}
+        ></textarea>
+      </div>
+      <div>
+        <label
+          htmlFor="phone"
+          className="block mb-2 text-sm font-medium text-gray-900"
+        >
+          Numéro de téléphone*
+        </label>
+        <input
+          {...register('phone')}
+          className="border-b-2 border-b-gray-200 border-0 text-gray-900 text-sm block w-full p-2.5 dark:border-gray-300 "
+          type="tel"
+          name="phone"
+          id="phone"
+        />
+        {errors.phone && (
+          <p className="text-red-600 text-xs ">{errors.phone.message}</p>
+        )}
+      </div>
+      <div className="w-full">
+        <Button
+          hoverColor={'hover:bg-secondaryRegularBlue'}
+          bgColor={'bg-secondaryLightBlue'}
+          type="submit"
+          label="Reserver"
+          largeButton={true}
+        />
+      </div>
+    </form>
   )
 }
