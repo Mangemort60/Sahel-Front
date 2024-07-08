@@ -28,7 +28,7 @@ function App() {
       <Routes>
         <Route path="/" element={<MainLayout />}>
           <Route index element={<HomePage formSectionRef={formSectionRef} />} />
-          <Route path="/about" element={<AboutPage />} />
+          <Route path="/about-us" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/how-it-works" element={<HowItWorks />} />
           <Route

@@ -20,6 +20,7 @@ export default {
         secondaryLightGreen: '#BBE29C',
         secondaryRegularGreen: '#649838',
       },
+      fontFamily: { sans: ['Roboto', 'sans-serif'] },
     },
   },
   plugins: [require('preline/plugin'), require('flowbite/plugin')],

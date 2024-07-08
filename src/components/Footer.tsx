@@ -2,7 +2,7 @@ import logo from '../assets/Logo-2-copie.webp'
 
 const Footer = () => {
   return (
-    <footer className="w-full max-w-[85rem] py-10 px-4 sm:px-6 lg:px-8 mx-auto">
+    <footer className="w-full max-w-[85rem] py-10 px-4 sm:px-6 lg:px-8 mx-auto mt-20">
       <div className="text-center">
         <div className="flex justify-center">
           <img className="h-16" src={logo} alt="" />
