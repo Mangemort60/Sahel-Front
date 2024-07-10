@@ -3,6 +3,7 @@ import { FormSection } from '../components/FormSection/FormSection'
 import { HeroSection } from '../components/HeroSection/HeroSection'
 import { useLocation } from 'react-router-dom'
 import { useAppSelector } from '../redux/hooks'
+import Solution from '../components/Solution'
 
 interface SectionProps {
   formSectionRef: RefObject<HTMLDivElement>
@@ -28,6 +29,7 @@ const HomePage = ({ formSectionRef }: SectionProps) => {
   return (
     <>
       <HeroSection formSectionRef={formSectionRef} />
+      <Solution />
       <FormSection ref={formSectionRef} />
     </>
   )

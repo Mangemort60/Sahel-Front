@@ -1,14 +1,18 @@
-import blobMessage from '../assets/blob-message.svg'
-
 const AboutPage = () => {
   return (
-    <div className="font-sans sm:w-2/3 sm:m-auto">
-      <div className="py-8">
-        <h1 className="text-center text-4xl mb-6">Qui sommes nous ?</h1>
-        <div className="flex justify-center space-x-12 py-4">
+    <div className="font-sans sm:w-2/3 mx-2 sm:m-auto max-w-[900px]">
+      <div className="my-12 space-y-5">
+        <h1 className="text-start text-sahelRegular font-bold text-md ">
+          Qui sommes nous ?
+        </h1>
+        <h1 className="text-4xl sm:text-6xl text-secondaryDarkBlue font-extrabold m-0">
+          Nos séjours au Maroc nous ont inspirés à rendre les vôtres
+          exceptionnels
+        </h1>
+        {/* <div className="flex justify-center space-x-12 py-4">
           <div>
             <img
-              className="rounded-full object-cover"
+              className="rounded-full object-cover sm:w-52"
               src="https://picsum.photos/150/150"
               alt="Nessime"
             />
@@ -16,15 +20,15 @@ const AboutPage = () => {
           </div>
           <div>
             <img
-              className="rounded-full object-cover"
+              className="rounded-full object-cover sm:w-52"
               src="https://picsum.photos/150/150"
               alt="Hafid"
             />
             <p className="text-center">nom - fonction</p>
           </div>
-        </div>
+        </div> */}
       </div>
-      <div className="px-6  space-y-8">
+      <div className="px-2 space-y-8">
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos eligendi
           minus facilis cupiditate omnis repudiandae illo at, nesciunt animi
@@ -35,7 +39,9 @@ const AboutPage = () => {
           quisquam similique vel, obcaecati, a dolores, placeat illum pariatur
           voluptates dolorum commodi.{' '}
         </p>
-        <h2 className="text-3xl">Pourquoi Sahel ?</h2>
+        <h2 className="text-3xl text-secondaryDarkBlue font-extrabold">
+          Pourquoi Sahel ?
+        </h2>
         <p>
           Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aut at in
           enim unde neque recusandae, blanditiis modi hic voluptas dolorem minus
@@ -46,7 +52,7 @@ const AboutPage = () => {
           consequatur excepturi repudiandae vero libero vitae quia eveniet eos
           laudantium nam sint nulla aspernatur alias.
         </p>
-        <blockquote className="relative top-6 mb-12">
+        <blockquote className="relative top-2 mb-12">
           <svg
             className="absolute -top-6 sm:-left-8 w-16 h-16 text-sahelLight"
             width="16"
@@ -72,7 +78,9 @@ const AboutPage = () => {
             </p>
           </div>
         </blockquote>
-        <h2 className="text-3xl">Nos Projets futur</h2>
+        <h2 className="text-3xl text-secondaryDarkBlue font-extrabold">
+          Nos Projets futur
+        </h2>
         <p className="mb-20">
           Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nesciunt
           explicabo iste atque. Sed perspiciatis quis obcaecati reprehenderit
@@ -84,22 +92,24 @@ const AboutPage = () => {
           tempore eum voluptatum enim, amet aspernatur error maxime quam facere?
           Magnam?
         </p>
-        <div className="flex flex-col items-center space-y-8 mb-8">
-          <div className="flex items-center mt-8">
+        <div className="flex flex-col sm:flex-row items-center space-y-8 sm:space-x-6 m-auto h-60 mb-8">
+          <div className="flex items-center mt-8  h-full">
             <div className="w-4 h-4 bg-sahelRegular rounded-full "></div>
-            <div className="ml-6 p-4 bg-white rounded shadow-lg w-64">
-              <h3 className="font-semibold text-lg mb-2">2025</h3>
-              <p className="text-gray-600">Service de nettoyage</p>
+            <div className="ml-6 p-4 bg-white rounded shadow-lg w-64  h-full">
+              <h3 className="font-semibold text-center text-2xl mb-2 ">2025</h3>
+              <p className="text-gray-600 text-xl ">Service de nettoyage</p>
             </div>
           </div>
 
-          <div className="flex items-center">
-            <div className="w-4 h-4 bg-sahelRegular rounded-full"></div>
-            <div className="ml-6 p-4 bg-white rounded shadow-lg w-64">
-              <h3 className="font-semibold text-lg mb-2">A venir</h3>
-              <p className="text-gray-600">Service administratif</p>
-              <p className="text-gray-600">Service de petits travaux</p>
-              <p className="text-gray-600">Service de gardiennage</p>
+          <div className="flex items-center h-full">
+            <div className="w-4 h-4 bg-sahelRegular rounded-full "></div>
+            <div className="ml-6 p-4 bg-white rounded shadow-lg w-64 h-full">
+              <h3 className="font-semibold mb-2 text-center text-2xl">
+                A venir
+              </h3>
+              <p className="text-gray-600 text-xl">Service administratif</p>
+              <p className="text-gray-600 text-xl">Service de petits travaux</p>
+              <p className="text-gray-600 text-xl">Service de gardiennage</p>
             </div>
           </div>
         </div>

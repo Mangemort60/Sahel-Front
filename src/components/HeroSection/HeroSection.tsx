@@ -17,7 +17,7 @@ export const HeroSection = ({ formSectionRef }: SectionProps) => {
   return (
     <>
       <div
-        className="h-1/2 sm:h-screen flex items-center p-10 text-white"
+        className="h-1/2 sm:h-screen flex items-center p-8 text-white"
         style={{
           backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${homeImage})`,
           backgroundSize: 'cover',
@@ -25,7 +25,7 @@ export const HeroSection = ({ formSectionRef }: SectionProps) => {
         }}
       >
         <div>
-          <h1 className="sm:text-7xl text-3xl font-bold sm:w-2/3">
+          <h1 className="sm:text-7xl text-4xl font-bold sm:w-2/3">
             VOS VACANCES COMMENCENT SUR LE SEUIL DE LA PORTE.
           </h1>
           <p className="sm:text-4xl mt-8 text-1xl sm:w-2/3">
