@@ -23,7 +23,7 @@ export const FormSection = React.forwardRef((_, ref) => {
 
   return (
     <div ref={ref}>
-      <div className="sm:flex py-8 sm:flex-row flex-col sm:justify-evenly justify-between items-center p-4 text-white sm:bg-cover sm:bg-center sm:bg-[url('../../assets/layeredWaves.webp')] bg-none">
+      <div className="sm:flex py-8 sm:flex-row flex-col sm:justify-center justify-between items-center p-4 text-white sm:bg-cover sm:bg-center sm:bg-[url('../../assets/layeredWaves.webp')] bg-none">
         <div className="sm:w-1/2">
           <h1 className="text-secondaryDarkBlue font-extrabold  sm:text-6xl text-3xl  sm:mt-0 mt-8">
             Obtenez votre devis instantanément !
@@ -37,10 +37,10 @@ export const FormSection = React.forwardRef((_, ref) => {
           <img
             src={imgForm}
             alt=""
-            className=" w-full sm:w-full sm:mt-24 hidden sm:flex"
+            className=" w-full sm:w-full sm:mt-24 hidden sm:flex max-w-[900px]"
           />
         </div>
-        <div className="bg-white w-full my-auto flex max-w-[460px] min-h-[750px] sm:px-8 py-4 px-2 sm:shadow-lg sm:rounded-sm">
+        <div className="bg-white w-1/2 w-full my-auto flex max-w-[460px] min-h-[750px] sm:px-8 py-4 px-2 sm:shadow-lg sm:rounded-sm">
           {renderStep()}
         </div>
       </div>

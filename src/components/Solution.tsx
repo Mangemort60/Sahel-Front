@@ -1,5 +1,5 @@
 import profiter from '../assets/profiter.jpg'
-import clefs from '../assets/clefs.jpg'
+import clefs from '../assets/clefs.webp'
 import simplicity from '../assets/simplicity.jpg'
 import reaction from '../assets/rocket.webp'
 import puzzle from '../assets/puzzle.webp'
@@ -12,7 +12,7 @@ const Solution = () => {
           Votre nettoyage en un clic :
           <br /> simple, flexible, efficace.
         </h1>
-        <p>
+        <p className="text-secondaryLightBlue">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Est ad
           mollitia autem fugit nisi. Aut accusamus voluptatum quo distinctio
           odit, illum, ab ex placeat ut, perferendis corrupti consequuntur hic
@@ -22,24 +22,24 @@ const Solution = () => {
 
       <div className="space-y-8">
         <div className="sm:flex gap-4 ">
-          <div className="sm:w-1/2 shadow-sm">
+          <div className="sm:w-1/2 ">
             <img src={clefs} alt="" />
           </div>
-          <div className="sm:w-1/2 sm:p-16 sm:m-auto">
+          <p className="sm:w-1/2 sm:p-16 sm:m-auto text-secondaryLightBlue">
             avant,Lorem, ipsum dolor sit amet consectetur adipisicing elit.
             Delectus exercitationem quasi eum minima iusto sapiente molestias
             optio facere velit laborum.
-          </div>
+          </p>
         </div>
         <div className="sm:flex gap-4 ">
           <div className="sm:w-1/2 sm:order-1">
             <img src={profiter} alt="" />
           </div>
-          <div className="sm:w-1/2 sm:p-16 sm:m-auto">
+          <p className="sm:w-1/2 sm:p-16 sm:m-auto text-secondaryLightBlue">
             pendant Lorem ipsum dolor sit amet consectetur adipisicing elit.
             Veniam omnis laborum animi natus itaque totam officiis voluptates
             vel commodi ex?
-          </div>
+          </p>
         </div>
       </div>
       <blockquote className="relative sm:left-24">
@@ -70,7 +70,7 @@ const Solution = () => {
           Les points fort du système Sahel
         </h2>
         <div className="h-auto p-2 sm:flex sm:justify-center m-auto sm:gap-12">
-          <div className="shadow-md rounded-sm flex flex-col items-center p-6  space-y-4 max-w-72">
+          <div className="shadow-md rounded-sm flex flex-col items-center p-6  space-y-4 h-[400px] max-w-[300px]">
             <img src={simplicity} alt="" className="w-40" />
             <p className="text-2xl text-secondaryBlue">Simplicité</p>
             <p className="text-sm italic text-secondaryLightBlue">
@@ -79,7 +79,7 @@ const Solution = () => {
               officiis eius, consequatur itaque.
             </p>
           </div>
-          <div className="shadow-md rounded-sm flex flex-col items-center p-6  space-y-4 max-w-72">
+          <div className="shadow-md rounded-sm flex flex-col items-center p-6  space-y-4 h-[400px] max-w-[300px]">
             <img src={reaction} alt="" className="w-40" />
             <p className="text-2xl text-secondaryBlue">Réactivité</p>
             <p className="text-sm italic text-secondaryLightBlue">
@@ -88,7 +88,7 @@ const Solution = () => {
               officiis eius, consequatur itaque.
             </p>
           </div>
-          <div className="shadow-md rounded-sm flex flex-col items-center p-6  space-y-4 max-w-72">
+          <div className="shadow-md rounded-sm flex flex-col items-center p-6  space-y-4 h-[400px] max-w-[300px]">
             <img src={puzzle} alt="" className="w-40" />
             <p className="text-2xl text-secondaryBlue">Flexibilité</p>
             <p className="text-sm italic text-secondaryLightBlue">

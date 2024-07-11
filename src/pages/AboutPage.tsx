@@ -1,3 +1,5 @@
+import valeur from '../assets/valeurs.webp'
+
 const AboutPage = () => {
   return (
     <div className="font-sans sm:w-2/3 mx-2 sm:m-auto max-w-[900px]">
@@ -92,9 +94,8 @@ const AboutPage = () => {
           tempore eum voluptatum enim, amet aspernatur error maxime quam facere?
           Magnam?
         </p>
-        <div className="flex flex-col sm:flex-row items-center space-y-8 sm:space-x-6 m-auto h-60 mb-8">
-          <div className="flex items-center mt-8  h-full">
-            <div className="w-4 h-4 bg-sahelRegular rounded-full "></div>
+        <div className="flex flex-col sm:flex-row items-center space-y-8 sm:space-x-6 h-auto">
+          <div className="flex items-center mt-8  h-60">
             <div className="ml-6 p-4 bg-white rounded shadow-lg w-64  h-full">
               <h3 className="font-semibold text-center text-2xl mb-2 ">2025</h3>
               <p className="text-gray-600 text-xl ">Service de nettoyage</p>
@@ -102,8 +103,7 @@ const AboutPage = () => {
           </div>
 
           <div className="flex items-center h-full">
-            <div className="w-4 h-4 bg-sahelRegular rounded-full "></div>
-            <div className="ml-6 p-4 bg-white rounded shadow-lg w-64 h-full">
+            <div className="ml-6 p-4 bg-white rounded shadow-lg w-64 h-60">
               <h3 className="font-semibold mb-2 text-center text-2xl">
                 A venir
               </h3>
@@ -111,6 +111,22 @@ const AboutPage = () => {
               <p className="text-gray-600 text-xl">Service de petits travaux</p>
               <p className="text-gray-600 text-xl">Service de gardiennage</p>
             </div>
+          </div>
+        </div>
+        <h2 className="text-3xl text-secondaryDarkBlue font-extrabold pt-8">
+          Nos Valeurs
+        </h2>
+        <div className="flex flex-col sm:flex-row">
+          <div>
+            <img src={valeur} alt="" className="" />
+          </div>
+          <div className="grid sm:grid-cols-2 sm:grid-rows-3 grid-cols-1 grid-rows-6 gap-4">
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>
+            <div>4</div>
+            <div>5</div>
+            <div>6</div>
           </div>
         </div>
       </div>

@@ -17,7 +17,7 @@ export const HeroSection = ({ formSectionRef }: SectionProps) => {
   return (
     <>
       <div
-        className="h-1/2 sm:h-screen flex items-center p-8 text-white"
+        className="h-2/3 sm:h-screen flex items-center p-8 text-white"
         style={{
           backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${homeImage})`,
           backgroundSize: 'cover',
