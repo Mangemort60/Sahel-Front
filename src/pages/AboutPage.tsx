@@ -1,4 +1,12 @@
 import valeur from '../assets/valeurs.webp'
+import secure from '../assets/secure.png'
+import quality from '../assets/quality.png'
+import affordable from '../assets/affordable.png'
+import ethical from '../assets/ethical.png'
+import transparency from '../assets/transparency.png'
+import handshake from '../assets/handshake.png'
+import arrowRight from '../assets/arrowRight.png'
+import lookingForward from '../assets/looking-forward.webp'
 
 const AboutPage = () => {
   return (
@@ -41,7 +49,7 @@ const AboutPage = () => {
           quisquam similique vel, obcaecati, a dolores, placeat illum pariatur
           voluptates dolorum commodi.{' '}
         </p>
-        <h2 className="text-3xl text-secondaryDarkBlue font-extrabold">
+        <h2 className="text-4xl text-secondaryDarkBlue font-extrabold">
           Pourquoi Sahel ?
         </h2>
         <p>
@@ -71,7 +79,7 @@ const AboutPage = () => {
           </svg>
 
           <div className="relative">
-            <p className="text-xl text-secondaryLightBlue md:text-3xl md:leading-normal dark:text-white my-20">
+            <p className="text-xl text-secondaryLightBlue md:text-4xl md:leading-normal dark:text-white my-20">
               <em>
                 Avec Sahel, les Marocains résidant à l'étranger bénéficient
                 enfin d'un service simple et flexible pour optimiser leur séjour
@@ -80,8 +88,44 @@ const AboutPage = () => {
             </p>
           </div>
         </blockquote>
-        <h2 className="text-3xl text-secondaryDarkBlue font-extrabold">
+        <h2 className="text-4xl text-secondaryDarkBlue font-extrabold">
           Nos Projets futur
+        </h2>
+        <div className=" hidden sm:flex  max-w-[800px]">
+          <img src={lookingForward} alt="" className="" />
+        </div>
+        <p className="mb-20">
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nesciunt
+          explicabo iste atque. Sed perspiciatis quis obcaecati reprehenderit
+          tempore. Dolores iure asperiores possimus officia assumenda! Possimus
+          inventore impedit voluptates nam et consequatur quod voluptatibus
+          magnam beatae quasi doloremque, quia dicta autem. Earum blanditiis
+          laudantium sunt temporibus modi officia consectetur minima, dolorum
+          distinctio voluptate est deserunt iure itaque quas eligendi corrupti
+          tempore eum voluptatum enim, amet aspernatur error maxime quam facere?
+          Magnam?
+        </p>
+        <div className="flex flex-col sm:flex-row sm:justify-center items-center space-y-8 sm:space-x-6 h-auto">
+          <div className="flex items-center mt-8  h-60">
+            <div className="ml-6 p-4 bg-white rounded shadow-lg w-64  h-full">
+              <h3 className="font-semibold text-center text-2xl mb-2 ">2025</h3>
+              <p className="text-gray-600 text-xl ">Service de nettoyage</p>
+            </div>
+          </div>
+          <img src={arrowRight} alt="" className="sm:rotate-0 rotate-90" />
+          <div className="flex items-center h-full">
+            <div className="ml-6 p-4 bg-white rounded shadow-lg w-64 h-60">
+              <h3 className="font-semibold mb-2 text-center text-2xl">
+                A venir
+              </h3>
+              <p className="text-gray-600 text-xl">Service administratif</p>
+              <p className="text-gray-600 text-xl">Service de petits travaux</p>
+              <p className="text-gray-600 text-xl">Service de gardiennage</p>
+            </div>
+          </div>
+        </div>
+        <h2 className="text-4xl text-secondaryDarkBlue font-extrabold pt-8">
+          Nos Valeurs
         </h2>
         <p className="mb-20">
           Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nesciunt
@@ -94,39 +138,83 @@ const AboutPage = () => {
           tempore eum voluptatum enim, amet aspernatur error maxime quam facere?
           Magnam?
         </p>
-        <div className="flex flex-col sm:flex-row items-center space-y-8 sm:space-x-6 h-auto">
-          <div className="flex items-center mt-8  h-60">
-            <div className="ml-6 p-4 bg-white rounded shadow-lg w-64  h-full">
-              <h3 className="font-semibold text-center text-2xl mb-2 ">2025</h3>
-              <p className="text-gray-600 text-xl ">Service de nettoyage</p>
-            </div>
-          </div>
-
-          <div className="flex items-center h-full">
-            <div className="ml-6 p-4 bg-white rounded shadow-lg w-64 h-60">
-              <h3 className="font-semibold mb-2 text-center text-2xl">
-                A venir
-              </h3>
-              <p className="text-gray-600 text-xl">Service administratif</p>
-              <p className="text-gray-600 text-xl">Service de petits travaux</p>
-              <p className="text-gray-600 text-xl">Service de gardiennage</p>
-            </div>
-          </div>
+        <div className=" hidden sm:flex">
+          <img src={valeur} alt="" className="" />
         </div>
-        <h2 className="text-3xl text-secondaryDarkBlue font-extrabold pt-8">
-          Nos Valeurs
-        </h2>
         <div className="flex flex-col sm:flex-row">
-          <div>
-            <img src={valeur} alt="" className="" />
-          </div>
           <div className="grid sm:grid-cols-2 sm:grid-rows-3 grid-cols-1 grid-rows-6 gap-4">
-            <div>1</div>
-            <div>2</div>
-            <div>3</div>
-            <div>4</div>
-            <div>5</div>
-            <div>6</div>
+            <div className="w-auto">
+              <img src={secure} alt="" className="w-12 h-12 mb-2 " />
+              <p className="text-secondaryDarkBlue text-xl font-bold">
+                Discrétion
+              </p>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Distinctio ratione alias voluptate magni hic dignissimos fuga.
+                Nisi quaerat, ab deserunt neque, corporis sit quasi debitis
+                perspiciatis laudantium libero facilis et.{' '}
+              </p>
+            </div>
+            <div>
+              <img src={quality} alt="" className="w-12 h-12 mb-2 " />
+              <p className="text-secondaryDarkBlue text-xl font-bold">
+                Qualité
+              </p>
+              <p>
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ut
+                officiis maiores quisquam vero dolorum nostrum suscipit, dolorem
+                placeat. Reprehenderit eligendi numquam illum perferendis.
+                Distinctio laudantium maxime vitae unde adipisci minus!{' '}
+              </p>
+            </div>
+            <div>
+              <img src={transparency} alt="" className="w-12 h-12 mb-2 " />
+              <p className="text-secondaryDarkBlue text-xl font-bold">
+                Fiabilité & transparence
+              </p>
+              <p>
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ut
+                officiis maiores quisquam vero dolorum nostrum suscipit, dolorem
+                placeat. Reprehenderit eligendi numquam illum perferendis.
+                Distinctio laudantium maxime vitae unde adipisci minus!{' '}
+              </p>
+            </div>
+            <div>
+              <img src={ethical} alt="" className="w-12 h-12 mb-2 " />
+              <p className="text-secondaryDarkBlue text-xl font-bold">
+                Engagement social
+              </p>
+              <p>
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ut
+                officiis maiores quisquam vero dolorum nostrum suscipit, dolorem
+                placeat. Reprehenderit eligendi numquam illum perferendis.
+                Distinctio laudantium maxime vitae unde adipisci minus!{' '}
+              </p>
+            </div>
+            <div>
+              <img src={affordable} alt="" className="w-12 h-12 mb-2 " />
+              <p className="text-secondaryDarkBlue text-xl font-bold">
+                Abordable
+              </p>
+              <p>
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ut
+                officiis maiores quisquam vero dolorum nostrum suscipit, dolorem
+                placeat. Reprehenderit eligendi numquam illum perferendis.
+                Distinctio laudantium maxime vitae unde adipisci minus!{' '}
+              </p>
+            </div>
+            <div>
+              <img src={handshake} alt="" className="w-12 h-12 mb-2 " />
+              <p className="text-secondaryDarkBlue text-xl font-bold">
+                Confiance
+              </p>
+              <p>
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sint
+                corrupti velit id vitae eius, veniam autem esse itaque tenetur
+                eaque hic mollitia minus, laborum placeat dignissimos impedit
+                deserunt, consectetur voluptas.{' '}
+              </p>
+            </div>
           </div>
         </div>
       </div>
