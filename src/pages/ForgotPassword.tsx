@@ -145,6 +145,7 @@ const ForgotPassword = () => {
                     ) : (
                       'Réinitialiser'
                     )} */}
+                      Recevoir le lien
                     </button>
                   </div>
                 </div>

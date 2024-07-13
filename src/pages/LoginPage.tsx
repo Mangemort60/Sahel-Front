@@ -227,12 +227,12 @@ const LoginPage = ({ formSectionRef }: SectionProps) => {
                       <label htmlFor="password" className="block text-sm mb-2 ">
                         Mot de passe
                       </label>
-                      <a
+                      <Link
                         className="text-sm text-blue-600 decoration-2 hover:underline font-medium "
-                        href="../examples/html/recover-account.html"
+                        to="/forgot-password"
                       >
                         Mot de passe oublié ?
-                      </a>
+                      </Link>
                     </div>
                     <div className="relative">
                       <input

@@ -15,6 +15,7 @@ import { ClientDashboard } from './pages/ClientDashboard'
 import { RefObject, useRef } from 'react'
 import ForgotPassword from './pages/ForgotPassword'
 import ResetPassword from './pages/ResetPassword'
+import { Toaster } from 'react-hot-toast'
 
 function App() {
   const canAccessPayment = useAppSelector(
@@ -25,6 +26,7 @@ function App() {
 
   return (
     <>
+      <Toaster />
       <Routes>
         <Route path="/" element={<MainLayout />}>
           <Route index element={<HomePage formSectionRef={formSectionRef} />} />

@@ -180,12 +180,6 @@ const RegisterPage = () => {
                     <label htmlFor="password" className="block text-sm mb-2 ">
                       Mot de passe
                     </label>
-                    <a
-                      className="text-sm text-blue-600 decoration-2 hover:underline font-medium "
-                      href="../examples/html/recover-account.html"
-                    >
-                      Mot de passe oublié ?
-                    </a>
                   </div>
                   <div className="relative">
                     <input

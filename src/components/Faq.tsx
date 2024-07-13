@@ -25,22 +25,22 @@ export const Faq = () => {
           <div className="max-w-3xl mx-auto mt-8 space-y-4 md:mt-16">
             {[
               {
-                question: 'How to create an account?',
+                question: 'Question 1',
                 answer:
                   'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.',
               },
               {
-                question: 'How can I make payment using Paypal?',
+                question: 'Question 2',
                 answer:
                   'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.',
               },
               {
-                question: 'Can I cancel my plan?',
+                question: 'Question 3',
                 answer:
                   'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.',
               },
               {
-                question: 'How can I reach to support?',
+                question: 'Question 4',
                 answer:
                   'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.',
               },
@@ -97,13 +97,13 @@ export const Faq = () => {
           </div>
 
           <p className="text-center text-gray-600 text-base mt-9">
-            Didn’t find the answer you are looking for?{' '}
+            Vous n'avez pas de réponse à votre question ?{' '}
             <a
               href="#"
               title=""
               className="font-medium text-blue-600 transition-all duration-200 hover:text-blue-700 focus:text-blue-700 hover:underline"
             >
-              Contact our support
+              Contactez notre support
             </a>
           </p>
         </div>

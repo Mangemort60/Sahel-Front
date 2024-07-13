@@ -147,6 +147,7 @@ const ResetPassword: React.FC = () => {
                         ) : (
                           'Réinitialiser'
                         )} */}
+                      Réinitialiser
                     </button>
                   </div>
                 </div>
