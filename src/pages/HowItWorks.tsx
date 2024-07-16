@@ -1,112 +1,156 @@
 import arrowBlue from '../assets/arrowBlue.webp'
+import devis from '../assets/form.svg'
+import reservation from '../assets/calendar.svg'
+import payment from '../assets/paymentCard.svg'
+import instructions from '../assets/mail.svg'
+import keys from '../assets/keys-svgrepo-com.svg'
+import valid from '../assets/checkCircle.svg'
+import calendarUser from '../assets/calendarUser.svg'
 
 const HowItWorks = () => {
   return (
-    <div>
+    <div className="m-2">
       <div>
-        <h1 className="sm:text-5xl text-4xl font-bold text-center my-8 text-secondaryDarkBlue">
-          Votre réservation <br />
-          en 6 étapes
+        <h1 className="sm:text-5xl text-4xl font-bold text-center my-8  text-secondaryDarkBlue">
+          Votre réservation en 6 étapes
         </h1>
       </div>
-      <div className="grid grid-cols-3 grid-rows-6 gap-2 max-w-[775px] m-auto">
-        <div className="m-auto col-start-2 sm:w-60 w-32 flex-col bg-slate-400ol flex items-center text-center bg-slate-400">
-          <div className="bg-slate-100 w-full text-4xl font-bold">1</div>
+      <div className="flex-col grid grid-cols-3 grid-rows-6 gap-12 max-w-[775px] m-auto">
+        <div className="relative right-10 space-y-8 m-auto col-start-2 sm:w-44 w-40 h-96 flex flex-col items-center  text-center shadow-md p-2">
+          <div className="bg-sahelLight rounded-sm w-full text-4xl font-bold">
+            1
+          </div>
           <div>
-            <div>icone</div>
-            <div>
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Rerum,
-              vel.
+            <img src={devis} alt="Devis" className="w-12 m-auto my-6" />
+            <span className="text-2xl font-bold">Devis</span>
+            <div className="text-xs mt-4 text-start text-secondaryBlue">
+              Remplissez vos informations et obtenez votre devis en quelques
+              secondes.
             </div>
           </div>
         </div>
-        <div className="m-auto col-start-2 row-start-2 sm:w-60 w-32 flex-col flex items-center text-center bg-slate-400">
-          {' '}
-          <div className="bg-slate-100 w-full text-4xl font-bold">2</div>
+        <div className="relative right-10 space-y-8 m-auto col-start-2 row-start-2 sm:w-44 w-40 h-96 flex flex-col items-center  text-center shadow-md p-2">
+          <div className="bg-sahelLight rounded-sm w-full text-4xl font-bold">
+            2
+          </div>
           <div>
-            <div>icone</div>
-            <div>
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Rerum,
-              vel.
+            <img
+              src={reservation}
+              alt="Reservation"
+              className="w-12 m-auto my-6"
+            />
+            <span className="text-2xl font-bold">Reservation</span>
+            <div className="text-xs mt-4 text-start text-secondaryBlue">
+              Sélectionnez une date de ménage souhaité en fonction de vos
+              disponibilités et contraintes.
             </div>
           </div>
         </div>
-        <div className="m-auto col-start-2 row-start-3 sm:w-60 w-32 flex-col flex items-center text-center bg-slate-400">
-          {' '}
-          <div className="bg-slate-100 w-full text-4xl font-bold">3</div>
+        <div className="relative right-10 space-y-8 m-auto col-start-2 row-start-3 sm:w-44 w-40 h-96 flex flex-col items-center  text-center shadow-md p-2">
+          <div className="bg-sahelLight rounded-sm w-full text-4xl font-bold">
+            3
+          </div>
           <div>
-            <div>icone</div>
-            <div>
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Rerum,
-              vel.
+            <img src={payment} alt="Paiement" className="w-12 m-auto my-6" />
+            <span className="text-2xl font-bold">Paiement</span>
+            <div className="text-xs mt-4 text-start text-secondaryBlue">
+              Procédez au paiement par les moyens de votre choix
             </div>
           </div>
         </div>
-        <div className="relative m-auto col-start-2 row-start-4 sm:w-60 w-32 flex-col flex items-center text-center bg-slate-400">
-          <img
-            src={arrowBlue}
-            alt=""
-            className="w-20 absolute left-0 top-36 transform -translate-x-full -translate-y-1/2"
-          />
-          <div className="bg-slate-100 w-full text-4xl font-bold">4</div>
-          <div>
-            <div>icone</div>
-            <div>
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Rerum,
-              vel.
-            </div>
+        <div className="relative right-10 space-y-8 m-auto col-start-2 row-start-4 sm:w-44 w-40 h-96 flex flex-col items-center  text-center shadow-md p-2">
+          <div className="bg-sahelLight rounded-sm w-full text-4xl font-bold">
+            4
           </div>
-          <img
-            src={arrowBlue}
-            alt=""
-            className="w-20 absolute right-0 top-36 transform translate-x-full -translate-y-1/2 scale-x-[-1]"
-          />
-        </div>
-        <div className="m-auto col-start-3 row-start-4 sm:w-60 w-32 flex-col flex items-center text-center bg-slate-400"></div>
-        <div className="m-auto col-start-1 row-start-4 sm:w-60 gap-1 w-32 flex-col flex items-center text-center"></div>
-        <div className="m-auto row-start-5 sm:w-60 w-32 flex-col flex items-center text-center bg-slate-400 mt-6 sm:mt-12">
-          {' '}
-          <div className="bg-slate-100 w-full text-4xl font-bold">5</div>
           <div>
-            <div>icone</div>
-            <div>
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Rerum,
-              vel.
+            <img
+              src={instructions}
+              alt="Instructions"
+              className="w-12 m-auto my-6"
+            />
+            <span className="text-2xl font-bold">Instructions</span>
+            <div className="text-xs mt-4 text-start text-secondaryBlue">
+              Une fois la réservation confirmée, obtenez vos instructions par
+              mail.
             </div>
           </div>
         </div>
-        <div className="m-auto col-start-1 row-start-6 sm:w-60 w-32 flex-col flex items-center text-center bg-slate-400">
-          {' '}
-          <div className="bg-slate-100 w-full text-4xl font-bold">6</div>
-          <div>
-            <div>icone</div>
+        <div className="relative left-2 m-auto row-start-5 sm:w-44 w-40 h-96 flex flex-col items-center justify-between text-center sm:mt-12">
+          <p className="mx-auto mt-auto mb-4 row-start-4 col-start-1 italic text-secondaryBlue">
+            Je serais absent lors de la prestation
+          </p>
+          <div className="shadow-md p-2 h-[392px]">
+            <div className="bg-sahelLight rounded-sm w-full text-4xl font-bold">
+              5
+            </div>
             <div>
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Rerum,
-              vel.
+              <img
+                src={keys}
+                alt="Reception des clefs"
+                className="w-12 m-auto my-6"
+              />
+              <span className="text-2xl font-bold">Reception des clefs</span>
+              <div className="text-xs mt-4 text-start text-secondaryBlue">
+                Suivez les instructions de remise des clés. Nous vous
+                indiquerons le processus une fois vos clés reçues.
+              </div>
             </div>
           </div>
         </div>
-        <p className="m-auto row-start-4 col-start-3">Absent ?</p>
-        <p className="m-auto row-start-4 col-start-1">Présent ?</p>
-        <div className="m-auto col-start-3 row-start-5 sm:w-60 w-32 flex-col flex items-center text-center bg-slate-400  mt-6 sm:mt-12">
-          {' '}
-          <div className="bg-slate-100 w-full text-4xl font-bold">5</div>
+        <div className="relative left-2 m-auto col-start-1 row-start-6 sm:w-44 w-40 h-96 flex flex-col items-center  text-center shadow-md p-2 mt-12">
+          <div className="bg-sahelLight rounded-sm w-full text-4xl font-bold">
+            6
+          </div>
           <div>
-            <div>icone</div>
-            <div>
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Rerum,
-              vel.
+            <img
+              src={valid}
+              alt="Prestation terminée"
+              className="w-12 m-auto my-6"
+            />
+            <span className="text-2xl font-bold">Prestation terminée</span>
+            <div className="text-xs mt-4 text-start text-secondaryBlue">
+              Profitez d’un logement propre dès les premiers instants de votre
+              arrivée.
             </div>
           </div>
         </div>
-        <div className="m-auto col-start-3 row-start-6 sm:w-60 w-32 flex-col flex items-center text-center bg-slate-400">
-          {' '}
-          <div className="bg-slate-100 w-full text-4xl font-bold">6</div>
-          <div>
-            <div>icone</div>
+
+        <div className="relative right-20 m-auto col-start-3 row-start-5 sm:w-44 w-40 h-96 flex flex-col items-center justify-between text-center sm:mt-12">
+          <p className="mx-auto mt-auto mb-4 row-start-4 col-start-3 italic text-secondaryBlue">
+            Je serais présent lors de la prestation
+          </p>
+          <div className="shadow-md p-2 h-[392px]">
+            <div className="bg-sahelLight rounded-sm w-full text-4xl font-bold">
+              5
+            </div>
             <div>
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Rerum,
-              vel.
+              <img
+                src={calendarUser}
+                alt="Je suis disponible"
+                className="w-12 m-auto my-6"
+              />
+              <span className="text-2xl font-bold">Je suis disponible</span>
+              <div className="text-xs mt-4 text-start text-secondaryBlue">
+                Rendez-vous disponible à la date et l’horaire indiqué afin que
+                nous puissions entamer la prestation.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="m-auto relative right-20 col-start-3 row-start-6 sm:w-44 w-40 h-96 flex flex-col items-center text-center shadow-md p-2 mt-12">
+          <div className="bg-sahelLight rounded-sm w-full text-4xl font-bold">
+            6
+          </div>
+          <div>
+            <img
+              src={valid}
+              alt="Prestation terminée"
+              className="w-12 m-auto my-6"
+            />
+            <span className="text-2xl font-bold">Prestation terminée</span>
+            <div className="text-xs mt-4 text-start text-secondaryBlue">
+              Profitez d’un logement propre dès les premiers instants de votre
+              arrivée.
             </div>
           </div>
         </div>
