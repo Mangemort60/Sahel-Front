@@ -52,10 +52,10 @@ const ContactPage = () => {
     <div className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto font-sans sm:flex sm:flex-row  flex-col ">
       <div className="max-w-xl m-auto ">
         <div className="text-center">
-          <h1 className="text-3xl font-bold text-gray-800 sm:text-4xl ">
+          <h1 className="text-3xl font-bold text-secondaryDarkBlue sm:text-4xl ">
             Nous Contacter
           </h1>
-          <p className="my-2 text-gray-600 ">
+          <p className="my-2 text-secondaryRegularBlue ">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque,
             voluptas unde. Modi vero quo sequi saepe unde porro officiis hic.
           </p>
@@ -69,7 +69,7 @@ const ContactPage = () => {
       <div>
         <div className="mt-12 max-w-lg mx-auto">
           <div className="flex flex-col border rounded-sm shadow-sm p-4 sm:p-6 lg:p-8 ">
-            <h2 className="mb-8 text-xl font-semibold text-gray-800 ">
+            <h2 className="mb-8 text-xl font-semibold text-secondaryDarkBlue">
               Remplissez ce formulaire
             </h2>
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -78,7 +78,7 @@ const ContactPage = () => {
                   <div>
                     <label
                       htmlFor="firstname"
-                      className="block mb-2 text-sm text-gray-700 font-medium "
+                      className="block mb-2 text-sm text-secondaryRegularBlue font-medium "
                     >
                       Prénom
                     </label>
@@ -98,7 +98,7 @@ const ContactPage = () => {
                   <div>
                     <label
                       htmlFor="name"
-                      className="block mb-2 text-sm text-gray-700 font-medium "
+                      className="block mb-2 text-sm text-secondaryRegularBlue font-medium "
                     >
                       Nom
                     </label>
@@ -120,7 +120,7 @@ const ContactPage = () => {
                   <div>
                     <label
                       htmlFor="email"
-                      className="block mb-2 text-sm text-gray-700 font-medium "
+                      className="block mb-2 text-sm text-secondaryRegularBlue font-medium "
                     >
                       Email
                     </label>
@@ -140,7 +140,7 @@ const ContactPage = () => {
                   <div>
                     <label
                       htmlFor="phoneNumber"
-                      className="block mb-2 text-sm text-gray-700 font-medium "
+                      className="block mb-2 text-sm text-secondaryRegularBlue font-medium "
                     >
                       Téléphone
                     </label>
@@ -161,7 +161,7 @@ const ContactPage = () => {
                 <div>
                   <label
                     htmlFor="details"
-                    className="block mb-2 text-sm text-gray-700 font-medium "
+                    className="block mb-2 text-sm text-secondaryRegularBlue font-medium "
                   >
                     Details
                   </label>

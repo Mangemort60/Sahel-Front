@@ -32,7 +32,7 @@ function App() {
           <Route index element={<HomePage formSectionRef={formSectionRef} />} />
           <Route path="/about-us" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
-          <Route path="/how-it-works" element={<HowItWorks />} />
+          <Route path="/comment-ca-marche" element={<HowItWorks />} />
           <Route
             path="/login"
             element={<LoginPage formSectionRef={formSectionRef} />}
