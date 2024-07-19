@@ -29,7 +29,7 @@ function App() {
       <Toaster />
       <Routes>
         <Route path="/" element={<MainLayout />}>
-          <Route index element={<HomePage formSectionRef={formSectionRef} />} />
+          <Route index element={<HomePage />} />
           <Route path="/about-us" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/comment-ca-marche" element={<HowItWorks />} />

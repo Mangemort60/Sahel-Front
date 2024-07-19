@@ -69,7 +69,7 @@ const Solution = () => {
         <h2 className="text-4xl sm:text-6xl mr-auto text-secondaryDarkBlue font-extrabold">
           Les points fort du système Sahel
         </h2>
-        <div className="h-auto p-2 sm:flex sm:justify-center m-auto sm:gap-12">
+        <div className="h-auto p-2 sm:flex sm:justify-center m-auto sm:gap-12 space-y-8 sm:space-y-0">
           <div className="shadow-md rounded-sm flex flex-col items-center p-6  space-y-4 h-[400px] max-w-[300px]">
             <img src={simplicity} alt="" className="w-40" />
             <p className="text-2xl text-secondaryBlue">Simplicité</p>

@@ -6,18 +6,22 @@ import instructions from '../assets/mail.svg'
 import keys from '../assets/keys-svgrepo-com.svg'
 import valid from '../assets/checkCircle.svg'
 import calendarUser from '../assets/calendarUser.svg'
+import arrow from '../assets/arrowRight.png'
 
 const HowItWorks = () => {
   return (
     <div className="m-2">
-      <div>
-        <h1 className="sm:text-5xl text-4xl font-bold text-center my-8  text-secondaryDarkBlue">
-          Votre réservation en 6 étapes
+      <div className="mx-auto my-12 space-y-5 max-w-[775px]">
+        <h1 className="text-sahelRegular font-bold text-md ">
+          Comment ça marche ?
+        </h1>
+        <h1 className="text-4xl sm:text-6xl text-secondaryDarkBlue font-extrabold m-0">
+          Votre reservation en 6 étapes
         </h1>
       </div>
-      <div className="flex-col grid grid-cols-3 grid-rows-6 gap-12 max-w-[775px] m-auto">
-        <div className="relative right-10 space-y-8 m-auto col-start-2 sm:w-44 w-40 h-96 flex flex-col items-center  text-center shadow-md p-2">
-          <div className="bg-sahelLight rounded-sm w-full text-4xl font-bold">
+      <div className="grid grid-cols-3 grid-rows-6 gap-x-12 max-w-[775px] m-auto">
+        <div className="relative right-10 space-y-8 my-auto col-start-2 row-start-1  w-52 h-3/4 flex flex-col items-center  text-center shadow-md p-2">
+          <div className="bg-[#d28b6f] text-white rounded-sm w-full text-4xl font-bold">
             1
           </div>
           <div>
@@ -28,9 +32,16 @@ const HowItWorks = () => {
               secondes.
             </div>
           </div>
+          <div className="w-24">
+            <img
+              src={arrow}
+              alt=""
+              className="rotate-90 mt-28 sm:mt-36 w-full"
+            />
+          </div>
         </div>
-        <div className="relative right-10 space-y-8 m-auto col-start-2 row-start-2 sm:w-44 w-40 h-96 flex flex-col items-center  text-center shadow-md p-2">
-          <div className="bg-sahelLight rounded-sm w-full text-4xl font-bold">
+        <div className="relative right-10 space-y-8 my-auto col-start-2 row-start-2  w-52 h-3/4 flex flex-col items-center  text-center shadow-md p-2">
+          <div className="bg-[#d28b6f] text-white rounded-sm w-full text-4xl font-bold">
             2
           </div>
           <div>
@@ -45,9 +56,16 @@ const HowItWorks = () => {
               disponibilités et contraintes.
             </div>
           </div>
+          <div className="w-24">
+            <img
+              src={arrow}
+              alt=""
+              className="rotate-90 mt-28 sm:mt-36 w-full"
+            />
+          </div>
         </div>
-        <div className="relative right-10 space-y-8 m-auto col-start-2 row-start-3 sm:w-44 w-40 h-96 flex flex-col items-center  text-center shadow-md p-2">
-          <div className="bg-sahelLight rounded-sm w-full text-4xl font-bold">
+        <div className="relative right-10 space-y-8  my-auto col-start-2 row-start-3  w-52 h-3/4 flex flex-col items-center  text-center shadow-md p-2">
+          <div className="bg-[#d28b6f] text-white rounded-sm w-full text-4xl font-bold">
             3
           </div>
           <div>
@@ -57,9 +75,16 @@ const HowItWorks = () => {
               Procédez au paiement par les moyens de votre choix
             </div>
           </div>
+          <div className="w-24">
+            <img
+              src={arrow}
+              alt=""
+              className="rotate-90 mt-28 sm:mt-36 w-full"
+            />
+          </div>
         </div>
-        <div className="relative right-10 space-y-8 m-auto col-start-2 row-start-4 sm:w-44 w-40 h-96 flex flex-col items-center  text-center shadow-md p-2">
-          <div className="bg-sahelLight rounded-sm w-full text-4xl font-bold">
+        <div className="relative right-10 space-y-8  my-auto col-start-2 row-start-4  w-52 h-3/4 flex flex-col items-center  text-center shadow-md p-2">
+          <div className="bg-[#d28b6f] text-white rounded-sm w-full text-4xl font-bold">
             4
           </div>
           <div>
@@ -75,12 +100,15 @@ const HowItWorks = () => {
             </div>
           </div>
         </div>
-        <div className="relative left-2 m-auto row-start-5 sm:w-44 w-40 h-96 flex flex-col items-center justify-between text-center sm:mt-12">
-          <p className="mx-auto mt-auto mb-4 row-start-4 col-start-1 italic text-secondaryBlue">
+        <div className="relative left-2 mx-auto row-start-5 sm:w-44 w-40 h-auto flex flex-col items-center justify-between text-center sm:mt-12">
+          <p className="mx-auto mt-auto row-start-4 col-start-1 italic text-secondaryBlue">
             Je serais absent lors de la prestation
           </p>
+          <div className="w-24">
+            <img src={arrow} alt="" className="rotate-90 w-full" />
+          </div>
           <div className="shadow-md p-2 h-[392px]">
-            <div className="bg-sahelLight rounded-sm w-full text-4xl font-bold">
+            <div className="bg-[#d28b6f] text-white rounded-sm w-full text-4xl font-bold">
               5
             </div>
             <div>
@@ -97,8 +125,8 @@ const HowItWorks = () => {
             </div>
           </div>
         </div>
-        <div className="relative left-2 m-auto col-start-1 row-start-6 sm:w-44 w-40 h-96 flex flex-col items-center  text-center shadow-md p-2 mt-12">
-          <div className="bg-sahelLight rounded-sm w-full text-4xl font-bold">
+        <div className="relative left-2 mx-auto col-start-1 row-start-6  sm:w-44 w-40 h-96 flex flex-col items-center  text-center shadow-md p-2 mt-12 sm:mt-20">
+          <div className="bg-[#d28b6f] text-white rounded-sm w-full text-4xl font-bold">
             6
           </div>
           <div>
@@ -115,12 +143,15 @@ const HowItWorks = () => {
           </div>
         </div>
 
-        <div className="relative right-20 m-auto col-start-3 row-start-5 sm:w-44 w-40 h-96 flex flex-col items-center justify-between text-center sm:mt-12">
-          <p className="mx-auto mt-auto mb-4 row-start-4 col-start-3 italic text-secondaryBlue">
+        <div className="relative right-20 m-auto col-start-3 row-start-5 sm:w-44 w-40 h-auto flex flex-col items-center justify-between text-center sm:mt-12">
+          <p className="mx-auto mt-auto row-start-4 col-start-3 italic text-secondaryBlue">
             Je serais présent lors de la prestation
           </p>
+          <div className="w-24">
+            <img src={arrow} alt="" className="rotate-90 w-full" />
+          </div>
           <div className="shadow-md p-2 h-[392px]">
-            <div className="bg-sahelLight rounded-sm w-full text-4xl font-bold">
+            <div className="bg-[#d28b6f] text-white rounded-sm w-full text-4xl font-bold">
               5
             </div>
             <div>
@@ -137,8 +168,8 @@ const HowItWorks = () => {
             </div>
           </div>
         </div>
-        <div className="m-auto relative right-20 col-start-3 row-start-6 sm:w-44 w-40 h-96 flex flex-col items-center text-center shadow-md p-2 mt-12">
-          <div className="bg-sahelLight rounded-sm w-full text-4xl font-bold">
+        <div className="mx-auto relative right-20 col-start-3 row-start-6 sm:w-44 w-40 h-96 flex flex-col items-center text-center shadow-md p-2 mt-12 sm:mt-20">
+          <div className="bg-[#d28b6f] text-white rounded-sm w-full text-4xl font-bold">
             6
           </div>
           <div>

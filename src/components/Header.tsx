@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import logo from '../assets/Logo-2-copie.webp'
 import { useAppSelector } from '../redux/hooks'
 import { signOut } from 'firebase/auth'
@@ -9,11 +9,14 @@ import { useState } from 'react'
 import { AlertSuccess } from './common/AlertSuccess'
 import Cookies from 'js-cookie'
 import { setCurrentStep } from '../redux/slices/formSlice'
+import { RefObject } from 'react'
+import { Button } from './common/Button'
 
 const Header = () => {
   const [isLoggedOut, setIsLoggedOut] = useState(false)
   const isLoggedIn = useAppSelector((state) => state.user.isLoggedIn)
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
 
   const handleLogout = async () => {
     try {
@@ -29,6 +32,10 @@ const Header = () => {
     } catch (error) {
       console.error('Erreur lors de la déconnexion:', error)
     }
+  }
+
+  const handleSubscribeClick = () => {
+    navigate('/', { state: { scrollToForm: true } })
   }
 
   return (
@@ -92,12 +99,15 @@ const Header = () => {
               >
                 Comment ça marche
               </Link>
-              <a
-                className="font-medium text-gray-500 hover:text-gray-400 sm:py-6 dark:text-gray-400 dark:hover:text-gray-500"
-                href="#"
-              >
-                Souscrire
-              </a>
+              <div className="h-12 m-0">
+                <Button
+                  label={'Souscrire'}
+                  hoverColor={'hover:bg-sahel'}
+                  bgColor={'bg-sahelRegular'}
+                  onClick={handleSubscribeClick}
+                  largeButton={false}
+                />
+              </div>
               <Link
                 className="font-medium text-gray-500 hover:text-gray-400 sm:py-6 dark:text-gray-400 dark:hover:text-gray-500"
                 to="/contact"

@@ -40,7 +40,7 @@ export const FormSection = React.forwardRef((_, ref) => {
             className=" w-full sm:w-full sm:mt-24 hidden sm:flex max-w-[900px]"
           />
         </div>
-        <div className="bg-white w-1/2 w-full my-auto flex max-w-[460px] min-h-[750px] sm:px-8 py-4 px-2 sm:shadow-lg sm:rounded-sm">
+        <div className="bg-white  w-full my-auto flex max-w-[460px] min-h-[750px] sm:px-8 py-4 px-2 sm:shadow-lg sm:rounded-sm">
           {renderStep()}
         </div>
       </div>
