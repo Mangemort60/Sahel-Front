@@ -76,10 +76,10 @@ export const QuoteReview = () => {
       </div>
       {isLoggedIn ? (
         <div className="w-full flex flex-col gap-4 items-center justify-between mt-6">
-          {/* ici proposer de créer un compte ou de se connecter à la place du boutton
-        reservation si le user est pas connecté */}
           {isLoading ? (
-            <Spinner />
+            <div className="text-black text-2xl flex items-center  font-thin w-full">
+              Total TTC : <Spinner /> €
+            </div>
           ) : (
             <p className="  text-black text-1xl font-thin">
               Total TTC :{' '}
@@ -98,28 +98,39 @@ export const QuoteReview = () => {
           />
         </div>
       ) : (
-        <div className="text-gray-500 text-sm flex flex-col gap-1 ">
-          <p className="my-8  text-black text-1xl font-thin">
-            Total TTC :{' '}
-            <span className="font-bold text-4xl text-secondaryDarkBlue">
-              {totalPrice} €
-            </span>
-          </p>
-          <p>
-            <Link
-              to="/register"
-              className="text-blue-700 font-semibold underline"
-            >
-              Créez un compte
-            </Link>{' '}
-            pour réserver
-          </p>
-          <p>
-            Déjà un compte ?{' '}
-            <Link to="/login" className="text-blue-700 font-semibold underline">
-              Connectez vous
-            </Link>
-          </p>
+        <div className="w-full text-gray-500 text-sm flex flex-col gap-1 ">
+          {isLoading ? (
+            <div className="text-black text-2xl flex items-center  font-thin w-full">
+              Total TTC : <Spinner /> €
+            </div>
+          ) : (
+            <p className="  text-black text-1xl font-thin">
+              Total TTC :{' '}
+              <span className="font-bold text-4xl text-secondaryDarkBlue ">
+                {totalPrice} €
+              </span>
+            </p>
+          )}
+          <div>
+            <p>
+              <Link
+                to="/register"
+                className="text-blue-700 font-semibold underline"
+              >
+                Créez un compte
+              </Link>{' '}
+              pour réserver
+            </p>
+            <p>
+              Déjà un compte ?{' '}
+              <Link
+                to="/login"
+                className="text-blue-700 font-semibold underline"
+              >
+                Connectez vous
+              </Link>
+            </p>
+          </div>
         </div>
       )}
     </div>

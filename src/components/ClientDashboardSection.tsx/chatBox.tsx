@@ -15,6 +15,7 @@ import getApiUrl from '../../utils/getApiUrl'
 const ChatBox = () => {
   const reservationId = useAppSelector((state) => state.ui.reservationId)
   const sender = useAppSelector((state) => state.user.name)
+  const clientEmail = useAppSelector((state) => state.user.email)
   const [messages, setMessages] = useState<Message[]>([])
   const userRole = useAppSelector((state) => state.user.role)
 
@@ -22,6 +23,7 @@ const ChatBox = () => {
 
   interface Message {
     sender: string
+    clientEmail: string
     text: string
     role: string
     attachments?: { url: string; type: string }[]
@@ -89,6 +91,7 @@ const ChatBox = () => {
   const onSubmit = async (data: MessageData) => {
     const messagePayload: Message = {
       sender,
+      clientEmail,
       text: data.text,
       role: userRole,
       created: new Date().toISOString(), // Ajoute un timestamp

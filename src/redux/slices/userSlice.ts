@@ -5,7 +5,7 @@ interface UserState {
   name: string
   firstName: string
   shortId: string
-  email: string | null
+  email: string
   isLoggedIn: boolean
   role: string
 }
