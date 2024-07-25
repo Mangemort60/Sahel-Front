@@ -25,7 +25,7 @@ const HowItWorks = () => {
             1
           </div>
           <div>
-            <img src={devis} alt="Devis" className="w-12 m-auto my-6" />
+            <img src={devis} alt="Devis" className="w-16 m-auto my-6" />
             <span className="text-2xl font-bold">Devis</span>
             <div className="text-xs mt-4 text-start text-secondaryBlue">
               Remplissez vos informations et obtenez votre devis en quelques
@@ -48,7 +48,7 @@ const HowItWorks = () => {
             <img
               src={reservation}
               alt="Reservation"
-              className="w-12 m-auto my-6"
+              className="w-16 m-auto my-6"
             />
             <span className="text-2xl font-bold">Reservation</span>
             <div className="text-xs mt-4 text-start text-secondaryBlue">
@@ -69,7 +69,7 @@ const HowItWorks = () => {
             3
           </div>
           <div>
-            <img src={payment} alt="Paiement" className="w-12 m-auto my-6" />
+            <img src={payment} alt="Paiement" className="w-16 m-auto my-6" />
             <span className="text-2xl font-bold">Paiement</span>
             <div className="text-xs mt-4 text-start text-secondaryBlue">
               Procédez au paiement par les moyens de votre choix
@@ -91,7 +91,7 @@ const HowItWorks = () => {
             <img
               src={instructions}
               alt="Instructions"
-              className="w-12 m-auto my-6"
+              className="w-16 m-auto my-6"
             />
             <span className="text-2xl font-bold">Instructions</span>
             <div className="text-xs mt-4 text-start text-secondaryBlue">
@@ -115,7 +115,7 @@ const HowItWorks = () => {
               <img
                 src={keys}
                 alt="Reception des clefs"
-                className="w-12 m-auto my-6"
+                className="w-16 m-auto my-6"
               />
               <span className="text-2xl font-bold">Reception des clefs</span>
               <div className="text-xs mt-4 text-start text-secondaryBlue">
@@ -133,7 +133,7 @@ const HowItWorks = () => {
             <img
               src={valid}
               alt="Prestation terminée"
-              className="w-12 m-auto my-6"
+              className="w-16 m-auto my-6"
             />
             <span className="text-2xl font-bold">Prestation terminée</span>
             <div className="text-xs mt-4 text-start text-secondaryBlue">
@@ -158,7 +158,7 @@ const HowItWorks = () => {
               <img
                 src={calendarUser}
                 alt="Je suis disponible"
-                className="w-12 m-auto my-6"
+                className="w-16 m-auto my-6"
               />
               <span className="text-2xl font-bold">Je suis disponible</span>
               <div className="text-xs mt-4 text-start text-secondaryBlue">
@@ -176,7 +176,7 @@ const HowItWorks = () => {
             <img
               src={valid}
               alt="Prestation terminée"
-              className="w-12 m-auto my-6"
+              className="w-16 m-auto my-6"
             />
             <span className="text-2xl font-bold">Prestation terminée</span>
             <div className="text-xs mt-4 text-start text-secondaryBlue">

@@ -21,8 +21,6 @@ export const AddressForm = () => {
   const shortId = useAppSelector((state) => state.user.shortId)
   const name = useAppSelector((state) => state.user.name)
 
-  console.log(email)
-
   const {
     register,
     handleSubmit,
@@ -32,6 +30,8 @@ export const AddressForm = () => {
   })
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
+    console.log('submitted')
+
     if (!serviceDate) {
       alert('Veuillez sélectionner une date avant de soumettre.')
       return
