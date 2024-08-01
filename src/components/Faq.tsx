@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import question from '../assets/question.webp'
+import { Link } from 'react-router-dom'
 
 export const Faq = () => {
   const [openQuestionIndex, setOpenQuestionIndex] = useState(null)
@@ -25,14 +26,56 @@ export const Faq = () => {
           <div className="max-w-3xl mx-auto mt-8 space-y-4 md:mt-16">
             {[
               {
-                question: 'Question 1',
-                answer:
-                  'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.',
+                question:
+                  'Je ne comprends pas le système de clés, comment allez vous accéder à mon logement ?',
+                answer: (
+                  <>
+                    <p>
+                      Chez Sahel, nous nous adaptons à vos préférences pour
+                      garantir un accès sécurisé à votre logement. Nous
+                      proposons plusieurs solutions flexibles afin que vous
+                      puissiez choisir celle qui vous convient le mieux, tout en
+                      assurant une tranquillité d'esprit totale.
+                    </p>
+                    <p className="mt-4">
+                      Pour en savoir plus, consultez notre infographie
+                      expliquant en détail le processus :
+                      <Link
+                        to="/comment-ca-marche"
+                        className="text-blue-600 underline ml-1"
+                      >
+                        ici
+                      </Link>
+                      .
+                    </p>
+                  </>
+                ),
               },
               {
-                question: 'Question 2',
-                answer:
-                  'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.',
+                question: 'Qu’avez-vous prévu afin de prévenir les vols ?',
+                answer: (
+                  <>
+                    <p>
+                      Chez Sahel, l'intégrité de vos biens est une de nos
+                      préoccupations majeures. Nos agents, notamment nos femmes
+                      de ménage, sont formés et sensibilisés aux bonnes
+                      pratiques de sécurité. Nous valorisons leur travail en les
+                      rémunérant de manière juste, ce qui renforce leur
+                      engagement et leur satisfaction professionnelle. Un
+                      opérateur dédié est également disponible pour veiller au
+                      bon déroulement des prestations, assurant ainsi une
+                      tranquillité d'esprit totale pour vous.
+                    </p>
+                    <p className="mt-4">
+                      <Link
+                        to="/politique-de-prevention-vol"
+                        className="text-blue-600 underline"
+                      >
+                        Consultez notre politique de prévention contre le vol
+                      </Link>
+                    </p>
+                  </>
+                ),
               },
               {
                 question: 'Question 3',
@@ -78,18 +121,7 @@ export const Faq = () => {
 
                 {openQuestionIndex === index && (
                   <div className="px-4 pb-5 sm:px-6 sm:pb-6">
-                    <p className="text-secondaryLightBlue">
-                      {item.answer}{' '}
-                      <a
-                        href="#"
-                        title=""
-                        className="text-blue-600 transition-all duration-200 hover:underline"
-                      >
-                        aliqua dolor
-                      </a>{' '}
-                      do amet sint. Velit officia consequat duis enim velit
-                      mollit.
-                    </p>
+                    <p className="text-secondaryLightBlue">{item.answer} </p>
                   </div>
                 )}
               </div>

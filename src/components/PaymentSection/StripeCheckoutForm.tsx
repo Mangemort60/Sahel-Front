@@ -101,7 +101,7 @@ export const StripeCheckoutForm = () => {
         <div className="flex justify-between">
           <p>
             Le nettoyage sera fait{' '}
-            {beforeOrAfter === 'Before' ? 'avant' : 'après'} votre arrivée
+            {beforeOrAfter === 'before' ? 'avant' : 'après'} votre arrivée
           </p>
         </div>
         <div className="flex justify-between ">

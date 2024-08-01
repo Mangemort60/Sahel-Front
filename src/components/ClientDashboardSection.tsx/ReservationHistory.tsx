@@ -278,7 +278,7 @@ export const ReservationHistory = () => {
             <div className="flex justify-between">
               <p>
                 Le nettoyage sera fait{' '}
-                {selectedReservation?.formData?.fruitBasketSelected === 'Before'
+                {selectedReservation?.formData?.beforeOrAfter === 'before'
                   ? 'avant'
                   : 'après'}{' '}
                 votre arrivée

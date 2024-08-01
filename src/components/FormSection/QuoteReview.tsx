@@ -65,7 +65,7 @@ export const QuoteReview = () => {
         </p>
         <p className="w-full mt-4 ">Le nettoyage sera fait :</p>
         <p className="border-b-gray-100 border-b-2 mt-6 text-gray-500 font-thin  ">
-          {beforeOrAfter === 'Before'
+          {beforeOrAfter === 'before'
             ? 'Avant mon arrivée'
             : 'Après mon arrivée'}
         </p>
