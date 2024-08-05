@@ -7,7 +7,7 @@ import puzzle from '../assets/puzzle.webp'
 const Solution = () => {
   return (
     <div className="max-w-2/3 sm:w-2/3  sm:mx-auto mb-20 mx-2">
-      <div className="flex flex-col gap-4 items-start my-12">
+      <div className="flex flex-col gap-4 items-start mt-20">
         <h1 className="text-3xl sm:text-6xl text-secondaryDarkBlue font-extrabold m-0">
           Votre nettoyage en un clic :
           <br /> simple, flexible, efficace.
@@ -78,29 +78,29 @@ const Solution = () => {
         <h2 className="text-4xl sm:text-6xl mr-auto text-secondaryDarkBlue font-extrabold">
           Les points fort du système Sahel
         </h2>
-        <div className="h-auto p-2 sm:flex sm:justify-center m-auto sm:gap-12 space-y-8 sm:space-y-0">
-          <div className="shadow-md rounded-sm flex flex-col items-center p-6  space-y-4 h-[400px] max-w-[300px]">
+        <div className="h-auto p-2 sm:flex sm:justify-center m-auto sm:gap-8 space-y-8 sm:space-y-0">
+          <div className="shadow-md rounded-sm flex flex-col items-center p-6  space-y-4 h-auto max-w-[300px] w-1/3">
             <img src={simplicity} alt="" className="w-40" />
             <p className="text-2xl text-secondaryBlue">Simplicité</p>
-            <p className="text-sm italic text-secondaryLightBlue">
+            <p className="text-sm  text-secondaryLightBlue">
               Planifiez votre ménage à partir d’un système de réservation pensé
               pour être le plus simple et rapide possible.
             </p>
           </div>
-          <div className="shadow-md rounded-sm flex flex-col items-center p-6  space-y-4 h-[400px] max-w-[300px]">
+          <div className="shadow-md rounded-sm flex flex-col items-center p-6  space-y-4 h-auto max-w-[300px] w-1/3">
             <img src={reaction} alt="" className="w-40" />
             <p className="text-2xl text-secondaryBlue">Réactivité</p>
-            <p className="text-sm italic text-secondaryLightBlue">
+            <p className="text-sm  text-secondaryLightBlue">
               Suivez en temps réel l'avancement de votre prestation. Une
               messagerie dédiée est disponible pour chacune de vos prestations,
               vous permettant de poser vos questions et de recevoir des réponses
-              immédiates. Avec Sahel, vous restez informé à chaque étape.{' '}
+              rapides. Avec Sahel, vous restez informé à chaque étape.{' '}
             </p>
           </div>
-          <div className="shadow-md rounded-sm flex flex-col items-center p-6  space-y-4 h-[400px] max-w-[300px]">
+          <div className="shadow-md rounded-sm flex flex-col items-center p-6  space-y-4 h-auto max-w-[300px] w-1/3">
             <img src={puzzle} alt="" className="w-40" />
             <p className="text-2xl text-secondaryBlue">Flexibilité</p>
-            <p className="text-sm italic text-secondaryLightBlue">
+            <p className="text-sm  text-secondaryLightBlue">
               Nous nous adaptons à vos contraintes en matière d’accès au
               logement et vous offrons la possibilité de réserver votre ménage
               du jour au lendemain

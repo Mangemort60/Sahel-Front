@@ -24,7 +24,7 @@ export const FormSection = React.forwardRef((_, ref) => {
   return (
     <div ref={ref}>
       <div className="sm:flex py-8 sm:flex-row flex-col sm:justify-center justify-between items-center p-4 text-white sm:bg-cover sm:bg-center sm:bg-[url('../../assets/layeredWaves.webp')] bg-none">
-        <div className="sm:w-1/2">
+        <div className="sm:w-1/2 mt-20">
           <h1 className="text-secondaryDarkBlue font-extrabold  sm:text-6xl text-3xl  sm:mt-0 mt-8">
             Obtenez votre devis instantanément !
           </h1>

@@ -52,7 +52,7 @@ const Header = () => {
             <div className="sm:hidden">
               <button
                 type="button"
-                className="hs-collapse-toggle size-9 flex justify-center items-center text-sm font-semibold rounded-lg border border-gray-200 text-gray-800 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none "
+                className="hs-collapse-toggle size-9 flex justify-center items-center text-sm font-semibold rounded-sm border border-gray-200 text-gray-800 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none "
                 data-hs-collapse="#navbar-collapse-with-animation"
                 aria-controls="navbar-collapse-with-animation"
                 aria-label="Toggle navigation"
@@ -87,29 +87,54 @@ const Header = () => {
           >
             <div className="flex flex-col gap-y-4 gap-x-0 mt-5 sm:flex-row sm:items-center sm:justify-end sm:gap-y-0 sm:gap-x-7 sm:mt-0 sm:ps-7">
               <Link
-                className="font-medium  text-gray-500 hover:text-gray-400 sm:py-6 dark:text-gray-400 dark:hover:text-gray-500"
+                className="font-thin  text-secondaryDarkBlue hover:text-gray-400 sm:py-6 dark:text-gray-400 dark:hover:text-secondaryDarkBlue"
                 to="/about-us"
                 aria-current="page"
               >
                 Qui sommes nous
               </Link>
-              <Link
-                className="font-medium text-gray-500 hover:text-gray-400 sm:py-6 dark:text-gray-400 dark:hover:text-gray-500"
-                to="/comment-ca-marche"
-              >
-                Comment ça marche
-              </Link>
+              <div className="hs-dropdown relative inline-flex">
+                <button
+                  id="hs-dropdown-default"
+                  type="button"
+                  className="hs-dropdown-toggle font-thin text-secondaryDarkBlue hover:text-gray-400 sm:py-6 dark:text-gray-400 dark:hover:text-secondaryDarkBlue"
+                  aria-haspopup="menu"
+                  aria-expanded="false"
+                  aria-label="Dropdown"
+                >
+                  Services
+                </button>
+
+                <div
+                  className="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden min-w-60 bg-white shadow-md rounded-sm p-1 space-y-0.5 mt-2 dark:bg-neutral-800 dark:border dark:border-neutral-700 dark:divide-neutral-700 after:h-4 after:absolute after:-bottom-4 after:start-0 after:w-full before:h-4 before:absolute before:-top-4 before:start-0 before:w-full"
+                  role="menu"
+                  aria-orientation="vertical"
+                  aria-labelledby="hs-dropdown-default"
+                >
+                  <Link
+                    className="flex items-center gap-x-3.5 py-2 px-3 rounded-sm text-sm text-gray-800 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700"
+                    to={'/comment-ca-marche'}
+                  >
+                    Ménage
+                  </Link>
+                  <a
+                    className="flex items-center gap-x-3.5 py-2 px-3 rounded-sm text-sm text-gray-800 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700"
+                    href="#"
+                  >
+                    Cuisine
+                  </a>
+                </div>
+              </div>
               <div className="h-12 m-0">
-                <Button
-                  label={'Souscrire'}
-                  hoverColor={'hover:bg-sahel'}
-                  bgColor={'bg-sahelRegular'}
+                <button
+                  className="py-3 px-2 inline-flex items-center w-auto justify-center gap-  rounded-sm border border-transparent text-white  bg-sahelRegular disabled:pointer-events-none hover:bg-sahelDark  "
                   onClick={handleSubscribeClick}
-                  largeButton={false}
-                />
+                >
+                  Réserver mon ménage
+                </button>
               </div>
               <Link
-                className="font-medium text-gray-500 hover:text-gray-400 sm:py-6 dark:text-gray-400 dark:hover:text-gray-500"
+                className="font-thin text-secondaryDarkBlue hover:text-gray-400 sm:py-6 dark:text-gray-400 dark:hover:text-secondaryDarkBlue"
                 to="/contact"
               >
                 Contact
@@ -119,7 +144,7 @@ const Header = () => {
                 {isLoggedIn ? (
                   <div className="flex">
                     <Link
-                      className="flex items-center gap-x-2 font-medium text-gray-500 hover:text-blue-600  sm:my-6 sm:ps-6 "
+                      className="flex items-center gap-x-2 font-thin text-secondaryDarkBlue hover:text-blue-600  sm:my-6 sm:ps-6 "
                       to="/client-dashboard"
                     >
                       <svg
@@ -135,7 +160,7 @@ const Header = () => {
                       Mon espace
                     </Link>
                     <Link
-                      className="flex items-center gap-x-2 font-medium  text-gray-500 hover:text-blue-600 sm:border-s sm:border-gray-300 ml-2 sm:my-6 sm:ps-6 "
+                      className="flex items-center gap-x-2 font-thin text-secondaryDarkBlue hover:text-blue-600 sm:border-s sm:border-gray-300 ml-2 sm:my-6 sm:ps-6 "
                       to="/"
                       onClick={() => handleLogout()}
                     >
@@ -157,7 +182,7 @@ const Header = () => {
                   </div>
                 ) : (
                   <Link
-                    className="flex items-center gap-x-2 font-medium text-gray-500 hover:text-blue-600  sm:my-6 sm:ps-6 "
+                    className="flex items-center gap-x-2 font-t text-secondaryDarkBlue hover:text-blue-600  sm:my-6 sm:ps-6 "
                     to="/login"
                   >
                     <svg

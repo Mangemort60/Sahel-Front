@@ -12,11 +12,25 @@ const HowItWorks = () => {
   return (
     <div className="m-2">
       <div className="mx-auto my-12 space-y-5 max-w-[775px]">
-        <h1 className="text-sahelRegular font-bold text-md ">
-          Comment ça marche ?
-        </h1>
+        <h1 className="text-sahelRegular font-bold text-md ">Ménage</h1>
         <h1 className="text-4xl sm:text-6xl text-secondaryDarkBlue font-extrabold m-0">
-          Votre reservation en 6 étapes
+          Un service de Ménage Simple, Flexible et Efficace
+        </h1>
+        <p>
+          Chez Sahel, nous vous offrons un service de ménage qui se distingue
+          par son professionnalisme et son adaptabilité. Notre équipe
+          expérimentée s'engage à respecter vos exigences avec une flexibilité
+          totale, que vous soyez présent ou non. Nous accordons une importance
+          primordiale à la sécurité et à la confiance, en garantissant une
+          gestion rigoureuse de l'accès à votre domicile et en assurant la
+          protection de vos biens. Tout au long de notre intervention, vous
+          bénéficiez d’un suivi personnalisé et d’une communication
+          transparente, pour que vous ayez l’esprit tranquille à chaque étape.
+          Avec Sahel, vous pouvez être sûr que votre espace est entre de bonnes
+          mains, vous offrant ainsi une sérénité totale.{' '}
+        </p>
+        <h1 className="text-4xl sm:text-6xl text-secondaryDarkBlue font-extrabold m-0">
+          Votre prestation en 6 étapes
         </h1>
       </div>
       <div className="grid grid-cols-3 grid-rows-6 gap-x-12 max-w-[775px] m-auto">
@@ -185,6 +199,35 @@ const HowItWorks = () => {
             </div>
           </div>
         </div>
+      </div>
+      <div className="mx-auto my-12 space-y-5 max-w-[775px]">
+        <h1 className="text-4xl sm:text-6xl text-secondaryDarkBlue font-extrabold m-0">
+          Respect Rigoureux de Notre Cahier des Charges{' '}
+        </h1>
+        <p>
+          Chez Sahel, nous adhérons strictement à notre propre cahier des
+          charges, conçu pour garantir des prestations de ménage de la plus
+          haute qualité. Ce document définit avec précision les normes et les
+          procédures que nous appliquons lors de chaque intervention, assurant
+          ainsi un service uniforme et irréprochable. De l'utilisation de
+          produits écologiques à la gestion sécurisée des accès, en passant par
+          le respect des délais et la qualité du suivi client, chaque aspect de
+          notre travail est encadré par des standards rigoureux. En respectant
+          ce cahier des charges, nous vous assurons un service de ménage
+          professionnel qui répond à vos attentes, tout en garantissant une
+          sérénité totale.{' '}
+        </p>
+        <h1 className="text-4xl sm:text-6xl text-secondaryDarkBlue font-extrabold m-0">
+          Politique de prévention contre le vol{' '}
+        </h1>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae
+          mollitia expedita eum dolorem eius accusamus id doloribus perferendis
+          ipsum error nam magni aperiam labore impedit, neque iure, ducimus
+          inventore dolor ab aliquam adipisci explicabo tenetur. Neque
+          accusantium officia omnis ipsa minus pariatur numquam placeat, ullam
+          saepe natus similique facere tempore.
+        </p>
       </div>
     </div>
   )
