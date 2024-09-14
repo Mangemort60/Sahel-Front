@@ -1,6 +1,8 @@
 import { Button } from '../common/Button'
 import homeImage from '../../assets/homeImage.webp'
 import { RefObject } from 'react'
+import nettoyage from '../../assets/nettoyage.png'
+import cuisine from '../../assets/chapeau-chef.png'
 
 interface SectionProps {
   formSectionRef: RefObject<HTMLDivElement>
@@ -25,18 +27,28 @@ export const HeroSection = ({ formSectionRef }: SectionProps) => {
         }}
       >
         <div>
-          <h1 className="sm:text-7xl text-4xl font-bold sm:w-2/3">
-            VOS VACANCES COMMENCENT SUR LE SEUIL DE LA PORTE.
+          <h1 className="sm:text-6xl text-3xl font-bold sm:w-2/3 mb-2 ">
+            MÉNAGE.
+            <br />
+            CUISINE.
           </h1>
-          <p className="sm:text-4xl mt-8 text-1xl sm:w-2/3 mb-4 ">
-            Profitez pleinement de votre séjour au Maroc sans les tracas du
-            quotidien
+          <h2 className="sm:text-7xl text-4xl font-bold ">
+            ZÉRO CORVÉES. <br />
+            100% VACANCES.
+          </h2>
+          {/* <div className="flex space-x-6 my-4">
+            <img src={nettoyage} alt="" className="w-14" />
+            <img src={cuisine} alt="" className="w-14" />
+          </div> */}
+          <p className="sm:text-4xl mt-4 text-1xl sm:w-2/3 mb-4 ">
+            Profitez pleinement de votre séjour au Maroc et libérez vous des
+            tracas du quotidien
           </p>
           <button
-            className="py-3 px-4 inline-flex items-center w-48 justify-center gap-x-2  font-semibold rounded-sm border border-transparent text-white disabled:opacity-50 bg-secondaryDarkBlue disabled:pointer-events-none hover:bg-secondaryRegularBlue  "
+            className="py-3 px-4 inline-flex items-center w-auto justify-center gap-x-2  font-semibold rounded-sm border border-transparent text-white disabled:opacity-50 bg-secondaryDarkBlue disabled:pointer-events-none hover:bg-secondaryRegularBlue  "
             onClick={handleSubscribeClick}
           >
-            Réserver mon ménage
+            Réserver
           </button>
         </div>
       </div>

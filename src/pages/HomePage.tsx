@@ -20,11 +20,7 @@ const HomePage = () => {
 
   useEffect(() => {
     // Vérifiez si l'URL contient un hash pour formSection
-    if (
-      location.hash === '#formSection' &&
-      formSectionRef.current &&
-      formStep !== 'form'
-    ) {
+    if (location.hash === '#formSection' && formSectionRef.current) {
       formSectionRef.current.scrollIntoView({ behavior: 'smooth' })
     }
   }, [location])

@@ -2,23 +2,23 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 interface FormState {
+  reservationType: string
   formData: Record<string, any>
   bookingFormData: Record<string, any>
   quote: number | null
   currentStep: string
   isLoading: boolean
   serviceDate: string | null
-  hasCompletedPayment: boolean
 }
 
 const initialState: FormState = {
+  reservationType: '',
   formData: {},
   bookingFormData: {},
   quote: null,
-  currentStep: 'form',
+  currentStep: 'serviceChoice',
   isLoading: false,
   serviceDate: null,
-  hasCompletedPayment: false,
 }
 
 export const formSlice = createSlice({
@@ -43,21 +43,23 @@ export const formSlice = createSlice({
     setServiceDate: (state, action: PayloadAction<string | null>) => {
       state.serviceDate = action.payload
     },
-    setHasCompletedPayment: (state, action: PayloadAction<boolean>) => {
-      state.hasCompletedPayment = action.payload
+
+    setReservationType: (state, action: PayloadAction<string>) => {
+      state.reservationType = action.payload
     },
     resetFormState: () => initialState,
   },
 })
 
 export const {
+  setReservationType,
   setFormData,
   setQuote,
   setCurrentStep,
   setIsLoading,
   setServiceDate,
   setBookingFormData,
-  setHasCompletedPayment,
+  resetFormState,
 } = formSlice.actions
 
 export default formSlice.reducer

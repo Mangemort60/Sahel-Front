@@ -49,7 +49,6 @@ export const AddressForm = () => {
         console.log('Client Secret reçu:', clientSecret)
         dispatch(setBookingFormData(data))
         navigate('/stripe-checkout-form', {
-          replace: true,
           state: { clientSecret },
         })
       } catch (error) {
@@ -64,7 +63,7 @@ export const AddressForm = () => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col gap-2 space-y-4  w-full my-4"
+      className="flex flex-col gap-2 space-y-4  w-full "
     >
       {/* <div>
           <label
@@ -158,7 +157,6 @@ export const AddressForm = () => {
           className="border-b-2 border-b-gray-200 border-0 text-gray-900 text-sm block w-full p-2.5 dark:border-gray-300 "
           name="specialInstructions"
           id="specialInstructions"
-          placeholder="Instructions spéciales pour accéder à votre domicile (facultatif)"
           rows={2}
         ></textarea>
       </div>

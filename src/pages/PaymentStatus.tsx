@@ -4,10 +4,8 @@ import { AlertSuccess } from '../components/common/AlertSuccess'
 import { AlertError } from '../components/common/AlertError'
 import { useReservationData } from '../redux/hooks'
 import { useDispatch } from 'react-redux'
-import {
-  setCurrentStep,
-  setHasCompletedPayment,
-} from '../redux/slices/formSlice'
+import { useAppSelector } from '../redux/hooks'
+import { setCurrentStep } from '../redux/slices/formSlice'
 import getApiUrl from '../utils/getApiUrl'
 
 type Message = {
@@ -23,6 +21,7 @@ export const PaymentStatus = () => {
   const [error, setError] = useState<Message>({ title: '', description: '' })
   const apiUrl = getApiUrl()
   const dispatch = useDispatch()
+  const reservationType = useAppSelector((state) => state.form.reservationType)
 
   // Utilisez le hook personnalisé pour obtenir les données de réservation
   const reservationData = useReservationData()
@@ -35,7 +34,8 @@ export const PaymentStatus = () => {
       axios
         .post(`${apiUrl}/check-payment-intent`, {
           paymentIntentId,
-          reservationData, // Inclure les données de réservation dans la requête POST
+          reservationData,
+          reservationType, // Inclure les données de réservation dans la requête POST
         })
         .then((response) => {
           const { success, message } = response.data
@@ -48,8 +48,7 @@ export const PaymentStatus = () => {
               description: 'Paiement réussi et réservation créée.',
             })
             setError(null)
-            dispatch(setHasCompletedPayment(true))
-            dispatch(setCurrentStep('form'))
+            dispatch(setCurrentStep('serviceChoice'))
           } else {
             setError({
               title: 'Erreur',

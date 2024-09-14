@@ -7,7 +7,7 @@ import { FaArrowLeft } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import getApiUrl from '../../utils/getApiUrl'
 
-export const QuoteReview = () => {
+export const CleaningQuoteReview = () => {
   const { numberOfFloors, sizeRange, fruitBasketSelected, beforeOrAfter } =
     useAppSelector((state) => state.form.formData)
   console.log('API URL', getApiUrl())
@@ -41,11 +41,11 @@ export const QuoteReview = () => {
   }
 
   const handleReturnClick = () => {
-    dispatch(setCurrentStep('form'))
+    dispatch(setCurrentStep('cleaningForm'))
   }
 
   return (
-    <div className="w-full flex flex-col gap-4 justify-evenly">
+    <div className="w-full flex flex-col gap-4 justify-between h-full">
       <button
         onClick={() => handleReturnClick()}
         className="text-gray-400 mb-4 flex items-center gap-2"
@@ -56,21 +56,21 @@ export const QuoteReview = () => {
       <div className="text-black text-2xl">Récapitulatif du devis</div>
       <div className="text-black mt-6 ">
         <p className="w-full mt-4">Nombre d'étages a nettoyer :</p>
-        <p className="border-b-gray-100 border-b-2 mt-6 text-gray-500 font-thin  ">
+        <p className="border-b-gray-100 border-b-2 mt-6 text-gray-500 font-thin text-end  ">
           {numberOfFloors}
         </p>
         <p className="w-full mt-4">Surface a nettoyer :</p>
-        <p className="border-b-gray-100 border-b-2 mt-6 text-gray-500 font-thin  ">
+        <p className="border-b-gray-100 border-b-2 mt-6 text-gray-500 font-thin text-end  ">
           {formatSizeRange(sizeRange)}
         </p>
         <p className="w-full mt-4 ">Le nettoyage sera fait :</p>
-        <p className="border-b-gray-100 border-b-2 mt-6 text-gray-500 font-thin  ">
+        <p className="border-b-gray-100 border-b-2 mt-6 text-gray-500 font-thin text-end  ">
           {beforeOrAfter === 'before'
             ? 'Avant mon arrivée'
             : 'Après mon arrivée'}
         </p>
         <p className="w-full mt-4 ">Vous souhaitez une corbeille de fruits</p>
-        <p className="border-b-gray-100 border-b-2 mt-6 text-gray-500 font-thin  ">
+        <p className="border-b-gray-100 border-b-2 mt-6 text-gray-500 font-thin text-end  ">
           {fruitBasketSelected ? 'oui' : 'non'}
         </p>
       </div>
@@ -88,17 +88,19 @@ export const QuoteReview = () => {
               </span>
             </p>
           )}
-          <Button
-            label="Reserver"
-            hoverColor={'hover:bg-secondaryRegularBlue'}
-            bgColor={'bg-secondaryLightBlue'}
-            type="button"
-            onClick={handleReserveClick}
-            largeButton={true}
-          />
+          <div className="w-full">
+            <Button
+              hoverColor={'hover:bg-secondaryRegularBlue'}
+              bgColor={'bg-secondaryLightBlue'}
+              type="submit"
+              label="Reserver"
+              onClick={handleReserveClick}
+              largeButton={true}
+            />
+          </div>
         </div>
       ) : (
-        <div className="w-full text-gray-500 text-sm flex flex-col gap-1 ">
+        <div className="w-full text-gray-500 text-sm flex flex-col gap-1  ">
           {isLoading ? (
             <div className="text-black text-2xl flex items-center  font-thin w-full">
               Total TTC : <Spinner /> €

@@ -20,12 +20,19 @@ interface ReservationCount {
 
 export const CustomDatePicker = () => {
   const apiUrl = getApiUrl()
-  const [reservationCounts, setReservationCounts] = useState<
+
+  // Utiliser deux états séparés pour les réservations de ménage et de cuisine
+  const [cleaningReservationCounts, setCleaningReservationCounts] = useState<
+    ReservationCount[]
+  >([])
+  const [cookingReservationCounts, setCookingReservationCounts] = useState<
     ReservationCount[]
   >([])
 
   const dispatch = useDispatch()
 
+  // Sélectionner le type de réservation (ménage ou cuisine) depuis le Redux store
+  const reservationType = useAppSelector((state) => state.form.reservationType)
   const isBeforeOrAfter = useAppSelector(
     (state) => state.form.formData.beforeOrAfter,
   )
@@ -33,20 +40,20 @@ export const CustomDatePicker = () => {
   useEffect(() => {
     const fetchReservationCounts = async () => {
       try {
-        const { data } = await axios.get<ReservationCount[]>(
-          `${apiUrl}/reserved-dates`,
-        )
-        setReservationCounts(data)
+        const { data } = await axios.get(`${apiUrl}/reserved-dates`)
+
+        // Séparer les données récupérées pour ménage et cuisine
+        setCleaningReservationCounts(data.cleaning)
+        setCookingReservationCounts(data.cooking)
       } catch (error) {
         console.error('Error fetching reservation counts:', error)
       }
     }
 
     fetchReservationCounts()
-  }, [])
+  }, [apiUrl])
 
   const disabledDate = (current: Dayjs) => {
-    // Utilisez la date courante sans conversion UTC pour aligner avec le stockage local des dates
     const today = dayjs().startOf('day')
     const isTodayOrBefore = current.isSameOrBefore(today, 'day')
 
@@ -55,7 +62,13 @@ export const CustomDatePicker = () => {
       isBeforeOrAfter === 'before' &&
       current.isBefore(today.add(15, 'day'), 'day')
 
-    // Vérifie si la date a atteint le nombre maximal de réservations
+    // Sélectionner les réservations en fonction du type de réservation
+    const reservationCounts =
+      reservationType === 'ménage'
+        ? cleaningReservationCounts
+        : cookingReservationCounts
+
+    // Vérifie si la date a atteint le nombre maximal de réservations (ici 3 par exemple)
     const isFullyBooked = reservationCounts.some(
       ({ date, count }) =>
         dayjs(date, 'DD-MM-YYYY').isSame(current, 'day') && count >= 3,
@@ -63,19 +76,15 @@ export const CustomDatePicker = () => {
 
     return isTodayOrBefore || isWithin15DaysFromToday || isFullyBooked
   }
+
   const onChange: DatePickerProps['onChange'] = (date, dateString) => {
-    // Vérifiez que l'objet date n'est pas nul
     if (date) {
-      // Formatez la date en 'DD-MM-YYYY' pour le stockage
       const formattedDate = date.format('DD-MM-YYYY')
-
-      // Stockez la date formattée dans le Redux store
       dispatch(setServiceDate(formattedDate))
-
-      // Log pour le débogage
       console.log('DatePicker selected date:', formattedDate)
     }
   }
+
   return (
     <Space direction="vertical">
       <DatePicker

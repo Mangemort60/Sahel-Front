@@ -8,9 +8,10 @@ import { setIsLoggedIn } from '../redux/slices/userSlice'
 import { useState } from 'react'
 import { AlertSuccess } from './common/AlertSuccess'
 import Cookies from 'js-cookie'
-import { setCurrentStep } from '../redux/slices/formSlice'
+import { resetFormState, setCurrentStep } from '../redux/slices/formSlice'
 import { RefObject } from 'react'
 import { Button } from './common/Button'
+import { resetUiState } from '../redux/slices/uiSlice'
 
 const Header = () => {
   const [isLoggedOut, setIsLoggedOut] = useState(false)
@@ -24,7 +25,9 @@ const Header = () => {
       console.log('Déconnexion réussie')
       dispatch(setIsLoggedIn(false))
       dispatch(setCurrentStep('form'))
+      dispatch(resetUiState())
       setIsLoggedOut(true)
+      dispatch(resetFormState())
       Cookies.remove('token')
       setTimeout(() => {
         setIsLoggedOut(false)
@@ -130,7 +133,7 @@ const Header = () => {
                   className="py-3 px-2 inline-flex items-center w-auto justify-center gap-  rounded-sm border border-transparent text-white  bg-sahelRegular disabled:pointer-events-none hover:bg-sahelDark  "
                   onClick={handleSubscribeClick}
                 >
-                  Réserver mon ménage
+                  Réserver{' '}
                 </button>
               </div>
               <Link

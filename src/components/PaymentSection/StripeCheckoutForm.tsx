@@ -1,5 +1,5 @@
 import { PaymentElement, useStripe, useElements } from '@stripe/react-stripe-js'
-import { Button } from '../common/Button' // Assurez-vous que le chemin d'importation est correct
+import { Button } from '../common/Button'
 import { useDispatch } from 'react-redux'
 import { setCurrentStep } from '../../redux/slices/formSlice'
 import { useAppSelector } from '../../redux/hooks'
@@ -12,9 +12,16 @@ export const StripeCheckoutForm = () => {
   const elements = useElements()
   const dispatch = useDispatch()
 
-  const { numberOfFloors, sizeRange, fruitBasketSelected, beforeOrAfter } =
-    useAppSelector((state) => state.form.formData)
-
+  const reservationType = useAppSelector((state) => state.form.reservationType)
+  const {
+    numberOfFloors,
+    sizeRange,
+    fruitBasketSelected,
+    beforeOrAfter,
+    address,
+    period,
+    numberOfPeople,
+  } = useAppSelector((state) => state.form.formData)
   const quote = useAppSelector((state) => state.form.quote)
   const serviceDate = useAppSelector((state) => state.form.serviceDate)
 
@@ -33,15 +40,37 @@ export const StripeCheckoutForm = () => {
     }
   }
 
+  const formatPeriod = (period: string) => {
+    switch (period) {
+      case 'journee':
+        return 'Journée'
+      case 'soirMidi':
+        return 'Soir/Midi'
+      default:
+        return period
+    }
+  }
+
+  const formatNumberOfPeople = (numberOfPeople: string) => {
+    switch (numberOfPeople) {
+      case '1_8':
+        return '1 à 8 personnes'
+      case '9_plus':
+        return 'Plus de 8 personnes'
+      default:
+        return numberOfPeople
+    }
+  }
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    setIsLoading(true) // Démarre le chargement avant la tentative de soumission
+    setIsLoading(true)
     dispatch(setCurrentStep('form'))
     const siteUrl = getSiteUrl()
 
     if (!stripe || !elements) {
       console.log("Stripe.js hasn't loaded yet.")
-      setIsLoading(false) // Arrête le chargement si Stripe ou elements n'est pas chargé
+      setIsLoading(false)
       return
     }
 
@@ -54,23 +83,19 @@ export const StripeCheckoutForm = () => {
       })
 
       if (result.error) {
-        // Gère l'erreur de paiement
         console.error('PAIEMENT ERROR ', result.error.message)
       } else {
-        // Paiement traité ou en cours de traitement
         console.log('Payment processed or in process')
       }
     } catch (error) {
-      // Gère les erreurs potentielles dans la promesse confirmPayment
       console.error('Error during payment confirmation: ', error)
     } finally {
-      // Arrête le chargement une fois la soumission traitée ou en cas d'erreur
       setIsLoading(false)
     }
   }
 
   return (
-    <div className="mt-8 flex justify-evenly gap-8 sm:flex-row flex-col m-2">
+    <div className="mt-8 flex justify-center gap-8 sm:flex-row flex-col m-2">
       <form id="payment-form" onSubmit={handleSubmit} className="sm:w-1/3 ">
         <PaymentElement />
         <Button
@@ -81,34 +106,64 @@ export const StripeCheckoutForm = () => {
           isLoading={isLoading}
         />
       </form>
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-4 sm:w-96">
         <h2 className="font-semibold text-xl  border-b-2 py-2">
           Récapitulatif de votre commande
         </h2>
-        <div className="flex justify-between">
-          <p>Nombre d'étages</p>
-          <p className="text-gray-500">{numberOfFloors}</p>
-        </div>
-        <div className="flex justify-between">
-          <p>Surface</p>
-          <p className="text-gray-500">{formatSizeRange(sizeRange)}</p>
-        </div>
 
-        <div className="flex justify-between">
-          <p>Panier de fruits</p>
-          <p className="text-gray-500">{fruitBasketSelected ? 'oui' : 'non'}</p>
-        </div>
-        <div className="flex justify-between">
-          <p>
-            Le nettoyage sera fait{' '}
-            {beforeOrAfter === 'before' ? 'avant' : 'après'} votre arrivée
-          </p>
-        </div>
-        <div className="flex justify-between ">
-          <p>Date du nettoyage prévu</p>
-          <p className="text-gray-500">{serviceDate}</p>
-        </div>
-        <div className="flex justify-between  border-t-2 py-2">
+        {reservationType === 'ménage' && (
+          <>
+            <div className="flex justify-between">
+              <p>Nombre d'étages</p>
+              <p className="text-gray-500">{numberOfFloors}</p>
+            </div>
+            <div className="flex justify-between">
+              <p>Surface</p>
+              <p className="text-gray-500">{formatSizeRange(sizeRange)}</p>
+            </div>
+            <div className="flex justify-between">
+              <p>Panier de fruits</p>
+              <p className="text-gray-500">
+                {fruitBasketSelected ? 'oui' : 'non'}
+              </p>
+            </div>
+            <div className="flex justify-between">
+              <p>
+                Le nettoyage sera fait{' '}
+                {beforeOrAfter === 'before' ? 'avant' : 'après'} votre arrivée
+              </p>
+            </div>
+            <div className="flex justify-between ">
+              <p>Date du nettoyage prévu</p>
+              <p className="text-gray-500">{serviceDate}</p>
+            </div>
+          </>
+        )}
+
+        {reservationType === 'cuisine' && (
+          <>
+            <div className="flex justify-between">
+              <p>Adresse</p>
+              <p className="text-gray-500">{address}</p>
+            </div>
+            <div className="flex justify-between">
+              <p>Période souhaitée</p>
+              <p className="text-gray-500">{formatPeriod(period)}</p>
+            </div>
+            <div className="flex justify-between">
+              <p>Nombre de personnes</p>
+              <p className="text-gray-500">
+                {formatNumberOfPeople(numberOfPeople)}
+              </p>
+            </div>
+            <div className="flex justify-between">
+              <p>Date de la prestation prévue</p>
+              <p className="text-gray-500">{serviceDate}</p>
+            </div>
+          </>
+        )}
+
+        <div className="flex justify-between border-t-2 py-2">
           <p className="font-semibold">Prix total TTC </p>
           <p>{quote} €</p>
         </div>

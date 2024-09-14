@@ -10,19 +10,34 @@ import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
 import { StripeCheckout } from './components/PaymentSection/StripeCheckout'
 import { PaymentStatus } from './pages/PaymentStatus'
-import { useAppSelector } from './redux/hooks'
 import { ClientDashboard } from './pages/ClientDashboard'
-import { RefObject, useRef } from 'react'
+import { RefObject, useEffect, useRef, useState } from 'react'
 import ForgotPassword from './pages/ForgotPassword'
 import ResetPassword from './pages/ResetPassword'
 import { Toaster } from 'react-hot-toast'
+import Step4 from './components/FormSection/Works/Step4'
+import { getAuth, onAuthStateChanged } from 'firebase/auth'
 
 function App() {
-  const canAccessPayment = useAppSelector(
-    (state) => state.form.hasCompletedPayment,
-  )
-
   const formSectionRef: RefObject<HTMLDivElement> = useRef(null)
+
+  const [user, setUser] = useState(null)
+  const auth = getAuth()
+
+  useEffect(() => {
+    // Écoute les changements d'état de connexion
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser) {
+        console.log('Utilisateur connecté :', currentUser)
+        setUser(currentUser)
+      } else {
+        console.log('Aucun utilisateur connecté')
+        setUser(null)
+      }
+    })
+
+    return () => unsubscribe()
+  }, [auth])
 
   return (
     <>
@@ -41,17 +56,9 @@ function App() {
           <Route path="/forgot-password" element={<ForgotPassword />} />3
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/client-dashboard/*" element={<ClientDashboard />} />
-          <Route
-            path="/stripe-checkout-form"
-            element={
-              !canAccessPayment ? (
-                <StripeCheckout />
-              ) : (
-                <Navigate to="/" replace />
-              )
-            }
-          />
+          <Route path="/stripe-checkout-form" element={<StripeCheckout />} />
           <Route path="/payment-status" element={<PaymentStatus />} />
+          <Route path="/step4" element={<Step4 />} />
         </Route>
       </Routes>
     </>

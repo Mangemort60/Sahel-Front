@@ -79,7 +79,7 @@ const Solution = () => {
           Les points fort du système Sahel
         </h2>
         <div className="h-auto p-2 sm:flex sm:justify-center m-auto sm:gap-8 space-y-8 sm:space-y-0">
-          <div className="shadow-md rounded-sm flex flex-col items-center p-6  space-y-4 h-auto max-w-[300px] w-1/3">
+          <div className="shadow-md rounded-sm flex flex-col items-center p-6  space-y-4 h-auto max-w-[300px] sm:w-1/3">
             <img src={simplicity} alt="" className="w-40" />
             <p className="text-2xl text-secondaryBlue">Simplicité</p>
             <p className="text-sm  text-secondaryLightBlue">
@@ -87,7 +87,7 @@ const Solution = () => {
               pour être le plus simple et rapide possible.
             </p>
           </div>
-          <div className="shadow-md rounded-sm flex flex-col items-center p-6  space-y-4 h-auto max-w-[300px] w-1/3">
+          <div className="shadow-md rounded-sm flex flex-col items-center p-6  space-y-4 h-auto max-w-[300px] sm:w-1/3">
             <img src={reaction} alt="" className="w-40" />
             <p className="text-2xl text-secondaryBlue">Réactivité</p>
             <p className="text-sm  text-secondaryLightBlue">
@@ -97,7 +97,7 @@ const Solution = () => {
               rapides. Avec Sahel, vous restez informé à chaque étape.{' '}
             </p>
           </div>
-          <div className="shadow-md rounded-sm flex flex-col items-center p-6  space-y-4 h-auto max-w-[300px] w-1/3">
+          <div className="shadow-md rounded-sm flex flex-col items-center p-6  space-y-4 h-auto max-w-[300px] sm:w-1/3">
             <img src={puzzle} alt="" className="w-40" />
             <p className="text-2xl text-secondaryBlue">Flexibilité</p>
             <p className="text-sm  text-secondaryLightBlue">

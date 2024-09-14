@@ -7,6 +7,16 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import getApiUrl from '../utils/getApiUrl'
+import { getAuth, signInWithCustomToken } from 'firebase/auth'
+import { useDispatch } from 'react-redux'
+import {
+  setEmail,
+  setFirstName,
+  setIsLoggedIn,
+  setRole,
+  setShortId,
+  setUserName,
+} from '../redux/slices/userSlice'
 
 type FormData = z.infer<typeof registerSchema>
 
@@ -14,6 +24,8 @@ const RegisterPage = () => {
   const [isLoading, setIsLoading] = useState(false)
   const apiUrl = getApiUrl()
   const navigate = useNavigate()
+  const auth = getAuth() // Initialize Firebase Authentication
+  const dispatch = useDispatch()
 
   const {
     register,
@@ -26,21 +38,35 @@ const RegisterPage = () => {
   const onSubmit: SubmitHandler<FormData> = async (data) => {
     setIsLoading(true)
     try {
+      // Envoie les données d'inscription au backend
       const response = await axios.post(`${apiUrl}/auth/register`, {
         name: data.name,
-        firstName: data.firstname, // Assurez-vous que cela correspond à la clé dans votre schéma Zod et dans votre formulaire
+        firstName: data.firstname,
         email: data.email,
         password: data.password,
       })
-      navigate('/login', { state: { success: true } })
+
+      const { token, email, shortId, role } = response.data // Récupère les données du backend
+
+      // Utilise Firebase pour connecter l'utilisateur avec le token personnalisé
+      const userCredential = await signInWithCustomToken(auth, token)
+
+      // Dispatch les données dans Redux
+      dispatch(setIsLoggedIn(true))
+      dispatch(setUserName(data.name)) // Met à jour le nom
+      dispatch(setFirstName(data.firstname)) // Met à jour le prénom
+      dispatch(setEmail(email || userCredential.user.email)) // Met à jour l'email
+      dispatch(setShortId(shortId)) // Met à jour le shortId
+      dispatch(setRole(role)) // Met à jour le rôle
+
+      // Redirige vers la page d'accueil après la connexion réussie
+      navigate('/', { state: { success: true } })
+
       console.log('User created successfully:', response.data)
-      // Vous pouvez ici gérer la réponse de succès, par exemple en redirigeant l'utilisateur ou en affichant un message de succès
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.error('Error creating user:', error.response?.data)
-        // Ici, vous pouvez gérer l'erreur, par exemple en affichant un message d'erreur à l'utilisateur
       } else {
-        // Erreur inattendue ou non liée à Axios
         console.error('Unexpected error:', error)
       }
     } finally {

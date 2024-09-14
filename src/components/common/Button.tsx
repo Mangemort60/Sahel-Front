@@ -6,6 +6,7 @@ interface ButtonProps {
   onClick?: () => void
   isLoading?: boolean
   largeButton?: boolean
+  textColor?: string
 }
 
 export const Button = ({
@@ -16,13 +17,14 @@ export const Button = ({
   onClick,
   isLoading,
   largeButton,
+  textColor,
 }: ButtonProps) => {
   return (
     <button
       type={type}
-      className={`
-       py-3 px-4 ${largeButton ? 'w-full' : 'max-w-36'} w-full inline-flex items-center justify-center gap-x-2 text-sm font-semibold rounded-sm border border-transparent text-white
-      ${hoverColor} ${bgColor} disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600
+      className={`mt-2
+       py-3 px-4 ${largeButton ? 'w-full' : 'max-w-36'} w-full inline-flex items-center justify-center gap-x-2 text-sm font-semibold rounded-sm border border-transparent ${textColor}
+      ${hoverColor} ${bgColor} disabled:opacity-50  disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600
     `}
       onClick={onClick}
     >

@@ -26,7 +26,7 @@ import getApiUrl from '../utils/getApiUrl'
 type FormData = z.infer<typeof loginSchema>
 
 interface SectionProps {
-  formSectionRef: RefObject<HTMLDivElement>
+  formSectionRef?: RefObject<HTMLDivElement>
 }
 
 const LoginPage = ({ formSectionRef }: SectionProps) => {
@@ -37,21 +37,22 @@ const LoginPage = ({ formSectionRef }: SectionProps) => {
     location.state && location.state.success,
   )
 
-  if (formSectionRef.current) {
-    formSectionRef.current.scrollIntoView({ behavior: 'smooth' })
-  }
-
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const formStep = useAppSelector((state) => state.form.currentStep)
 
   useEffect(() => {
-    // Définir isSuccess à false après 3 secondes pour masquer l'alerte de succès
+    // Scroll au formulaire seulement après que le composant est monté
+    if (formSectionRef?.current) {
+      formSectionRef.current.scrollIntoView({ behavior: 'smooth' })
+    }
+  }, [formSectionRef])
+
+  useEffect(() => {
     const timer = setTimeout(() => {
       setIsSuccess(false)
     }, 5000)
 
-    // Nettoyer le timer lors du démontage du composant
     return () => clearTimeout(timer)
   }, [])
 
@@ -68,12 +69,6 @@ const LoginPage = ({ formSectionRef }: SectionProps) => {
     const apiUrl = getApiUrl()
 
     try {
-      // Définir la persistance en fonction de l'état rememberMe
-      // await setPersistence(
-      //   auth,
-      //   rememberMe ? browserLocalPersistence : browserSessionPersistence,
-      // )
-
       const userCredential = await signInWithEmailAndPassword(
         auth,
         data.email,
@@ -82,10 +77,8 @@ const LoginPage = ({ formSectionRef }: SectionProps) => {
       console.log("L'utilisateur est connecté", userCredential.user)
       dispatch(setIsLoggedIn(true))
 
-      // Récupère le token d'authentification Firebase
       const authToken = await userCredential.user.getIdToken()
 
-      // Envoie une requête au serveur pour récupérer les données supplémentaires de l'utilisateur
       const response = await axios.get(`${apiUrl}/auth/login`, {
         headers: {
           Authorization: `Bearer ${authToken}`,
@@ -102,7 +95,7 @@ const LoginPage = ({ formSectionRef }: SectionProps) => {
 
       console.log('Données utilisateur récupérées:', response.data)
 
-      if (formStep === 'form') {
+      if (formStep === 'serviceChoice') {
         navigate('/')
         return
       }
@@ -112,13 +105,11 @@ const LoginPage = ({ formSectionRef }: SectionProps) => {
       navigate(`${redirectTo}#formSection`)
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        // Gestion des erreurs retournées par le serveur
         console.error(
           'Erreur lors de la récupération des données utilisateur:',
           error.response?.data.error,
         )
       } else {
-        // Erreur inattendue ou non liée à Axios
         console.error('Erreur inattendue:', error)
       }
     } finally {
