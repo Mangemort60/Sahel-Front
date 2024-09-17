@@ -17,7 +17,7 @@ interface Reservation {
   id: string
   reservationType: string
   reservationShortId: string
-  bookingFormData: {
+  bookingFormData?: {
     city: string
     address: string
   }
@@ -45,8 +45,6 @@ export const ReservationHistory = () => {
   const [reservations, setReservations] = useState<Reservation[]>([])
   const [newMessages, setNewMessages] = useState<NewMessagesType>({})
   const activeTab = useAppSelector((state) => state.ui.activeTab)
-
-  console.log('newMessages:', newMessages)
 
   const dispatch = useAppDispatch()
   const apiUrl = getApiUrl()
@@ -182,10 +180,10 @@ export const ReservationHistory = () => {
                     </p>
                     <hr className="border" />
                     <p className="text-white dark:text-gray-300 mt-2">
-                      Adresse : {reservation.bookingFormData.address}
+                      Adresse : {reservation.bookingFormData?.address}
                     </p>
                     <p className="text-white dark:text-gray-300">
-                      Ville : {reservation.bookingFormData.city}
+                      Ville : {reservation.bookingFormData?.city}
                     </p>
                   </div>
                 </div>

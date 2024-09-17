@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { string } from 'zod'
 
 interface UserState {
   name: string
@@ -8,6 +7,7 @@ interface UserState {
   email: string | null
   isLoggedIn: boolean
   role: string
+  phone: string
 }
 
 const initialState: UserState = {
@@ -17,6 +17,7 @@ const initialState: UserState = {
   email: null,
   isLoggedIn: false,
   role: '',
+  phone: '',
 }
 
 export const userSlice = createSlice({
@@ -44,6 +45,9 @@ export const userSlice = createSlice({
     setRole: (state, action: PayloadAction<string>) => {
       state.role = action.payload
     },
+    setPhone: (state, action: PayloadAction<string>) => {
+      state.phone = action.payload
+    },
     resetUserState: () => initialState,
   },
 })
@@ -56,6 +60,7 @@ export const {
   setEmail,
   setIsLoggedIn,
   setRole,
+  setPhone,
 } = userSlice.actions
 
 export default userSlice.reducer

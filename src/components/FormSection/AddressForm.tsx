@@ -30,8 +30,6 @@ export const AddressForm = () => {
   })
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
-    console.log('submitted')
-
     if (!serviceDate) {
       alert('Veuillez sélectionner une date avant de soumettre.')
       return

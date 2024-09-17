@@ -23,9 +23,9 @@ const Step4 = () => {
         </button>
       </div>
       <div>
-        votre pré-demande a bien été soumise, vous pouvez d’ores et déjà suivre
-        l'avancement de celle ci dans votre espace personnel ou refaire une
-        demande
+        Votre pré-demande a bien été soumise ! <br />
+        Vous pouvez d’ores et déjà suivre l'avancement de celle ci dans votre
+        espace personnel ou refaire une demande
       </div>
     </div>
   )

@@ -1,16 +1,17 @@
-import { Button } from '../common/Button'
 import homeImage from '../../assets/homeImage.webp'
 import { RefObject } from 'react'
-import nettoyage from '../../assets/nettoyage.png'
-import cuisine from '../../assets/chapeau-chef.png'
+import { useDispatch } from 'react-redux'
+import { resetFormState } from '../../redux/slices/formSlice'
 
 interface SectionProps {
   formSectionRef: RefObject<HTMLDivElement>
 }
 
 export const HeroSection = ({ formSectionRef }: SectionProps) => {
+  const dispatch = useDispatch()
   const handleSubscribeClick = () => {
     // Faire défiler la page jusqu'au FormSection
+    dispatch(resetFormState())
     if (formSectionRef.current) {
       formSectionRef.current.scrollIntoView({ behavior: 'smooth' })
     }
@@ -21,16 +22,18 @@ export const HeroSection = ({ formSectionRef }: SectionProps) => {
       <div
         className="h-2/3 sm:h-screen flex items-center p-8 text-white"
         style={{
-          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${homeImage})`,
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url(${homeImage})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
       >
         <div>
           <h1 className="sm:text-6xl text-3xl font-bold sm:w-2/3 mb-2 ">
+            CUISINE.
+            <br />
             MÉNAGE.
             <br />
-            CUISINE.
+            PETITS TRAVAUX.
           </h1>
           <h2 className="sm:text-7xl text-4xl font-bold ">
             ZÉRO CORVÉES. <br />

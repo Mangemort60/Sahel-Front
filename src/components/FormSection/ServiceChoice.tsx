@@ -1,8 +1,10 @@
 import { useDispatch } from 'react-redux'
 import {
+  resetFormState,
   setCurrentStep,
   setReservationType,
 } from '../../redux/slices/formSlice'
+import { resetUiState } from '../../redux/slices/uiSlice'
 
 export const ServiceChoice = () => {
   const dispatch = useDispatch()
@@ -20,6 +22,7 @@ export const ServiceChoice = () => {
       case 'petits-travaux':
         dispatch(setReservationType('petits-travaux'))
         dispatch(setCurrentStep('worksInitialForm'))
+        dispatch(resetUiState())
         break
       default:
         console.error('Service inconnu:', service)

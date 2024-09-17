@@ -1,14 +1,16 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import { SubmitHandler, useForm } from 'react-hook-form'
-import { RefObject, useEffect, useState } from 'react'
+import { useForm, SubmitHandler } from 'react-hook-form'
+import { useEffect, useState } from 'react'
 import axios from 'axios'
+import { signInWithEmailAndPassword } from 'firebase/auth'
+import { useDispatch } from 'react-redux'
+import Cookies from 'js-cookie'
+import toast from 'react-hot-toast'
+
 import { loginSchema } from '../schemas/loginFormSchema'
 import { auth } from '../../firebase-config'
-import { signInWithEmailAndPassword } from 'firebase/auth'
-import { useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
 import {
   setEmail,
   setFirstName,
@@ -17,92 +19,113 @@ import {
   setShortId,
   setUserName,
 } from '../redux/slices/userSlice'
-import Cookies from 'js-cookie'
-import { useLocation } from 'react-router-dom'
-import { AlertSuccess } from '../components/common/AlertSuccess'
 import { useAppSelector } from '../redux/hooks'
 import getApiUrl from '../utils/getApiUrl'
+import { createPredemand } from '../utils/createPredemand'
+import { selectIsReadyForPredemande } from '../redux/selectors/worksForm'
 
 type FormData = z.infer<typeof loginSchema>
 
 interface SectionProps {
-  formSectionRef?: RefObject<HTMLDivElement>
+  formSectionRef?: React.RefObject<HTMLDivElement>
 }
 
 const LoginPage = ({ formSectionRef }: SectionProps) => {
   const [isLoading, setIsLoading] = useState(false)
-  const [rememberMe, setRememberMe] = useState(false)
   const location = useLocation()
-  const [isSuccess, setIsSuccess] = useState(
-    location.state && location.state.success,
-  )
-
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const reservationData = useAppSelector((state) => state.form.formData)
+
+  const shortId = useAppSelector((state) => state.user.shortId)
+  console.log('shortId', shortId)
+
+  // Sélectionner l'étape du formulaire et vérifier si on est prêt pour la pré-demande
   const formStep = useAppSelector((state) => state.form.currentStep)
+  const isReadyForPredemande = useAppSelector(selectIsReadyForPredemande)
 
   useEffect(() => {
-    // Scroll au formulaire seulement après que le composant est monté
+    console.log('isReadyForPredemande:', isReadyForPredemande)
+  }, [isReadyForPredemande])
+
+  // Scroll vers le formulaire après que le composant soit monté
+  useEffect(() => {
     if (formSectionRef?.current) {
       formSectionRef.current.scrollIntoView({ behavior: 'smooth' })
     }
   }, [formSectionRef])
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsSuccess(false)
-    }, 5000)
-
-    return () => clearTimeout(timer)
-  }, [])
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FormData>({
+  // Hook pour gérer le formulaire de connexion avec react-hook-form
+  const { register, handleSubmit } = useForm<FormData>({
     resolver: zodResolver(loginSchema),
   })
 
+  // Gestion de la soumission du formulaire de connexion
   const onSubmit: SubmitHandler<FormData> = async (data) => {
     setIsLoading(true)
     const apiUrl = getApiUrl()
 
+    // Ajoute un log pour voir si la valeur est correcte avant l'appel
+    console.log('isReadyForPredemande (avant):', isReadyForPredemande)
+
     try {
+      // 1. Authentification via Firebase
       const userCredential = await signInWithEmailAndPassword(
         auth,
         data.email,
         data.password,
       )
-      console.log("L'utilisateur est connecté", userCredential.user)
-      dispatch(setIsLoggedIn(true))
-
       const authToken = await userCredential.user.getIdToken()
 
+      // 2. Appel à l'API pour récupérer les données utilisateur
       const response = await axios.get(`${apiUrl}/auth/login`, {
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-        },
+        headers: { Authorization: `Bearer ${authToken}` },
       })
 
+      // 4. Stocker le token dans les cookies pour la session utilisateur
+      Cookies.set('token', authToken, { expires: 7 })
+      const currentUser = auth.currentUser
+      console.log('setEMail', response.data.email)
+
+      console.log(
+        'isReadyForPredemande (après authentification):',
+        isReadyForPredemande,
+      )
+      // 3. Mise à jour du store Redux avec les informations utilisateur
+      dispatch(setIsLoggedIn(true))
       dispatch(setUserName(response.data.name))
       dispatch(setFirstName(response.data.firstName))
-      dispatch(setEmail(userCredential.user.email))
+      dispatch(setEmail(response.data.email))
       dispatch(setShortId(response.data.shortId))
       dispatch(setRole(response.data.role))
 
-      Cookies.set('token', authToken, { expires: 7 })
-
-      console.log('Données utilisateur récupérées:', response.data)
-
-      if (formStep === 'serviceChoice') {
-        navigate('/')
-        return
+      if (currentUser && isReadyForPredemande) {
+        // Si l'utilisateur est authentifié et que les conditions de la pré-demande sont remplies
+        await createPredemand(
+          reservationData,
+          response.data.shortId,
+          response.data.email,
+        )
+        toast.success('Pré-demande créée avec succès !', {
+          position: 'bottom-right',
+        })
       }
 
-      const redirectTo =
-        new URLSearchParams(location.search).get('redirectTo') || '/'
-      navigate(`${redirectTo}#formSection`)
+      // 6. Gérer la redirection après la connexion
+      if (formStep === 'serviceChoice') {
+        // Si l'utilisateur ne vient pas du formulaire, rediriger vers la page d'accueil
+        navigate('/')
+      } else {
+        // Sinon, rediriger vers l'étape actuelle du formulaire
+        const redirectTo =
+          new URLSearchParams(location.search).get('redirectTo') || '/'
+        navigate(`${redirectTo}#formSection`)
+      }
+
+      // 7. Afficher un message de succès
+      toast.success('Connexion réussie, bienvenue!', {
+        position: 'bottom-right',
+      })
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.error(
@@ -112,6 +135,7 @@ const LoginPage = ({ formSectionRef }: SectionProps) => {
       } else {
         console.error('Erreur inattendue:', error)
       }
+      toast.error('Erreur lors de la connexion.')
     } finally {
       setIsLoading(false)
     }
@@ -119,12 +143,6 @@ const LoginPage = ({ formSectionRef }: SectionProps) => {
 
   return (
     <div>
-      {isSuccess && (
-        <AlertSuccess
-          title="Inscription réussie"
-          description="Vous pouvez maintenant vous connecter"
-        />
-      )}
       <main className="w-full max-w-md mx-auto p-6">
         <div className="mt-7 bg-white border border-gray-200 rounded-xl shadow-sm ">
           <div className="p-4 sm:p-7">

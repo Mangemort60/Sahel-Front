@@ -5,6 +5,9 @@ export const registerSchema = z
     name: z.string().min(1, { message: 'Le nom est requis' }),
     firstname: z.string().min(1, { message: 'Le prénom est requis' }),
     email: z.string().email({ message: 'Email invalide' }),
+    phone: z
+      .string()
+      .min(10, 'Le numéro de téléphone doit avoir au moins 10 chiffres'),
     password: z
       .string()
       .min(8, {
@@ -15,11 +18,9 @@ export const registerSchema = z
           'Le mot de passe doit contenir au moins une lettre minuscule, une lettre majuscule, un chiffre et un caractère spécial (!@?#$%^&*)',
       }),
     confirmPassword: z.string(),
-    termsAccepted: z
-      .boolean()
-      .refine((val) => val === true, {
-        message: 'Vous devez accepter les termes et conditions.',
-      }),
+    termsAccepted: z.boolean().refine((val) => val === true, {
+      message: 'Vous devez accepter les termes et conditions.',
+    }),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: 'Les mots de passe ne correspondent pas',

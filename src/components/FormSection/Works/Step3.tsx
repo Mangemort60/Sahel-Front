@@ -6,6 +6,9 @@ import { worksDescFormSchema } from '../../../schemas/worksDescFormSchema'
 import { FormData } from './WorksInitialForm'
 import { useDispatch } from 'react-redux'
 import { setFormData } from '../../../redux/slices/formSlice'
+import { createPredemand } from '../../../utils/createPredemand'
+import { useAppSelector } from '../../../redux/hooks'
+import toast from 'react-hot-toast'
 
 // Définir le type basé sur le schéma Zod
 export type worksTypeFormData = z.infer<typeof worksDescFormSchema>
@@ -33,10 +36,22 @@ export const Step3 = ({ nextStep, formData }: StepProps) => {
   })
 
   const dispatch = useDispatch()
+  const shortId = useAppSelector((state) => state.user.shortId)
+  const email = useAppSelector((state) => state.user.email)
+  const isLoggedIn = useAppSelector((state) => state.user.isLoggedIn)
 
-  const onSubmit = (data: worksTypeFormData) => {
+  const onSubmit = async (data: worksTypeFormData) => {
     dispatch(setFormData({ ...formData, ...data }))
-    console.log('submitted')
+
+    const reservationData = { ...formData, ...data }
+
+    if (isLoggedIn) {
+      createPredemand(reservationData, shortId, email)
+      toast.success('Pré-demande créée avec succès !', {
+        position: 'bottom-right',
+      })
+    }
+
     nextStep()
 
     // Passe à l'étape suivante
@@ -62,7 +77,10 @@ export const Step3 = ({ nextStep, formData }: StepProps) => {
               className="mr-2"
               value="éléctricité"
               {...register('workCategory')} // Enregistre chaque checkbox dans react-hook-form
-              defaultChecked={formData.workCategory.includes('éléctricité')}
+              defaultChecked={
+                formData.workCategory &&
+                formData.workCategory.includes('éléctricité')
+              }
             />
             Électricité
           </label>
@@ -72,7 +90,10 @@ export const Step3 = ({ nextStep, formData }: StepProps) => {
               className="mr-2"
               value="plomberie"
               {...register('workCategory')}
-              defaultChecked={formData.workCategory.includes('plomberie')}
+              defaultChecked={
+                formData.workCategory &&
+                formData.workCategory.includes('plomberie')
+              }
             />
             Plomberie
           </label>
@@ -82,7 +103,10 @@ export const Step3 = ({ nextStep, formData }: StepProps) => {
               className="mr-2"
               value="maçonnerie"
               {...register('workCategory')}
-              defaultChecked={formData.workCategory.includes('maçonnerie')}
+              defaultChecked={
+                formData.workCategory &&
+                formData.workCategory.includes('maçonnerie')
+              }
             />
             Maçonnerie
           </label>
@@ -92,7 +116,10 @@ export const Step3 = ({ nextStep, formData }: StepProps) => {
               className="mr-2"
               value="peinture"
               {...register('workCategory')}
-              defaultChecked={formData.workCategory.includes('peinture')}
+              defaultChecked={
+                formData.workCategory &&
+                formData.workCategory.includes('peinture')
+              }
             />
             Peinture
           </label>
@@ -102,7 +129,9 @@ export const Step3 = ({ nextStep, formData }: StepProps) => {
               className="mr-2"
               value="autre"
               {...register('workCategory')}
-              defaultChecked={formData.workCategory.includes('autre')}
+              defaultChecked={
+                formData.workCategory && formData.workCategory.includes('autre')
+              }
             />
             Autre
           </label>
@@ -123,7 +152,6 @@ export const Step3 = ({ nextStep, formData }: StepProps) => {
             {...register('workDescription')}
             className="py-3 px-0 block w-full bg-transparent border-t-transparent border-b-2 border-x-transparent border-b-gray-200 text-sm focus:border-blue-500 focus:border-t-transparent focus:border-x-transparent focus:border-b-blue-500 focus:ring-0 disabled:opacity-50 disabled:pointer-events-none dark:border-b-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600 dark:focus:border-b-neutral-600"
             rows={6}
-            placeholder="Décrivez-nous votre projet"
             defaultValue={formData.workDescription}
           ></textarea>
 
@@ -133,15 +161,17 @@ export const Step3 = ({ nextStep, formData }: StepProps) => {
           )}
         </div>
         <div className="mt-4">
+          <label id="city" className="block mb-2 font-bold text-gray-900">
+            Sélectionner l'urgence
+          </label>
+
           <select
             {...register('urgency')}
             id="urgency"
             className="border-b-2 border-b-gray-200 border-0 text-gray-500 block w-full p-2.5 dark:border-gray-300"
-            defaultValue={formData.urgency ? formData.urgency : ''} // Option par défaut vide, mais non sélectionnable
+            defaultValue={formData.urgency || ''} // Option par défaut vide, mais non sélectionnable
           >
-            <option value="" disabled>
-              Sélectionner l'urgence
-            </option>
+            <option value="" disabled></option>
             <option value="immediate">Immédiate</option>
             <option value="dans les semaines à venir">
               Dans les semaines à venir
@@ -163,6 +193,7 @@ export const Step3 = ({ nextStep, formData }: StepProps) => {
         hoverColor="hover:bg-secondaryRegularBlue"
         bgColor="bg-secondaryLightBlue"
         largeButton
+        textColor="text-white"
       />
     </form>
   )

@@ -16,7 +16,14 @@ import {
   setRole,
   setShortId,
   setUserName,
+  setPhone,
 } from '../redux/slices/userSlice'
+import toast from 'react-hot-toast'
+import { useAppSelector } from '../redux/hooks'
+import { createPredemand } from '../utils/createPredemand'
+import { selectIsReadyForPredemande } from '../redux/selectors/worksForm'
+import { PhoneInput } from 'react-international-phone'
+import 'react-international-phone/style.css'
 
 type FormData = z.infer<typeof registerSchema>
 
@@ -26,10 +33,13 @@ const RegisterPage = () => {
   const navigate = useNavigate()
   const auth = getAuth() // Initialize Firebase Authentication
   const dispatch = useDispatch()
+  const isReadyForPredemande = useAppSelector(selectIsReadyForPredemande)
+  const reservationData = useAppSelector((state) => state.form.formData)
 
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(registerSchema),
@@ -44,9 +54,10 @@ const RegisterPage = () => {
         firstName: data.firstname,
         email: data.email,
         password: data.password,
+        phone: data.phone,
       })
 
-      const { token, email, shortId, role } = response.data // Récupère les données du backend
+      const { token, shortId, role } = response.data // Récupère les données du backend
 
       // Utilise Firebase pour connecter l'utilisateur avec le token personnalisé
       const userCredential = await signInWithCustomToken(auth, token)
@@ -55,14 +66,32 @@ const RegisterPage = () => {
       dispatch(setIsLoggedIn(true))
       dispatch(setUserName(data.name)) // Met à jour le nom
       dispatch(setFirstName(data.firstname)) // Met à jour le prénom
-      dispatch(setEmail(email || userCredential.user.email)) // Met à jour l'email
+      dispatch(setEmail(data.email)) // Met à jour l'email
       dispatch(setShortId(shortId)) // Met à jour le shortId
       dispatch(setRole(role)) // Met à jour le rôle
+      dispatch(setPhone(data.phone)) // Met à jour le rôle
+
+      console.log(response.data.email)
 
       // Redirige vers la page d'accueil après la connexion réussie
       navigate('/', { state: { success: true } })
 
       console.log('User created successfully:', response.data)
+      toast.success('Inscription réussi, vous êtes connecté(e) !')
+
+      const currentUser = userCredential.user
+
+      if (currentUser && isReadyForPredemande) {
+        // Si l'utilisateur est authentifié et que les conditions de la pré-demande sont remplies
+        await createPredemand(
+          reservationData,
+          response.data.shortId,
+          data.email,
+        )
+        toast.success('Pré-demande créée avec succès !', {
+          position: 'bottom-right',
+        })
+      }
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.error('Error creating user:', error.response?.data)
@@ -165,6 +194,16 @@ const RegisterPage = () => {
                   </p>
                 )}
               </div>
+              <div className="my-2">
+                <label htmlFor="password" className="block text-sm mb-2 ">
+                  Téléphone
+                </label>
+                <PhoneInput
+                  defaultCountry="fr"
+                  style={{ width: '100%' }}
+                  onChange={(phone) => setValue('phone', phone)}
+                />
+              </div>
 
               <div className="grid gap-y-4">
                 <div>
@@ -201,6 +240,7 @@ const RegisterPage = () => {
                     </p>
                   )}
                 </div>
+
                 <div>
                   <div className="flex justify-between items-center">
                     <label htmlFor="password" className="block text-sm mb-2 ">

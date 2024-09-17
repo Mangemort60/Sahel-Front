@@ -1,10 +1,39 @@
-// src/features/form/formSlice.ts
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
+interface CleaningFormData {
+  numberOfFloors?: string
+  sizeRange?: string
+  fruitBasketSelected?: boolean
+  beforeOrAfter?: string
+  city?: string
+  address?: string
+  address2?: string
+  specialInstructions?: string
+  phone?: string
+}
+
+interface CookingFormData {
+  period?: string // Période du service (matin, soir, etc.)
+  numberOfPeople?: string // Nombre de personnes
+}
+
+interface SmallRepairsFormData {
+  address?: string
+  city?: string
+  urgency?: string
+  workCategory?: string[] // Catégories de travaux
+  workDescription?: string // Description des travaux
+}
+
+interface FormData {
+  cleaning?: CleaningFormData
+  cooking?: CookingFormData
+  smallRepairs?: SmallRepairsFormData
+}
+
 interface FormState {
-  reservationType: string
-  formData: Record<string, any>
-  bookingFormData: Record<string, any>
+  reservationType: string // 'cleaning', 'cooking', 'smallRepairs'
+  formData: FormData // Données du formulaire selon le service sélectionné
   quote: number | null
   currentStep: string
   isLoading: boolean
@@ -12,53 +41,84 @@ interface FormState {
 }
 
 const initialState: FormState = {
-  reservationType: '',
-  formData: {},
-  bookingFormData: {},
-  quote: null,
-  currentStep: 'serviceChoice',
-  isLoading: false,
-  serviceDate: null,
+  reservationType: '', // Service actuel (cleaning, cooking, smallRepairs, etc.)
+  formData: {}, // Données de formulaire pour chaque type de service
+  quote: null, // Prix du devis
+  currentStep: 'serviceChoice', // Étape actuelle dans le processus
+  isLoading: false, // Indicateur de chargement
+  serviceDate: null, // Date de service potentielle
 }
 
 export const formSlice = createSlice({
   name: 'form',
   initialState,
   reducers: {
-    setFormData: (state, action: PayloadAction<Record<string, any>>) => {
-      state.formData = action.payload
+    // Mise à jour du type de réservation (ménage, cuisine, etc.)
+    setReservationType: (state, action: PayloadAction<string>) => {
+      state.reservationType = action.payload
     },
-    setBookingFormData: (state, action: PayloadAction<Record<string, any>>) => {
-      state.bookingFormData = action.payload
+
+    // Setter spécifique pour les données du service de ménage (cleaning)
+    setCleaningFormData: (state, action: PayloadAction<CleaningFormData>) => {
+      state.formData.cleaning = {
+        ...state.formData.cleaning,
+        ...action.payload, // Fusionne les nouvelles données avec les anciennes
+      }
     },
+
+    // Setter spécifique pour les données du service de cuisine (cooking)
+    setCookingFormData: (state, action: PayloadAction<CookingFormData>) => {
+      state.formData.cooking = {
+        ...state.formData.cooking,
+        ...action.payload, // Fusionne les nouvelles données avec les anciennes
+      }
+    },
+
+    // Setter spécifique pour les données des petits travaux (smallRepairs)
+    setSmallRepairsFormData: (
+      state,
+      action: PayloadAction<SmallRepairsFormData>,
+    ) => {
+      state.formData.smallRepairs = {
+        ...state.formData.smallRepairs,
+        ...action.payload, // Fusionne les nouvelles données avec les anciennes
+      }
+    },
+
+    // Mise à jour du devis après le calcul du prix
     setQuote: (state, action: PayloadAction<number>) => {
       state.quote = action.payload
     },
+
+    // Mise à jour de l'étape actuelle dans le processus
     setCurrentStep: (state, action: PayloadAction<string>) => {
       state.currentStep = action.payload
     },
+
+    // Indicateur de chargement pendant une requête
     setIsLoading: (state, action: PayloadAction<boolean>) => {
       state.isLoading = action.payload
     },
+
+    // Mise à jour de la date du service
     setServiceDate: (state, action: PayloadAction<string | null>) => {
       state.serviceDate = action.payload
     },
 
-    setReservationType: (state, action: PayloadAction<string>) => {
-      state.reservationType = action.payload
-    },
+    // Réinitialisation de l'état complet du formulaire
     resetFormState: () => initialState,
   },
 })
 
 export const {
   setReservationType,
-  setFormData,
+  setCleaningFormData,
+  setCookingFormData,
+  setSmallRepairsFormData,
   setQuote,
   setCurrentStep,
   setIsLoading,
   setServiceDate,
-  setBookingFormData,
   resetFormState,
 } = formSlice.actions
 

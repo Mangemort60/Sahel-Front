@@ -34,7 +34,7 @@ const uiSlice = createSlice({
     clearRedirectPath: (state) => {
       state.redirectPath = '' // Ou '' si tu préfères une chaîne vide.
     },
-    resetUiState: () => initialState,
+    resetUiState: () => ({ ...initialState }),
   },
 })
 

@@ -43,7 +43,7 @@ const NavbarDashboard = () => {
           <Link
             className="me-2 text-2xl"
             to={'/client-dashboard/works'}
-            onClick={() => dispatch(setActiveTab('works'))}
+            onClick={() => dispatch(setActiveTab('petits-travaux'))}
           >
             <div
               className={`inline-block p-4 border-b-2 ${

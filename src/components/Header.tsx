@@ -9,9 +9,8 @@ import { useState } from 'react'
 import { AlertSuccess } from './common/AlertSuccess'
 import Cookies from 'js-cookie'
 import { resetFormState, setCurrentStep } from '../redux/slices/formSlice'
-import { RefObject } from 'react'
-import { Button } from './common/Button'
 import { resetUiState } from '../redux/slices/uiSlice'
+import toast from 'react-hot-toast'
 
 const Header = () => {
   const [isLoggedOut, setIsLoggedOut] = useState(false)
@@ -23,21 +22,27 @@ const Header = () => {
     try {
       await signOut(auth)
       console.log('Déconnexion réussie')
+
       dispatch(setIsLoggedIn(false))
-      dispatch(setCurrentStep('form'))
       dispatch(resetUiState())
-      setIsLoggedOut(true)
       dispatch(resetFormState())
       Cookies.remove('token')
-      setTimeout(() => {
-        setIsLoggedOut(false)
-      }, 5000)
+
+      // Notification de succès avec react-hot-toast
+      toast.success('Déconnexion réussie !', { position: 'bottom-right' })
+
+      // Redirige l'utilisateur après déconnexion, si nécessaire
+      navigate('/login')
     } catch (error) {
       console.error('Erreur lors de la déconnexion:', error)
+
+      // Notification d'erreur
+      toast.error('Erreur lors de la déconnexion.')
     }
   }
 
   const handleSubscribeClick = () => {
+    dispatch(resetFormState())
     navigate('/', { state: { scrollToForm: true } })
   }
 
@@ -206,9 +211,6 @@ const Header = () => {
           </div>
         </nav>
       </header>
-      {isLoggedOut && (
-        <AlertSuccess description="Deconnexion réussi" title="A bientôt !" />
-      )}
     </>
   )
 }

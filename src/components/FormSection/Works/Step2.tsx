@@ -68,13 +68,18 @@ export const Step2 = ({ nextStep, formData }: StepProps) => {
           <select
             {...register('city')}
             className="border-b-2 border-b-gray-200 border-0 text-gray-900 text-sm block w-full p-2.5 dark:border-gray-300"
-            defaultValue={formData.city}
+            defaultValue=""
           >
-            <option disabled></option>
-            <option>Berkane</option>
-            <option>Oujda</option>
-            <option>Ahfir</option>
+            <option
+              value={formData.city || ''}
+              disabled
+              className="text-gray-200"
+            ></option>
+            <option value="Berkane">Berkane</option>
+            <option value="Oujda">Oujda</option>
+            <option value="Ahfir">Ahfir</option>
           </select>
+
           {errors.city && <p className="text-red-600">{errors.city.message}</p>}
         </div>
       </div>

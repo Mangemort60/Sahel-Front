@@ -8,7 +8,8 @@ import { useDispatch } from 'react-redux'
 import { setFormData } from '../../../redux/slices/formSlice'
 
 export const contactSchemaStep1 = contactSchema.omit({
-  details: true, // Exclure "details" pour ce formulaire spécifique
+  details: true,
+  email: true, // Exclure "details" pour ce formulaire spécifique
 })
 
 type contactFormData = z.infer<typeof contactSchemaStep1>
@@ -92,21 +93,6 @@ export const Step1 = ({ nextStep, formData }: StepProps) => {
           />
           {errors.phoneNumber && (
             <p className="text-red-600">{errors.phoneNumber.message}</p>
-          )}
-        </div>
-
-        <div>
-          <label id="mail" className="block mb-2 font-medium text-gray-900">
-            Email
-          </label>
-          <input
-            {...register('email')}
-            type="text"
-            className="border-b-2 border-b-gray-200 border-0 text-gray-900 text-sm block w-full p-2.5 dark:border-gray-300"
-            defaultValue={formData.email}
-          />
-          {errors.email && (
-            <p className="text-red-600">{errors.email.message}</p>
           )}
         </div>
 

@@ -93,7 +93,11 @@ export const WorksInitialForm = () => {
             style={{ height: '100%' }}
             className="h-full"
           >
-            <Step1 nextStep={nextStep} formData={formData} />
+            <Step2
+              prevStep={prevStep}
+              nextStep={nextStep}
+              formData={formData}
+            />
           </motion.div>
         )}
 
@@ -108,30 +112,11 @@ export const WorksInitialForm = () => {
             style={{ height: '100%' }}
             className="h-full"
           >
-            <Step2
-              prevStep={prevStep}
-              nextStep={nextStep}
-              formData={formData}
-            />
-          </motion.div>
-        )}
-
-        {currentMultiStepForm === 3 && (
-          <motion.div
-            key="step3"
-            initial="enter"
-            animate="center"
-            exit="exit"
-            variants={variants}
-            transition={{ duration: 0.5 }}
-            style={{ height: '100%' }}
-            className="h-full"
-          >
             <Step3 nextStep={nextStep} formData={formData} />
           </motion.div>
         )}
 
-        {currentMultiStepForm === 4 && (
+        {currentMultiStepForm === 3 && (
           <motion.div
             key="step4"
             initial="enter"
