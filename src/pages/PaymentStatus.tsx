@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { AlertSuccess } from '../components/common/AlertSuccess'
 import { AlertError } from '../components/common/AlertError'
-import { useReservationData } from '../redux/hooks'
+import { useReservationData } from '../redux/hooks/useReservationData'
 import { useDispatch } from 'react-redux'
-import { useAppSelector } from '../redux/hooks'
+import { useAppSelector } from '../redux/hooks/useAppSelector'
 import { setCurrentStep } from '../redux/slices/formSlice'
 import getApiUrl from '../utils/getApiUrl'
 
@@ -24,7 +24,9 @@ export const PaymentStatus = () => {
   const reservationType = useAppSelector((state) => state.form.reservationType)
 
   // Utilisez le hook personnalisé pour obtenir les données de réservation
+
   const reservationData = useReservationData()
+  console.log('reservationDATA', reservationData)
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search)

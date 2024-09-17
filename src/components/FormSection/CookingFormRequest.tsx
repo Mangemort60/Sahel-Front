@@ -2,10 +2,10 @@ import { Button } from '../common/Button'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import {
-  setFormData as setReduxFormData,
-  setQuote as setReduxQuote,
   setCurrentStep,
   setIsLoading,
+  setQuote,
+  setCookingFormData,
 } from '../../redux/slices/formSlice'
 import axios from 'axios'
 import { useForm } from 'react-hook-form'
@@ -30,7 +30,7 @@ export const CookingFormRequest = () => {
     dispatch(setCurrentStep('serviceChoice'))
   }
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
     const { period, numberOfPeople } = formData
@@ -65,8 +65,8 @@ export const CookingFormRequest = () => {
       const response = await axios.post(`${apiUrl}/cooking-quote`, requestData)
 
       // Mise à jour du prix et des données dans le store Redux
-      dispatch(setReduxQuote(response.data.totalPrice))
-      dispatch(setReduxFormData(formData))
+      dispatch(setQuote(response.data.totalPrice))
+      dispatch(setCookingFormData(formData))
     } catch (err) {
       console.error('Erreur lors de la soumission du formulaire:', err)
     } finally {

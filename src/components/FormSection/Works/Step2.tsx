@@ -5,7 +5,7 @@ import { Button } from '../../common/Button'
 import { addressFormSchema } from '../../../schemas/addressFormSchema'
 import { FormData } from './WorksInitialForm'
 import { useDispatch } from 'react-redux'
-import { setFormData } from '../../../redux/slices/formSlice'
+import { setSmallRepairsFormData } from '../../../redux/slices/formSlice'
 
 const addressFormSchemaStep2 = addressFormSchema.pick({
   address: true,
@@ -34,7 +34,7 @@ export const Step2 = ({ nextStep, formData }: StepProps) => {
 
   const onSubmit = (data: addressFormSchema) => {
     // Met à jour partiellement formData avec les valeurs de cette étape
-    dispatch(setFormData({ ...formData, ...data }))
+    dispatch(setSmallRepairsFormData({ ...formData, ...data }))
     nextStep() // Passe à l'étape suivante
   }
 

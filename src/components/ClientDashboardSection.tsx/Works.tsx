@@ -2,7 +2,7 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import getApiUrl from '../../utils/getApiUrl'
-import { useAppSelector } from '../../redux/hooks'
+import { useAppSelector } from '../../redux/hooks/useAppSelector'
 
 interface Reservation {
   id: string

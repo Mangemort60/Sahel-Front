@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
-import { useAppSelector } from '../../redux/hooks'
+import { useAppSelector } from '../../redux/hooks/useAppSelector'
 import { Link } from 'react-router-dom'
-import { useAppDispatch } from '../../redux/hooks'
+import { useAppDispatch } from '../../redux/hooks/useAppDispatch'
 import getApiUrl from '../../utils/getApiUrl'
 
 type StatusColorMap = {

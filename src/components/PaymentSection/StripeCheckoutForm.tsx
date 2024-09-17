@@ -2,7 +2,7 @@ import { PaymentElement, useStripe, useElements } from '@stripe/react-stripe-js'
 import { Button } from '../common/Button'
 import { useDispatch } from 'react-redux'
 import { setCurrentStep } from '../../redux/slices/formSlice'
-import { useAppSelector } from '../../redux/hooks'
+import { useAppSelector } from '../../redux/hooks/useAppSelector'
 import { useState } from 'react'
 import getSiteUrl from '../../utils/getSiteUrl'
 
@@ -19,9 +19,10 @@ export const StripeCheckoutForm = () => {
     fruitBasketSelected,
     beforeOrAfter,
     address,
-    period,
-    numberOfPeople,
-  } = useAppSelector((state) => state.form.formData)
+  } = useAppSelector((state) => state.form.formData.cleaning)
+  const { period, numberOfPeople } = useAppSelector(
+    (state) => state.form.formData.cooking,
+  )
   const quote = useAppSelector((state) => state.form.quote)
   const serviceDate = useAppSelector((state) => state.form.serviceDate)
 

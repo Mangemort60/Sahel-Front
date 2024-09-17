@@ -1,6 +1,6 @@
 import { IoSend } from 'react-icons/io5'
 import axios from 'axios'
-import { useAppSelector } from '../../redux/hooks'
+import { useAppSelector } from '../../redux/hooks/useAppSelector'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'

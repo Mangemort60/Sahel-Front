@@ -5,7 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { contactSchema } from '../../../schemas/contactFormSchema'
 import { FormData } from './WorksInitialForm'
 import { useDispatch } from 'react-redux'
-import { setFormData } from '../../../redux/slices/formSlice'
+import { setSmallRepairsFormData } from '../../../redux/slices/formSlice'
 
 export const contactSchemaStep1 = contactSchema.omit({
   details: true,
@@ -15,7 +15,6 @@ export const contactSchemaStep1 = contactSchema.omit({
 type contactFormData = z.infer<typeof contactSchemaStep1>
 
 type StepProps = {
-  // setFormData: (data: Partial<contactFormData>) => void // Partielle pour l'étape
   nextStep: () => void
   formData: FormData
 }
@@ -30,9 +29,8 @@ export const Step1 = ({ nextStep, formData }: StepProps) => {
 
   const onSubmit = (data: contactFormData) => {
     // Met à jour partiellement formData avec les valeurs de cette étape
-    setFormData(data)
     dispatch(
-      setFormData({
+      setSmallRepairsFormData({
         ...formData, // Conserve les données précédentes
         ...data, // Ajoute les nouvelles données de cette étape
       }),

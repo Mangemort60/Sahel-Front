@@ -1,8 +1,13 @@
 import { useDispatch } from 'react-redux'
 import { addressFormSchema } from '../../schemas/addressFormSchema'
 import { Button } from '../common/Button'
-import { setBookingFormData } from '../../redux/slices/formSlice'
-import { useAppSelector } from '../../redux/hooks'
+import {
+  CleaningFormData,
+  CookingFormData,
+  setCleaningFormData,
+  setCookingFormData,
+} from '../../redux/slices/formSlice'
+import { useAppSelector } from '../../redux/hooks/useAppSelector'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -20,6 +25,7 @@ export const AddressForm = () => {
   const email = useAppSelector((state) => state.user.email)
   const shortId = useAppSelector((state) => state.user.shortId)
   const name = useAppSelector((state) => state.user.name)
+  const reservationType = useAppSelector((state) => state.form.reservationType)
 
   const {
     register,
@@ -45,7 +51,15 @@ export const AddressForm = () => {
           name,
         )
         console.log('Client Secret reçu:', clientSecret)
-        dispatch(setBookingFormData(data))
+
+        if (reservationType === 'ménage') {
+          dispatch(setCleaningFormData(data as Partial<CleaningFormData>))
+        }
+
+        if (reservationType === 'cuisine') {
+          dispatch(setCookingFormData(data as Partial<CookingFormData>))
+        }
+
         navigate('/stripe-checkout-form', {
           state: { clientSecret },
         })
@@ -63,24 +77,6 @@ export const AddressForm = () => {
       onSubmit={handleSubmit(onSubmit)}
       className="flex flex-col gap-2 space-y-4  w-full "
     >
-      {/* <div>
-          <label
-            htmlFor="country"
-            className="block mb-2 text-sm font-medium text-gray-900"
-          >
-            Pays
-          </label>
-          <input
-            {...register('country')}
-            className="bg-gray-50 border-b-2 border-b-gray-200 border-0 text-gray-900 text-sm block w-full p-2.5 dark:border-gray-300  cursor-not-allowed"
-            type="text"
-            name="country"
-            id="country"
-            value="Maroc"
-            readOnly
-          />
-        </div> */}
-
       <div>
         <label
           id="nbrOfFloors"

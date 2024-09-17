@@ -2,14 +2,14 @@ import { Button } from '../common/Button'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import {
-  setFormData as setReduxFormData,
-  setQuote as setReduxQuote,
+  setQuote,
   setCurrentStep,
   setIsLoading,
+  setCleaningFormData,
 } from '../../redux/slices/formSlice'
 import axios from 'axios'
 import { useForm } from 'react-hook-form'
-import { useAppSelector } from '../../redux/hooks'
+import { useAppSelector } from '../../redux/hooks/useAppSelector'
 import getApiUrl from '../../utils/getApiUrl'
 import { FaArrowLeft } from 'react-icons/fa'
 
@@ -60,8 +60,8 @@ export const CleaningFormRequest = () => {
         sizeRange: formData.sizeRange,
         fruitBasketSelected: formData.fruitBasketSelected,
       })
-      dispatch(setReduxQuote(response.data.totalPrice))
-      dispatch(setReduxFormData(formData))
+      dispatch(setQuote(response.data.totalPrice))
+      dispatch(setCleaningFormData(formData))
     } catch (err) {
       console.error(err)
     } finally {

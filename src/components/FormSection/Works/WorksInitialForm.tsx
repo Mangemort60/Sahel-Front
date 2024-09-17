@@ -1,12 +1,11 @@
 import { motion, AnimatePresence } from 'framer-motion'
-import { Step1 } from './Step1'
 import { Step2 } from './Step2'
 import { Step3 } from './Step3'
 import { useDispatch } from 'react-redux'
 import { FaArrowLeft } from 'react-icons/fa'
 import { setCurrentStep } from '../../../redux/slices/formSlice'
 import Step4 from './Step4'
-import { useAppSelector } from '../../../redux/hooks'
+import { useAppSelector } from '../../../redux/hooks/useAppSelector'
 import { Button } from '../../common/Button'
 import { useNavigate } from 'react-router-dom'
 import {

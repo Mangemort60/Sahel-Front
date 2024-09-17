@@ -5,9 +5,9 @@ import { Button } from '../../common/Button'
 import { worksDescFormSchema } from '../../../schemas/worksDescFormSchema'
 import { FormData } from './WorksInitialForm'
 import { useDispatch } from 'react-redux'
-import { setFormData } from '../../../redux/slices/formSlice'
+import { setSmallRepairsFormData } from '../../../redux/slices/formSlice'
 import { createPredemand } from '../../../utils/createPredemand'
-import { useAppSelector } from '../../../redux/hooks'
+import { useAppSelector } from '../../../redux/hooks/useAppSelector'
 import toast from 'react-hot-toast'
 
 // Définir le type basé sur le schéma Zod
@@ -40,12 +40,20 @@ export const Step3 = ({ nextStep, formData }: StepProps) => {
   const email = useAppSelector((state) => state.user.email)
   const isLoggedIn = useAppSelector((state) => state.user.isLoggedIn)
 
-  const onSubmit = async (data: worksTypeFormData) => {
-    dispatch(setFormData({ ...formData, ...data }))
+  // Récupérer uniquement les données smallRepairs du formData
+  const smallRepairsData = useAppSelector(
+    (state) => state.form.formData.smallRepairs,
+  )
 
-    const reservationData = { ...formData, ...data }
+  const onSubmit = async (data: worksTypeFormData) => {
+    // Ne dispatcher que les données pertinentes pour smallRepairs
+    dispatch(setSmallRepairsFormData({ ...smallRepairsData, ...data }))
+    console.log({ ...smallRepairsData, ...data })
+
+    const reservationData = { ...smallRepairsData, ...data }
 
     if (isLoggedIn) {
+      // Créer la pré-demande avec les données filtrées
       createPredemand(reservationData, shortId, email)
       toast.success('Pré-demande créée avec succès !', {
         position: 'bottom-right',
@@ -53,10 +61,7 @@ export const Step3 = ({ nextStep, formData }: StepProps) => {
     }
 
     nextStep()
-
-    // Passe à l'étape suivante
   }
-
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}

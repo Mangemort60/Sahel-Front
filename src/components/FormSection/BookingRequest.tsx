@@ -1,9 +1,9 @@
 import { CustomDatePicker } from './CustomDatePicker'
 import { AddressForm } from './AddressForm'
-import { useAppDispatch } from '../../redux/hooks'
+import { useAppDispatch } from '../../redux/hooks/useAppDispatch'
 import { setCurrentStep } from '../../redux/slices/formSlice'
 import { FaArrowLeft } from 'react-icons/fa'
-import { useAppSelector } from '../../redux/hooks'
+import { useAppSelector } from '../../redux/hooks/useAppSelector'
 
 export const BookingRequest = () => {
   const dispatch = useAppDispatch()
@@ -16,9 +16,9 @@ export const BookingRequest = () => {
       case 'cuisine':
         dispatch(setCurrentStep('cookingReview'))
         break
-      case 'travaux':
-        dispatch(setCurrentStep('diyReview'))
-        break
+      // case 'travaux':
+      //   dispatch(setCurrentStep('diyReview'))
+      //   break
 
       default:
         break

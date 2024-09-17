@@ -1,25 +1,20 @@
 import { Button } from '../common/Button'
-import { useAppSelector } from '../../redux/hooks'
+import { useAppSelector } from '../../redux/hooks/useAppSelector'
 import { Spinner } from '../common/Spinner'
 import { useDispatch } from 'react-redux'
 import { setCurrentStep } from '../../redux/slices/formSlice'
 import { FaArrowLeft } from 'react-icons/fa'
-import { Link, useNavigate } from 'react-router-dom'
-import { createPaymentIntent } from '../../services/createPaymentIntent'
+import { Link } from 'react-router-dom'
 
 export const CookingQuoteReview = () => {
   // Extraction des données nécessaires depuis Redux
   const { period, numberOfPeople } = useAppSelector(
-    (state) => state.form.formData,
+    (state) => state.form.formData.cooking,
   )
   const totalPrice = useAppSelector((state) => state.form.quote)
   const isLoading = useAppSelector((state) => state.form.isLoading)
   const isLoggedIn = useAppSelector((state) => state.user.isLoggedIn)
-  const email = useAppSelector((state) => state.user.email)
-  const shortId = useAppSelector((state) => state.user.shortId)
-  const name = useAppSelector((state) => state.user.name)
 
-  const navigate = useNavigate()
   const dispatch = useDispatch()
 
   const formatPeriod = (period: string) => {

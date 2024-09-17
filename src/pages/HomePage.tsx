@@ -2,7 +2,7 @@ import { RefObject, useEffect, useRef } from 'react'
 import { FormSection } from '../components/FormSection/FormSection'
 import { HeroSection } from '../components/HeroSection/HeroSection'
 import { useLocation } from 'react-router-dom'
-import { useAppSelector } from '../redux/hooks'
+import { useAppSelector } from '../redux/hooks/useAppSelector'
 import Solution from '../components/Solution'
 import { Faq } from '../components/Faq'
 

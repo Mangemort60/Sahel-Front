@@ -1,34 +1,34 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-interface CleaningFormData {
-  numberOfFloors?: string
-  sizeRange?: string
-  fruitBasketSelected?: boolean
-  beforeOrAfter?: string
-  city?: string
-  address?: string
-  address2?: string
-  specialInstructions?: string
-  phone?: string
+export interface CleaningFormData {
+  numberOfFloors: string
+  sizeRange: string
+  fruitBasketSelected: boolean
+  beforeOrAfter: string
+  city: string
+  address: string
+  address2: string
+  specialInstructions: string
+  phone: string
 }
 
-interface CookingFormData {
-  period?: string // Période du service (matin, soir, etc.)
-  numberOfPeople?: string // Nombre de personnes
+export interface CookingFormData {
+  period: string // Période du service (matin, soir, etc.)
+  numberOfPeople: string // Nombre de personnes
 }
 
-interface SmallRepairsFormData {
-  address?: string
-  city?: string
-  urgency?: string
-  workCategory?: string[] // Catégories de travaux
-  workDescription?: string // Description des travaux
+export interface SmallRepairsFormData {
+  address: string
+  city: string
+  urgency: string
+  workCategory: string[] // Catégories de travaux
+  workDescription: string // Description des travaux
 }
 
 interface FormData {
-  cleaning?: CleaningFormData
-  cooking?: CookingFormData
-  smallRepairs?: SmallRepairsFormData
+  cleaning?: Partial<CleaningFormData>
+  cooking?: Partial<CookingFormData>
+  smallRepairs?: Partial<SmallRepairsFormData>
 }
 
 interface FormState {
@@ -42,7 +42,7 @@ interface FormState {
 
 const initialState: FormState = {
   reservationType: '', // Service actuel (cleaning, cooking, smallRepairs, etc.)
-  formData: {}, // Données de formulaire pour chaque type de service
+  formData: {},
   quote: null, // Prix du devis
   currentStep: 'serviceChoice', // Étape actuelle dans le processus
   isLoading: false, // Indicateur de chargement
@@ -59,7 +59,10 @@ export const formSlice = createSlice({
     },
 
     // Setter spécifique pour les données du service de ménage (cleaning)
-    setCleaningFormData: (state, action: PayloadAction<CleaningFormData>) => {
+    setCleaningFormData: (
+      state,
+      action: PayloadAction<Partial<CleaningFormData>>,
+    ) => {
       state.formData.cleaning = {
         ...state.formData.cleaning,
         ...action.payload, // Fusionne les nouvelles données avec les anciennes
@@ -67,7 +70,10 @@ export const formSlice = createSlice({
     },
 
     // Setter spécifique pour les données du service de cuisine (cooking)
-    setCookingFormData: (state, action: PayloadAction<CookingFormData>) => {
+    setCookingFormData: (
+      state,
+      action: PayloadAction<Partial<CookingFormData>>,
+    ) => {
       state.formData.cooking = {
         ...state.formData.cooking,
         ...action.payload, // Fusionne les nouvelles données avec les anciennes
@@ -77,7 +83,7 @@ export const formSlice = createSlice({
     // Setter spécifique pour les données des petits travaux (smallRepairs)
     setSmallRepairsFormData: (
       state,
-      action: PayloadAction<SmallRepairsFormData>,
+      action: PayloadAction<Partial<SmallRepairsFormData>>,
     ) => {
       state.formData.smallRepairs = {
         ...state.formData.smallRepairs,

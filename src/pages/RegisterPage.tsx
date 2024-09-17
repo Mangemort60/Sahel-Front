@@ -19,7 +19,7 @@ import {
   setPhone,
 } from '../redux/slices/userSlice'
 import toast from 'react-hot-toast'
-import { useAppSelector } from '../redux/hooks'
+import { useAppSelector } from '../redux/hooks/useAppSelector'
 import { createPredemand } from '../utils/createPredemand'
 import { selectIsReadyForPredemande } from '../redux/selectors/worksForm'
 import { PhoneInput } from 'react-international-phone'

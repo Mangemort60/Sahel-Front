@@ -19,7 +19,7 @@ import {
   setShortId,
   setUserName,
 } from '../redux/slices/userSlice'
-import { useAppSelector } from '../redux/hooks'
+import { useAppSelector } from '../redux/hooks/useAppSelector'
 import getApiUrl from '../utils/getApiUrl'
 import { createPredemand } from '../utils/createPredemand'
 import { selectIsReadyForPredemande } from '../redux/selectors/worksForm'

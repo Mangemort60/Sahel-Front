@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
-import { useAppSelector, useAppDispatch } from '../../redux/hooks'
+import { useAppDispatch } from '../../redux/hooks/useAppDispatch'
 import { setActiveTab } from '../../redux/slices/uiSlice'
+import { useAppSelector } from '../../redux/hooks/useAppSelector'
 
 const NavbarDashboard = () => {
   const selectedTab = useAppSelector((state) => state.ui.activeTab)

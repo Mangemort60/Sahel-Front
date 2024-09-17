@@ -6,7 +6,7 @@ import dayjs, { Dayjs } from 'dayjs'
 import isSameOrBefore from 'dayjs/plugin/isSameOrBefore'
 import utc from 'dayjs/plugin/utc'
 import { setServiceDate } from '../../redux/slices/formSlice'
-import { useAppSelector } from '../../redux/hooks'
+import { useAppSelector } from '../../redux/hooks/useAppSelector'
 import getApiUrl from '../../utils/getApiUrl'
 
 dayjs.extend(isSameOrBefore)

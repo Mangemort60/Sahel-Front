@@ -1,5 +1,5 @@
 import { Button } from '../common/Button'
-import { useAppSelector } from '../../redux/hooks'
+import { useAppSelector } from '../../redux/hooks/useAppSelector'
 import { Spinner } from '../common/Spinner'
 import { useDispatch } from 'react-redux'
 import { setCurrentStep } from '../../redux/slices/formSlice'
@@ -9,7 +9,7 @@ import getApiUrl from '../../utils/getApiUrl'
 
 export const CleaningQuoteReview = () => {
   const { numberOfFloors, sizeRange, fruitBasketSelected, beforeOrAfter } =
-    useAppSelector((state) => state.form.formData)
+    useAppSelector((state) => state.form.formData.cleaning)
   console.log('API URL', getApiUrl())
 
   const totalPrice = useAppSelector((state) => state.form.quote)
