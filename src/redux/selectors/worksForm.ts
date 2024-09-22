@@ -10,5 +10,5 @@ const selectReservationType = (state: RootState) => state.form.reservationType
 export const selectIsReadyForPredemande = createSelector(
   [selectCurrentMultiStepForm, selectReservationType],
   (currentStep, reservationType) =>
-    currentStep === 4 && reservationType === 'petits-travaux',
+    currentStep === 3 && reservationType === 'petits-travaux',
 )

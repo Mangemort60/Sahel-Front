@@ -6,29 +6,26 @@ import { useAppSelector } from '../../redux/hooks/useAppSelector'
 
 interface Reservation {
   id: string
-  reservationType: string
-  address: string
-  workCategory: string[]
-  city: string
-  reservationShortId: string
-  bookingFormData: {
-    city: string
-    address: string
-  }
-  serviceDate: string
-  quote: number
-  formData: {
-    period: string
-    numberOfPeople: string
-    additionalDetails: string
-    sizeRange: string | undefined
-    numberOfFloors: string
-    beforeOrAfter: string
-    fruitBasketSelected: string
-  }
-  status: string
   bookingStatus: string
-  serviceStatus: string
+  chatStatus: boolean
+  createdAt: string
+  email: string
+  serviceDate: string
+  emails: {
+    confirmationEmailSent: boolean
+    defaultInstructionsEmailSent: boolean
+    instructionsKeysEmailSent: boolean
+  }
+  reservationShortId: string
+  reservationType: string
+  shortId: string
+  smallRepairs: {
+    address: string
+    city: string
+    urgency: string
+    workCategory: string[]
+    workDescription: string
+  }
 }
 
 type NewMessagesType = {
@@ -110,7 +107,7 @@ const Works = () => {
           reservations.map((reservation) => (
             <Link
               key={reservation.id}
-              to={`/reservations/${reservation.id}`}
+              to={`/Client-dashboard/reservationSpace/${reservation.id}`}
               className="transition transform hover:scale-105 max-w-sm"
             >
               <div className="flex rounded-lg hover:bg-slate-500 h-full dark:bg-gray-800 bg-slate-400 p-8 flex-col">
@@ -123,17 +120,16 @@ const Works = () => {
                 </div>
                 <div className="flex flex-col justify-between flex-grow">
                   <p className="text-white dark:text-gray-300">
-                    Type de travaux : {reservation.workCategory[1]}
-                  </p>
-                  <p className="text-white dark:text-gray-300">
-                    Date de la demande : {reservation.serviceDate}
+                    Type de travaux : {reservation.smallRepairs.workCategory}
                   </p>
                   <p className="text-white dark:text-gray-300 mb-2">
-                    Intervention prévue : {reservation.serviceStatus}
+                    Intervention prévue :{' '}
+                    {reservation.serviceDate || 'à définir'}
                   </p>
                   <hr className="border" />
                   <p className="text-white dark:text-gray-300 mt-2">
-                    Adresse : {reservation.address}, {reservation.city}
+                    Adresse : {reservation.smallRepairs.address},{' '}
+                    {reservation.smallRepairs.city}
                   </p>
                   <p className="text-white dark:text-gray-300">
                     Statut : {reservation.bookingStatus}

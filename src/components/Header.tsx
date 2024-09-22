@@ -5,14 +5,12 @@ import { signOut } from 'firebase/auth'
 import { auth } from '../../firebase-config'
 import { useAppDispatch } from '../redux/hooks/useAppDispatch'
 import { setIsLoggedIn } from '../redux/slices/userSlice'
-import { useState } from 'react'
 import Cookies from 'js-cookie'
 import { resetFormState } from '../redux/slices/formSlice'
-import { resetUiState } from '../redux/slices/uiSlice'
+import { resetUiState, setActiveTab } from '../redux/slices/uiSlice'
 import toast from 'react-hot-toast'
 
 const Header = () => {
-  const [isLoggedOut, setIsLoggedOut] = useState(false)
   const isLoggedIn = useAppSelector((state) => state.user.isLoggedIn)
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
@@ -153,6 +151,7 @@ const Header = () => {
                     <Link
                       className="flex items-center gap-x-2 font-thin text-secondaryDarkBlue hover:text-blue-600  sm:my-6 sm:ps-6 "
                       to="/client-dashboard"
+                      onClick={() => dispatch(setActiveTab('ménage'))}
                     >
                       <svg
                         className="flex-shrink-0 size-4"

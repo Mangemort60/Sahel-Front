@@ -17,7 +17,7 @@ const NavbarDashboard = () => {
             onClick={() => dispatch(setActiveTab('ménage'))}
           >
             <div
-              className={`inline-block p-4 border-b-2 text-2xl ${
+              className={`inline-block p-4 border-b-2 font-bold text-2xl ${
                 selectedTab === 'ménage'
                   ? 'border-gray-500 rounded-t-lg'
                   : 'border-transparent hover:border-gray-500 text-gray-500'
@@ -32,7 +32,7 @@ const NavbarDashboard = () => {
             onClick={() => dispatch(setActiveTab('cuisine'))}
           >
             <div
-              className={`inline-block p-4 border-b-2 text-2xl ${
+              className={`inline-block p-4 border-b-2 font-bold text-2xl ${
                 selectedTab === 'cuisine'
                   ? 'border-gray-500 rounded-t-lg'
                   : 'border-transparent hover:border-gray-500 text-gray-500'
@@ -42,7 +42,7 @@ const NavbarDashboard = () => {
             </div>
           </Link>
           <Link
-            className="me-2 text-2xl"
+            className="me-2 font-bold text-2xl"
             to={'/client-dashboard/works'}
             onClick={() => dispatch(setActiveTab('petits-travaux'))}
           >

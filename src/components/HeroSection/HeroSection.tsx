@@ -19,6 +19,7 @@ export const HeroSection = ({ formSectionRef }: SectionProps) => {
 
   return (
     <>
+      <link rel="preload" href={homeImage} as="image" />
       <div
         className="h-2/3 sm:h-screen flex items-center p-8 text-white"
         style={{

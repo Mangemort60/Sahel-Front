@@ -13,20 +13,22 @@ export const StripeCheckoutForm = () => {
   const dispatch = useDispatch()
 
   const reservationType = useAppSelector((state) => state.form.reservationType)
-  const {
-    numberOfFloors,
-    sizeRange,
-    fruitBasketSelected,
-    beforeOrAfter,
-    address,
-  } = useAppSelector((state) => state.form.formData.cleaning)
-  const { period, numberOfPeople } = useAppSelector(
-    (state) => state.form.formData.cooking,
-  )
+
+  // Récupérer les données du formulaire et vérifier s'ils existent
+  const cleaning = useAppSelector((state) => state.form.formData.cleaning)
+  const cooking = useAppSelector((state) => state.form.formData.cooking)
+  const numberOfFloors = cleaning?.numberOfFloors
+  const sizeRange = cleaning?.sizeRange
+  const fruitBasketSelected = cleaning?.fruitBasketSelected
+  const beforeOrAfter = cleaning?.beforeOrAfter
+  const address = cleaning?.address
+
+  const period = cooking?.period
+  const numberOfPeople = cooking?.numberOfPeople
   const quote = useAppSelector((state) => state.form.quote)
   const serviceDate = useAppSelector((state) => state.form.serviceDate)
 
-  const formatSizeRange = (sizeRange: string) => {
+  const formatSizeRange = (sizeRange: string | undefined) => {
     switch (sizeRange) {
       case 'lessThan40':
         return 'Moins de 40m²'
@@ -41,7 +43,7 @@ export const StripeCheckoutForm = () => {
     }
   }
 
-  const formatPeriod = (period: string) => {
+  const formatPeriod = (period: string | undefined) => {
     switch (period) {
       case 'journee':
         return 'Journée'
@@ -52,7 +54,7 @@ export const StripeCheckoutForm = () => {
     }
   }
 
-  const formatNumberOfPeople = (numberOfPeople: string) => {
+  const formatNumberOfPeople = (numberOfPeople: string | undefined) => {
     switch (numberOfPeople) {
       case '1_8':
         return '1 à 8 personnes'

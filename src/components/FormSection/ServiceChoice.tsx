@@ -4,7 +4,10 @@ import {
   setCurrentStep,
   setReservationType,
 } from '../../redux/slices/formSlice'
-import { resetUiState } from '../../redux/slices/uiSlice'
+import {
+  resetUiState,
+  setCurrentMultiStepForm,
+} from '../../redux/slices/uiSlice'
 
 export const ServiceChoice = () => {
   const dispatch = useDispatch()
@@ -22,6 +25,7 @@ export const ServiceChoice = () => {
       case 'petits-travaux':
         dispatch(setReservationType('petits-travaux'))
         dispatch(setCurrentStep('worksInitialForm'))
+        dispatch(setCurrentMultiStepForm(1))
         dispatch(resetUiState())
         break
       default:
