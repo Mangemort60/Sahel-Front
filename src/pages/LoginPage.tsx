@@ -15,6 +15,7 @@ import {
   setEmail,
   setFirstName,
   setIsLoggedIn,
+  setPhone,
   setRole,
   setShortId,
   setUserName,
@@ -23,6 +24,7 @@ import { useAppSelector } from '../redux/hooks/useAppSelector'
 import getApiUrl from '../utils/getApiUrl'
 import { createPredemand } from '../utils/createPredemand'
 import { selectIsReadyForPredemande } from '../redux/selectors/worksForm'
+import { fetchBadgeStatus } from '../services/fetchBadgeStatus'
 
 type FormData = z.infer<typeof loginSchema>
 
@@ -35,7 +37,14 @@ const LoginPage = ({ formSectionRef }: SectionProps) => {
   const location = useLocation()
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const reservationData = useAppSelector((state) => state.form.formData)
+
+  const from = location.state
+  console.log(from)
+
+  // Récupérer uniquement les données smallRepairs du formData
+  const smallRepairsData = useAppSelector(
+    (state) => state.form.formData.smallRepairs,
+  )
 
   const shortId = useAppSelector((state) => state.user.shortId)
   console.log('shortId', shortId)
@@ -64,7 +73,7 @@ const LoginPage = ({ formSectionRef }: SectionProps) => {
   const onSubmit: SubmitHandler<FormData> = async (data) => {
     setIsLoading(true)
     const apiUrl = getApiUrl()
-
+    const reservationData = { ...smallRepairsData, ...data }
     // Ajoute un log pour voir si la valeur est correcte avant l'appel
     console.log('isReadyForPredemande (avant):', isReadyForPredemande)
 
@@ -98,6 +107,7 @@ const LoginPage = ({ formSectionRef }: SectionProps) => {
       dispatch(setEmail(response.data.email))
       dispatch(setShortId(response.data.shortId))
       dispatch(setRole(response.data.role))
+      dispatch(setPhone(response.data.phone))
 
       if (currentUser && isReadyForPredemande) {
         // Si l'utilisateur est authentifié et que les conditions de la pré-demande sont remplies
@@ -105,23 +115,24 @@ const LoginPage = ({ formSectionRef }: SectionProps) => {
           reservationData,
           response.data.shortId,
           response.data.email,
+          response.data.name,
+          response.data.firstName,
+          response.data.phone,
         )
         toast.success('Pré-demande créée avec succès !', {
           position: 'bottom-right',
         })
       }
 
-      // 6. Gérer la redirection après la connexion
-      if (formStep === 'serviceChoice') {
-        // Si l'utilisateur ne vient pas du formulaire, rediriger vers la page d'accueil
-        navigate('/')
-      } else {
-        // Sinon, rediriger vers l'étape actuelle du formulaire
-        const redirectTo =
-          new URLSearchParams(location.search).get('redirectTo') || '/'
-        navigate(`${redirectTo}#formSection`)
-      }
+      // Nouvelle logique de redirection
+      const redirectTo =
+        location.state?.from?.pathname ||
+        (formStep === 'serviceChoice'
+          ? '/'
+          : `${new URLSearchParams(location.search).get('redirectTo') || '/'}#formSection`)
+      navigate(redirectTo, { replace: true })
 
+      fetchBadgeStatus(response.data.shortId)
       // 7. Afficher un message de succès
       toast.success('Connexion réussie, bienvenue!', {
         position: 'bottom-right',

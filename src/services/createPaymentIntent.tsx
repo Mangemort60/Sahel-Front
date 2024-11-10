@@ -12,16 +12,32 @@ const createPaymentIntent = async (
   email: string | null,
   shortId: string,
   name: string,
+  feesType: string,
+  reservationId: string,
+  devisId?: string,
 ): Promise<PaymentIntentResponse> => {
   const apiUrl = getApiUrl()
 
   try {
+    console.log("Paramètres envoyés à l'API :", {
+      amount,
+      email,
+      shortId,
+      name,
+      feesType,
+      reservationId,
+      devisId,
+    })
+
     // Utilisez axios.post pour envoyer une requête POST
     const response = await axios.post(`${apiUrl}/create-payment`, {
       amount,
       email,
       shortId,
       name,
+      feesType,
+      reservationId,
+      devisId,
     })
 
     // Avec Axios, la réponse est automatiquement traitée et placée dans `response.data`

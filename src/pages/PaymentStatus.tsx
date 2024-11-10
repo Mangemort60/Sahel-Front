@@ -24,21 +24,43 @@ export const PaymentStatus = () => {
   const reservationType = useAppSelector((state) => state.form.reservationType)
 
   // Utilisez le hook personnalisé pour obtenir les données de réservation
-
   const reservationData = useReservationData()
-  console.log('reservationDATA', reservationData)
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search)
     const paymentIntentId = urlParams.get('payment_intent')
+    const reservationId = urlParams.get('reservationId')
+    const devisId = urlParams.get('devisId')
+
+    console.log('devisID:', devisId)
+    console.log('reservationId:', reservationId)
+    console.log('reservationId:', reservationId)
 
     if (paymentIntentId) {
-      axios
-        .post(`${apiUrl}/check-payment-intent`, {
+      // Différencier les appels API en fonction de la nature du paiement
+      let requestBody
+
+      if (devisId) {
+        // Si un devisId est présent, cela signifie que le paiement concerne un devis spécifique
+        requestBody = {
           paymentIntentId,
           reservationData,
-          reservationType, // Inclure les données de réservation dans la requête POST
-        })
+          reservationType,
+          reservationId,
+          devisId,
+        }
+      } else {
+        // Sinon, cela concerne un paiement des frais de service uniquement
+        requestBody = {
+          paymentIntentId,
+          reservationData,
+          reservationType,
+          reservationId,
+        }
+      }
+
+      axios
+        .post(`${apiUrl}/check-payment-intent`, requestBody)
         .then((response) => {
           const { success, message } = response.data
 
@@ -66,7 +88,7 @@ export const PaymentStatus = () => {
               'Erreur lors de la vérification du paiement et de la création de la réservation.',
           })
           setMessage(null)
-          console.log(error)
+          console.error(error)
         })
     }
   }, [])

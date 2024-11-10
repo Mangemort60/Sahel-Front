@@ -34,7 +34,7 @@ export const CustomDatePicker = () => {
   // Sélectionner le type de réservation (ménage ou cuisine) depuis le Redux store
   const reservationType = useAppSelector((state) => state.form.reservationType)
   const isBeforeOrAfter = useAppSelector(
-    (state) => state.form.formData.beforeOrAfter,
+    (state) => state.form.formData.cleaning?.beforeOrAfter,
   )
 
   useEffect(() => {

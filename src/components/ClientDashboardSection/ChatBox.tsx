@@ -6,32 +6,64 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { messageSchema } from '../../schemas/messageSchema'
 import getApiUrl from '../../utils/getApiUrl'
-import { Message } from '../../pages/ClientDashboard'
+import { Message, Reservation } from '../../pages/ClientDashboard'
+import { useState, useEffect } from 'react'
+import { getStorage, ref, getDownloadURL } from 'firebase/storage'
+import { auth } from '../../../firebase-config'
+import { Button } from '../common/Button'
+import toast from 'react-hot-toast'
 
 interface ChatBoxProps {
-  reservationId: string | undefined
+  reservationId: string
   messages: Message[]
+  updateMessages: (reservationId: string, newMessage: Message) => void
+  reservation?: Reservation
 }
 
-const ChatBox = ({ reservationId, messages }: ChatBoxProps) => {
+const ChatBox = ({
+  reservationId,
+  messages,
+  updateMessages,
+  reservation,
+}: ChatBoxProps) => {
+  const [chatMessages, setChatMessages] = useState<Message[]>([])
+  const [imageUrls, setImageUrls] = useState<{ [key: number]: string }>({}) // Pour stocker les URLs d'images
   const sender = useAppSelector((state) => state.user.name)
   const clientEmail = useAppSelector((state) => state.user.email)
   const userRole = useAppSelector((state) => state.user.role)
   const apiUrl = getApiUrl()
 
-  // useEffect(() => {
-  //   const markMessagesAsReadByClient = async () => {
-  //     try {
-  //       await axios.put(
-  //         `${apiUrl}/reservations/${reservationId}/messages/read-by-client`,
-  //       )
-  //     } catch (error) {
-  //       console.error('Error marking messages as read by agent:', error)
-  //     }
-  //   }
+  // Fonction pour récupérer les URL sécurisées des images
+  const fetchImageUrl = async (path: string, messageIndex: number) => {
+    const storage = getStorage()
+    const imageRef = ref(storage, path)
 
-  //   markMessagesAsReadByClient()
-  // }, [reservationId])
+    try {
+      const url = await getDownloadURL(imageRef)
+      setImageUrls((prevUrls) => ({
+        ...prevUrls,
+        [messageIndex]: url,
+      }))
+    } catch (error) {
+      console.error(
+        "Erreur lors de la récupération de l'URL sécurisée :",
+        error,
+      )
+    }
+  }
+
+  useEffect(() => {
+    // Récupérer les URL des images pour chaque message qui a un attachement
+    messages.forEach((message, index) => {
+      if (message.attachments && message.attachments.length > 0) {
+        message.attachments.forEach((attachment) => {
+          if (attachment.type.startsWith('image/')) {
+            fetchImageUrl(attachment.url, index) // Récupérer l'URL sécurisée
+          }
+        })
+      }
+    })
+  }, [messages])
 
   type MessageData = z.infer<typeof messageSchema>
 
@@ -50,7 +82,7 @@ const ChatBox = ({ reservationId, messages }: ChatBoxProps) => {
       clientEmail,
       text: data.text,
       role: userRole,
-      created: new Date().toISOString(), // Ajoute un timestamp
+      created: new Date().toISOString(),
     }
 
     try {
@@ -58,19 +90,38 @@ const ChatBox = ({ reservationId, messages }: ChatBoxProps) => {
         `${apiUrl}/reservations/${reservationId}/messages`,
         messagePayload,
       )
-      setMessages((prevMessages) => [...prevMessages, messagePayload])
+      setChatMessages((prevMessages) => [...prevMessages, messagePayload])
+      updateMessages(reservationId, messagePayload)
       reset()
-      alert('Message sent successfully')
+      // Remplacer l'alerte par un toast
+      toast.success(
+        'Message envoyé avec succès. Notre équipe vous répondra sous 48h.',
+        {
+          position: 'bottom-center', // Affiche ce toast au centre du haut de l'écran
+          duration: 5000, // Ce toast reste visible pendant 5 secondes
+          style: {
+            marginBottom: '200px',
+            fontSize: '16px',
+          },
+        },
+      )
     } catch (error) {
       console.error('Error sending message:', error)
-      alert('Failed to send message')
+      // Toast en cas d'erreur
+      toast.success("Échec de l'envoi du message. Veuillez réessayer.", {
+        position: 'bottom-center', // Affiche ce toast au centre du haut de l'écran
+        duration: 5000, // Ce toast reste visible pendant 5 secondes
+        style: {
+          marginBottom: '200px',
+          fontSize: '16px',
+        },
+      })
     }
   }
 
   return (
-    <div className="mt-8">
-      <h1>{reservationId}</h1>
-      <ul className="space-y-5 flex flex-col items-end">
+    <>
+      <ul className="space-y-5 flex flex-col h-full overflow-auto overscroll-contain  m-2">
         {Array.isArray(messages) && messages.length > 0 ? (
           messages.map((message, index) => (
             <li
@@ -93,58 +144,66 @@ const ChatBox = ({ reservationId, messages }: ChatBoxProps) => {
               >
                 <div className="space-y-1.5">
                   <p className="text-sm">{message.text}</p>
+
+                  {/* Affichage des images ou des liens de téléchargement */}
                   {message.attachments &&
+                    message.attachments.length > 0 &&
                     message.attachments.map((attachment, i) =>
-                      attachment.type.startsWith('image/') ? (
-                        <img
-                          key={i}
-                          src={attachment.url}
-                          alt={`attachment-${i}`}
-                          style={{ maxWidth: '100%' }}
-                        />
-                      ) : (
-                        <a
-                          key={i}
-                          className="text-blue-600 hover:text-blue-500 opacity-90"
-                          href={attachment.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          Télécharger
-                        </a>
-                      ),
+                      attachment.url ? (
+                        attachment.type.startsWith('image/') ? (
+                          <img
+                            key={i}
+                            src={imageUrls[index]} // Utiliser l'URL sécurisée récupérée
+                            alt={`attachment-${i}`}
+                            style={{ maxWidth: '100%' }}
+                          />
+                        ) : (
+                          <a
+                            key={i}
+                            className="text-blue-600 hover:text-blue-500 opacity-90"
+                            href={attachment.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            Télécharger
+                          </a>
+                        )
+                      ) : null,
                     )}
                 </div>
               </div>
             </li>
           ))
         ) : (
-          // Affichage alternatif si le tableau de messages est vide ou non défini
-          <p>Aucun message disponible pour cette réservation.</p>
+          <h2 className="text-2xl text-center my-auto text-gray-600">
+            Bonjour {reservation?.firstName} ! en quoi pouvons nous vous aider
+            aujourd'hui ?
+          </h2>
         )}
       </ul>
 
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="max-w-sm space-y-3 mt-8 flex gap-2">
-          <textarea
-            {...register('text')}
-            className="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
-            rows={3}
-            placeholder="Écrivez votre message ici..."
-          ></textarea>
-          {errors.text && <p>{errors.text.message as string}</p>}
-          <div className="flex flex-col justify-between">
-            <button type="submit">
-              <IoSend
-                fontSize={28}
-                color="blue"
-                className="hover:cursor-pointer"
+      <form onSubmit={handleSubmit(onSubmit)} className="">
+        <div className="space-y-3 m-2 flex gap-2 shadow-md rounded-lg">
+          <div className="flex w-full p-2">
+            <textarea
+              {...register('text')}
+              className="resize-none rounded-md border-none w-full focus:ring-0"
+              rows={3}
+              placeholder="Écrivez votre message ici..."
+            ></textarea>
+            <div className="flex flex-col justify-between mt-auto">
+              <Button
+                label="Envoyer"
+                bgColor="bg-secondaryBlue"
+                textColor="text-white"
+                hoverColor={'hover:bg-secondaryRegularBlue'}
               />
-            </button>
+            </div>
           </div>
+          {errors.text && <p>{errors.text.message as string}</p>}
         </div>
       </form>
-    </div>
+    </>
   )
 }
 

@@ -34,7 +34,9 @@ const RegisterPage = () => {
   const auth = getAuth() // Initialize Firebase Authentication
   const dispatch = useDispatch()
   const isReadyForPredemande = useAppSelector(selectIsReadyForPredemande)
-  const reservationData = useAppSelector((state) => state.form.formData)
+  const smallRepairsData = useAppSelector(
+    (state) => state.form.formData.smallRepairs,
+  )
 
   const {
     register,
@@ -47,6 +49,14 @@ const RegisterPage = () => {
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
     setIsLoading(true)
+    const rgstrDataSmallRepairs = {
+      name: data.name,
+      firstName: data.firstname,
+      email: data.email,
+      phone: data.phone,
+    }
+    const reservationData = { ...smallRepairsData, ...rgstrDataSmallRepairs }
+
     try {
       // Envoie les données d'inscription au backend
       const response = await axios.post(`${apiUrl}/auth/register`, {
@@ -87,6 +97,9 @@ const RegisterPage = () => {
           reservationData,
           response.data.shortId,
           data.email,
+          data.name,
+          data.firstname,
+          data.phone,
         )
         toast.success('Pré-demande créée avec succès !', {
           position: 'bottom-right',

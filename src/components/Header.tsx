@@ -7,33 +7,44 @@ import { useAppDispatch } from '../redux/hooks/useAppDispatch'
 import { setIsLoggedIn } from '../redux/slices/userSlice'
 import Cookies from 'js-cookie'
 import { resetFormState } from '../redux/slices/formSlice'
-import { resetUiState, setActiveTab } from '../redux/slices/uiSlice'
+import {
+  resetUiState,
+  setActiveTab,
+  setTotalNotifications,
+  setNotificationDetails,
+} from '../redux/slices/uiSlice'
 import toast from 'react-hot-toast'
+import Badge from '@mui/material/Badge'
+import { useEffect } from 'react'
+
+import { fetchBadgeStatus } from '../services/fetchBadgeStatus'
 
 const Header = () => {
   const isLoggedIn = useAppSelector((state) => state.user.isLoggedIn)
-  const dispatch = useAppDispatch()
   const navigate = useNavigate()
+  const dispatch = useAppDispatch()
+  const userId = useAppSelector((state) => state.user.shortId) as string
+  const totalNotifications = useAppSelector(
+    (state) => state.ui.totalNotifications || 0,
+  )
+  useEffect(() => {
+    if (userId) {
+      fetchBadgeStatus(userId)
+    }
+  }, [userId])
 
   const handleLogout = async () => {
     try {
       await signOut(auth)
-      console.log('Déconnexion réussie')
-
       dispatch(setIsLoggedIn(false))
       dispatch(resetUiState())
       dispatch(resetFormState())
       Cookies.remove('token')
 
-      // Notification de succès avec react-hot-toast
       toast.success('Déconnexion réussie !', { position: 'bottom-right' })
-
-      // Redirige l'utilisateur après déconnexion, si nécessaire
       navigate('/login')
     } catch (error) {
       console.error('Erreur lors de la déconnexion:', error)
-
-      // Notification d'erreur
       toast.error('Erreur lors de la déconnexion.')
     }
   }
@@ -92,7 +103,7 @@ const Header = () => {
           >
             <div className="flex flex-col gap-y-4 gap-x-0 mt-5 sm:flex-row sm:items-center sm:justify-end sm:gap-y-0 sm:gap-x-7 sm:mt-0 sm:ps-7">
               <Link
-                className="font-thin  text-secondaryDarkBlue hover:text-gray-400 sm:py-6 dark:text-gray-400 dark:hover:text-secondaryDarkBlue"
+                className="font-thin text-secondaryDarkBlue hover:text-gray-400 sm:py-6 dark:text-gray-400 dark:hover:text-secondaryDarkBlue"
                 to="/about-us"
                 aria-current="page"
               >
@@ -130,43 +141,57 @@ const Header = () => {
                   </a>
                 </div>
               </div>
-              <div className="h-12 m-0">
-                <button
-                  className="py-3 px-2 inline-flex items-center w-auto justify-center gap-  rounded-sm border border-transparent text-white  bg-sahelRegular disabled:pointer-events-none hover:bg-sahelDark  "
-                  onClick={handleSubscribeClick}
-                >
-                  Réserver{' '}
-                </button>
-              </div>
               <Link
                 className="font-thin text-secondaryDarkBlue hover:text-gray-400 sm:py-6 dark:text-gray-400 dark:hover:text-secondaryDarkBlue"
                 to="/contact"
               >
                 Contact
               </Link>
+              <div className="h-12 m-0">
+                <button
+                  className="py-3 px-2 inline-flex items-center w-auto justify-center gap- rounded-sm border border-transparent text-white bg-sahelRegular disabled:pointer-events-none hover:bg-sahelDark"
+                  onClick={handleSubscribeClick}
+                >
+                  Réserver
+                </button>
+              </div>
 
               <div>
                 {isLoggedIn ? (
                   <div className="flex">
                     <Link
-                      className="flex items-center gap-x-2 font-thin text-secondaryDarkBlue hover:text-blue-600  sm:my-6 sm:ps-6 "
+                      className="flex items-center font-thin text-secondaryDarkBlue hover:text-blue-600"
                       to="/client-dashboard"
                       onClick={() => dispatch(setActiveTab('ménage'))}
                     >
-                      <svg
-                        className="flex-shrink-0 size-4"
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="16"
-                        height="16"
-                        fill="currentColor"
-                        viewBox="0 0 16 16"
+                      <Badge
+                        badgeContent={totalNotifications}
+                        color="secondary"
+                        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
                       >
-                        <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
-                      </svg>
-                      Mon espace
+                        <div className="h-12 m-0">
+                          <button
+                            className="py-3 px-2 inline-flex items-center w-auto justify-center gap- rounded-sm border border-transparent text-white bg-sahelFlashDarkBlue disabled:pointer-events-none hover:bg-secondaryDarkBlue"
+                            onClick={() => dispatch(setActiveTab('ménage'))}
+                          >
+                            Mon espace
+                            <svg
+                              className="flex-shrink-0 size-4 ml-1"
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="16"
+                              height="16"
+                              fill="currentColor"
+                              viewBox="0 0 16 16"
+                            >
+                              <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
+                            </svg>
+                          </button>
+                        </div>
+                      </Badge>
                     </Link>
+
                     <Link
-                      className="flex items-center gap-x-2 font-thin text-secondaryDarkBlue hover:text-blue-600 sm:border-s sm:border-gray-300 ml-2 sm:my-6 sm:ps-6 "
+                      className="flex items-center pgap-x-2 font-thin text-secondaryDarkBlue hover:text-blue-600 sm:border-s sm:border-gray-300 ml-2 sm:my-6 sm:ps-6"
                       to="/"
                       onClick={() => handleLogout()}
                     >
@@ -188,7 +213,7 @@ const Header = () => {
                   </div>
                 ) : (
                   <Link
-                    className="flex items-center gap-x-2 font-t text-secondaryDarkBlue hover:text-blue-600  sm:my-6 sm:ps-6 "
+                    className="flex items-center gap-x-2 font-t text-secondaryDarkBlue hover:text-blue-600 sm:my-6 sm:ps-6"
                     to="/login"
                   >
                     <svg

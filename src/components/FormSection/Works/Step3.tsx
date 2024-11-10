@@ -39,6 +39,9 @@ export const Step3 = ({ nextStep, formData }: StepProps) => {
   const shortId = useAppSelector((state) => state.user.shortId)
   const email = useAppSelector((state) => state.user.email)
   const isLoggedIn = useAppSelector((state) => state.user.isLoggedIn)
+  const userFirstName = useAppSelector((state) => state.user.firstName)
+  const userName = useAppSelector((state) => state.user.name)
+  const phone = useAppSelector((state) => state.user.phone)
 
   // Récupérer uniquement les données smallRepairs du formData
   const smallRepairsData = useAppSelector(
@@ -54,7 +57,14 @@ export const Step3 = ({ nextStep, formData }: StepProps) => {
 
     if (isLoggedIn) {
       // Créer la pré-demande avec les données filtrées
-      createPredemand(reservationData, shortId, email)
+      createPredemand(
+        reservationData,
+        shortId,
+        email,
+        userName,
+        userFirstName,
+        phone,
+      )
       toast.success('Pré-demande créée avec succès !', {
         position: 'bottom-right',
       })

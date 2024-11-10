@@ -5,15 +5,16 @@ import { setCurrentStep } from '../../redux/slices/formSlice'
 import { useAppSelector } from '../../redux/hooks/useAppSelector'
 import { useState } from 'react'
 import getSiteUrl from '../../utils/getSiteUrl'
+import { useLocation } from 'react-router-dom'
 
 export const StripeCheckoutForm = () => {
   const [isLoading, setIsLoading] = useState(false)
   const stripe = useStripe()
   const elements = useElements()
   const dispatch = useDispatch()
-
+  const location = useLocation()
   const reservationType = useAppSelector((state) => state.form.reservationType)
-
+  const { clientSecret, reservationId, devisId } = location.state || {}
   // Récupérer les données du formulaire et vérifier s'ils existent
   const cleaning = useAppSelector((state) => state.form.formData.cleaning)
   const cooking = useAppSelector((state) => state.form.formData.cooking)
@@ -81,7 +82,7 @@ export const StripeCheckoutForm = () => {
       const result = await stripe.confirmPayment({
         elements,
         confirmParams: {
-          return_url: `${siteUrl}/payment-status`,
+          return_url: `${siteUrl}/payment-status?reservationId=${encodeURIComponent(reservationId)}&reservationType=${encodeURIComponent(reservationType)}&devisId=${encodeURIComponent(devisId)}`,
         },
       })
 

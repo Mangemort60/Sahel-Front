@@ -5,13 +5,13 @@ import { useDispatch } from 'react-redux'
 import { setCurrentStep } from '../../redux/slices/formSlice'
 import { FaArrowLeft } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
-import getApiUrl from '../../utils/getApiUrl'
 
 export const CleaningQuoteReview = () => {
-  const { numberOfFloors, sizeRange, fruitBasketSelected, beforeOrAfter } =
-    useAppSelector((state) => state.form.formData.cleaning)
-  console.log('API URL', getApiUrl())
+  const cleaningData = useAppSelector((state) => state.form.formData.cleaning)
 
+  // Vérifiez si 'cleaning' existe avant d'accéder à ses propriétés
+  const { numberOfFloors, sizeRange, fruitBasketSelected, beforeOrAfter } =
+    cleaningData || {} // Default to an empty object if undefined
   const totalPrice = useAppSelector((state) => state.form.quote)
   console.log(totalPrice)
 
@@ -21,7 +21,7 @@ export const CleaningQuoteReview = () => {
 
   const dispatch = useDispatch()
 
-  const formatSizeRange = (sizeRange: string) => {
+  const formatSizeRange = (sizeRange: string | undefined) => {
     switch (sizeRange) {
       case 'lessThan40':
         return 'Moins de 40m²'

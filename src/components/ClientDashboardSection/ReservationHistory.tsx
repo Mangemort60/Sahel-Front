@@ -1,132 +1,123 @@
-import { useEffect, useState } from 'react'
 import { useAppSelector } from '../../redux/hooks/useAppSelector'
 import { Link } from 'react-router-dom'
 import { Reservation } from '../../pages/ClientDashboard'
+import { AnimatePresence, motion } from 'framer-motion'
+import { IoChatboxOutline } from 'react-icons/io5'
+import { Badge } from '@mui/material'
+
+const variants = {
+  enter: { opacity: 0, x: 30 },
+  center: { opacity: 1, x: 0 },
+  exit: { opacity: 0, x: -30 },
+}
 
 interface ReservationHistoryProps {
-  reservations: Reservation[] // Le type de données que tu passes en tant que props
-}
-
-type StatusColorMap = {
-  [key: string]: string
-  'à venir': 'text-blue-500'
-  'en cours': 'text-green-500'
-  terminée: 'text-gray-500'
-  suspendue: 'text-red-500'
-}
-
-// Interface pour un message
-interface Message {
-  reservationId: string
-  text: string
-  created: string
-  role: string
-  readByClient: boolean
-}
-
-type NewMessagesType = {
-  [reservationId: string]: number
+  reservations: Reservation[]
 }
 
 export const ReservationHistory = ({
   reservations,
 }: ReservationHistoryProps) => {
-  const [newMessages, setNewMessages] = useState<NewMessagesType>({})
   const activeTab = useAppSelector((state) => state.ui.activeTab)
-  const [_isLoading, setIsLoading] = useState(true)
-  const [_error, setError] = useState('')
 
-  console.log('activeTab:', activeTab)
-  console.log(
-    'reservationType:',
-    reservations.map((r) => r.reservationType),
-  )
+  // Récupération des notifications détaillées par réservation depuis le store Redux
+  const notifDetails = useAppSelector((state) => state.ui.notifDetails)
 
   function getTabColorClasses(activeTab: string): string {
     const colorMap: { [key: string]: string } = {
-      cuisine: 'bg-sahelPurpleTeal hover:bg-sahelPurpleTealDarker',
-      ménage: 'bg-sahelBlueTeal hover:bg-sahelBlueTealDarker',
-      works: 'bg-sahelFlashBlue hover:bg-sahelFlashBlueDarker',
+      cuisine: 'bg-sahelPurpleTealDarker hover:bg-sahelPurpleTeal',
+      ménage: 'bg-sahelBlueTealDarker hover:bg-sahelBlueTeal',
+      works: 'bg-sahelFlashBlueDarker hover:bg-sahelFlashBlue',
     }
-    // Si activeTab existe dans colorMap, retourne la classe correspondante. Sinon, retourne une valeur par défaut.
     return colorMap[activeTab] || 'bg-gray-200 hover:bg-gray-300'
   }
 
-  useEffect(() => {
-    // const fetchNewMessages = async () => {
-    //   try {
-    //     const response = await axios.get<Message[]>(`${apiUrl}/new-messages`)
-    //     console.log('API Response:', response.data) // Ajout d'un log pour voir la réponse de l'API
-    //     const messages = response.data.reduce<NewMessagesType>(
-    //       (acc, message) => {
-    //         console.log('Processing message:', message)
-    //         if (
-    //           !message.readByClient &&
-    //           (message.role === 'Admin' || message.role === 'superAdmin')
-    //         ) {
-    //           if (!acc[message.reservationId]) {
-    //             acc[message.reservationId] = 0
-    //           }
-    //           acc[message.reservationId]++
-    //         }
-    //         return acc
-    //       },
-    //       {},
-    //     )
-    //     console.log('Processed Messages:', messages) // Ajout d'un log pour voir les messages traités
-    //     setNewMessages(messages)
-    //   } catch (error) {
-    //     console.error('Error fetching new messages:', error)
-    //   }
-    // }
-    // fetchNewMessages()
-    // const interval = setInterval(fetchNewMessages, 10000) // Polling toutes les 10 secondes
-    // return () => clearInterval(interval)
-  }, [])
-
   return (
-    <div>
-      <>
-        <div className="flex sm:flex-wrap sm:flex-row flex-col gap-4 m-auto">
-          {reservations
-            .filter((reservation) => reservation.reservationType === activeTab)
-            .map((reservation, index) => (
-              <Link
-                to={`reservationSpace/${reservation.id}`}
-                className="transition transform hover:scale-105  max-w-sm"
-              >
-                <div
-                  className={`flex rounded-lg h-full dark:bg-gray-800 ${getTabColorClasses(activeTab)} p-8 flex-col`}
-                >
-                  <div className="flex items-center mb-3">
-                    <h2 className="text-white dark:text-white font-bold text-xl">
-                      Réservation n°{' '}
-                      <span className=" text-base font-thin">
-                        {' '}
-                        {reservation.reservationShortId}
-                      </span>
-                    </h2>
-                  </div>
-                  <div className="flex flex-col justify-between flex-grow">
-                    <p className="text-white dark:text-gray-300">
-                      Montant : {reservation.quote}€
-                    </p>
-                    <p className="text-white dark:text-gray-300 mb-2">
-                      Intervention prévue le : {reservation.serviceDate}
-                    </p>
-                    <hr className="border" />
-                    <p className="text-white dark:text-gray-300 mt-2">
-                      Adresse : {reservation.address}
-                    </p>
-                    <p className="text-white dark:text-gray-300">
-                      Ville : {reservation.city}
-                    </p>
-                  </div>
-                </div>
-              </Link>
-            ))}
+    <AnimatePresence mode="wait">
+      <motion.div
+        key={activeTab}
+        initial="enter"
+        animate="center"
+        exit="exit"
+        variants={variants}
+        transition={{ duration: 0.5 }}
+        style={{ height: '100%' }}
+        className="h-full"
+      >
+        <div>
+          <div className="flex sm:flex-wrap sm:flex-row flex-col gap-4 m-auto">
+            {reservations
+              .filter(
+                (reservation) => reservation.reservationType === activeTab,
+              )
+              .map((reservation) => {
+                // Obtenez les détails des notifications pour cette réservation spécifique
+                const reservationNotif = notifDetails.find(
+                  (notif) => notif.reservationId === reservation.id,
+                )
+                const notificationCount =
+                  reservationNotif?.notificationCount || 0
+
+                return (
+                  <Link
+                    key={reservation.id}
+                    to={`reservationSpace/${reservation.id}`}
+                    className="transition transform hover:scale-105 max-w-sm"
+                  >
+                    <div
+                      className={`relative flex rounded-lg h-full dark:bg-gray-800 ${getTabColorClasses(
+                        activeTab,
+                      )} p-8 flex-col`}
+                    >
+                      {/* Badge de notification pour la carte de réservation */}
+                      {notificationCount > 0 && (
+                        <Badge
+                          badgeContent={notificationCount}
+                          color="secondary"
+                          anchorOrigin={{
+                            vertical: 'top',
+                            horizontal: 'right',
+                          }}
+                          className="absolute bottom-8 left-8"
+                        />
+                      )}
+                      <div className="flex items-center mb-3">
+                        <h2 className="text-white dark:text-white font-bold text-xl">
+                          Réservation n°{' '}
+                          <span className="text-base font-thin">
+                            {reservation.reservationShortId}
+                          </span>
+                        </h2>
+                      </div>
+                      <div className="flex flex-col justify-between flex-grow">
+                        <p className="text-white dark:text-gray-300">
+                          Montant : {reservation.quote}€
+                        </p>
+                        <p className="text-white dark:text-gray-300 mb-2">
+                          Intervention prévue le : {reservation.serviceDate}
+                        </p>
+                        <hr className="border" />
+                        <p className="text-white dark:text-gray-300 mt-2">
+                          Adresse : {reservation.address}
+                        </p>
+                        <p className="text-white dark:text-gray-300">
+                          Ville : {reservation.city}
+                        </p>
+                      </div>
+                      <Link
+                        to={`/client-dashboard/reservationSpace/${reservation.id}`}
+                        type="button"
+                        className="mt-2 p-2 inline-flex items-center gap-x-2 rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-100 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
+                      >
+                        Accéder au chat <IoChatboxOutline />
+                      </Link>
+                    </div>
+                  </Link>
+                )
+              })}
+          </div>
         </div>
-      </>
-    </div>
+      </motion.div>
+    </AnimatePresence>
   )
 }

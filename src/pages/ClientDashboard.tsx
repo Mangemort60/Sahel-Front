@@ -2,12 +2,23 @@ import { Route, Routes } from 'react-router-dom'
 import { Content } from '../components/ClientDashboardSection/Content.tsx'
 import { ReservationHistory } from '../components/ClientDashboardSection/ReservationHistory.tsx'
 import NavbarDashboard from '../components/ClientDashboardSection/NavbarDashboard.tsx'
-import Works from '../components/ClientDashboardSection/Works.tsx'
 import ReservationSpace from '../components/ClientDashboardSection/ReservationSpace.tsx'
 import { fetchReservations } from '../services/fetchReservations.tsx'
 import { useEffect, useState } from 'react'
 import { useAppSelector } from '../redux/hooks/useAppSelector.ts'
 import { fetchAllMessages } from '../services/fetchAllMessages.tsx'
+import SmallRepairs from '../components/ClientDashboardSection/SmallRepairs.tsx'
+
+export interface Devis {
+  id: string // ID unique du devis
+  url: string // URL du devis (lien vers le fichier)
+  amount: number // Montant du devis
+  note: string
+  status: string // Statut du devis (ex: 'en attente d'acceptation')
+  paymentStatus: string // Statut de paiement (ex: 'en attente de paiement', 'payé')
+  createdAt: string // Date de création du devis (format ISO 8601 ou autre format valide)
+  validUntil: string // Date jusqu'à laquelle le devis est valide (format ISO 8601)
+}
 
 export interface Message {
   sender: string
@@ -22,9 +33,14 @@ export interface Reservation {
   id: string
   reservationType: string
   reservationShortId: string
-  city: string
+  devis: Devis[] // Tableau de devis  city: string
   address: string
   serviceDate: string
+  city: string
+  email: string
+  shortId: string
+  name: string
+  firstName: string
   quote: number
   formData: {
     period: string
@@ -38,6 +54,9 @@ export interface Reservation {
   status: string
   bookingStatus: string
   serviceStatus: string
+  paymentStatus: string
+  initialClientSecret: string
+  keyReceived: boolean
 }
 
 export const ClientDashboard = () => {
@@ -68,8 +87,16 @@ export const ClientDashboard = () => {
     loadAllMessages() // Appel une seule fois
   }, [shortID])
 
+  // Fonction pour mettre à jour les messages pour une réservation donnée
+  const updateMessages = (reservationId: string, newMessage: Message) => {
+    setMessagesByReservation((prevMessages) => ({
+      ...prevMessages,
+      [reservationId]: [...(prevMessages[reservationId] || []), newMessage],
+    }))
+  }
+
   return (
-    <div className="m-4 sm:w-2/3 sm:m-auto space-y-4 h-screen">
+    <div className="m-4 sm:w-2/3 sm:m-auto space-y-4 min-h-screen">
       <NavbarDashboard />
 
       <Routes>
@@ -89,10 +116,14 @@ export const ClientDashboard = () => {
               <ReservationSpace
                 messagesByReservation={messagesByReservation}
                 reservations={reservations}
+                updateMessages={updateMessages}
               />
             }
           />
-          <Route path="works" element={<Works />} />
+          <Route
+            path="smallRepairs"
+            element={<SmallRepairs reservations={reservations} />}
+          />
         </Route>
       </Routes>
     </div>

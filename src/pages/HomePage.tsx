@@ -1,8 +1,7 @@
-import { RefObject, useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { FormSection } from '../components/FormSection/FormSection'
 import { HeroSection } from '../components/HeroSection/HeroSection'
 import { useLocation } from 'react-router-dom'
-import { useAppSelector } from '../redux/hooks/useAppSelector'
 import Solution from '../components/Solution'
 import { Faq } from '../components/Faq'
 
@@ -15,8 +14,6 @@ const HomePage = () => {
       formSectionRef.current.scrollIntoView({ behavior: 'smooth' })
     }
   }, [location])
-
-  const formStep = useAppSelector((state) => state.form.currentStep)
 
   useEffect(() => {
     // Vérifiez si l'URL contient un hash pour formSection

@@ -5,8 +5,18 @@ export const createPredemand = async (
   reservationData: object,
   shortId: string,
   email: string | null,
+  userName: string,
+  userFirstName: string,
+  phone: string,
 ) => {
   const apiUrl = getApiUrl()
+
+  console.log(
+    'CREATE PREDEMANDE : USERFIRSTNAME ',
+    userFirstName,
+    'userName',
+    userName,
+  )
 
   try {
     // Faire l'appel API pour créer la pré-demande avec shortId et reservationData
@@ -14,6 +24,9 @@ export const createPredemand = async (
       shortId, // Envoi du shortId ici
       reservationData, // Étendre les données de réservation
       email,
+      userName,
+      userFirstName,
+      phone,
     })
 
     console.log("Réponse de l'API:", response.data)

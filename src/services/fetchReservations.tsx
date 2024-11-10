@@ -1,27 +1,6 @@
 import axios from 'axios'
 import getApiUrl from '../utils/getApiUrl'
-
-interface Reservation {
-  id: string
-  reservationType: string
-  reservationShortId: string
-  city: string
-  address: string
-  serviceDate: string
-  quote: number
-  formData: {
-    period: string
-    numberOfPeople: string
-    additionalDetails: string
-    sizeRange: string | undefined
-    numberOfFloors: string
-    beforeOrAfter: string
-    fruitBasketSelected: string
-  }
-  status: string
-  bookingStatus: string
-  serviceStatus: string
-}
+import { Reservation } from '../pages/ClientDashboard'
 
 const apiUrl = getApiUrl()
 
