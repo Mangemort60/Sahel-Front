@@ -2,7 +2,12 @@ import { FaArrowLeft } from 'react-icons/fa'
 import ChatBox from './ChatBox'
 import { Link, useParams } from 'react-router-dom'
 import { Message, Reservation } from '../../pages/ClientDashboard'
-import { setActiveTab } from '../../redux/slices/uiSlice'
+import {
+  decrementTotalNotifications,
+  markUiMessagesAsRead,
+  setActiveTab,
+  updateNotificationCount,
+} from '../../redux/slices/uiSlice'
 import { useDispatch } from 'react-redux'
 import { useAppSelector } from '../../redux/hooks/useAppSelector'
 import { useEffect } from 'react'
@@ -45,6 +50,19 @@ const ReservationSpace = ({
     }
 
     markMessagesAsRead()
+    dispatch(
+      markUiMessagesAsRead({
+        reservationId: reservationId,
+      }),
+    )
+
+    dispatch(
+      updateNotificationCount({
+        reservationId: reservationId,
+      }),
+    )
+
+    dispatch(decrementTotalNotifications())
   }, [reservationId])
 
   return (

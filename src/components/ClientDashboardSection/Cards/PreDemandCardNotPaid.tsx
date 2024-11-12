@@ -3,8 +3,10 @@ import { Reservation } from '../../../pages/ClientDashboard'
 import { IoChatboxOutline } from 'react-icons/io5'
 import { createPaymentIntent } from '../../../services/createPaymentIntent'
 import { useState } from 'react'
-import { useAppDispatch } from '../../../redux/hooks/useAppDispatch'
+import { useDispatch } from 'react-redux'
+import { useAppSelector } from '../../../redux/hooks/useAppSelector'
 import { setReservationType } from '../../../redux/slices/formSlice'
+import Badge from '@mui/material/Badge'
 
 interface ConfirmedCardProps {
   reservation: Reservation
@@ -13,7 +15,16 @@ interface ConfirmedCardProps {
 const PreDemandCardNotPaid = ({ reservation }: ConfirmedCardProps) => {
   const navigate = useNavigate()
   const [isLoading, setIsLoading] = useState(false)
-  const dispatch = useAppDispatch()
+  const dispatch = useDispatch()
+
+  // Sélectionner les détails de notification correspondant à cette réservation
+  const notifDetails = useAppSelector((state) => state.ui.notifDetails)
+  const reservationNotification = notifDetails.find(
+    (notif) => notif.reservationId === reservation.id,
+  )
+
+  const showPaymentBadge = reservationNotification?.pendingServiceFees || false
+  const showChatBadge = reservationNotification?.unreadMessages || false
 
   const handlePaymentClick = async () => {
     setIsLoading(true)
@@ -21,8 +32,6 @@ const PreDemandCardNotPaid = ({ reservation }: ConfirmedCardProps) => {
     try {
       const serviceFees = 5000
       const feesType = 'serviceFees'
-
-      console.log('Fees Type envoyé :', feesType)
 
       const { clientSecret } = await createPaymentIntent(
         serviceFees,
@@ -58,22 +67,47 @@ const PreDemandCardNotPaid = ({ reservation }: ConfirmedCardProps) => {
         Veuillez payer les frais de service pour commencer la prestation.
       </p>
       <div className="flex flex-col gap-2 w-52">
-        {/* Remplacer Link par un bouton qui déclenche handlePaymentClick */}
-        <button
-          onClick={handlePaymentClick}
-          className="bg-blue-500 text-white p-2 rounded-lg hover:bg-blue-400"
-          disabled={isLoading}
+        {/* Bouton pour payer les frais de service avec badge conditionnel */}
+        <Badge
+          badgeContent={showPaymentBadge ? '!' : null}
+          color="error"
+          invisible={!showPaymentBadge}
+          anchorOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+          }}
         >
-          {isLoading ? 'Création du paiement...' : 'Payer les frais de service'}
-        </button>
+          <button
+            onClick={handlePaymentClick}
+            className="bg-blue-500 text-white p-2 rounded-lg hover:bg-blue-400 w-full"
+            disabled={isLoading}
+          >
+            {isLoading
+              ? 'Création du paiement...'
+              : 'Payer les frais de service'}
+          </button>
+        </Badge>
 
-        <Link
-          to={`/client-dashboard/reservationSpace/${reservation.id}`}
-          type="button"
-          className="p-2 inline-flex items-center gap-x-2 rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-100 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
+        {/* Bouton pour accéder au chat avec badge conditionnel */}
+        <Badge
+          badgeContent={showChatBadge ? '!' : null}
+          color="error"
+          invisible={!showChatBadge}
+          anchorOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+          }}
         >
-          Accéder au chat <IoChatboxOutline />
-        </Link>
+          <Link
+            to={`/client-dashboard/reservationSpace/${reservation.id}`}
+            type="button"
+            className="relative p-2 inline-flex items-center w-full justify-center gap-x-2 rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-100 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
+          >
+            <span className="inline-flex items-center gap-x-2">
+              Accéder au chat <IoChatboxOutline />
+            </span>
+          </Link>
+        </Badge>
       </div>
     </div>
   )

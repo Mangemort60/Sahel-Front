@@ -29,7 +29,7 @@ const NavbarDashboard = () => {
           <div className="relative me-2">
             <Badge
               badgeContent={menageNotifications}
-              color="secondary"
+              color="error"
               anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
               className="absolute bottom-6 left-full" // Position du badge
             />
@@ -51,7 +51,7 @@ const NavbarDashboard = () => {
           <div className="relative me-2">
             <Badge
               badgeContent={cuisineNotifications}
-              color="secondary"
+              color="error"
               anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
               className="absolute bottom-6 left-full"
             />
@@ -73,7 +73,7 @@ const NavbarDashboard = () => {
           <div className="relative me-2">
             <Badge
               badgeContent={petitsTravauxNotifications}
-              color="secondary"
+              color="error"
               anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
               className="absolute bottom-6 left-full"
             />

@@ -59,28 +59,12 @@ export const ReservationHistory = ({
                   reservationNotif?.notificationCount || 0
 
                 return (
-                  <Link
-                    key={reservation.id}
-                    to={`reservationSpace/${reservation.id}`}
-                    className="transition transform hover:scale-105 max-w-sm"
-                  >
+                  <div className="transition transform hover:scale-105 max-w-sm">
                     <div
                       className={`relative flex rounded-lg h-full dark:bg-gray-800 ${getTabColorClasses(
                         activeTab,
                       )} p-8 flex-col`}
                     >
-                      {/* Badge de notification pour la carte de réservation */}
-                      {notificationCount > 0 && (
-                        <Badge
-                          badgeContent={notificationCount}
-                          color="secondary"
-                          anchorOrigin={{
-                            vertical: 'top',
-                            horizontal: 'right',
-                          }}
-                          className="absolute bottom-8 left-8"
-                        />
-                      )}
                       <div className="flex items-center mb-3">
                         <h2 className="text-white dark:text-white font-bold text-xl">
                           Réservation n°{' '}
@@ -103,16 +87,28 @@ export const ReservationHistory = ({
                         <p className="text-white dark:text-gray-300">
                           Ville : {reservation.city}
                         </p>
-                      </div>
+                      </div>{' '}
+                      {/* Badge de notification pour la carte de réservation */}
                       <Link
                         to={`/client-dashboard/reservationSpace/${reservation.id}`}
                         type="button"
-                        className="mt-2 p-2 inline-flex items-center gap-x-2 rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-100 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
+                        className="relative mt-2 p-2 inline-flex items-center justify-center gap-x-2 rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-100 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
                       >
                         Accéder au chat <IoChatboxOutline />
+                        {notificationCount > 0 && (
+                          <Badge
+                            badgeContent="!"
+                            color="error"
+                            anchorOrigin={{
+                              vertical: 'top',
+                              horizontal: 'right',
+                            }}
+                            className="absolute bottom-6 left-8"
+                          />
+                        )}{' '}
                       </Link>
                     </div>
-                  </Link>
+                  </div>
                 )
               })}
           </div>

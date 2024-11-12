@@ -166,7 +166,7 @@ const Header = () => {
                     >
                       <Badge
                         badgeContent={totalNotifications}
-                        color="secondary"
+                        color="error"
                         anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
                       >
                         <div className="h-12 m-0">

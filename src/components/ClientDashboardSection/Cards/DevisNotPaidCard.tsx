@@ -3,6 +3,9 @@ import { Reservation, Devis } from '../../../pages/ClientDashboard'
 import { Link, useNavigate } from 'react-router-dom'
 import { createPaymentIntent } from '../../../services/createPaymentIntent'
 import dayjs from 'dayjs' // Import de dayjs pour manipuler les dates
+import Badge from '@mui/material/Badge'
+import { useAppSelector } from '../../../redux/hooks/useAppSelector'
+import { IoChatboxOutline } from 'react-icons/io5'
 
 interface DevisNotPaidCardProps {
   reservation: Reservation
@@ -20,6 +23,16 @@ const DevisNotPaidCard: React.FC<DevisNotPaidCardProps> = ({
   const currentDate = dayjs()
   const validUntilDate = dayjs(devis.validUntil) // Supposant que `devis.validUntil` est une chaîne de date valide
   const isExpired = currentDate.isAfter(validUntilDate)
+
+  // Sélection des détails de notification pour cette réservation spécifique
+  const notifDetails = useAppSelector((state) => state.ui.notifDetails)
+  const reservationNotification = notifDetails.find(
+    (notif) => notif.reservationId === reservation.id,
+  )
+
+  const showPaymentBadge =
+    reservationNotification?.pendingInvoicePayments || false
+  const showChatBadge = reservationNotification?.unreadMessages || false
 
   const handlePaymentClick = async () => {
     setIsLoading(true)
@@ -86,23 +99,46 @@ const DevisNotPaidCard: React.FC<DevisNotPaidCardProps> = ({
             Ce devis est expiré et ne peut plus être payé.
           </p>
         ) : (
-          // Sinon, afficher le bouton de paiement
-          <button
-            onClick={handlePaymentClick}
-            className="bg-yellow-500 text-white p-2 rounded-lg hover:bg-yellow-400"
-            disabled={isLoading}
+          // Bouton de paiement avec badge conditionnel
+          <Badge
+            badgeContent={showPaymentBadge ? '!' : null}
+            color="error"
+            invisible={!showPaymentBadge}
+            anchorOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
           >
-            {isLoading ? 'Création du paiement...' : 'Payer le devis'}
-          </button>
+            <button
+              onClick={handlePaymentClick}
+              className="bg-yellow-500 text-white p-2 rounded-lg hover:bg-yellow-400 w-full"
+              disabled={isLoading}
+            >
+              {isLoading ? 'Création du paiement...' : 'Payer le devis'}
+            </button>
+          </Badge>
         )}
 
-        <Link
-          to={`/client-dashboard/reservationSpace/${reservation.id}`}
-          type="button"
-          className="p-2 inline-flex items-center gap-x-2 rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-100 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
+        {/* Bouton pour accéder au chat avec badge conditionnel */}
+        <Badge
+          badgeContent={showChatBadge ? '!' : null}
+          color="error"
+          invisible={!showChatBadge}
+          anchorOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+          }}
         >
-          Accéder au chat
-        </Link>
+          <Link
+            to={`/client-dashboard/reservationSpace/${reservation.id}`}
+            type="button"
+            className="p-2 inline-flex items-center w-full justify-center gap-x-2 rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-100 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
+          >
+            <span className="inline-flex items-center gap-x-2">
+              Accéder au chat <IoChatboxOutline />
+            </span>
+          </Link>
+        </Badge>
       </div>
     </div>
   )

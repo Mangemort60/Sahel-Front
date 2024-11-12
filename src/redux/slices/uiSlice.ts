@@ -61,6 +61,36 @@ const uiSlice = createSlice({
       state.notifDetails = action.payload
     },
     resetUiState: () => ({ ...initialState }), // Réinitialise tout l'état de l'UI
+    updateNotificationCount: (
+      state,
+      action: PayloadAction<{ reservationId: string }>,
+    ) => {
+      const { reservationId } = action.payload
+      const notification = state.notifDetails.find(
+        (notif) => notif.reservationId === reservationId,
+      )
+      if (notification && notification.notificationCount > 0) {
+        notification.notificationCount -= 1
+      }
+    },
+
+    decrementTotalNotifications: (state) => {
+      if (state.totalNotifications && state.totalNotifications > 0) {
+        state.totalNotifications -= 1
+      }
+    },
+    markUiMessagesAsRead: (
+      state,
+      action: PayloadAction<{ reservationId: string }>,
+    ) => {
+      const { reservationId } = action.payload
+      const notification = state.notifDetails.find(
+        (notif) => notif.reservationId === reservationId,
+      )
+      if (notification) {
+        notification.unreadMessages = false
+      }
+    },
   },
 })
 
@@ -74,5 +104,8 @@ export const {
   resetUiState,
   setTotalNotifications,
   setNotificationDetails,
+  updateNotificationCount,
+  decrementTotalNotifications,
+  markUiMessagesAsRead,
 } = uiSlice.actions
 export default uiSlice.reducer
