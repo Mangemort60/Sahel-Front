@@ -83,36 +83,6 @@ const AboutPage = () => {
             </p>
           </div>
         </blockquote>
-        <h2 className="text-4xl text-secondaryDarkBlue font-extrabold">
-          Nos Projets futur
-        </h2>
-        <div className=" hidden sm:flex  max-w-[800px]">
-          <img src={lookingForward} alt="" className="" />
-        </div>
-        <p className="mb-20">
-          Nous avons l’ambition de développer nos activités autour de la même
-          thématique de services à forte valeur ajoutée vous permettant de
-          magnifier vos séjours au Maroc
-        </p>
-        <div className="flex flex-col sm:flex-row sm:justify-center items-center space-y-8 sm:space-x-6 h-auto">
-          <div className="flex items-center mt-8  h-60">
-            <div className="ml-6 p-4 bg-white rounded shadow-lg w-64  h-full">
-              <h3 className="font-semibold text-center text-2xl mb-2 ">2025</h3>
-              <p className="text-gray-600 text-xl ">Service de nettoyage</p>
-            </div>
-          </div>
-          <img src={arrowRight} alt="" className="sm:rotate-0 rotate-90" />
-          <div className="flex items-center h-full">
-            <div className="ml-6 p-4 bg-white rounded shadow-lg w-64 h-60">
-              <h3 className="font-semibold mb-2 text-center text-2xl">
-                A venir
-              </h3>
-              <p className="text-gray-600 text-xl">Service administratif</p>
-              <p className="text-gray-600 text-xl">Service de petits travaux</p>
-              <p className="text-gray-600 text-xl">Service de gardiennage</p>
-            </div>
-          </div>
-        </div>
         <h2 className="text-4xl text-secondaryDarkBlue font-extrabold pt-8">
           Nos Valeurs
         </h2>
@@ -194,6 +164,66 @@ const AboutPage = () => {
                   processus
                 </li>
               </ul>
+            </div>
+          </div>
+        </div>
+        <h2 className="text-4xl text-secondaryDarkBlue font-extrabold">
+          Nos Projets futur
+        </h2>
+        <div className=" hidden sm:flex  max-w-[800px]">
+          <img src={lookingForward} alt="" className="" />
+        </div>
+        <p className="mb-20">
+          Nous avons l’ambition de développer nos activités autour de la même
+          thématique de services à forte valeur ajoutée vous permettant de
+          magnifier vos séjours au Maroc
+        </p>
+      </div>
+      <div className=" p-10 mt-8">
+        <div className="bg-[#dac3a3] p-6 rounded-lg text-secondaryDarkBlue shadow-md mb-6  mx-auto">
+          <div className="mr-auto text-3xl font-semibold mb-4">2025</div>
+          <h2 className="text-3xl font-semibold mb-6  text-center">
+            Lancement des Services de Base{' '}
+          </h2>
+          <p className="text-secondaryDarkBlue  mt-4">
+            <strong>Ménage</strong>, <strong>Cuisine</strong> et
+            <strong> Petits Travaux</strong>: Mise en place des services
+            principaux pour répondre aux besoins immédiats de nos clients.
+          </p>
+        </div>
+        <div className="flex justify-center mb-6">
+          <div className="w-0 h-0 border-l-[20px] border-r-[20px] border-t-[20px] border-l-transparent border-r-transparent border-t-[#b6b2b0]"></div>
+        </div>{' '}
+        <div className="bg-[#daaf9e] text-secondaryDarkBlue p-6 rounded-lg shadow-md mb-6  mx-auto">
+          <div className="mr-auto text-3xl font-semibold mb-4">2026 - 2030</div>
+          <h2 className="text-3xl font-semibold mb-6 text-center">
+            Nouveaux services
+          </h2>
+          <div className="space-y-6 ">
+            <div>
+              <h3 className="text-xl font-bold  ">
+                Réalisation de demandes spéciales
+              </h3>
+              <p className="text-secondaryDarkBlue">
+                Un service dédié pour répondre aux demandes personnalisées de
+                nos clients, au-delà des services standard.
+              </p>
+            </div>
+            <div>
+              <h3 className="text-xl font-bold  ">Solutions de gardiennage </h3>
+              <p className="text-secondaryDarkBlue">
+                Un service dédié pour répondre aux demandes personnalisées de
+                nos clients, au-delà des services standard.
+              </p>
+            </div>
+            <div>
+              <h3 className="text-xl font-bold  ">
+                À l'écoute de vos suggestions
+              </h3>
+              <p className="text-secondaryDarkBlue">
+                Nous restons à l'écoute des besoins de nos clients pour ajuster
+                nos services selon leurs attentes.
+              </p>
             </div>
           </div>
         </div>

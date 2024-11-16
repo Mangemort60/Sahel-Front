@@ -1,18 +1,14 @@
 import profiter from '../assets/profiter.jpg'
 import clefs from '../assets/clefs.webp'
-import simplicity from '../assets/simplicity.jpg'
-import reaction from '../assets/rocket.webp'
-import puzzle from '../assets/puzzle.webp'
 
 const Solution = () => {
   return (
-    <div className="max-w-2/3 sm:w-2/3  sm:mx-auto mb-20 mx-2">
-      <div className="flex flex-col gap-4 items-start mt-20">
-        <h1 className="text-3xl sm:text-6xl text-secondaryDarkBlue font-extrabold m-0">
-          Votre nettoyage en un clic :
-          <br /> simple, flexible, efficace.
+    <div className="max-w-2/3   sm:mx-auto mb-20 mx-2">
+      <div className="flex flex-col gap-6 items-start ">
+        <h1 className="text-4xl sm:text-6xl text-secondaryDarkBlue font-extrabold m-0">
+          Réservez en quelques clics :
         </h1>
-        <p className="text-secondaryLightBlue text-xl">
+        <p className="">
           Découvrez notre service de ménage conçu pour vous offrir une
           expérience de nettoyage sans tracas, que vous soyez présent ou absent
           de votre domicile.
@@ -20,13 +16,13 @@ const Solution = () => {
       </div>
 
       <div className="space-y-8">
-        <div className="sm:flex gap-4 ">
+        <div className="sm:flex">
           <div className="sm:w-1/2 ">
             <img src={clefs} alt="" />
           </div>
-          <div className="sm:w-1/2 sm:p-16 sm:m-auto text-secondaryLightBlue">
-            <p className="text-xl font-bold pb-4">Avant votre arrivée</p>
-            <p>
+          <div className="sm:w-1/2 sm:p-14 sm:m-auto text-secondaryLightBlue">
+            <p className="text-3xl font-bold pb-4">Avant votre arrivée</p>
+            <p className="">
               Notre équipe de nettoyage se charge de tout avant votre arrivée au
               Maroc. Vous pourrez nous transmettre vos clés facilement et en
               toute sécurité selon des méthodes qui vous conviendront. Retrouvez
@@ -51,17 +47,17 @@ const Solution = () => {
           </svg>
 
           <div className="relative">
-            <p className="text-xl text-secondaryLightBlue md:text-4xl md:leading-normal dark:text-white my-20">
+            <p className="text-xl text-secondaryLightBlue md:text-4xl md:leading-normal dark:text-white my-8">
               <em>Un nettoyage parfait pour un séjour parfait au Maroc. </em>
             </p>
           </div>
         </blockquote>
-        <div className="sm:flex gap-4 ">
+        <div className="sm:flex">
           <div className="sm:w-1/2 sm:order-1">
             <img src={profiter} alt="" />
           </div>
-          <div className="sm:w-1/2 sm:p-16 sm:m-auto text-secondaryLightBlue">
-            <p className="text-xl font-bold pb-4">Après votre arrivée</p>
+          <div className="sm:w-1/2 sm:p-14 sm:m-auto text-secondaryLightBlue">
+            <p className="text-3xl font-bold pb-4">Après votre arrivée</p>
             <p>
               Ne perdez pas de temps et profitez pleinement de votre séjour
               pendant que nous nous occupons du nettoyage. Nos services sont
@@ -74,40 +70,6 @@ const Solution = () => {
         </div>
       </div>
       <hr className="m-16" />
-      <div className="flex flex-col space-y-12">
-        <h2 className="text-4xl sm:text-6xl mr-auto text-secondaryDarkBlue font-extrabold">
-          Les points fort du système Sahel
-        </h2>
-        <div className="h-auto p-2 sm:flex sm:justify-center m-auto sm:gap-8 space-y-8 sm:space-y-0">
-          <div className="shadow-md rounded-sm flex flex-col items-center p-6  space-y-4 h-auto max-w-[300px] sm:w-1/3">
-            <img src={simplicity} alt="" className="w-40" />
-            <p className="text-2xl text-secondaryBlue">Simplicité</p>
-            <p className="text-sm  text-secondaryLightBlue">
-              Planifiez votre ménage à partir d’un système de réservation pensé
-              pour être le plus simple et rapide possible.
-            </p>
-          </div>
-          <div className="shadow-md rounded-sm flex flex-col items-center p-6  space-y-4 h-auto max-w-[300px] sm:w-1/3">
-            <img src={reaction} alt="" className="w-40" />
-            <p className="text-2xl text-secondaryBlue">Réactivité</p>
-            <p className="text-sm  text-secondaryLightBlue">
-              Suivez en temps réel l'avancement de votre prestation. Une
-              messagerie dédiée est disponible pour chacune de vos prestations,
-              vous permettant de poser vos questions et de recevoir des réponses
-              rapides. Avec Sahel, vous restez informé à chaque étape.{' '}
-            </p>
-          </div>
-          <div className="shadow-md rounded-sm flex flex-col items-center p-6  space-y-4 h-auto max-w-[300px] sm:w-1/3">
-            <img src={puzzle} alt="" className="w-40" />
-            <p className="text-2xl text-secondaryBlue">Flexibilité</p>
-            <p className="text-sm  text-secondaryLightBlue">
-              Nous nous adaptons à vos contraintes en matière d’accès au
-              logement et vous offrons la possibilité de réserver votre ménage
-              du jour au lendemain
-            </p>
-          </div>
-        </div>
-      </div>
     </div>
   )
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import question from '../assets/question.webp'
 import { Link } from 'react-router-dom'
 
@@ -78,14 +78,21 @@ export const Faq = () => {
                 ),
               },
               {
-                question: 'Question 3',
+                question:
+                  'Quelle assurance ai-je d’obtenir une prestation de qualité ?',
                 answer:
-                  'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.',
+                  'Cahier des charges et assurance du respect de celui-ci se situe au cœur de notre modèle. Nous offrons ce que nous promettons et nous assurons que chaque prestation est correctement exécutée. La formation constitue également un socle autour duquel nous basons notre approche.',
               },
               {
-                question: 'Question 4',
+                question: 'Comment puis-je vous contacter en cas de soucis ?',
                 answer:
-                  'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.',
+                  'Une fois une prestation réservée, rendez vous dans votre espace client afin d’accéder à votre messagerie personnalisée et faire part de vos préoccupations si nécessaire.',
+              },
+              {
+                question:
+                  'Comment puis-je vous contacter si je n’ai pas réservé ?',
+                answer:
+                  'Rendez vous dans l’onglet contact afin d’accéder au formulaire de contact vous permettant de nous poser une question si aucune information n’est disponible sur le site.',
               },
             ].map((item, index) => (
               <div

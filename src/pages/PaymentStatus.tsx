@@ -69,7 +69,7 @@ export const PaymentStatus = () => {
           if (success) {
             setMessage({
               title: 'Succès',
-              description: 'Paiement réussi et réservation créée.',
+              description: 'Paiement réussi !',
             })
             setError(null)
             dispatch(setCurrentStep('serviceChoice'))
