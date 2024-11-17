@@ -17,6 +17,9 @@ import { Toaster } from 'react-hot-toast'
 import Step4 from './components/FormSection/Works/Step4'
 import HowCleaningWorks from './pages/HowCleaningWorks'
 import PrivateRoutes from './components/PrivateRoutes'
+import { TheftPrevention } from './pages/TheftPrevention'
+import HowCookingWorks from './pages/HowCookingWorks'
+import HowPetitsTravauxWorks from './pages/HowPetitsTravauxWorks'
 
 function App() {
   const formSectionRef: RefObject<HTMLDivElement> = useRef(null)
@@ -27,9 +30,12 @@ function App() {
       <Routes>
         <Route path="/" element={<MainLayout />}>
           <Route index element={<HomePage />} />
+          <Route path="/prevention" element={<TheftPrevention />} />
           <Route path="/about-us" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
-          <Route path="/comment-ca-marche" element={<HowCleaningWorks />} />
+          <Route path="/menage" element={<HowCleaningWorks />} />
+          <Route path="/cuisine" element={<HowCookingWorks />} />
+          <Route path="/petits-travaux" element={<HowPetitsTravauxWorks />} />
           <Route
             path="/login"
             element={<LoginPage formSectionRef={formSectionRef} />}

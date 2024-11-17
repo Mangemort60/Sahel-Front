@@ -68,7 +68,7 @@ export const Faq = () => {
                     </p>
                     <p className="mt-4">
                       <Link
-                        to="/politique-de-prevention-vol"
+                        to="/prevention"
                         className="text-blue-600 underline"
                       >
                         Consultez notre politique de prévention contre le vol

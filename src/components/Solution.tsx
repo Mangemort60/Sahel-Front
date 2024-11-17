@@ -6,7 +6,7 @@ const Solution = () => {
     <div className="max-w-2/3   sm:mx-auto mb-20 mx-2">
       <div className="flex flex-col gap-6 items-start ">
         <h1 className="text-4xl sm:text-6xl text-secondaryDarkBlue font-extrabold m-0">
-          Réservez en quelques clics :
+          Réservez en quelques clics
         </h1>
         <p className="">
           Découvrez notre service de ménage conçu pour vous offrir une
