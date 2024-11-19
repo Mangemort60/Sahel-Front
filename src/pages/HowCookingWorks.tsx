@@ -1,3 +1,4 @@
+import { FaClock, FaMoon, FaUtensils } from 'react-icons/fa'
 import Solution from '../components/Solution'
 
 const HowCookingWorks = () => {
@@ -39,41 +40,47 @@ const HowCookingWorks = () => {
             profitez pleinement de chaque instant de vos vacances.
           </p>
           <div className="space-y-8">
-            {/* Midi */}
-            <div className="bg-gray-100 p-6 rounded-lg shadow-md">
-              <h3 className="text-2xl font-bold text-secondaryDarkBlue mb-4">
-                Midi - Déjeuner
-              </h3>
-              <p className="text-gray-600 text-lg">
-                La cuisinière se rend disponible entre{' '}
-                <strong>11h et 14h</strong> afin de préparer votre déjeuner
-                selon vos envies.
-              </p>
+            <div className="bg-gradient-to-br from-[#a5bda1] to-white p-6 rounded-sm flex items-center gap-x-3">
+              <FaUtensils className="text-secondaryDarkBlue text-7xl" />
+              <div>
+                <h3 className="text-2xl font-bold text-secondaryDarkBlue mb-4">
+                  Midi - Déjeuner
+                </h3>
+                <p className="text-gray-600 text-lg">
+                  La cuisinière se rend disponible entre{' '}
+                  <strong>11h et 14h</strong> afin de préparer votre déjeuner
+                  selon vos envies.
+                </p>
+              </div>
             </div>
-
-            {/* Soir */}
-            <div className="bg-gray-100 p-6 rounded-lg shadow-md">
-              <h3 className="text-2xl font-bold text-secondaryDarkBlue mb-4">
-                Soir - Dîner
-              </h3>
-              <p className="text-gray-600 text-lg">
-                La cuisinière se rend disponible entre{' '}
-                <strong>18h et 21h</strong> pour préparer votre dîner, en tenant
-                compte de vos préférences culinaires.
-              </p>
+            {/* Soir - Dîner */}
+            <div className="bg-gradient-to-br from-[#a59caf] to-white p-6 rounded-sm flex items-center gap-x-3">
+              <FaMoon className="text-secondaryDarkBlue text-7xl" />
+              <div>
+                <h3 className="text-2xl font-bold text-secondaryDarkBlue mb-4">
+                  Soir - Dîner
+                </h3>
+                <p className="text-gray-600 text-lg">
+                  La cuisinière se rend disponible entre{' '}
+                  <strong>18h et 21h</strong> pour préparer votre dîner, en
+                  tenant compte de vos préférences culinaires.
+                </p>
+              </div>
             </div>
-
-            {/* Journée */}
-            <div className="bg-gray-100 p-6 rounded-lg shadow-md">
-              <h3 className="text-2xl font-bold text-secondaryDarkBlue mb-4">
-                Journée Complète
-              </h3>
-              <p className="text-gray-600 text-lg">
-                Disponible dès <strong>9h</strong>, la cuisinière peut préparer
-                vos repas pour toute la journée : petit-déjeuner, déjeuner,
-                goûter et dîner, selon vos besoins.
-              </p>
-            </div>
+            {/* Journée Complète */}
+            <div className="bg-gradient-to-br from-[#a5b5bd] to-white p-6 rounded-sm flex items-center gap-x-3">
+              <FaClock className="text-secondaryDarkBlue text-7xl" />
+              <div>
+                <h3 className="text-2xl font-bold text-secondaryDarkBlue mb-4">
+                  Journée Complète
+                </h3>
+                <p className="text-gray-600 text-lg">
+                  Disponible dès <strong>9h</strong>, la cuisinière peut
+                  préparer vos repas pour toute la journée : petit-déjeuner,
+                  déjeuner, goûter et dîner, selon vos besoins.
+                </p>
+              </div>
+            </div>{' '}
           </div>
         </div>
         <div className="space-y-8">

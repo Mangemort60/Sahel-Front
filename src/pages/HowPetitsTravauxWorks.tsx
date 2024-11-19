@@ -1,10 +1,19 @@
-import React from 'react'
+import {
+  FaClipboardList,
+  FaCheckCircle,
+  FaMoneyBillWave,
+  FaKey,
+  FaTools,
+  FaHome,
+  FaFileInvoice,
+  FaHammer,
+} from 'react-icons/fa'
 
 const HowPetitsTravauxWorks = () => {
   return (
     <div className="m-2">
       <div className="mx-auto my-12 space-y-12 max-w-[775px]">
-        <h1 className="text-sahelRegular font-bold text-md ">Cuisine</h1>
+        <h1 className="text-sahelRegular font-bold text-md ">Petits-travaux</h1>
         <h1 className="text-4xl sm:text-6xl text-secondaryDarkBlue font-extrabold m-0">
           Un service de petits travaux pensé pour faciliter l’entretien de votre
           logement hors période estivale
@@ -19,7 +28,7 @@ const HowPetitsTravauxWorks = () => {
             efficace.
           </strong>
         </p>
-        <div className="bg-gray-100 p-6 rounded-md">
+        <div className="bg-gray-50 p-6 rounded-md">
           <h3 className="text-2xl font-semibold text-secondaryDarkBlue mb-4">
             Votre espace personnel dédié
           </h3>
@@ -33,10 +42,129 @@ const HowPetitsTravauxWorks = () => {
             <li>La bonne conduite du projet</li>
           </ul>
         </div>
-        <div className="space-y-12 mb-12">
+        <hr />
+        <div className="space-y-12 mb-12 bg-gradient-to-br from-[#dce2e8] to-white p-8">
           <h1 className="text-4xl sm:text-6xl text-secondaryDarkBlue font-extrabold m-0">
-            Comment ça fonctionne ?
+            Votre réservation en 8 étapes
           </h1>
+
+          {/* Étape 1 */}
+          <div className="flex flex-col md:flex-row items-start md:items-center">
+            <FaClipboardList className="text-[#183b56] text-6xl mr-4 " />
+            <div className="flex-1">
+              <h3 className="text-4xl text-secondaryLightBlue font-semibold mb-2">
+                Pré-demande
+              </h3>
+              <p className="text-gray-600">
+                Remplissez le formulaire dédié avec les informations nécessaires
+                sur vos travaux.
+              </p>
+            </div>
+          </div>
+
+          {/* Étape 2 */}
+          <div className="flex flex-col md:flex-row items-start md:items-center">
+            <FaCheckCircle className="text-[#183b56] text-6xl mr-4" />
+
+            <div className="flex-1">
+              <h3 className="text-4xl text-secondaryLightBlue font-semibold mb-2">
+                Validation de la pré-demande
+              </h3>
+              <p className="text-gray-600">
+                Notre équipe examine votre pré-demande et vous contacte via
+                l’espace dédié si nécessaire.
+              </p>
+            </div>
+          </div>
+
+          {/* Étape 3 */}
+          <div className="flex flex-col md:flex-row items-start md:items-center">
+            <FaMoneyBillWave className="text-[#183b56] text-6xl mr-4" />
+
+            <div className="flex-1">
+              <h3 className="text-4xl text-secondaryLightBlue font-semibold mb-2">
+                Paiement des frais de service
+              </h3>
+              <p className="text-gray-600">
+                Procédez au paiement des frais pour couvrir la logistique, y
+                compris l’envoi des clés.
+              </p>
+            </div>
+          </div>
+
+          {/* Étape 4 */}
+          <div className="flex flex-col md:flex-row items-start md:items-center">
+            <FaKey className="text-[#183b56] text-6xl mr-4" />
+
+            <div className="flex-1">
+              <h3 className="text-4xl text-secondaryLightBlue font-semibold mb-2">
+                Réception des clés
+              </h3>
+              <p className="text-gray-600">
+                Nous réceptionnons vos clés et planifions une visite pour
+                évaluer les travaux.
+              </p>
+            </div>
+          </div>
+
+          {/* Étape 5 */}
+          <div className="flex flex-col md:flex-row items-start md:items-center">
+            <FaTools className="text-[#183b56] text-6xl mr-4" />{' '}
+            <div className="flex-1">
+              <h3 className="text-4xl text-secondaryLightBlue font-semibold mb-2">
+                Évaluation technique
+              </h3>
+              <p className="text-gray-600">
+                Une visite technique est effectuée pour estimer la faisabilité
+                et le coût des travaux.
+              </p>
+            </div>
+          </div>
+
+          {/* Étape 6 */}
+          <div className="flex flex-col md:flex-row items-start md:items-center">
+            <FaFileInvoice className="text-[#183b56] text-6xl mr-4" />
+
+            <div className="flex-1">
+              <h3 className="text-4xl text-secondaryLightBlue font-semibold mb-2">
+                Devis personnalisé
+              </h3>
+              <p className="text-gray-600">
+                Recevez un devis détaillé pour vos travaux, que vous pouvez
+                approuver directement depuis l’espace client.
+              </p>
+            </div>
+          </div>
+
+          {/* Étape 7 */}
+          <div className="flex flex-col md:flex-row items-start md:items-center">
+            <FaHammer className="text-[#183b56] text-6xl mr-4" />
+
+            <div className="flex-1">
+              <h3 className="text-4xl text-secondaryLightBlue font-semibold mb-2">
+                Réalisation des travaux
+              </h3>
+              <p className="text-gray-600">
+                Une fois le devis approuvé et payé, les travaux commencent sous
+                la supervision de notre équipe.
+              </p>
+            </div>
+          </div>
+
+          {/* Étape 8 */}
+          <div className="flex flex-col md:flex-row items-start md:items-center">
+            <FaHome className="text-[#183b56] text-6xl mr-4" />
+
+            <div className="flex-1">
+              <h3 className="text-4xl text-secondaryLightBlue font-semibold mb-2">
+                Finalisation
+              </h3>
+              <p className="text-gray-600">
+                Une fois les travaux terminés, nous vous retournons les clés
+                avec un rapport final.
+              </p>
+            </div>
+          </div>
         </div>
         <div className="space-y-8">
           <h1 className="text-4xl sm:text-6xl text-secondaryDarkBlue font-extrabold m-0">

@@ -180,7 +180,7 @@ const AboutPage = () => {
         </p>
       </div>
       <div className=" p-10 mt-8">
-        <div className="bg-[#dac3a3] p-6 rounded-lg text-secondaryDarkBlue shadow-md mb-6  mx-auto">
+        <div className="bg-gradient-to-br from-[#dac3a3] to-white p-6 rounded-sm text-secondaryDarkBlue  mb-6 mx-auto">
           <div className="mr-auto text-3xl font-semibold mb-4">2025</div>
           <h2 className="text-3xl font-semibold mb-6  text-center">
             Lancement des Services de Base{' '}
@@ -192,12 +192,12 @@ const AboutPage = () => {
           </p>
         </div>
         <div className="flex justify-center mb-6">
-          <div className="w-0 h-0 border-l-[20px] border-r-[20px] border-t-[20px] border-l-transparent border-r-transparent border-t-[#b6b2b0]"></div>
+          <div className="w-0 h-0 border-l-[20px] border-r-[20px] border-t-[20px] border-l-transparent border-r-transparent  border-t-[#b6b2b0]"></div>
         </div>{' '}
-        <div className="bg-[#daaf9e] text-secondaryDarkBlue p-6 rounded-lg shadow-md mb-6  mx-auto">
+        <div className="bg-gradient-to-br from-[#daaf9e] to-white p-6 rounded-sm text-secondaryDarkBlue  mb-6 mx-auto">
           <div className="mr-auto text-3xl font-semibold mb-4">2026 - 2030</div>
           <h2 className="text-3xl font-semibold mb-6 text-center">
-            Nouveaux services
+            Nouveaux Services
           </h2>
           <div className="space-y-6 ">
             <div>

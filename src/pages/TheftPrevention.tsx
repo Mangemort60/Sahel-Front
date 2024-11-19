@@ -35,7 +35,7 @@ export const TheftPrevention = () => {
       </div>
       <div className="flex flex-col space-y-4">
         {/* Carte Opérateur - Prend toute la largeur */}
-        <div className="flex flex-col sm:h-60 items-center p-4   bg-[#ece2d6a8] shadow-sm rounded-md text-center  sm:justify-center">
+        <div className="flex flex-col sm:h-60 items-center p-4 bg-gradient-to-br from-[#ece2d6a8] to-white rounded-sm text-center sm:justify-center">
           <MdSupervisorAccount
             className="w-14 h-14 mb-2 sm:mb-0 sm:mr-4"
             color="#183b56"
@@ -52,7 +52,7 @@ export const TheftPrevention = () => {
         {/* Grille pour les autres cartes */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4">
           {/* Carte Formation */}
-          <div className="flex flex-col items-center p-4 bg-[#e4e0c5a8] shadow-sm rounded-md text-center">
+          <div className="flex flex-col items-center p-4 bg-gradient-to-br from-[#e4e0c5a8] to-white rounded-sm text-center">
             <FaChalkboardTeacher className="w-14 h-14 mb-2" color="#183b56" />
             <h3 className="font-bold text-3xl text-[#183b56]">Formation</h3>
             <p className="text-lg text-left mt-2">
@@ -61,7 +61,7 @@ export const TheftPrevention = () => {
             </p>
           </div>
           {/* Carte Rémunération */}
-          <div className="flex flex-col items-center p-4 bg-[#d4dfeca8] shadow-sm rounded-md text-center">
+          <div className="flex flex-col items-center p-4 bg-gradient-to-br from-[#d4dfeca8] to-white rounded-sm text-center">
             <FaMoneyBillWave className="w-14 h-14 mb-2" color="#183b56" />
             <h3 className="font-bold text-3xl text-[#183b56]">Rémunération</h3>
             <p className="text-lg text-left mt-2">
@@ -69,7 +69,7 @@ export const TheftPrevention = () => {
             </p>
           </div>
           {/* Carte Traçabilité */}
-          <div className="flex flex-col items-center p-4 bg-[#c9b9c1a8] shadow-sm rounded-md text-center">
+          <div className="flex flex-col items-center p-4 bg-gradient-to-br from-[#c9b9c1a8] to-white rounded-sm text-center">
             <MdTrackChanges className="w-14 h-14 mb-2" color="#183b56" />
             <h3 className="font-bold text-3xl text-[#183b56]">Traçabilité</h3>
             <p className="text-lg text-left mt-2">
@@ -78,7 +78,7 @@ export const TheftPrevention = () => {
             </p>
           </div>
           {/* Carte Vigilance */}
-          <div className="flex flex-col items-center p-4 bg-[#cedbcfa8] shadow-sm rounded-md text-center">
+          <div className="flex flex-col items-center p-4 bg-gradient-to-br from-[#cedbcfa8] to-white rounded-sm text-center">
             <MdVisibility className="w-14 h-14 mb-2" color="#183b56" />
             <h3 className="font-bold text-3xl text-[#183b56]">Vigilance</h3>
             <p className="text-lg text-left mt-2">

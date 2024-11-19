@@ -2,6 +2,7 @@ import homeImage from '../../assets/homeImage.webp'
 import { RefObject } from 'react'
 import { useDispatch } from 'react-redux'
 import { resetFormState } from '../../redux/slices/formSlice'
+import { Helmet } from 'react-helmet'
 
 interface SectionProps {
   formSectionRef: RefObject<HTMLDivElement>
@@ -19,7 +20,9 @@ export const HeroSection = ({ formSectionRef }: SectionProps) => {
 
   return (
     <>
-      <link rel="preload" href={homeImage} as="image" />
+      <Helmet>
+        <link rel="preload" href={homeImage} as="image" />
+      </Helmet>
       <div
         className="h-2/3 sm:h-screen flex items-center p-8 text-white"
         style={{

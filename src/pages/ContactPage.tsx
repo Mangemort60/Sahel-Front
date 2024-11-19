@@ -51,13 +51,14 @@ const ContactPage = () => {
   return (
     <div className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto font-sans sm:flex sm:flex-row  flex-col ">
       <div className="max-w-xl m-auto ">
-        <div className="text-center">
-          <h1 className="text-3xl font-bold text-secondaryDarkBlue sm:text-4xl ">
+        <div className="space-y-4">
+          <h1 className="text-3xl font-bold text-secondaryRegularBlue sm:text-5xl ">
             Nous Contacter
           </h1>
           <p className="my-2 text-secondaryRegularBlue ">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque,
-            voluptas unde. Modi vero quo sequi saepe unde porro officiis hic.
+            Une question, un besoin ou une suggestion ? Notre équipe est à votre
+            écoute ! N'hésitez pas à nous contacter via le formulaire ci-contre.
+            Nous nous engageons à vous répondre dans les meilleurs délais.{' '}
           </p>
         </div>
         <img
@@ -67,9 +68,9 @@ const ContactPage = () => {
         />
       </div>
       <div>
-        <div className="mt-12 max-w-lg mx-auto">
-          <div className="flex flex-col border rounded-sm shadow-sm p-4 sm:p-6 lg:p-8 ">
-            <h2 className="mb-8 text-xl font-semibold text-secondaryDarkBlue">
+        <div className="mt-12 max-w-lg mx-auto shadow-sm">
+          <div className="flex flex-col rounded-sm  p-4 sm:p-6 lg:p-8 ">
+            <h2 className="mb-8 text-3xl font-semibold text-secondaryRegularBlue">
               Remplissez ce formulaire
             </h2>
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -182,7 +183,7 @@ const ContactPage = () => {
               <div className="mt-6 grid">
                 <button
                   type="submit"
-                  className="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
+                  className="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-sm border border-transparent bg-secondaryRegularBlue text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
                 >
                   {isLoading ? (
                     <div

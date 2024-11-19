@@ -28,7 +28,13 @@ const SmallRepairs = ({ reservations }: SmallRepairsProps) => {
   )
 
   return (
-    <div className="flex sm:flex-wrap sm:flex-row flex-col gap-4 m-auto">
+    <div className="flex gap-4 m-auto h-auto">
+      <PreDemandCardNotPaid reservation="4554788" />
+      <PreDemandePaidCard message="Message factice" reservation="1234567" />
+      <DevisNotPaidCard reservation="1234567" devis={{ amount: 125 }} />
+      <DevisPaidCard devis={{ amount: 150 }} reservation="7654321" />
+      <CompletedCard reservation="9876543" />
+      <CancelledCard reservation="5678901" />{' '}
       {smallRepairsReservations.length > 0 ? (
         smallRepairsReservations.map((reservation) => {
           return (
@@ -39,7 +45,7 @@ const SmallRepairs = ({ reservations }: SmallRepairsProps) => {
               exit="exit"
               variants={variants}
               transition={{ duration: 0.5 }}
-              className="w-full"
+              className=""
             >
               {(() => {
                 switch (reservation.bookingStatus) {

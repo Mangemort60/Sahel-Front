@@ -4,7 +4,15 @@ import {
   MdVisibility,
 } from 'react-icons/md'
 
-import { FaChalkboardTeacher, FaMoneyBillWave } from 'react-icons/fa'
+import {
+  FaCalendarAlt,
+  FaChalkboardTeacher,
+  FaClipboardList,
+  FaEnvelopeOpenText,
+  FaHome,
+  FaKey,
+  FaMoneyBillWave,
+} from 'react-icons/fa'
 import Solution from '../components/Solution'
 
 const HowCleaningWorks = () => {
@@ -22,20 +30,22 @@ const HowCleaningWorks = () => {
           totale, que vous soyez présent ou non. Nous accordons une importance
           primordiale à la sécurité et à la confiance, en garantissant une
           gestion rigoureuse de l'accès à votre domicile et en assurant la
-          protection de vos biens. Tout au long de notre intervention, vous
+          protection de vos biens. Tout au long de notre intervention, vous{' '}
           bénéficiez d’un suivi personnalisé et d’une communication
           transparente, pour que vous ayez l’esprit tranquille à chaque étape.
           Avec Sahel, vous pouvez être sûr que votre espace est entre de bonnes
           mains, vous offrant ainsi une sérénité totale.{' '}
         </p>
         <Solution />
-        <div className="space-y-12 mb-12">
+        <div className="space-y-12 mb-12 bg-gradient-to-br from-[#dce2e8] to-white p-8">
           <h1 className="text-4xl sm:text-6xl text-secondaryDarkBlue font-extrabold m-0">
             Votre réservation en 6 étapes
           </h1>
+
+          {/* Étape 1 */}
           <div className="flex flex-col md:flex-row items-start md:items-center">
-            <div className="text-8xl font-bold text-secondaryDarkBlue md:mr-8">
-              1
+            <div className="flex items-center text-secondaryDarkBlue md:mr-8">
+              <FaClipboardList className="text-[#183b56] text-6xl mr-4" />
             </div>
             <div className="flex-1">
               <h3 className="text-4xl text-secondaryLightBlue font-semibold mb-2">
@@ -43,40 +53,46 @@ const HowCleaningWorks = () => {
               </h3>
               <p className="text-gray-600">
                 Remplissez vos informations et obtenez votre devis en quelques
-                secondes
+                secondes.
               </p>
             </div>
           </div>
+
+          {/* Étape 2 */}
           <div className="flex flex-col md:flex-row items-start md:items-center">
-            <div className="text-8xl font-bold text-secondaryDarkBlue md:mr-8">
-              2
+            <div className="flex items-center text-secondaryDarkBlue md:mr-8">
+              <FaCalendarAlt className="text-[#183b56] text-6xl mr-4" />
             </div>
             <div className="flex-1">
               <h3 className="text-4xl text-secondaryLightBlue font-semibold mb-2">
-                Reservation
+                Réservation
               </h3>
               <p className="text-gray-600">
                 Sélectionnez une date de ménage souhaité en fonction de vos
-                disponibilités et contraintes
+                disponibilités et contraintes.
               </p>
             </div>
-          </div>{' '}
+          </div>
+
+          {/* Étape 3 */}
           <div className="flex flex-col md:flex-row items-start md:items-center">
-            <div className="text-8xl font-bold text-secondaryDarkBlue md:mr-8">
-              3
+            <div className="flex items-center text-secondaryDarkBlue md:mr-8">
+              <FaMoneyBillWave className="text-[#183b56] text-6xl mr-4" />
             </div>
             <div className="flex-1">
               <h3 className="text-4xl text-secondaryLightBlue font-semibold mb-2">
                 Paiement
               </h3>
               <p className="text-gray-600">
-                Procédez au paiement par les moyens de votre choix
+                Procédez au paiement par les moyens de votre choix.
               </p>
             </div>
-          </div>{' '}
+          </div>
+
+          {/* Étape 4 */}
           <div className="flex flex-col md:flex-row items-start md:items-center">
-            <div className="text-8xl font-bold text-secondaryDarkBlue md:mr-8">
-              4
+            <div className="flex items-center text-secondaryDarkBlue md:mr-8">
+              <FaEnvelopeOpenText className="text-[#183b56] text-6xl mr-4" />
             </div>
             <div className="flex-1">
               <h3 className="text-4xl text-secondaryLightBlue font-semibold mb-2">
@@ -84,27 +100,28 @@ const HowCleaningWorks = () => {
               </h3>
               <p className="text-gray-600">
                 Une fois la réservation confirmée, obtenez vos instructions par
-                mail
+                mail.
               </p>
             </div>
-          </div>{' '}
-          <div className="flex flex-col md:flex-row items-start md:items-center shadow-md p-6">
-            <div className="text-8xl font-bold text-secondaryDarkBlue md:mr-8">
-              5
+          </div>
+
+          {/* Étape 5 */}
+          <div className="flex flex-col md:flex-row items-start md:items-center">
+            <div className="flex items-center text-secondaryDarkBlue md:mr-8">
+              <FaKey className="text-[#183b56] text-6xl mr-4" />
             </div>
             <div className="flex-1">
               <div className="space-y-4">
-                <div className="">
+                <div>
                   <h4 className="text-2xl font-semibold text-secondaryLightBlue mb-2">
-                    Option 1 : Je transmet mes clés
+                    Option 1 : Je transmets mes clés
                   </h4>
                   <p className="text-gray-600">
                     Suivez les instructions de remise des clés. Nous vous
                     indiquerons le processus une fois vos clés reçues.
                   </p>
                 </div>
-
-                <div className="">
+                <div>
                   <h4 className="text-2xl font-semibold text-secondaryLightBlue mb-2">
                     Option 2 : Je suis présent
                   </h4>
@@ -116,9 +133,11 @@ const HowCleaningWorks = () => {
               </div>
             </div>
           </div>
+
+          {/* Étape 6 */}
           <div className="flex flex-col md:flex-row items-start md:items-center">
-            <div className="text-8xl font-bold text-secondaryDarkBlue md:mr-8">
-              6
+            <div className="flex items-center text-secondaryDarkBlue md:mr-8">
+              <FaHome className="text-[#183b56] text-6xl mr-4" />
             </div>
             <div className="flex-1">
               <h3 className="text-4xl text-secondaryLightBlue font-semibold mb-2">
@@ -126,7 +145,7 @@ const HowCleaningWorks = () => {
               </h3>
               <p className="text-gray-600">
                 Profitez d’un logement propre dès les premiers instants de votre
-                arrivée
+                arrivée.
               </p>
             </div>
           </div>

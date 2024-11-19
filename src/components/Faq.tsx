@@ -137,13 +137,13 @@ export const Faq = () => {
 
           <p className="text-center text-gray-600 text-base mt-9">
             Vous n'avez pas de réponse à votre question ?{' '}
-            <a
-              href="#"
+            <Link
+              to={'/contact'}
               title=""
               className="font-medium text-blue-600 transition-all duration-200 hover:text-blue-700 focus:text-blue-700 hover:underline"
             >
               Contactez notre support
-            </a>
+            </Link>
           </p>
         </div>
       </section>

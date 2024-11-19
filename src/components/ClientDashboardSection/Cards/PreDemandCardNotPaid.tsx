@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux'
 import { useAppSelector } from '../../../redux/hooks/useAppSelector'
 import { setReservationType } from '../../../redux/slices/formSlice'
 import Badge from '@mui/material/Badge'
+import { FaCheck, FaExclamationCircle } from 'react-icons/fa'
 
 interface ConfirmedCardProps {
   reservation: Reservation
@@ -59,13 +60,30 @@ const PreDemandCardNotPaid = ({ reservation }: ConfirmedCardProps) => {
   }
 
   return (
-    <div className="flex rounded-lg space-y-2 p-8 flex-col justify-between bg-blue-300 hover:bg-blue-200 max-w-sm">
-      <h2 className="text-black font-bold text-xl">
-        Demande confirmée n° {reservation.reservationShortId}
-      </h2>
-      <p className="text-gray-700">
-        Veuillez payer les frais de service pour commencer la prestation.
+    <div className="flex rounded-sm h-auto p-6 flex-col justify-between bg-slate-200 max-w-sm">
+      <div className="flex items-center">
+        <h2 className="font-bold text-secondaryRegularBlue text-xl">
+          Pré-demande confirmée
+        </h2>
+        <FaExclamationCircle className="text-secondaryRegularBlue text-3xl ml-auto" />{' '}
+      </div>
+      <p className="text-gray-400 font-thin text-lg">
+        # {reservation.reservationShortId}
       </p>
+      <p className="text-secondaryRegularBlue my-2 text-sm">
+        Les frais de service couvrent les premières étapes nécessaires à la
+        réalisation de votre projet. Ils incluent notamment :
+      </p>
+      <ul className="list-disc pl-5 text-secondaryRegularBlue my-6 text-sm">
+        <li>L 'envoi et la réception sécurisée de vos clés.</li>
+        <li>
+          La planification et la réalisation d'une visite sur place pour évaluer
+          les travaux.
+        </li>
+        <li>
+          La coordination des premières étapes administratives et logistiques.
+        </li>
+      </ul>
       <div className="flex flex-col gap-2 w-52">
         {/* Bouton pour payer les frais de service avec badge conditionnel */}
         <Badge
@@ -79,7 +97,7 @@ const PreDemandCardNotPaid = ({ reservation }: ConfirmedCardProps) => {
         >
           <button
             onClick={handlePaymentClick}
-            className="bg-blue-500 text-white p-2 rounded-lg hover:bg-blue-400 w-full"
+            className="bg-secondaryDarkBlue text-white p-2 rounded-sm hover:bg-secondaryRegularBlue w-full"
             disabled={isLoading}
           >
             {isLoading
@@ -101,7 +119,7 @@ const PreDemandCardNotPaid = ({ reservation }: ConfirmedCardProps) => {
           <Link
             to={`/client-dashboard/reservationSpace/${reservation.id}`}
             type="button"
-            className="relative p-2 inline-flex items-center w-full justify-center gap-x-2 rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-100 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
+            className="relative p-2 inline-flex items-center w-full justify-center gap-x-2 rounded-sm border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-100 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
           >
             <span className="inline-flex items-center gap-x-2">
               Accéder au chat <IoChatboxOutline />
