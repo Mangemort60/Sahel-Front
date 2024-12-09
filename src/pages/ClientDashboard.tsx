@@ -18,6 +18,7 @@ export interface Devis {
   paymentStatus: string // Statut de paiement (ex: 'en attente de paiement', 'payé')
   createdAt: string // Date de création du devis (format ISO 8601 ou autre format valide)
   validUntil: string // Date jusqu'à laquelle le devis est valide (format ISO 8601)
+  report: string
 }
 
 export interface Message {
@@ -42,6 +43,7 @@ export interface Reservation {
   name: string
   firstName: string
   quote: number
+  finalReportUrl: string
   formData: {
     period: string
     numberOfPeople: string

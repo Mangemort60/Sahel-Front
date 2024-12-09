@@ -3,7 +3,7 @@ import { Reservation } from '../../../pages/ClientDashboard'
 import { IoChatboxOutline } from 'react-icons/io5'
 import Badge from '@mui/material/Badge'
 import { useAppSelector } from '../../../redux/hooks/useAppSelector'
-import { FaCheck } from 'react-icons/fa'
+import { FaCheck, FaExclamationCircle } from 'react-icons/fa'
 import { BiTime } from 'react-icons/bi'
 
 interface PreDemandePaidCardProps {
@@ -22,7 +22,7 @@ const PreDemandePaidCard = ({ reservation }: PreDemandePaidCardProps) => {
   const showChatBadge = reservationNotification?.unreadMessages || false
 
   return (
-    <div className="flex rounded-sm h-auto p-6 flex-col justify-between  bg-slate-200 max-w-sm">
+    <div className="flex rounded-sm h-auto p-6 flex-col  bg-slate-200 max-w-sm">
       {/* Titre et icône */}
       <div className="flex items-center">
         <h2 className="font-bold text-secondaryRegularBlue text-xl">
@@ -36,14 +36,14 @@ const PreDemandePaidCard = ({ reservation }: PreDemandePaidCardProps) => {
       {/* Sous-titre */}
 
       {/* Texte conditionnel */}
-      <p className="text-secondaryRegularBlue my-4 text-sm">
+      <p className="text-secondaryRegularBlue  text-sm my-4">
         {reservation.keyReceived
           ? 'Nous avons bien reçu vos clés, nous allons effectuer la visite et vous transmettre un devis très bientôt.'
           : `Les frais de service ont bien été réglés. Nous vous invitons à nous transmettre vos clés pour avancer dans le processus. Les instructions détaillées pour l 'envoi vous ont été communiquées par email.`}
       </p>
 
       {/* Bouton avec badge pour accéder au chat */}
-      <div className="flex flex-col gap-2 w-52">
+      <div className="flex flex-col gap-2 w-52 mt-auto">
         <Badge
           badgeContent={showChatBadge ? '!' : null}
           color="error"

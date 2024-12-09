@@ -36,7 +36,7 @@ export const ServiceChoice = () => {
   return (
     <div className="w-full flex flex-col gap-4 justify-center h-full">
       <h1
-        className="text-secondaryDarkBlue text-4xl text-center font-medium mb-4
+        className="text-secondaryDarkBlue text-2xl mb-4
       "
       >
         Sélectionnez un service{' '}

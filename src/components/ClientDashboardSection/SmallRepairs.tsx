@@ -28,13 +28,13 @@ const SmallRepairs = ({ reservations }: SmallRepairsProps) => {
   )
 
   return (
-    <div className="flex gap-4 m-auto h-auto">
-      <PreDemandCardNotPaid reservation="4554788" />
+    <div className="flex flex-wrap gap-4 m-auto h-auto">
+      {/* <PreDemandCardNotPaid reservation="4554788" />
       <PreDemandePaidCard message="Message factice" reservation="1234567" />
       <DevisNotPaidCard reservation="1234567" devis={{ amount: 125 }} />
       <DevisPaidCard devis={{ amount: 150 }} reservation="7654321" />
-      <CompletedCard reservation="9876543" />
-      <CancelledCard reservation="5678901" />{' '}
+      <CompletedCard reservation="9876543" devis={{ amount: 125 }} />
+      <CancelledCard reservation="5678901" />{' '} */}
       {smallRepairsReservations.length > 0 ? (
         smallRepairsReservations.map((reservation) => {
           return (

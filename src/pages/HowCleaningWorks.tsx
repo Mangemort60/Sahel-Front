@@ -37,7 +37,7 @@ const HowCleaningWorks = () => {
           mains, vous offrant ainsi une sérénité totale.{' '}
         </p>
         <Solution />
-        <div className="space-y-12 mb-12 bg-gradient-to-br from-[#dce2e8] to-white p-8">
+        <div className="space-y-12 mb-12 bg-gradient-to-t from-[#dce2e8] to-white p-8">
           <h1 className="text-4xl sm:text-6xl text-secondaryDarkBlue font-extrabold m-0">
             Votre réservation en 6 étapes
           </h1>

@@ -91,6 +91,18 @@ const uiSlice = createSlice({
         notification.unreadMessages = false
       }
     },
+    setPendingServiceFees: (
+      state,
+      action: PayloadAction<{ reservationId: string; value: boolean }>,
+    ) => {
+      const { reservationId, value } = action.payload
+      const notification = state.notifDetails.find(
+        (notif) => notif.reservationId === reservationId,
+      )
+      if (notification) {
+        notification.pendingServiceFees = value
+      }
+    },
   },
 })
 
@@ -107,5 +119,6 @@ export const {
   updateNotificationCount,
   decrementTotalNotifications,
   markUiMessagesAsRead,
+  setPendingServiceFees,
 } = uiSlice.actions
 export default uiSlice.reducer

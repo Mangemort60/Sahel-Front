@@ -8,6 +8,7 @@ import { useAppSelector } from '../../../redux/hooks/useAppSelector'
 import { setReservationType } from '../../../redux/slices/formSlice'
 import Badge from '@mui/material/Badge'
 import { FaCheck, FaExclamationCircle } from 'react-icons/fa'
+import { setPendingServiceFees } from '../../../redux/slices/uiSlice'
 
 interface ConfirmedCardProps {
   reservation: Reservation
@@ -30,6 +31,12 @@ const PreDemandCardNotPaid = ({ reservation }: ConfirmedCardProps) => {
   const handlePaymentClick = async () => {
     setIsLoading(true)
     dispatch(setReservationType(reservation.reservationType))
+    dispatch(
+      setPendingServiceFees({
+        reservationId: '123456', // Remplacez par l'ID de votre réservation
+        value: true,
+      }),
+    )
     try {
       const serviceFees = 5000
       const feesType = 'serviceFees'
@@ -70,9 +77,12 @@ const PreDemandCardNotPaid = ({ reservation }: ConfirmedCardProps) => {
       <p className="text-gray-400 font-thin text-lg">
         # {reservation.reservationShortId}
       </p>
+
       <p className="text-secondaryRegularBlue my-2 text-sm">
-        Les frais de service couvrent les premières étapes nécessaires à la
-        réalisation de votre projet. Ils incluent notamment :
+        Votre pré-demande a bien été confirmée, pour continuer le processus,
+        vous devez régler des frais de service.<br></br> Les frais de service
+        couvrent les premières étapes nécessaires à la réalisation de votre
+        projet. Ils incluent notamment :
       </p>
       <ul className="list-disc pl-5 text-secondaryRegularBlue my-6 text-sm">
         <li>L 'envoi et la réception sécurisée de vos clés.</li>

@@ -73,8 +73,8 @@ const LoginPage = ({ formSectionRef }: SectionProps) => {
   const onSubmit: SubmitHandler<FormData> = async (data) => {
     setIsLoading(true)
     const apiUrl = getApiUrl()
-    const reservationData = { ...smallRepairsData, ...data }
-    // Ajoute un log pour voir si la valeur est correcte avant l'appel
+    const { password, ...cleanData } = data // Exclut le mot de passe
+    const reservationData = { ...smallRepairsData, ...cleanData } // Ajoute un log pour voir si la valeur est correcte avant l'appel
     console.log('isReadyForPredemande (avant):', isReadyForPredemande)
 
     try {

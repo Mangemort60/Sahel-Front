@@ -21,7 +21,7 @@ export default {
         sahelFlashDarkBlue: '#2d7776',
         secondaryDarkBlue: '#183b56',
         secondaryLightGreen: '#BBE29C',
-        sahelPurpleTeal: '#88709e',
+        sahelPurpleTeal: '#a08db1',
         sahelPurpleTealDarker: '#675677',
         sahelBlueTeal: '#2e8ea4',
         sahelBlueTealDarker: '#257283',

@@ -35,7 +35,8 @@ const PreDemandeCard = ({ reservation }: PredemandCardProps) => {
         précisions, nous vous contacterons via le chat. Vous pouvez également
         nous écrire pour toute question ou information complémentaire.{' '}
       </p>
-      <div className="mt-auto">
+      <div className="mt-auto w-52">
+        {/* Bouton pour accéder au chat */}
         <Badge
           badgeContent={showChatBadge ? '!' : null}
           color="error"
@@ -48,11 +49,13 @@ const PreDemandeCard = ({ reservation }: PredemandCardProps) => {
           <Link
             to={`/client-dashboard/reservationSpace/${reservation.id}`}
             type="button"
-            className="p-2 inline-flex items-center w gap-x-2 rounded-sm border border-gray-200 bg-white text-secondaryRegularBlue shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
+            className="relative p-2 inline-flex items-center w-52 justify-center gap-x-2 rounded-sm border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-100 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 text-sm"
           >
-            Accéder au chat <IoChatboxOutline />
+            <span className="inline-flex items-center gap-x-2">
+              Accéder au chat <IoChatboxOutline />
+            </span>
           </Link>
-        </Badge>
+        </Badge>{' '}
       </div>
       {/* Pas d'action pour l'utilisateur */}
     </div>
