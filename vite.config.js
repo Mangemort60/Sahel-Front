@@ -11,4 +11,7 @@ export default defineConfig({
   build: {
     outDir: 'dist', // Répertoire de sortie pour le build
   },
+  define: {
+    'process.env': {},
+  },
 })
