@@ -75,9 +75,11 @@ export const Step2 = ({ nextStep, formData }: StepProps) => {
               disabled
               className="text-gray-200"
             ></option>
+            <option value="Saidia">Saidia</option>
             <option value="Berkane">Berkane</option>
-            <option value="Oujda">Oujda</option>
-            <option value="Ahfir">Ahfir</option>
+            <option value="Ahfir et ses alentours">
+              Ahfir et ses alentours
+            </option>
           </select>
 
           {errors.city && <p className="text-red-600">{errors.city.message}</p>}

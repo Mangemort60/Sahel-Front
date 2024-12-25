@@ -7,18 +7,19 @@ import Guarantees from '../components/HomeSection/Guarantees'
 
 const HomePage = () => {
   const formSectionRef = useRef<HTMLDivElement>(null)
+  const faqRef = useRef<HTMLDivElement>(null)
   const location = useLocation()
 
   useEffect(() => {
+    // Scrolling vers formSection si scrollToForm est défini
     if (location.state?.scrollToForm && formSectionRef.current) {
       formSectionRef.current.scrollIntoView({ behavior: 'smooth' })
     }
-  }, [location])
 
-  useEffect(() => {
-    // Vérifiez si l'URL contient un hash pour formSection
-    if (location.hash === '#formSection' && formSectionRef.current) {
-      formSectionRef.current.scrollIntoView({ behavior: 'smooth' })
+    if (location.state?.scrollToFaq && faqRef.current) {
+      setTimeout(() => {
+        faqRef.current?.scrollIntoView({ behavior: 'smooth' })
+      }, 100) // Délai pour assurer que le DOM est prêt
     }
   }, [location])
 
@@ -26,8 +27,8 @@ const HomePage = () => {
     <>
       <HeroSection formSectionRef={formSectionRef} />
       <Guarantees />
-      <FormSection ref={formSectionRef} />
-      <Faq />
+      <FormSection id="formSection" ref={formSectionRef} />
+      <Faq ref={faqRef} />
     </>
   )
 }

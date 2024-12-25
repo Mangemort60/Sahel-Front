@@ -47,18 +47,13 @@ const RegisterPage = () => {
     resolver: zodResolver(registerSchema),
   })
 
+  const [emailError, setEmailError] = useState<string | null>(null)
+
   const onSubmit: SubmitHandler<FormData> = async (data) => {
     setIsLoading(true)
-    const rgstrDataSmallRepairs = {
-      name: data.name,
-      firstName: data.firstname,
-      email: data.email,
-      phone: data.phone,
-    }
-    const reservationData = { ...smallRepairsData, ...rgstrDataSmallRepairs }
+    setEmailError(null) // Réinitialiser l'erreur avant chaque soumission
 
     try {
-      // Envoie les données d'inscription au backend
       const response = await axios.post(`${apiUrl}/auth/register`, {
         name: data.name,
         firstName: data.firstname,
@@ -67,54 +62,46 @@ const RegisterPage = () => {
         phone: data.phone,
       })
 
-      const { token, shortId, role } = response.data // Récupère les données du backend
+      const { token, shortId, role } = response.data
 
-      // Utilise Firebase pour connecter l'utilisateur avec le token personnalisé
-      const userCredential = await signInWithCustomToken(auth, token)
+      // Connexion Firebase
+      await signInWithCustomToken(auth, token)
 
-      // Dispatch les données dans Redux
+      // Dispatch dans Redux
       dispatch(setIsLoggedIn(true))
-      dispatch(setUserName(data.name)) // Met à jour le nom
-      dispatch(setFirstName(data.firstname)) // Met à jour le prénom
-      dispatch(setEmail(data.email)) // Met à jour l'email
-      dispatch(setShortId(shortId)) // Met à jour le shortId
-      dispatch(setRole(role)) // Met à jour le rôle
-      dispatch(setPhone(data.phone)) // Met à jour le rôle
+      dispatch(setUserName(data.name))
+      dispatch(setFirstName(data.firstname))
+      dispatch(setEmail(data.email))
+      dispatch(setShortId(shortId))
+      dispatch(setRole(role))
+      dispatch(setPhone(data.phone))
 
-      console.log(response.data.email)
-
-      // Redirige vers la page d'accueil après la connexion réussie
+      // Redirection
       navigate('/', { state: { success: true } })
-
-      console.log('User created successfully:', response.data)
-      toast.success('Inscription réussi, vous êtes connecté(e) !')
-
-      const currentUser = userCredential.user
-
-      if (currentUser && isReadyForPredemande) {
-        // Si l'utilisateur est authentifié et que les conditions de la pré-demande sont remplies
-        await createPredemand(
-          reservationData,
-          response.data.shortId,
-          data.email,
-          data.name,
-          data.firstname,
-          data.phone,
-        )
-        toast.success('Pré-demande créée avec succès !', {
-          position: 'bottom-right',
-        })
-      }
+      toast.success('Inscription réussie !')
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        console.error('Error creating user:', error.response?.data)
+        const errorMessage = error.response?.data?.error
+        console.error(
+          "Erreur lors de la création de l'utilisateur :",
+          errorMessage,
+        )
+
+        // Vérifiez si l'erreur concerne un email existant
+        if (error.response?.status === 409) {
+          setEmailError('Cette adresse email est déjà utilisée.')
+        } else {
+          toast.error('Une erreur est survenue. Veuillez réessayer.')
+        }
       } else {
-        console.error('Unexpected error:', error)
+        console.error('Erreur inattendue :', error)
+        toast.error('Une erreur inattendue est survenue. Veuillez réessayer.')
       }
     } finally {
       setIsLoading(false)
     }
   }
+
   return (
     <main className="w-full max-w-md mx-auto p-6">
       <div className="mt-7 bg-white border border-gray-200 rounded-xl shadow-sm ">
@@ -229,12 +216,12 @@ const RegisterPage = () => {
                       type="email"
                       id="email"
                       name="email"
-                      className="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none "
+                      className="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
                       required
                       aria-describedby="email-error"
                     />
                     {errors.email && (
-                      <div className=" absolute inset-y-0 end-0 pointer-events-none pe-3">
+                      <div className="absolute inset-y-0 end-0 pointer-events-none pe-3">
                         <svg
                           className="size-5 text-red-500"
                           width="16"
@@ -251,6 +238,9 @@ const RegisterPage = () => {
                     <p className="text-xs text-red-600 mt-2">
                       {errors.email.message}
                     </p>
+                  )}
+                  {emailError && (
+                    <p className="text-xs text-red-600 mt-2">{emailError}</p>
                   )}
                 </div>
 

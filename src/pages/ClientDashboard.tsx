@@ -37,6 +37,7 @@ export interface Reservation {
   devis: Devis[] // Tableau de devis  city: string
   address: string
   serviceDate: string
+  serviceDates: { startDate: string; endDate: string }
   city: string
   email: string
   shortId: string

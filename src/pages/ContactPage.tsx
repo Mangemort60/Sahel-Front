@@ -7,9 +7,15 @@ import getApiUrl from '../utils/getApiUrl'
 import toast from 'react-hot-toast'
 import { useState } from 'react'
 import contactUs from '../assets/contact.webp'
+import { useNavigate } from 'react-router-dom'
 
 const ContactPage = () => {
   const [isLoading, setIsLoading] = useState(false)
+  const navigate = useNavigate()
+
+  const scrollToFaq = () => {
+    navigate('/', { state: { scrollToFaq: true } })
+  }
 
   const apiUrl = getApiUrl()
   type FormData = z.infer<typeof contactSchema>
@@ -204,7 +210,7 @@ const ContactPage = () => {
             </form>
           </div>
         </div>
-        <div className="mt-12 grid  items-center gap-4 ">
+        <div onClick={scrollToFaq} className="mt-12 grid  items-center gap-4 ">
           <a
             className="group flex flex-col h-full text-center rounded-lg hover:bg-gray-100 p-4 sm:p-6 dark:hover:bg-neutral-500/10"
             href="#"

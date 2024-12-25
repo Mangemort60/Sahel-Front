@@ -94,12 +94,7 @@ const LoginPage = ({ formSectionRef }: SectionProps) => {
       // 4. Stocker le token dans les cookies pour la session utilisateur
       Cookies.set('token', authToken, { expires: 7 })
       const currentUser = auth.currentUser
-      console.log('setEMail', response.data.email)
 
-      console.log(
-        'isReadyForPredemande (après authentification):',
-        isReadyForPredemande,
-      )
       // 3. Mise à jour du store Redux avec les informations utilisateur
       dispatch(setIsLoggedIn(true))
       dispatch(setUserName(response.data.name))
@@ -130,7 +125,16 @@ const LoginPage = ({ formSectionRef }: SectionProps) => {
         (formStep === 'serviceChoice'
           ? '/'
           : `${new URLSearchParams(location.search).get('redirectTo') || '/'}#formSection`)
+
       navigate(redirectTo, { replace: true })
+
+      // Gestion du hash après la redirection
+      if (redirectTo.includes('#formSection')) {
+        setTimeout(() => {
+          const formSectionElement = document.querySelector('#formSection')
+          formSectionElement?.scrollIntoView({ behavior: 'smooth' })
+        }, 100) // Ajout d'un délai pour garantir que la page est rendue
+      }
 
       fetchBadgeStatus(response.data.shortId)
       // 7. Afficher un message de succès

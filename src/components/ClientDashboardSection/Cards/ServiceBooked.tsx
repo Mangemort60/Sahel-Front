@@ -1,17 +1,17 @@
 import React from 'react'
 import { Reservation, Devis } from '../../../pages/ClientDashboard'
-import { FaCheckCircle } from 'react-icons/fa' // Icône pour indiquer que la prestation est terminée
+import { BiTime } from 'react-icons/bi'
 import Badge from '@mui/material/Badge'
 import { Link } from 'react-router-dom'
 import { IoChatboxOutline } from 'react-icons/io5'
 import { useAppSelector } from '../../../redux/hooks/useAppSelector'
 
-interface CompletedCardProps {
+interface ServiceBookedProps {
   reservation: Reservation
-  devis: Devis
+  devis: Devis // Le devis associé
 }
 
-const CompletedCard: React.FC<CompletedCardProps> = ({
+const ServiceBooked: React.FC<ServiceBookedProps> = ({
   reservation,
   devis,
 }) => {
@@ -24,13 +24,13 @@ const CompletedCard: React.FC<CompletedCardProps> = ({
   const showChatBadge = reservationNotification?.unreadMessages || false
 
   return (
-    <div className="flex rounded-sm h-auto p-6 flex-col bg-secondaryLightGreen max-w-sm">
+    <div className="flex rounded-sm h-auto p-6 flex-col bg-slate-200 max-w-sm">
       {/* Titre et icône */}
       <div className="flex items-center">
         <h2 className="font-bold text-secondaryRegularBlue text-xl">
-          Prestation terminée
+          Service Réservé
         </h2>
-        <FaCheckCircle className="text-green-500 text-3xl ml-auto" />
+        <BiTime className="text-secondaryRegularBlue text-3xl ml-auto" />
       </div>
 
       {/* Numéro de réservation */}
@@ -41,23 +41,19 @@ const CompletedCard: React.FC<CompletedCardProps> = ({
       <div className="my-auto">
         {/* Texte explicatif */}
         <p className="text-secondaryRegularBlue my-2 text-sm">
-          La prestation a été réalisée avec succès. Vous pouvez consulter le
-          rapport des travaux ci dessous.
+          Votre créneau a été fixé avec succès. L'intervention est prévue entre{' '}
+          <strong>{reservation.serviceDates.startDate}</strong> et{' '}
+          <strong>{reservation.serviceDates.endDate}</strong>.
+        </p>
+        {/* Montant du devis */}
+        <p className="text-secondaryRegularBlue text-sm mb-2">
+          <strong>Montant :</strong> {devis.amount} €
         </p>
       </div>
 
       {/* Boutons */}
       <div className="flex flex-col gap-2 w-52 mt-auto">
-        <a
-          href={reservation.finalReportUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-blue-600 underline text-sm"
-        >
-          <button className="bg-secondaryRegularBlue text-white p-2 rounded-sm hover:bg-secondaryRegularBlue w-full text-sm">
-            Voir le rapport final
-          </button>
-        </a>
+        {/* Lien pour voir le devis */}
         <a
           href={devis.url}
           target="_blank"
@@ -82,7 +78,7 @@ const CompletedCard: React.FC<CompletedCardProps> = ({
           <Link
             to={`/client-dashboard/reservationSpace/${reservation.id}`}
             type="button"
-            className="relative p-2 inline-flex items-center w-full justify-center gap-x-2 rounded-sm border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-100 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 text-sm"
+            className="relative p-2 inline-flex items-center w-52 justify-center gap-x-2 rounded-sm border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-100 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 text-sm"
           >
             <span className="inline-flex items-center gap-x-2">
               Accéder au chat <IoChatboxOutline />
@@ -94,4 +90,4 @@ const CompletedCard: React.FC<CompletedCardProps> = ({
   )
 }
 
-export default CompletedCard
+export default ServiceBooked

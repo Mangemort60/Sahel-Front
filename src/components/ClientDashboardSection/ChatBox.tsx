@@ -33,16 +33,16 @@ const ChatBox = ({
   const userRole = useAppSelector((state) => state.user.role)
   const apiUrl = getApiUrl()
 
-  // Fonction pour récupérer les URL sécurisées des images
-  const fetchImageUrl = async (path: string, messageIndex: number) => {
+  // Fonction pour récupérer les URL sécurisées des pièces jointes
+  const fetchAttachmentUrl = async (path: string, messageIndex: number) => {
     const storage = getStorage()
-    const imageRef = ref(storage, path)
+    const fileRef = ref(storage, path)
 
     try {
-      const url = await getDownloadURL(imageRef)
+      const url = await getDownloadURL(fileRef)
       setImageUrls((prevUrls) => ({
         ...prevUrls,
-        [messageIndex]: url,
+        [messageIndex]: url, // Stocke l'URL sécurisée
       }))
     } catch (error) {
       console.error(
@@ -52,14 +52,12 @@ const ChatBox = ({
     }
   }
 
+  // Mise à jour pour gérer tous les fichiers
   useEffect(() => {
-    // Récupérer les URL des images pour chaque message qui a un attachement
     messages.forEach((message, index) => {
       if (message.attachments && message.attachments.length > 0) {
         message.attachments.forEach((attachment) => {
-          if (attachment.type.startsWith('image/')) {
-            fetchImageUrl(attachment.url, index) // Récupérer l'URL sécurisée
-          }
+          fetchAttachmentUrl(attachment.url, index)
         })
       }
     })
@@ -145,30 +143,27 @@ const ChatBox = ({
                 <div className="space-y-1.5">
                   <p className="text-sm">{message.text}</p>
 
-                  {/* Affichage des images ou des liens de téléchargement */}
                   {message.attachments &&
                     message.attachments.length > 0 &&
                     message.attachments.map((attachment, i) =>
-                      attachment.url ? (
-                        attachment.type.startsWith('image/') ? (
-                          <img
-                            key={i}
-                            src={imageUrls[index]} // Utiliser l'URL sécurisée récupérée
-                            alt={`attachment-${i}`}
-                            style={{ maxWidth: '100%' }}
-                          />
-                        ) : (
-                          <a
-                            key={i}
-                            className="text-blue-600 hover:text-blue-500 opacity-90"
-                            href={attachment.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            Télécharger
-                          </a>
-                        )
-                      ) : null,
+                      attachment.type.startsWith('image/') ? (
+                        <img
+                          key={i}
+                          src={imageUrls[index]} // Utiliser l'URL sécurisée récupérée
+                          alt={`attachment-${i}`}
+                          style={{ maxWidth: '100%' }}
+                        />
+                      ) : (
+                        <a
+                          key={i}
+                          className="text-blue-600 hover:text-blue-500 opacity-90"
+                          href={imageUrls[index]} // Utiliser l'URL sécurisée récupérée
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          Télécharger
+                        </a>
+                      ),
                     )}
                 </div>
               </div>

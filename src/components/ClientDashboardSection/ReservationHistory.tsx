@@ -47,71 +47,78 @@ export const ReservationHistory = ({
       >
         <div>
           <div className="flex sm:flex-wrap sm:flex-row flex-col gap-4 m-auto ">
-            {reservations
-              .filter(
-                (reservation) => reservation.reservationType === activeTab,
-              )
-              .map((reservation) => {
-                // Obtenez les détails des notifications pour cette réservation spécifique
-                const reservationNotif = notifDetails.find(
-                  (notif) => notif.reservationId === reservation.id,
+            {reservations.filter(
+              (reservation) => reservation.reservationType === activeTab,
+            ).length === 0 ? (
+              // Affichez un message si aucune réservation n'est trouvée
+              <div className="text-center text-gray-500 mt-10">
+                <p>Vous n'avez aucune réservation pour le moment.</p>
+              </div>
+            ) : (
+              reservations
+                .filter(
+                  (reservation) => reservation.reservationType === activeTab,
                 )
-                const notificationCount =
-                  reservationNotif?.notificationCount || 0
+                .map((reservation) => {
+                  const reservationNotif = notifDetails.find(
+                    (notif) => notif.reservationId === reservation.id,
+                  )
+                  const notificationCount =
+                    reservationNotif?.notificationCount || 0
 
-                return (
-                  <div className="max-w-sm shadow-sm ">
-                    <div
-                      className={`relative flex rounded-sm h-full dark:bg-gray-800 ${getTabColorClasses(
-                        activeTab,
-                      )} p-6 flex-col`}
-                    >
-                      <div className="flex flex-col mb-3 ">
-                        <h2 className="text-white dark:text-white font-bold text-xl">
-                          Réservation
-                        </h2>
-                        <p className="text-base text-slate-200 font-thin">
-                          #{reservation.reservationShortId}
-                        </p>
-                      </div>
-                      <div className="flex flex-col justify-between flex-grow">
-                        <p className="text-white dark:text-gray-300">
-                          Montant : {reservation.quote}€
-                        </p>
-                        <p className="text-white dark:text-gray-300 mb-2">
-                          Intervention prévue le : {reservation.serviceDate}
-                        </p>
-                        <hr className="border" />
-                        <p className="text-white dark:text-gray-300 mt-2">
-                          Adresse : {reservation.address}
-                        </p>
-                        <p className="text-white dark:text-gray-300">
-                          Ville : {reservation.city}
-                        </p>
-                      </div>{' '}
-                      {/* Badge de notification pour la carte de réservation */}
-                      <Link
-                        to={`/client-dashboard/reservationSpace/${reservation.id}`}
-                        type="button"
-                        className="relative mt-2 p-2 inline-flex items-center justify-center gap-x-2 rounded-sm border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-100 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
+                  return (
+                    <div className="max-w-sm shadow-sm ">
+                      <div
+                        className={`relative flex rounded-sm h-full dark:bg-gray-800 ${getTabColorClasses(
+                          activeTab,
+                        )} p-6 flex-col`}
                       >
-                        Accéder au chat <IoChatboxOutline />
-                        {notificationCount > 0 && (
-                          <Badge
-                            badgeContent="!"
-                            color="error"
-                            anchorOrigin={{
-                              vertical: 'top',
-                              horizontal: 'right',
-                            }}
-                            className="absolute bottom-6 left-8"
-                          />
-                        )}{' '}
-                      </Link>
+                        <div className="flex flex-col mb-3 ">
+                          <h2 className="text-white dark:text-white font-bold text-xl">
+                            Réservation
+                          </h2>
+                          <p className="text-base text-slate-200 font-thin">
+                            #{reservation.reservationShortId}
+                          </p>
+                        </div>
+                        <div className="flex flex-col justify-between flex-grow">
+                          <p className="text-white dark:text-gray-300">
+                            Montant : {reservation.quote}€
+                          </p>
+                          <p className="text-white dark:text-gray-300 mb-2">
+                            Intervention prévue le : {reservation.serviceDate}
+                          </p>
+                          <hr className="border" />
+                          <p className="text-white dark:text-gray-300 mt-2">
+                            Adresse : {reservation.address}
+                          </p>
+                          <p className="text-white dark:text-gray-300">
+                            Ville : {reservation.city}
+                          </p>
+                        </div>{' '}
+                        <Link
+                          to={`/client-dashboard/reservationSpace/${reservation.id}`}
+                          type="button"
+                          className="relative mt-2 p-2 inline-flex items-center justify-center gap-x-2 rounded-sm border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-100 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
+                        >
+                          Accéder au chat <IoChatboxOutline />
+                          {notificationCount > 0 && (
+                            <Badge
+                              badgeContent="!"
+                              color="error"
+                              anchorOrigin={{
+                                vertical: 'top',
+                                horizontal: 'right',
+                              }}
+                              className="absolute bottom-6 left-8"
+                            />
+                          )}{' '}
+                        </Link>
+                      </div>
                     </div>
-                  </div>
-                )
-              })}
+                  )
+                })
+            )}
           </div>
         </div>
       </motion.div>

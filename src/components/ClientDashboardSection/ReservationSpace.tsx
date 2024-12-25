@@ -12,6 +12,7 @@ import { useDispatch } from 'react-redux'
 import { useAppSelector } from '../../redux/hooks/useAppSelector'
 import { useEffect } from 'react'
 import { markMessagesAsReadByClient } from '../../services/markMessagesAsReadByClient'
+import { auth } from '../../../firebase-config'
 
 interface ReservationSpaceProps {
   messagesByReservation: Record<string, Message[]> // Messages groupés par réservation
@@ -25,6 +26,10 @@ const ReservationSpace = ({
   updateMessages,
 }: ReservationSpaceProps) => {
   const { id: reservationId } = useParams<{ id: string }>() // Récupère l'ID de la réservation dans les params
+
+  auth.currentUser?.getIdTokenResult().then((idTokenResult) => {
+    console.log('ID TOKEN RESULT', idTokenResult.claims.role) // Vérifiez le rôle ici
+  })
 
   const dispatch = useDispatch()
   const activeTab = useAppSelector((state) => state.ui.activeTab)
@@ -68,8 +73,8 @@ const ReservationSpace = ({
   return (
     <div className="h-screen flex flex-col">
       <Link
-        to={'/client-dashboard/smallRepairs'}
-        onClick={() => dispatch(setActiveTab(activeTab))}
+        to={'/client-dashboard'}
+        onClick={() => dispatch(setActiveTab('ménage'))}
       >
         <button className="text-gray-400 mb-4 flex items-center gap-2">
           <FaArrowLeft />

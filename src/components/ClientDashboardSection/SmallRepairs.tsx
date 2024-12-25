@@ -1,15 +1,15 @@
 import { Devis, Reservation } from '../../pages/ClientDashboard'
 import { motion } from 'framer-motion'
 
-// Composants de card
+// Composants de carte
 import PreDemandeCard from '../ClientDashboardSection/Cards/PreDemandeCard'
-import ConfirmedNotPaidCard from './Cards/PreDemandCardNotPaid'
+import PreDemandCardNotPaid from './Cards/PreDemandCardNotPaid'
 import CancelledCard from '../ClientDashboardSection/Cards/CancelledCard'
 import CompletedCard from '../ClientDashboardSection/Cards/CompletedCard'
 import DevisNotPaidCard from './Cards/DevisNotPaidCard'
 import DevisPaidCard from './Cards/DevisPaidCard'
-import PreDemandCardNotPaid from './Cards/PreDemandCardNotPaid'
 import PreDemandePaidCard from './Cards/PreDemandePaidCard'
+import ServiceBooked from './Cards/ServiceBooked'
 
 interface SmallRepairsProps {
   reservations: Reservation[]
@@ -27,114 +27,153 @@ const SmallRepairs = ({ reservations }: SmallRepairsProps) => {
     (reservation) => reservation.reservationType === 'petits-travaux',
   )
 
+  console.log(
+    'Réservations petits-travaux:',
+    reservations.filter(
+      (reservation) => reservation.reservationType === 'petits-travaux',
+    ),
+  )
+
+  console.log(
+    'smallRepairReservation lenght: ',
+    smallRepairsReservations.length,
+  )
+
+  // // Affichage en cas de chargement ou de données manquantes
+  // if (reservations.length === 0) {
+  //   return (
+  //     <p className="text-black text-center w-full">
+  //       Aucune réservation "petits-travaux" trouvée.
+  //     </p>
+  //   )
+  // }
+
   return (
     <div className="flex flex-wrap gap-4 m-auto h-auto">
-      {/* <PreDemandCardNotPaid reservation="4554788" />
-      <PreDemandePaidCard message="Message factice" reservation="1234567" />
-      <DevisNotPaidCard reservation="1234567" devis={{ amount: 125 }} />
-      <DevisPaidCard devis={{ amount: 150 }} reservation="7654321" />
-      <CompletedCard reservation="9876543" devis={{ amount: 125 }} />
-      <CancelledCard reservation="5678901" />{' '} */}
-      {smallRepairsReservations.length > 0 ? (
-        smallRepairsReservations.map((reservation) => {
-          return (
-            <motion.div
-              key={reservation.id}
-              initial="enter"
-              animate="center"
-              exit="exit"
-              variants={variants}
-              transition={{ duration: 0.5 }}
-              className=""
-            >
-              {(() => {
-                switch (reservation.bookingStatus) {
-                  case 'pré-demande':
-                    return <PreDemandeCard reservation={reservation} />
+      {smallRepairsReservations.length === 0 ? (
+        <div className="text-center text-gray-500 mt-10">
+          <p>Vous n'avez aucune réservation pour le moment.</p>
+        </div>
+      ) : (
+        smallRepairsReservations.map((reservation) => (
+          <motion.div
+            key={reservation.id}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            variants={variants}
+            transition={{ duration: 0.5 }}
+            className="w-full sm:w-auto"
+          >
+            {(() => {
+              // Vérifie si un créneau est défini et qu'il existe des devis
+              if (
+                reservation.serviceDates?.startDate &&
+                reservation.serviceDates?.endDate &&
+                reservation.devis &&
+                reservation.devis.length > 0 &&
+                reservation.bookingStatus != 'terminé'
+              ) {
+                // Trier les devis par date décroissante (assume qu'une propriété 'createdDate' existe)
+                const mostRecentDevis = [...reservation.devis].sort(
+                  (a, b) =>
+                    new Date(b.createdAt).getTime() -
+                    new Date(a.createdAt).getTime(),
+                )[0]
 
-                  case 'confirmé':
-                    // Frais de service non payés
-                    if (
-                      reservation.paymentStatus ===
-                      'en attente de paiement des frais de service'
-                    ) {
-                      return <PreDemandCardNotPaid reservation={reservation} />
-                    }
-                    // Frais de service payés
-                    else if (
-                      reservation.paymentStatus === 'frais de service payés'
-                    ) {
-                      // Clés non reçues
-                      if (!reservation.keyReceived) {
+                return (
+                  <ServiceBooked
+                    reservation={reservation}
+                    devis={mostRecentDevis}
+                  />
+                )
+              }
+
+              // Autres cas selon le statut
+              switch (reservation.bookingStatus) {
+                case 'pré-demande':
+                  return <PreDemandeCard reservation={reservation} />
+
+                case 'confirmé':
+                  if (
+                    reservation.paymentStatus ===
+                    'en attente de paiement des frais de service'
+                  ) {
+                    return <PreDemandCardNotPaid reservation={reservation} />
+                  } else if (
+                    reservation.paymentStatus === 'frais de service payés'
+                  ) {
+                    if (!reservation.keyReceived) {
+                      return (
+                        <PreDemandePaidCard
+                          reservation={reservation}
+                          message="Les frais de service ont été payés. En attente de réception des clés."
+                        />
+                      )
+                    } else if (reservation.keyReceived) {
+                      if (reservation.devis && reservation.devis.length > 0) {
+                        return reservation.devis.map((devis: Devis) => {
+                          if (
+                            devis.paymentStatus === 'en attente de paiement'
+                          ) {
+                            return (
+                              <DevisNotPaidCard
+                                key={devis.id}
+                                reservation={reservation}
+                                devis={devis}
+                              />
+                            )
+                          } else if (devis.paymentStatus === 'payé') {
+                            return (
+                              <DevisPaidCard
+                                key={devis.id}
+                                reservation={reservation}
+                                devis={devis}
+                              />
+                            )
+                          } else {
+                            return (
+                              <p key={devis.id}>
+                                Statut de devis non pris en charge.
+                              </p>
+                            )
+                          }
+                        })
+                      } else {
                         return (
                           <PreDemandePaidCard
                             reservation={reservation}
-                            message="Les frais de service ont été payés. En attente de réception des clés."
+                            message="Les frais de service ont été payés. Clés reçues."
                           />
                         )
                       }
-                      // Clés reçues
-                      else if (reservation.keyReceived) {
-                        // Afficher les devis s'ils existent
-                        if (reservation.devis && reservation.devis.length > 0) {
-                          // Boucle pour afficher chaque devis
-                          return reservation.devis.map((devis: Devis) => {
-                            if (
-                              devis.paymentStatus === 'en attente de paiement'
-                            ) {
-                              return (
-                                <DevisNotPaidCard
-                                  key={devis.id}
-                                  reservation={reservation}
-                                  devis={devis}
-                                />
-                              )
-                            } else if (devis.paymentStatus === 'payé') {
-                              return (
-                                <DevisPaidCard
-                                  key={devis.id}
-                                  reservation={reservation}
-                                  devis={devis}
-                                />
-                              )
-                            } else {
-                              return (
-                                <p key={devis.id}>
-                                  Statut de devis non pris en charge.
-                                </p>
-                              )
-                            }
-                          })
-                        } else {
-                          return (
-                            <PreDemandePaidCard
-                              reservation={reservation}
-                              message="Les frais de service ont été payés. Clés reçues."
-                            />
-                          )
-                        }
-                      }
-                    } else {
-                      return <p>Statut de paiement non pris en charge.</p>
                     }
+                  } else {
+                    return <p>Statut de paiement non pris en charge.</p>
+                  }
 
-                  case 'annulé':
-                    return <CancelledCard reservation={reservation} />
+                case 'annulé':
+                  return <CancelledCard reservation={reservation} />
 
-                  case 'terminé':
-                    return <CompletedCard reservation={reservation} />
+                case 'terminé':
+                  const mostRecentCompletedDevis = [...reservation.devis].sort(
+                    (a, b) =>
+                      new Date(b.createdAt).getTime() -
+                      new Date(a.createdAt).getTime(),
+                  )[0]
+                  return (
+                    <CompletedCard
+                      reservation={reservation}
+                      devis={mostRecentCompletedDevis}
+                    />
+                  )
 
-                  default:
-                    return <p>Statut de réservation non pris en charge.</p>
-                }
-              })()}
-            </motion.div>
-          )
-        })
-      ) : (
-        <p className="text-white">
-          Aucune réservation "petits-travaux" trouvée.
-        </p>
+                default:
+                  return <p>Statut de réservation non pris en charge.</p>
+              }
+            })()}
+          </motion.div>
+        ))
       )}
     </div>
   )

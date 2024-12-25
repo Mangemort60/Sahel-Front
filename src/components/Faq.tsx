@@ -1,17 +1,19 @@
-import { useState } from 'react'
+import React, { useState, ForwardedRef } from 'react'
 import question from '../assets/question.webp'
 import { Link } from 'react-router-dom'
 
-export const Faq = () => {
-  const [openQuestionIndex, setOpenQuestionIndex] = useState(null)
+export const Faq = React.forwardRef<HTMLDivElement>(
+  (_, ref: ForwardedRef<HTMLDivElement>) => {
+    const [openQuestionIndex, setOpenQuestionIndex] = useState<number | null>(
+      null,
+    )
 
-  const toggleQuestion = (index) => {
-    setOpenQuestionIndex(openQuestionIndex === index ? null : index)
-  }
+    const toggleQuestion = (index: number) => {
+      setOpenQuestionIndex(openQuestionIndex === index ? null : index)
+    }
 
-  return (
-    <div>
-      <section className="py-10  sm:py-16 lg:py-24">
+    return (
+      <section ref={ref} className="py-10 sm:py-16 lg:py-24">
         <div className="px-4 mx-auto sm:px-6 lg:px-8 max-w-7xl">
           <div className="max-w-2xl mx-auto text-center">
             <h2 className="text-3xl font-bold leading-tight text-secondaryDarkBlue sm:text-5xl lg:text-5xl">
@@ -21,7 +23,11 @@ export const Faq = () => {
               Amet minim mollit non deserunt ullamco est sit aliqua dolor do
             </p>
           </div>
-          <img src={question} alt="" className="w-1/2 m-auto sm:flex hidden" />
+          <img
+            src={question}
+            alt="Question"
+            className="w-1/2 m-auto sm:flex hidden"
+          />
 
           <div className="max-w-3xl mx-auto mt-8 space-y-4 md:mt-16">
             {[
@@ -128,7 +134,7 @@ export const Faq = () => {
 
                 {openQuestionIndex === index && (
                   <div className="px-4 pb-5 sm:px-6 sm:pb-6">
-                    <p className="text-secondaryLightBlue">{item.answer} </p>
+                    <p className="text-secondaryLightBlue">{item.answer}</p>
                   </div>
                 )}
               </div>
@@ -139,7 +145,7 @@ export const Faq = () => {
             Vous n'avez pas de réponse à votre question ?{' '}
             <Link
               to={'/contact'}
-              title=""
+              title="Contactez notre support"
               className="font-medium text-blue-600 transition-all duration-200 hover:text-blue-700 focus:text-blue-700 hover:underline"
             >
               Contactez notre support
@@ -147,6 +153,6 @@ export const Faq = () => {
           </p>
         </div>
       </section>
-    </div>
-  )
-}
+    )
+  },
+)
