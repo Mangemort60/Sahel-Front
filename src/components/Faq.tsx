@@ -110,7 +110,7 @@ export const Faq = React.forwardRef<HTMLDivElement>(
                   onClick={() => toggleQuestion(index)}
                   className="flex items-center justify-between w-full px-4 py-5 sm:p-6"
                 >
-                  <span className="flex text-lg font-semibold text-secondaryDarkBlue">
+                  <span className="flex text-lg font-semibold text-secondaryDarkBlue text-left">
                     {item.question}
                   </span>
 

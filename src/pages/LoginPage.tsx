@@ -34,6 +34,7 @@ interface SectionProps {
 
 const LoginPage = ({ formSectionRef }: SectionProps) => {
   const [isLoading, setIsLoading] = useState(false)
+  const [errorMessage, setErrorMessage] = useState<string | null>(null)
   const location = useLocation()
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -72,6 +73,7 @@ const LoginPage = ({ formSectionRef }: SectionProps) => {
   // Gestion de la soumission du formulaire de connexion
   const onSubmit: SubmitHandler<FormData> = async (data) => {
     setIsLoading(true)
+    setErrorMessage(null) // Réinitialiser les erreurs à chaque soumission
     const apiUrl = getApiUrl()
     const { password, ...cleanData } = data // Exclut le mot de passe
     const reservationData = { ...smallRepairsData, ...cleanData } // Ajoute un log pour voir si la valeur est correcte avant l'appel
@@ -141,16 +143,34 @@ const LoginPage = ({ formSectionRef }: SectionProps) => {
       toast.success('Connexion réussie, bienvenue!', {
         position: 'bottom-right',
       })
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
+    } catch (error: any) {
+      if (error.code && error.code.startsWith('auth/')) {
+        // Gérer les erreurs Firebase
+        switch (error.code) {
+          case 'auth/invalid-credential':
+            setErrorMessage('Les identifiants fournis sont invalides.')
+            break
+          case 'auth/wrong-password':
+            setErrorMessage('Le mot de passe est incorrect.')
+            break
+          case 'auth/user-not-found':
+            setErrorMessage('Aucun utilisateur trouvé avec cet email.')
+            break
+          default:
+            setErrorMessage('Une erreur inattendue est survenue.')
+        }
+      } else if (axios.isAxiosError(error)) {
+        // Gérer les erreurs liées à Axios
         console.error(
           'Erreur lors de la récupération des données utilisateur:',
           error.response?.data.error,
         )
+        toast.error('Erreur lors de la récupération des données.')
       } else {
+        // Gérer les erreurs inconnues
         console.error('Erreur inattendue:', error)
+        toast.error('Erreur lors de la connexion.')
       }
-      toast.error('Erreur lors de la connexion.')
     } finally {
       setIsLoading(false)
     }
@@ -268,18 +288,14 @@ const LoginPage = ({ formSectionRef }: SectionProps) => {
                         required
                         aria-describedby="password-error"
                       />
-                      <div className="hidden absolute inset-y-0 end-0 pointer-events-none pe-3">
-                        <svg
-                          className="size-5 text-red-500"
-                          width="16"
-                          height="16"
-                          fill="currentColor"
-                          viewBox="0 0 16 16"
-                          aria-hidden="true"
+                      {errorMessage && (
+                        <p
+                          className="text-xs text-red-600 mt-2"
+                          id="password-error"
                         >
-                          <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
-                        </svg>
-                      </div>
+                          {errorMessage}
+                        </p>
+                      )}
                     </div>
                     <p
                       className="hidden text-xs text-red-600 mt-2"

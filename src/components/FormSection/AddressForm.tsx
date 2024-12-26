@@ -98,7 +98,9 @@ export const AddressForm = () => {
           ></option>
           <option value="Saïdia">Saïdia</option>
           <option value="Berkane">Berkane</option>
-          <option value="Ahfir">Ahfir et ses alentours</option>{' '}
+          <option value="Ahfir et ses alentours">
+            Ahfir et ses alentours
+          </option>{' '}
         </select>
         {errors.city && (
           <p className="text-red-600 text-xs ">{errors.city.message}</p>
