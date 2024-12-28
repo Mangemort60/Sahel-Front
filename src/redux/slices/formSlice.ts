@@ -14,7 +14,7 @@ export interface CleaningFormData {
 
 export interface CookingFormData {
   period: string // Période du service (matin, soir, etc.)
-  numberOfPeople: string // Nombre de personnes
+  numberOfPeople: string | number // Accepter à la fois chaînes et nombres
 }
 
 export interface SmallRepairsFormData {

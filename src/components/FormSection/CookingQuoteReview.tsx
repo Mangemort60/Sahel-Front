@@ -8,9 +8,10 @@ import { Link } from 'react-router-dom'
 
 export const CookingQuoteReview = () => {
   // Extraction des données nécessaires depuis Redux
-  const { period, numberOfPeople } = useAppSelector(
-    (state) => state.form.formData.cooking,
-  )
+  const cooking = useAppSelector((state) => state.form.formData.cooking)
+
+  const period = cooking?.period || 'Non spécifié'
+  const numberOfPeople = cooking?.numberOfPeople || 'Non spécifié'
   const totalPrice = useAppSelector((state) => state.form.quote)
   const isLoading = useAppSelector((state) => state.form.isLoading)
   const isLoggedIn = useAppSelector((state) => state.user.isLoggedIn)
@@ -28,14 +29,18 @@ export const CookingQuoteReview = () => {
     }
   }
 
-  const formatNumberOfPeople = (numberOfPeople: string) => {
-    switch (numberOfPeople) {
+  const formatNumberOfPeople = (numberOfPeople: string | number): string => {
+    const numberOfPeopleStr = numberOfPeople.toString() // Assurez-vous qu'il s'agit bien d'une chaîne
+    switch (numberOfPeopleStr) {
       case '1_8':
         return '1 à 8 personnes'
       case '9_plus':
         return 'Plus de 8 personnes'
       default:
-        return numberOfPeople
+        if (!isNaN(Number(numberOfPeopleStr))) {
+          return `${numberOfPeopleStr} personnes` // Pour les nombres bruts
+        }
+        return numberOfPeopleStr // Renvoie la valeur brute si non reconnue
     }
   }
 

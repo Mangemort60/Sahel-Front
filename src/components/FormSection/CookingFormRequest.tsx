@@ -13,27 +13,32 @@ import getApiUrl from '../../utils/getApiUrl'
 import { FaArrowLeft } from 'react-icons/fa'
 
 export const CookingFormRequest = () => {
-  const [formData, setFormData] = useState({
-    period: '',
-    numberOfPeople: '',
-  })
-  const [exactNumberOfPeople, setExactNumberOfPeople] = useState('') // Champ pour le nombre exact si > 8 personnes
   const [errorForm, setErrorForm] = useState('')
-
   const dispatch = useDispatch()
-  dispatch(setIsLoading(false))
   const apiUrl = getApiUrl()
 
-  const { register } = useForm()
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    watch,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      period: '',
+      numberOfPeople: '',
+      exactNumberOfPeople: '',
+    },
+  })
+
+  const formData = watch()
 
   const handleReturnClick = () => {
     dispatch(setCurrentStep('serviceChoice'))
   }
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-
-    const { period, numberOfPeople } = formData
+  const onSubmit = async (data: any) => {
+    const { period, numberOfPeople, exactNumberOfPeople } = data
 
     // Calcul du nombre final de personnes
     const finalNumberOfPeople =
@@ -42,31 +47,30 @@ export const CookingFormRequest = () => {
         : parseInt(numberOfPeople, 10)
 
     // Validation des champs
-    if (!period || !finalNumberOfPeople || isNaN(finalNumberOfPeople)) {
+    if (!period || isNaN(finalNumberOfPeople) || finalNumberOfPeople < 1) {
       setErrorForm(
         'Veuillez remplir tous les champs obligatoires et entrer un nombre de personnes valide.',
       )
       return
     }
 
-    // Prépare les données à envoyer à l'API
+    // Préparer les données à envoyer
     const requestData = {
       period,
-      numberOfPeople: finalNumberOfPeople,
+      numberOfPeople:
+        numberOfPeople === '9_plus' ? exactNumberOfPeople : numberOfPeople, // Utilisez toujours une chaîne
     }
 
     console.log('Form data sent to API:', requestData)
 
     try {
       dispatch(setIsLoading(true))
-      dispatch(setCurrentStep('cookingReview'))
-
-      // Envoi des données à l'API
       const response = await axios.post(`${apiUrl}/cooking-quote`, requestData)
 
-      // Mise à jour du prix et des données dans le store Redux
+      // Mise à jour du Redux Store
       dispatch(setQuote(response.data.totalPrice))
-      dispatch(setCookingFormData(formData))
+      dispatch(setCookingFormData(requestData))
+      dispatch(setCurrentStep('cookingReview'))
     } catch (err) {
       console.error('Erreur lors de la soumission du formulaire:', err)
     } finally {
@@ -86,77 +90,92 @@ export const CookingFormRequest = () => {
         </button>
       </div>
       <form
-        onSubmit={handleSubmit}
+        onSubmit={handleSubmit(onSubmit)}
         className="w-full mx-auto flex flex-col h-full gap-4"
       >
         <div className="my-auto space-y-2">
-          <p className="text-red-600 ">{errorForm && errorForm}</p>
+          <p className="text-red-600">{errorForm && errorForm}</p>
 
           {/* Champ Période */}
           <div>
-            <label id="period" className="block mb-2 font-medium text-gray-900">
+            <label
+              htmlFor="period"
+              className="block mb-2 font-medium text-gray-900"
+            >
               Période souhaitée
             </label>
             <select
-              {...register('period')}
+              {...register('period', { required: true })}
               id="period"
-              onChange={(e) =>
-                setFormData({ ...formData, period: e.target.value })
-              }
-              className="border-b-2 border-b-gray-200 border-0 text-gray-500 block w-full p-2.5 dark:border-gray-300"
+              className="border-b-2 border-none text-gray-500 block w-full p-2.5"
             >
-              <option value="" selected disabled hidden>
+              <option value="" disabled hidden>
                 Choisissez une période
               </option>
               <option value="journee">Journée</option>
               <option value="soirMidi">Soir/Midi</option>
             </select>
+            {errors.period && (
+              <p className="text-red-500">Ce champ est obligatoire.</p>
+            )}
           </div>
 
           {/* Champ Nombre de Personnes */}
           <div>
             <label
-              id="numberOfPeople"
+              htmlFor="numberOfPeople"
               className="block mb-2 font-medium text-gray-900"
             >
               Nombre de personnes
             </label>
             <select
-              {...register('numberOfPeople')}
+              {...register('numberOfPeople', { required: true })}
               id="numberOfPeople"
               onChange={(e) => {
-                setFormData({ ...formData, numberOfPeople: e.target.value })
+                setValue('numberOfPeople', e.target.value)
                 if (e.target.value !== '9_plus') {
-                  setExactNumberOfPeople('') // Réinitialiser le champ si le nombre est inférieur à 9
+                  setValue('exactNumberOfPeople', '') // Réinitialiser si non "9_plus"
                 }
               }}
-              className="border-b-2 border-b-gray-200 border-0 text-gray-500 block w-full p-2.5 dark:border-gray-300"
+              className="border-b-2 border-none text-gray-500 block w-full p-2.5"
             >
-              <option value="" selected disabled hidden>
+              <option value="" disabled hidden>
                 Choisissez le nombre de personnes
               </option>
               <option value="1_8">1 à 8 personnes</option>
               <option value="9_plus">Plus de 8 personnes</option>
             </select>
+            {errors.numberOfPeople && (
+              <p className="text-red-500">Ce champ est obligatoire.</p>
+            )}
           </div>
 
           {/* Champ Nombre Exact de Personnes */}
           {formData.numberOfPeople === '9_plus' && (
             <div>
               <label
-                id="exactNumberOfPeople"
+                htmlFor="exactNumberOfPeople"
                 className="block mb-2 font-medium text-gray-900"
               >
                 Nombre exact de personnes
               </label>
               <input
-                type="number"
+                {...register('exactNumberOfPeople', {
+                  required: formData.numberOfPeople === '9_plus',
+                  validate: (value) =>
+                    parseInt(value, 10) >= 9 ||
+                    'Le nombre doit être au moins 9.',
+                })}
                 id="exactNumberOfPeople"
-                value={exactNumberOfPeople}
-                onChange={(e) => setExactNumberOfPeople(e.target.value)}
-                className="border-b-2 border-b-gray-200 border-0 text-gray-500 block w-full p-2.5 dark:border-gray-300"
+                type="number"
+                className="border-b-2 border-none text-gray-500 block w-full p-2.5"
                 min="9"
               />
+              {errors.exactNumberOfPeople && (
+                <p className="text-red-500">
+                  {errors.exactNumberOfPeople.message}
+                </p>
+              )}
             </div>
           )}
         </div>
