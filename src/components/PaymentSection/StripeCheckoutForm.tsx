@@ -6,6 +6,7 @@ import { useAppSelector } from '../../redux/hooks/useAppSelector'
 import { useState } from 'react'
 import getSiteUrl from '../../utils/getSiteUrl'
 import { useLocation } from 'react-router-dom'
+import dayjs from 'dayjs'
 
 export const StripeCheckoutForm = () => {
   const [isLoading, setIsLoading] = useState(false)
@@ -27,7 +28,9 @@ export const StripeCheckoutForm = () => {
   const period = cooking?.period
   const numberOfPeople = cooking?.numberOfPeople
   const quote = useAppSelector((state) => state.form.quote)
-  const serviceDate = useAppSelector((state) => state.form.serviceDate)
+  const serviceStartDate = useAppSelector(
+    (state) => state.form.serviceStartDate,
+  )
 
   const formatSizeRange = (sizeRange: string | undefined) => {
     switch (sizeRange) {
@@ -139,7 +142,9 @@ export const StripeCheckoutForm = () => {
             </div>
             <div className="flex justify-between ">
               <p>Date du nettoyage prévu</p>
-              <p className="text-gray-500">{serviceDate}</p>
+              <p className="text-gray-500">
+                {dayjs(serviceStartDate).format('DD/MM/YYYY')}
+              </p>
             </div>
           </>
         )}
@@ -162,7 +167,9 @@ export const StripeCheckoutForm = () => {
             </div>
             <div className="flex justify-between">
               <p>Date de la prestation prévue</p>
-              <p className="text-gray-500">{serviceDate}</p>
+              <p className="text-gray-500">
+                {dayjs(serviceStartDate).format('DD/MM/YYYY')}
+              </p>
             </div>
           </>
         )}

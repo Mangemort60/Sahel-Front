@@ -47,7 +47,7 @@ export const Faq = React.forwardRef<HTMLDivElement>(
                       Pour en savoir plus, consultez notre infographie
                       expliquant en détail le processus :
                       <Link
-                        to="/comment-ca-marche"
+                        to="/menage"
                         className="text-blue-600 underline ml-1"
                       >
                         ici

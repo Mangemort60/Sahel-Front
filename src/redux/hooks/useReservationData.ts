@@ -4,7 +4,9 @@ export const useReservationData = () => {
   const formData = useAppSelector((state) => state.form.formData)
   const reservationType = useAppSelector((state) => state.form.reservationType) // Récupérer le type de réservation
   const quote = useAppSelector((state) => state.form.quote)
-  const serviceDate = useAppSelector((state) => state.form.serviceDate)
+  const serviceStartDate = useAppSelector(
+    (state) => state.form.serviceStartDate,
+  )
   const name = useAppSelector((state) => state.user.name)
   const firstName = useAppSelector((state) => state.user.firstName)
   const shortId = useAppSelector((state) => state.user.shortId)
@@ -13,7 +15,7 @@ export const useReservationData = () => {
   // Créer un objet de données de réservation en fonction du type de réservation
   let reservationData: any = {
     quote,
-    serviceDate,
+    serviceStartDate,
     name,
     firstName,
     shortId,

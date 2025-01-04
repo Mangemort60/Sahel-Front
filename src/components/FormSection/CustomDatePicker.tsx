@@ -5,7 +5,7 @@ import axios from 'axios'
 import dayjs, { Dayjs } from 'dayjs'
 import isSameOrBefore from 'dayjs/plugin/isSameOrBefore'
 import utc from 'dayjs/plugin/utc'
-import { setServiceDate } from '../../redux/slices/formSlice'
+import { setServiceStartDate } from '../../redux/slices/formSlice'
 import { useAppSelector } from '../../redux/hooks/useAppSelector'
 import getApiUrl from '../../utils/getApiUrl'
 
@@ -68,20 +68,19 @@ export const CustomDatePicker = () => {
         ? cleaningReservationCounts
         : cookingReservationCounts
 
-    // Vérifie si la date a atteint le nombre maximal de réservations (ici 3 par exemple)
-    const isFullyBooked = reservationCounts.some(
-      ({ date, count }) =>
-        dayjs(date, 'DD-MM-YYYY').isSame(current, 'day') && count >= 3,
-    )
+    // ✅ Correction : Comparer directement des dates ISO 8601
+    const isFullyBooked = reservationCounts.some(({ date, count }) => {
+      const parsedDate = dayjs(date) // Convertir date en objet Dayjs
+      return parsedDate.isSame(current, 'day') && count >= 3
+    })
 
     return isTodayOrBefore || isWithin15DaysFromToday || isFullyBooked
   }
-
   const onChange: DatePickerProps['onChange'] = (date, dateString) => {
     if (date) {
-      const formattedDate = date.format('DD-MM-YYYY')
-      dispatch(setServiceDate(formattedDate))
-      console.log('DatePicker selected date:', formattedDate)
+      const isoDate = date.toISOString() // Stocker la date au format ISO 8601
+      dispatch(setServiceStartDate(isoDate))
+      console.log('DatePicker selected date (ISO):', isoDate)
     }
   }
 

@@ -66,7 +66,7 @@ const LoginPage = ({ formSectionRef }: SectionProps) => {
   }, [formSectionRef])
 
   // Hook pour gérer le formulaire de connexion avec react-hook-form
-  const { register, handleSubmit } = useForm<FormData>({
+  const { register, handleSubmit, trigger } = useForm<FormData>({
     resolver: zodResolver(loginSchema),
   })
 
@@ -324,6 +324,8 @@ const LoginPage = ({ formSectionRef }: SectionProps) => {
                   <button
                     type="submit"
                     className="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none "
+                    disabled={isLoading}
+                    onClick={() => trigger()}
                   >
                     {isLoading ? (
                       <div

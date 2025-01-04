@@ -32,10 +32,6 @@ export const PaymentStatus = () => {
     const reservationId = urlParams.get('reservationId')
     const devisId = urlParams.get('devisId')
 
-    console.log('devisID:', devisId)
-    console.log('reservationId:', reservationId)
-    console.log('reservationId:', reservationId)
-
     if (paymentIntentId) {
       // Différencier les appels API en fonction de la nature du paiement
       let requestBody

@@ -20,7 +20,9 @@ type FormData = z.infer<typeof addressFormSchema>
 export const AddressForm = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const serviceDate = useAppSelector((state) => state.form.serviceDate)
+  const serviceStartDate = useAppSelector(
+    (state) => state.form.serviceStartDate,
+  )
   const amount = useAppSelector((state) => state.form.quote)
   const email = useAppSelector((state) => state.user.email)
   const shortId = useAppSelector((state) => state.user.shortId)
@@ -36,7 +38,7 @@ export const AddressForm = () => {
   })
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
-    if (!serviceDate) {
+    if (!serviceStartDate) {
       alert('Veuillez sélectionner une date avant de soumettre.')
       return
     }
@@ -96,11 +98,13 @@ export const AddressForm = () => {
             selected
             className="text-gray-500"
           ></option>
-          <option value="Saïdia">Saïdia</option>
-          <option value="Berkane">Berkane</option>
-          <option value="Ahfir et ses alentours">
-            Ahfir et ses alentours
-          </option>{' '}
+          <option value="Saïdia et ses alentours">
+            Saïdia et ses alentours
+          </option>
+          <option value="Berkane et ses alentours">
+            Berkane et ses alentours
+          </option>
+          <option value="Ahfir et ses alentours">Ahfir et ses alentours</option>{' '}
         </select>
         {errors.city && (
           <p className="text-red-600 text-xs ">{errors.city.message}</p>

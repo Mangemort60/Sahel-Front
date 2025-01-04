@@ -75,8 +75,12 @@ export const Step2 = ({ nextStep, formData }: StepProps) => {
               disabled
               className="text-gray-200"
             ></option>
-            <option value="Saidia">Saidia</option>
-            <option value="Berkane">Berkane</option>
+            <option value="Saidia et ses alentours">
+              Saidia et ses alentours
+            </option>
+            <option value="Berkane et ses alentours">
+              Berkane et ses alentours
+            </option>
             <option value="Ahfir et ses alentours">
               Ahfir et ses alentours
             </option>

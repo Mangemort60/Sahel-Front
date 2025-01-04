@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import dayjs from 'dayjs'
 
 export interface CleaningFormData {
   numberOfFloors: string
@@ -37,7 +38,7 @@ interface FormState {
   quote: number | null
   currentStep: string
   isLoading: boolean
-  serviceDate: string | null
+  serviceStartDate: string | null
 }
 
 const initialState: FormState = {
@@ -46,7 +47,7 @@ const initialState: FormState = {
   quote: null, // Prix du devis
   currentStep: 'serviceChoice', // Étape actuelle dans le processus
   isLoading: false, // Indicateur de chargement
-  serviceDate: null, // Date de service potentielle
+  serviceStartDate: null, // Date de service potentielle
 }
 
 export const formSlice = createSlice({
@@ -107,8 +108,13 @@ export const formSlice = createSlice({
     },
 
     // Mise à jour de la date du service
-    setServiceDate: (state, action: PayloadAction<string | null>) => {
-      state.serviceDate = action.payload
+    setServiceStartDate: (state, action: PayloadAction<string | null>) => {
+      if (action.payload && dayjs(action.payload).isValid()) {
+        state.serviceStartDate = action.payload // Stocke l'ISO 8601 si valide
+      } else {
+        console.warn('Tentative de stockage d’une date invalide')
+        state.serviceStartDate = null // Réinitialise si invalide
+      }
     },
 
     // Réinitialisation de l'état complet du formulaire
@@ -124,7 +130,7 @@ export const {
   setQuote,
   setCurrentStep,
   setIsLoading,
-  setServiceDate,
+  setServiceStartDate,
   resetFormState,
 } = formSlice.actions
 
