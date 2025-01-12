@@ -105,6 +105,9 @@ export const AddressForm = () => {
             Berkane et ses alentours
           </option>
           <option value="Ahfir et ses alentours">Ahfir et ses alentours</option>{' '}
+          <option value="Ras El Ma et ses alentours">
+            Ras El Ma et ses alentours
+          </option>
         </select>
         {errors.city && (
           <p className="text-red-600 text-xs ">{errors.city.message}</p>

@@ -203,6 +203,11 @@ const RegisterPage = () => {
                   style={{ width: '100%' }}
                   onChange={(phone) => setValue('phone', phone)}
                 />
+                {errors.phone && (
+                  <p className="text-xs text-red-600 mt-2">
+                    {errors.phone.message}
+                  </p>
+                )}
               </div>
 
               <div className="grid gap-y-4">

@@ -3,13 +3,15 @@ import { Button } from '../common/Button'
 import { useDispatch } from 'react-redux'
 import { setCurrentStep } from '../../redux/slices/formSlice'
 import { useAppSelector } from '../../redux/hooks/useAppSelector'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import getSiteUrl from '../../utils/getSiteUrl'
 import { useLocation } from 'react-router-dom'
 import dayjs from 'dayjs'
+import { getFirestore, doc, getDoc } from 'firebase/firestore'
 
 export const StripeCheckoutForm = () => {
   const [isLoading, setIsLoading] = useState(false)
+  const [devisAmount, setDevisAmount] = useState<number | null>(null)
   const stripe = useStripe()
   const elements = useElements()
   const dispatch = useDispatch()
@@ -68,6 +70,22 @@ export const StripeCheckoutForm = () => {
         return numberOfPeople
     }
   }
+  useEffect(() => {
+    const fetchDevisAmount = async () => {
+      if (devisId) {
+        const db = getFirestore()
+        const devisRef = doc(
+          db,
+          `reservations/${reservationId}/devis/${devisId}`,
+        )
+        const devisSnap = await getDoc(devisRef)
+        if (devisSnap.exists()) {
+          setDevisAmount(devisSnap.data().amount)
+        }
+      }
+    }
+    fetchDevisAmount()
+  }, [reservationId, devisId])
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -111,6 +129,7 @@ export const StripeCheckoutForm = () => {
           type="submit"
           label="Valider et payer"
           isLoading={isLoading}
+          textColor="text-white"
         />
       </form>
       <div className="flex flex-col gap-4 sm:w-96">
@@ -140,9 +159,9 @@ export const StripeCheckoutForm = () => {
                 {beforeOrAfter === 'before' ? 'avant' : 'après'} votre arrivée
               </p>
             </div>
-            <div className="flex justify-between ">
+            <div className="flex justify-between border-b-2">
               <p>Date du nettoyage prévu</p>
-              <p className="text-gray-500">
+              <p className="text-gray-500 mb-2">
                 {dayjs(serviceStartDate).format('DD/MM/YYYY')}
               </p>
             </div>
@@ -165,18 +184,32 @@ export const StripeCheckoutForm = () => {
                 {formatNumberOfPeople(numberOfPeople)}
               </p>
             </div>
-            <div className="flex justify-between">
+            <div className="flex justify-between border-b-2">
               <p>Date de la prestation prévue</p>
-              <p className="text-gray-500">
+              <p className="text-gray-500 mb-2">
                 {dayjs(serviceStartDate).format('DD/MM/YYYY')}
               </p>
             </div>
           </>
         )}
 
-        <div className="flex justify-between border-t-2 py-2">
-          <p className="font-semibold">Prix total TTC </p>
-          <p>{quote} €</p>
+        {reservationType === 'petits-travaux' && (
+          <>
+            <div className="flex justify-between">
+              {devisAmount ? <p>Devis</p> : <p>Frais de service</p>}
+            </div>
+          </>
+        )}
+
+        <div className="flex justify-between py-2">
+          <p className="font-semibold">Prix total TTC</p>
+          {devisId && devisAmount ? (
+            <p>{devisAmount} €</p>
+          ) : reservationType === 'petits-travaux' ? (
+            <p>Frais de service : 19,90 €</p>
+          ) : (
+            <p>{quote} €</p>
+          )}
         </div>
       </div>
     </div>

@@ -68,7 +68,7 @@ const SmallRepairs = ({ reservations }: SmallRepairsProps) => {
             {(() => {
               // Vérifie si un créneau est défini et qu'il existe des devis
               if (
-                reservation.serviceDates?.startDate &&
+                reservation.serviceStartDate &&
                 reservation.serviceDates?.endDate &&
                 reservation.devis &&
                 reservation.devis.length > 0 &&

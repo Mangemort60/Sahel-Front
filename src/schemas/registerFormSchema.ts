@@ -7,7 +7,7 @@ export const registerSchema = z
     email: z.string().email({ message: 'Email invalide' }),
     phone: z
       .string()
-      .min(10, 'Le numéro de téléphone doit avoir au moins 10 chiffres'),
+      .min(10, 'Le numéro de téléphone doit comporter au minimum 10 chiffres'),
     password: z
       .string()
       .min(8, {

@@ -39,7 +39,7 @@ const DevisNotPaidCard: React.FC<DevisNotPaidCardProps> = ({
     setIsLoading(true)
     try {
       const { clientSecret } = await createPaymentIntent(
-        devis.amount * 100, // Convertir en centimes si nécessaire
+        devis.amount, // Convertir en centimes si nécessaire
         reservation.email,
         reservation.shortId,
         reservation.name,

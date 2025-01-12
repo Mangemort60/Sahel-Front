@@ -42,7 +42,7 @@ const ServiceBooked: React.FC<ServiceBookedProps> = ({
         {/* Texte explicatif */}
         <p className="text-secondaryRegularBlue my-2 text-sm">
           Votre créneau a été fixé avec succès. L'intervention est prévue entre{' '}
-          <strong>{reservation.serviceDates.startDate}</strong> et{' '}
+          <strong>{reservation.serviceStartDate}</strong> et{' '}
           <strong>{reservation.serviceDates.endDate}</strong>.
         </p>
         {/* Montant du devis */}

@@ -38,7 +38,7 @@ const PreDemandCardNotPaid = ({ reservation }: ConfirmedCardProps) => {
       }),
     )
     try {
-      const serviceFees = 5000
+      const serviceFees = 19.9
       const feesType = 'serviceFees'
 
       const { clientSecret } = await createPaymentIntent(

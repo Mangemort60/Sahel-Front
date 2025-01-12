@@ -38,6 +38,7 @@ export interface Reservation {
   address: string
   serviceDate: string
   serviceDates: { startDate: string; endDate: string }
+  serviceStartDate: string
   city: string
   email: string
   shortId: string
