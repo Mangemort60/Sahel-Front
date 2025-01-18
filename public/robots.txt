@@ -1,0 +1,18 @@
+User-agent: *
+Disallow: /client-dashboard/
+Disallow: /login
+Disallow: /register
+Disallow: /forgot-password
+Disallow: /reset-password
+Disallow: /stripe-checkout-form
+Disallow: /payment-status
+Disallow: /step4
+
+Allow: /prevention
+Allow: /about-us
+Allow: /contact
+Allow: /menage
+Allow: /cuisine
+Allow: /petits-travaux
+
+Sitemap: https://votre-domaine.com/sitemap.xml
