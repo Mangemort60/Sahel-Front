@@ -19,9 +19,6 @@ export const Faq = React.forwardRef<HTMLDivElement>(
             <h2 className="text-3xl font-bold leading-tight text-secondaryDarkBlue sm:text-5xl lg:text-5xl">
               F.A.Q
             </h2>
-            <p className="max-w-xl mx-auto mt-4 text-base leading-relaxed text-gray-600">
-              Amet minim mollit non deserunt ullamco est sit aliqua dolor do
-            </p>
           </div>
           <img
             src={question}
