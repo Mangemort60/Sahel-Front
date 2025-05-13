@@ -1,0 +1,135 @@
+{
+  "serviceChoice": {
+    "title": "Select a service",
+    "cleaning": {
+      "title": "Cleaning",
+      "subtitle": "A spotless home without lifting a finger!"
+    },
+    "cooking": {
+      "title": "Cooking",
+      "subtitle": "Sit back and enjoy your favorite dishes!"
+    },
+    "smallRepairs": {
+      "title": "Small Repairs",
+      "subtitle": "Your minor repairs handled quickly and efficiently!"
+    }
+  },
+  "formCleaning": {
+    "title": "Cleaning Form",
+    "floors": "Number of floors to clean",
+    "area": "Area to clean (per floor, in m²)",
+    "arrival": "Would you like cleaning before or after your arrival?",
+    "fruit": "Would you like a fruit basket?",
+    "before": "before my arrival",
+    "after": "after my arrival",
+    "yes": "yes",
+    "no": "no",
+    "range1": "less than 40m²",
+    "range2": "between 40m² and 80m²",
+    "range3": "between 80m² and 120m²",
+    "range4": "more than 120m²",
+    "submit": "Calculate price",
+    "error": "Please fill out all required fields"
+  },
+  "formCooking": {
+    "title": "Cooking Form",
+    "period": "Desired time slot",
+    "choosePeriod": "Choose a time slot",
+    "day": "Day",
+    "eveningLunch": "Evening/Lunch",
+    "people": "Number of people",
+    "choosePeople": "Choose the number of people",
+    "range1_8": "1 to 8 people",
+    "moreThan8": "More than 8 people",
+    "exactPeople": "Exact number of people",
+    "exactPeopleMin": "Please enter a number of at least 9 people.",
+    "error": "Please fill in all required fields and enter a valid number of people.",
+    "submit": "Calculate price"
+  },
+  "quoteReview": {
+    "title": "Quote Summary",
+    "cooking": {
+      "period": "Desired time slot",
+      "people": "Number of people"
+    },
+    "cleaning": {
+      "floors": "Number of floors to clean",
+      "area": "Area to clean",
+      "timing": "The cleaning will be done",
+      "fruit": "You would like a fruit basket"
+    },
+    "total": "Total incl. tax",
+    "reserve": "Book now",
+    "loginMessage": {
+      "register": "Create an account",
+      "reservePrompt": "to book",
+      "login": "Log in",
+      "already": "Already have an account?"
+    }
+  },
+  "booking": {
+    "date": "Choose a date",
+    "address": {
+      "city": "City (Morocco)*",
+      "address": "Address*",
+      "addressPlaceholder": "Enter your street and house number",
+      "address2": "Additional address info (optional)",
+      "address2Placeholder": "Apartment, building, floor",
+      "specialInstructions": "Special instructions",
+      "phone": "Phone number*"
+    },
+    "cities": {
+      "saidia": "Saïdia and surrounding areas",
+      "berkane": "Berkane and surrounding areas",
+      "ahfir": "Ahfir and surrounding areas",
+      "rasElMa": "Ras El Ma and surrounding areas"
+    },
+    "submit": "Book",
+    "dateError": "Please select a date before submitting.",
+    "amountError": "Invalid amount"
+  },
+  "smallRepairs": {
+    "title": "Pre-request Form",
+    "step1": {
+      "title": "Step 1: Personal Information",
+      "name": "Last name",
+      "firstname": "First name",
+      "phone": "Phone number",
+      "next": "Next"
+    },
+    "step2": {
+      "title": "Step 2: Work location details",
+      "address": "Address",
+      "city": "City",
+      "next": "Next"
+    },
+    "step3": {
+      "title": "Step 3: Description of the work",
+      "category": "Work category(ies)",
+      "electricity": "Electricity",
+      "plumbing": "Plumbing",
+      "masonry": "Masonry",
+      "painting": "Painting",
+      "other": "Other",
+      "description": "Work description",
+      "urgency": "Select urgency level",
+      "urgency_immediate": "Immediate",
+      "urgency_weeks": "In the coming weeks",
+      "urgency_months": "In the coming months",
+      "submit": "Submit"
+    },
+    "step4": {
+      "success": "Your pre-request has been successfully submitted!",
+      "followup": "You can now track its progress in your personal space or submit another request."
+    },
+    "notLoggedIn": {
+      "title": "You're almost there!",
+      "description": "To finalize your request, please log in to your account. Don’t have one yet? Creating an account is quick and easy!",
+      "login": "Log in",
+      "register": "Sign up"
+    }
+  },
+  "common": {
+    "back": "Back"
+  }
+}

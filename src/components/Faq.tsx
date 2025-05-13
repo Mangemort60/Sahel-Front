@@ -1,6 +1,7 @@
 import React, { useState, ForwardedRef } from 'react'
 import question from '../assets/question.webp'
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 export const Faq = React.forwardRef<HTMLDivElement>(
   (_, ref: ForwardedRef<HTMLDivElement>) => {
@@ -8,6 +9,7 @@ export const Faq = React.forwardRef<HTMLDivElement>(
       null,
     )
 
+    const { t } = useTranslation('home')
     const toggleQuestion = (index: number) => {
       setOpenQuestionIndex(openQuestionIndex === index ? null : index)
     }
@@ -29,25 +31,17 @@ export const Faq = React.forwardRef<HTMLDivElement>(
           <div className="max-w-3xl mx-auto mt-8 space-y-4 md:mt-16">
             {[
               {
-                question:
-                  'Je ne comprends pas le système de clés, comment allez vous accéder à mon logement ?',
+                question: t('faq.q1.question'),
                 answer: (
                   <>
-                    <p>
-                      Chez Sahel, nous nous adaptons à vos préférences pour
-                      garantir un accès sécurisé à votre logement. Nous
-                      proposons plusieurs solutions flexibles afin que vous
-                      puissiez choisir celle qui vous convient le mieux, tout en
-                      assurant une tranquillité d'esprit totale.
-                    </p>
+                    <p>{t('faq.q1.answer')}</p>
                     <p className="mt-4">
-                      Pour en savoir plus, consultez notre infographie
-                      expliquant en détail le processus :
+                      {t('faq.q1.cta').split('ici')[0]}
                       <Link
                         to="/menage"
                         className="text-blue-600 underline ml-1"
                       >
-                        ici
+                        {t('faq.q1.cta').includes('ici') ? 'ici' : ''}
                       </Link>
                       .
                     </p>
@@ -55,47 +49,32 @@ export const Faq = React.forwardRef<HTMLDivElement>(
                 ),
               },
               {
-                question: 'Qu’avez-vous prévu afin de prévenir les vols ?',
+                question: t('faq.q2.question'),
                 answer: (
                   <>
-                    <p>
-                      Chez Sahel, l'intégrité de vos biens est une de nos
-                      préoccupations majeures. Nos agents, notamment nos femmes
-                      de ménage, sont formés et sensibilisés aux bonnes
-                      pratiques de sécurité. Nous valorisons leur travail en les
-                      rémunérant de manière juste, ce qui renforce leur
-                      engagement et leur satisfaction professionnelle. Un
-                      opérateur dédié est également disponible pour veiller au
-                      bon déroulement des prestations, assurant ainsi une
-                      tranquillité d'esprit totale pour vous.
-                    </p>
+                    <p>{t('faq.q2.answer')}</p>
                     <p className="mt-4">
                       <Link
                         to="/prevention"
                         className="text-blue-600 underline"
                       >
-                        Consultez notre politique de prévention contre le vol
+                        {t('faq.q2.cta')}
                       </Link>
                     </p>
                   </>
                 ),
               },
               {
-                question:
-                  'Quelle assurance ai-je d’obtenir une prestation de qualité ?',
-                answer:
-                  'Cahier des charges et assurance du respect de celui-ci se situe au cœur de notre modèle. Nous offrons ce que nous promettons et nous assurons que chaque prestation est correctement exécutée. La formation constitue également un socle autour duquel nous basons notre approche.',
+                question: t('faq.q3.question'),
+                answer: t('faq.q3.answer'),
               },
               {
-                question: 'Comment puis-je vous contacter en cas de soucis ?',
-                answer:
-                  'Une fois une prestation réservée, rendez vous dans votre espace client afin d’accéder à votre messagerie personnalisée et faire part de vos préoccupations si nécessaire.',
+                question: t('faq.q4.question'),
+                answer: t('faq.q4.answer'),
               },
               {
-                question:
-                  'Comment puis-je vous contacter si je n’ai pas réservé ?',
-                answer:
-                  'Rendez vous dans l’onglet contact afin d’accéder au formulaire de contact vous permettant de nous poser une question si aucune information n’est disponible sur le site.',
+                question: t('faq.q5.question'),
+                answer: t('faq.q5.answer'),
               },
             ].map((item, index) => (
               <div
@@ -139,13 +118,13 @@ export const Faq = React.forwardRef<HTMLDivElement>(
           </div>
 
           <p className="text-center text-gray-600 text-base mt-9">
-            Vous n'avez pas de réponse à votre question ?{' '}
+            {t('faq.no_answer')}{' '}
             <Link
               to={'/contact'}
               title="Contactez notre support"
               className="font-medium text-blue-600 transition-all duration-200 hover:text-blue-700 focus:text-blue-700 hover:underline"
             >
-              Contactez notre support
+              {t('faq.contact_support')}
             </Link>
           </p>
         </div>

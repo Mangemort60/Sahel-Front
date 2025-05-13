@@ -1,0 +1,60 @@
+{
+  "hero": {
+    "line1": "CUISINE.",
+    "line2": "MÉNAGE.",
+    "line3": "PETITS TRAVAUX.",
+    "line4": "ZÉRO CORVÉES.",
+    "line5": "100% VACANCES.",
+    "subtitle": "Profitez pleinement de votre séjour au Maroc et libérez vous des tracas du quotidien",
+    "cta": "Réserver"
+  },
+  "guarantees": {
+    "title": "Les garanties du système Sahel",
+    "simple": {
+      "title": "Simple",
+      "description": "Planifiez vos réservations à partir d’un système de réservation pensé pour être le plus simple et rapide possible"
+    },
+    "reactive": {
+      "title": "Réactif",
+      "description": "Suivez en temps réel l’avancement de votre prestation. Une messagerie dédiée est disponible pour chacune de vos prestations, vous permettant de poser vos questions et de recevoir des réponses rapides. Avec Sahel, vous restez informé à chaque étape."
+    },
+    "reliable": {
+      "title": "Fiable",
+      "description": "Confiez nous votre logement pendant quelques heures avec l’assurance d’une prestation de qualité qui repose sur un personnel fiable ainsi que sur un opérateur présent tout au long des processus"
+    },
+    "flexible": {
+      "title": "Flexible",
+      "description": "Nous nous adaptons à vos contraintes en matière d’accès au logement et vous offrons la possibilité de réserver votre ménage du jour au lendemain"
+    }
+  },
+  "quote": {
+    "title": "Un devis instantané pour nos services de ménage et de cuisine !",
+    "description": "Complétez simplement le formulaire ci-contre pour un prix juste et transparent. Pour les petits travaux, une évaluation détaillée sera réalisée pour répondre à vos besoins spécifiques."
+  },
+  "faq": {
+    "q1": {
+      "question": "Je ne comprends pas le système de clés, comment allez-vous accéder à mon logement ?",
+      "answer": "Chez Sahel, nous nous adaptons à vos préférences pour garantir un accès sécurisé à votre logement. Nous proposons plusieurs solutions flexibles afin que vous puissiez choisir celle qui vous convient le mieux, tout en assurant une tranquillité d'esprit totale.",
+      "cta": "Pour en savoir plus, consultez notre infographie expliquant en détail le processus : ici."
+    },
+    "q2": {
+      "question": "Qu’avez-vous prévu afin de prévenir les vols ?",
+      "answer": "Chez Sahel, l’intégrité de vos biens est une de nos préoccupations majeures. Nos agents, notamment nos femmes de ménage, sont formés et sensibilisés aux bonnes pratiques de sécurité. Nous valorisons leur travail en les rémunérant de manière juste, ce qui renforce leur engagement et leur satisfaction professionnelle. Un opérateur dédié est également disponible pour veiller au bon déroulement des prestations, assurant ainsi une tranquillité d’esprit totale pour vous.",
+      "cta": "Consultez notre politique de prévention contre le vol"
+    },
+    "q3": {
+      "question": "Quelle assurance ai-je d’obtenir une prestation de qualité ?",
+      "answer": "Cahier des charges et assurance du respect de celui-ci se situe au cœur de notre modèle. Nous offrons ce que nous promettons et nous assurons que chaque prestation est correctement exécutée. La formation constitue également un socle autour duquel nous basons notre approche."
+    },
+    "q4": {
+      "question": "Comment puis-je vous contacter en cas de soucis ?",
+      "answer": "Une fois une prestation réservée, rendez vous dans votre espace client afin d’accéder à votre messagerie personnalisée et faire part de vos préoccupations si nécessaire."
+    },
+    "q5": {
+      "question": "Comment puis-je vous contacter si je n’ai pas réservé ?",
+      "answer": "Rendez vous dans l’onglet contact afin d’accéder au formulaire de contact vous permettant de nous poser une question si aucune information n’est disponible sur le site."
+    },
+    "no_answer": "Vous n'avez pas de réponse à votre question ?",
+    "contact_support": "Contactez notre support"
+  }
+}

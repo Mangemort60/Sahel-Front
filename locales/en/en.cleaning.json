@@ -1,0 +1,41 @@
+{
+  "title": "Cleaning",
+  "headline": "A Simple, Flexible and Efficient Cleaning Service",
+  "intro": "At Sahel, we provide a cleaning service that stands out for its professionalism and adaptability. Our experienced team is committed to meeting your expectations with total flexibility, whether you are present or not. We place utmost importance on safety and trust, ensuring strict access management and the protection of your belongings. Throughout our intervention, you benefit from personalized follow-up and transparent communication, so you can feel at ease at every stage. With Sahel, you can be confident that your space is in good hands, offering you complete peace of mind.",
+  "stepsTitle": "Your Booking in 6 Steps",
+  "steps": {
+    "quote": {
+      "title": "Quote",
+      "text": "Fill in your information and get your quote in just a few seconds."
+    },
+    "booking": {
+      "title": "Booking",
+      "text": "Choose your desired cleaning date based on your availability and preferences."
+    },
+    "payment": {
+      "title": "Payment",
+      "text": "Proceed with the payment using the method of your choice."
+    },
+    "instructions": {
+      "title": "Instructions",
+      "text": "Once your booking is confirmed, receive your instructions by email."
+    },
+    "access": {
+      "title": "Access",
+      "text": [
+        "Option 1: I hand over my keys",
+        "Follow the key delivery instructions. We will inform you of the next steps once we receive your keys.",
+        "Option 2: I am present",
+        "Prepare your home for a visit without handing over the keys."
+      ]
+    },
+    "completed": {
+      "title": "Cleaning Completed",
+      "text": "Enjoy a clean home from the very first moments of your arrival."
+    }
+  },
+  "commitment": {
+    "title": "Strict Adherence to Our Service Charter",
+    "text": "At Sahel, we strictly adhere to our own service charter, designed to ensure the highest quality cleaning services. This document clearly defines the standards and procedures we apply during each visit, ensuring a consistent and impeccable service. From the use of eco-friendly products to secure access handling, punctuality and quality client follow-up, every aspect of our work is governed by strict guidelines. By respecting this charter, we guarantee a professional cleaning service that meets your expectations, while ensuring total peace of mind."
+  }
+}

@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux'
 import { useAppSelector } from '../redux/hooks/useAppSelector'
 import { setCurrentStep } from '../redux/slices/formSlice'
 import getApiUrl from '../utils/getApiUrl'
+import { setPaymentCompleted } from '../redux/slices/userSlice'
 
 type Message = {
   title: string
@@ -68,6 +69,7 @@ export const PaymentStatus = () => {
               description: 'Paiement réussi !',
             })
             setError(null)
+            dispatch(setPaymentCompleted(true))
             dispatch(setCurrentStep('serviceChoice'))
           } else {
             setError({

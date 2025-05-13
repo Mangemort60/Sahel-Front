@@ -8,10 +8,12 @@ import toast from 'react-hot-toast'
 import { useState } from 'react'
 import contactUs from '../assets/contact.webp'
 import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 const ContactPage = () => {
   const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate()
+  const { t } = useTranslation('contact')
 
   const scrollToFaq = () => {
     navigate('/', { state: { scrollToFaq: true } })
@@ -34,7 +36,7 @@ const ContactPage = () => {
       console.log('Message envoyé', response.data)
       reset()
     } catch (error) {
-      toast.error("Erreur lors de l'envoi du message")
+      toast.error(t('error'))
       if (axios.isAxiosError(error)) {
         console.error(
           "Erreur lors de l'envoi du message:",
@@ -45,27 +47,24 @@ const ContactPage = () => {
       }
     } finally {
       setIsLoading(false)
-      toast.success('Message envoyé avec succès', {
-        duration: 4000, // Durée en millisecondes
+      toast.success(t('success'), {
+        duration: 4000,
         style: {
-          background: '#649838', // Couleur de fond
-          color: '#ffffff', // Couleur du texte
+          background: '#649838',
+          color: '#ffffff',
         },
-      }) // Optionnel : Réinitialiser le formulaire après soumission réussie
+      })
     }
   }
+
   return (
     <div className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto font-sans sm:flex sm:flex-row  flex-col ">
       <div className="max-w-xl m-auto ">
         <div className="space-y-4">
           <h1 className="text-3xl font-bold text-secondaryRegularBlue sm:text-5xl ">
-            Nous Contacter
+            {t('title')}
           </h1>
-          <p className="my-2 text-secondaryRegularBlue ">
-            Une question, un besoin ou une suggestion ? Notre équipe est à votre
-            écoute ! N'hésitez pas à nous contacter via le formulaire ci-contre.
-            Nous nous engageons à vous répondre dans les meilleurs délais.{' '}
-          </p>
+          <p className="my-2 text-secondaryRegularBlue ">{t('subtitle')}</p>
         </div>
         <img
           src={contactUs}
@@ -77,7 +76,7 @@ const ContactPage = () => {
         <div className="mt-12 max-w-lg mx-auto shadow-sm">
           <div className="flex flex-col rounded-sm  p-4 sm:p-6 lg:p-8 ">
             <h2 className="mb-8 text-3xl font-semibold text-secondaryRegularBlue">
-              Remplissez ce formulaire
+              {t('formTitle')}
             </h2>
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className="grid gap-4 lg:gap-6">
@@ -87,7 +86,7 @@ const ContactPage = () => {
                       htmlFor="firstname"
                       className="block mb-2 text-sm text-secondaryRegularBlue font-medium "
                     >
-                      Prénom
+                      {t('firstname')}
                     </label>
                     <input
                       {...register('firstname')}
@@ -107,7 +106,7 @@ const ContactPage = () => {
                       htmlFor="name"
                       className="block mb-2 text-sm text-secondaryRegularBlue font-medium "
                     >
-                      Nom
+                      {t('name')}
                     </label>
                     <input
                       {...register('name')}
@@ -129,7 +128,7 @@ const ContactPage = () => {
                       htmlFor="email"
                       className="block mb-2 text-sm text-secondaryRegularBlue font-medium "
                     >
-                      Email
+                      {t('email')}
                     </label>
                     <input
                       {...register('email')}
@@ -149,7 +148,7 @@ const ContactPage = () => {
                       htmlFor="phoneNumber"
                       className="block mb-2 text-sm text-secondaryRegularBlue font-medium "
                     >
-                      Téléphone
+                      {t('phoneNumber')}
                     </label>
                     <input
                       {...register('phoneNumber')}
@@ -170,7 +169,7 @@ const ContactPage = () => {
                     htmlFor="details"
                     className="block mb-2 text-sm text-secondaryRegularBlue font-medium "
                   >
-                    Details
+                    {t('details')}
                   </label>
                   <textarea
                     {...register('details')}
@@ -198,19 +197,19 @@ const ContactPage = () => {
                       aria-label="loading"
                     ></div>
                   ) : (
-                    'Envoyer'
+                    t('submit')
                   )}
                 </button>
               </div>
               <div className="mt-3 text-center">
                 <p className="text-sm text-gray-500 dark:text-neutral-500">
-                  Nous reviendrons vers vous sous 24 à 48h
+                  {t('confirmation')}
                 </p>
               </div>
             </form>
           </div>
         </div>
-        <div onClick={scrollToFaq} className="mt-12 grid  items-center gap-4 ">
+        <div onClick={scrollToFaq} className="mt-12 grid items-center gap-4 ">
           <a
             className="group flex flex-col h-full text-center rounded-lg hover:bg-gray-100 p-4 sm:p-6 dark:hover:bg-neutral-500/10"
             href="#"
@@ -223,9 +222,9 @@ const ContactPage = () => {
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             >
               <circle cx="12" cy="12" r="10" />
               <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
@@ -233,14 +232,13 @@ const ContactPage = () => {
             </svg>
             <div className="mt-5">
               <h3 className="text-lg font-semibold text-gray-800 dark:text-neutral-200">
-                FAQ
+                {t('faqTitle')}
               </h3>
               <p className="mt-1 text-gray-500 dark:text-neutral-500">
-                Parcourez notre FAQ et trouvez peut-être la réponse à votre
-                question
+                {t('faqSubtitle')}
               </p>
               <p className="mt-5 inline-flex items-center gap-x-1 font-medium text-blue-600 dark:text-blue-500">
-                Visitez notre FAQ
+                {t('faqCta')}
                 <svg
                   className="flex-shrink-0 size-4 transition ease-in-out group-hover:translate-x-1"
                   xmlns="http://www.w3.org/2000/svg"
@@ -249,9 +247,9 @@ const ContactPage = () => {
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 >
                   <path d="m9 18 6-6-6-6" />
                 </svg>

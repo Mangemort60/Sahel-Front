@@ -1,0 +1,17 @@
+{
+  "title": "Nous Contacter",
+  "subtitle": "Une question, un besoin ou une suggestion ? Notre équipe est à votre écoute ! N'hésitez pas à nous contacter via le formulaire ci-contre. Nous nous engageons à vous répondre dans les meilleurs délais.",
+  "formTitle": "Remplissez ce formulaire",
+  "firstname": "Prénom",
+  "name": "Nom",
+  "email": "Email",
+  "phoneNumber": "Téléphone",
+  "details": "Détails",
+  "submit": "Envoyer",
+  "confirmation": "Nous reviendrons vers vous sous 24 à 48h",
+  "success": "Message envoyé avec succès",
+  "error": "Erreur lors de l'envoi du message",
+  "faqTitle": "FAQ",
+  "faqSubtitle": "Parcourez notre FAQ et trouvez peut-être la réponse à votre question",
+  "faqCta": "Visitez notre FAQ"
+}

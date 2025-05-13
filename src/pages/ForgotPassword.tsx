@@ -5,35 +5,34 @@ import { z } from 'zod'
 import { forgotPasswordSchema } from '../schemas/forgotPasswordSchema'
 import axios from 'axios'
 import getApiUrl from '../utils/getApiUrl'
+import { useTranslation } from 'react-i18next' // ✅ Ajouté
 
 type FormData = z.infer<typeof forgotPasswordSchema>
 
 const apiUrl = getApiUrl()
 
 const ForgotPassword = () => {
+  const { t } = useTranslation('authForm') // ✅ Ajouté
   const [email, setEmail] = useState('')
   const [message, setMessage] = useState<string | null>(null)
-  const [isLoading, setIsLoading] = useState(false) // État pour le spinner
+  const [isLoading, setIsLoading] = useState(false)
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
-    setIsLoading(true) // Activation du spinner
-    setMessage(null) // Réinitialisation du message
+    setIsLoading(true)
+    setMessage(null)
 
     try {
       const response = await axios.post(`${apiUrl}/auth/forgot-password`, {
         email: data.email,
       })
-      setMessage(
-        'Un lien de réinitialisation a été envoyé à votre adresse email.',
-      )
+      setMessage(t('forgotPassword.success')) // ✅
       console.log(response.data)
     } catch (error: any) {
       setMessage(
-        error.response?.data?.error ||
-          "Erreur lors de l'envoi de l'email de réinitialisation.",
+        error.response?.data?.error || t('forgotPassword.error'), // ✅
       )
     } finally {
-      setIsLoading(false) // Désactivation du spinner
+      setIsLoading(false)
     }
   }
 
@@ -52,15 +51,14 @@ const ForgotPassword = () => {
           <div className="p-4 sm:p-7">
             <div className="text-center">
               <h1 className="block text-2xl font-bold text-gray-800">
-                Réinitialisation du mot de passe
+                {t('forgotPassword.title')}
               </h1>
             </div>
             <div
               className="mt-2 bg-blue-100 border border-blue-200 text-sm text-blue-800 rounded-lg p-4 dark:bg-blue-800/10 dark:border-blue-900 dark:text-blue-500"
               role="alert"
             >
-              Entrez ci-dessous l'adresse email avec laquelle vous avez créé
-              votre compte Sahel.
+              {t('forgotPassword.instruction')}
             </div>
             <div className="mt-5">
               {message && (
@@ -75,7 +73,7 @@ const ForgotPassword = () => {
                 <div className="grid gap-y-4">
                   <div>
                     <label htmlFor="email" className="block text-sm mb-2">
-                      Email
+                      {t('forgotPassword.emailLabel')}
                     </label>
                     <div className="relative">
                       <input
@@ -99,7 +97,7 @@ const ForgotPassword = () => {
                     <button
                       type="submit"
                       className="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
-                      disabled={isLoading} // Désactiver le bouton en cours de traitement
+                      disabled={isLoading}
                     >
                       {isLoading ? (
                         <div
@@ -108,7 +106,7 @@ const ForgotPassword = () => {
                           aria-label="loading"
                         ></div>
                       ) : (
-                        'Recevoir le lien'
+                        t('forgotPassword.submitButton')
                       )}
                     </button>
                   </div>

@@ -11,11 +11,13 @@ import axios from 'axios'
 import { useForm } from 'react-hook-form'
 import getApiUrl from '../../utils/getApiUrl'
 import { FaArrowLeft } from 'react-icons/fa'
+import { useTranslation } from 'react-i18next'
 
 export const CookingFormRequest = () => {
   const [errorForm, setErrorForm] = useState('')
   const dispatch = useDispatch()
   const apiUrl = getApiUrl()
+  const { t } = useTranslation('form')
 
   const {
     register,
@@ -86,7 +88,7 @@ export const CookingFormRequest = () => {
           className="text-gray-400 mb-4 flex items-center gap-2"
         >
           <FaArrowLeft />
-          <p>Retour</p>
+          <p>{t('common.back')}</p>
         </button>
       </div>
       <form
@@ -94,7 +96,7 @@ export const CookingFormRequest = () => {
         className="w-full mx-auto flex flex-col h-full gap-4"
       >
         <div className="my-auto space-y-2">
-          <p className="text-red-600">{errorForm && errorForm}</p>
+          <p className="text-red-600">{errorForm && t('formCooking.error')}</p>
 
           {/* Champ Période */}
           <div>
@@ -102,7 +104,7 @@ export const CookingFormRequest = () => {
               htmlFor="period"
               className="block mb-2 font-medium text-gray-900"
             >
-              Période souhaitée
+              {t('formCooking.period')}
             </label>
             <select
               {...register('period', { required: true })}
@@ -110,13 +112,13 @@ export const CookingFormRequest = () => {
               className="border-b-2 border-none text-gray-500 block w-full p-2.5"
             >
               <option value="" disabled hidden>
-                Choisissez une période
+                {t('formCooking.choosePeriod')}
               </option>
-              <option value="journee">Journée</option>
-              <option value="soirMidi">Soir/Midi</option>
+              <option value="journee">{t('formCooking.day')}</option>
+              <option value="soirMidi">{t('formCooking.eveningLunch')}</option>
             </select>
             {errors.period && (
-              <p className="text-red-500">Ce champ est obligatoire.</p>
+              <p className="text-red-500">{t('formCooking.error')}</p>
             )}
           </div>
 
@@ -126,7 +128,7 @@ export const CookingFormRequest = () => {
               htmlFor="numberOfPeople"
               className="block mb-2 font-medium text-gray-900"
             >
-              Nombre de personnes
+              {t('formCooking.people')}
             </label>
             <select
               {...register('numberOfPeople', { required: true })}
@@ -134,19 +136,19 @@ export const CookingFormRequest = () => {
               onChange={(e) => {
                 setValue('numberOfPeople', e.target.value)
                 if (e.target.value !== '9_plus') {
-                  setValue('exactNumberOfPeople', '') // Réinitialiser si non "9_plus"
+                  setValue('exactNumberOfPeople', '')
                 }
               }}
               className="border-b-2 border-none text-gray-500 block w-full p-2.5"
             >
               <option value="" disabled hidden>
-                Choisissez le nombre de personnes
+                {t('formCooking.choosePeople')}
               </option>
-              <option value="1_8">1 à 8 personnes</option>
-              <option value="9_plus">Plus de 8 personnes</option>
+              <option value="1_8">{t('formCooking.range1_8')}</option>
+              <option value="9_plus">{t('formCooking.moreThan8')}</option>
             </select>
             {errors.numberOfPeople && (
-              <p className="text-red-500">Ce champ est obligatoire.</p>
+              <p className="text-red-500">{t('formCooking.error')}</p>
             )}
           </div>
 
@@ -157,14 +159,15 @@ export const CookingFormRequest = () => {
                 htmlFor="exactNumberOfPeople"
                 className="block mb-2 font-medium text-gray-900"
               >
-                Nombre exact de personnes
+                {t('formCooking.exactPeople')}
               </label>
               <input
                 {...register('exactNumberOfPeople', {
                   required: formData.numberOfPeople === '9_plus',
                   validate: (value) =>
                     parseInt(value, 10) >= 9 ||
-                    'Le nombre doit être au moins 9.',
+                    t('formCooking.exactPeopleMin') ||
+                    'Minimum 9',
                 })}
                 id="exactNumberOfPeople"
                 type="number"
@@ -183,7 +186,7 @@ export const CookingFormRequest = () => {
         <div className="justify-self-end">
           <Button
             type="submit"
-            label="Calculer le prix"
+            label={t('formCooking.submit')}
             hoverColor="hover:bg-secondaryRegularBlue"
             bgColor="bg-secondaryLightBlue"
             largeButton={true}

@@ -1,0 +1,35 @@
+{
+  "confirm": "Confirm and pay",
+  "summaryTitle": "Your order summary",
+  "cleaning": {
+    "floors": "Number of floors",
+    "area": "Area",
+    "fruit": "Fruit basket",
+    "timing": "Cleaning will be done",
+    "arrival": "upon your arrival",
+    "date": "Scheduled cleaning date",
+    "range1": "Less than 40m²",
+    "range2": "Between 40m² and 80m²",
+    "range3": "Between 80m² and 120m²",
+    "range4": "More than 120m²"
+  },
+  "cooking": {
+    "address": "Address",
+    "period": {
+      "label": "Preferred time slot",
+      "day": "Day",
+      "eveningLunch": "Evening/Lunch"
+    },
+    "people": "Number of people",
+    "date": "Scheduled service date"
+  },
+  "smallRepairs": {
+    "priceTitleDevis": "Quote",
+    "priceTitleServiceFee": "Service fee"
+  },
+  "total": "Total price (incl. tax)",
+  "yes": "yes",
+  "no": "no",
+  "before": "before",
+  "after": "after"
+}

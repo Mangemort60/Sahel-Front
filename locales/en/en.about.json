@@ -1,0 +1,84 @@
+{
+  "title": "Who are we?",
+  "introHeadline": "Our trips to Morocco inspired us to make yours exceptional",
+  "introText": "Like many, we travel by car or plane each year to return to our country for the summer. Over the years, we realized that cleaning our homes, paying annual bills, or doing small renovations after a long journey is exhausting and no longer suits our lifestyles.",
+  "whySahel": "Why Sahel?",
+  "whySahelText": "Our idea? Offer services with the highest international standards: simple, efficient, reliable, and affordable – so you can enjoy your stay! To realize this vision, we’re launching cleaning services this year, with more to come.",
+  "quote": "With Sahel, Moroccans living abroad finally benefit from a simple and flexible service to optimize their stay in Morocco.",
+  "valuesTitle": "Our Values",
+  "valuesText": "At the heart of Sahel, we build a foundation of shared values among all members. We want every value to be reflected in our services, ensuring your satisfaction and supporting our team’s well-being.",
+  "values": {
+    "discretion": {
+      "title": "Discretion",
+      "points": [
+        "Discreet services even in your presence",
+        "Respect for your privacy and space",
+        "Efficient work without disrupting your routine"
+      ]
+    },
+    "quality": {
+      "title": "Quality",
+      "points": [
+        "Ongoing staff training",
+        "Fair and equitable compensation",
+        "Strict service monitoring",
+        "Adherence to specifications"
+      ]
+    },
+    "transparency": {
+      "title": "Reliability & Transparency",
+      "points": [
+        "Full transparency through your client space",
+        "Interactive chat for real-time communication",
+        "Simple monitoring of operations"
+      ]
+    },
+    "social": {
+      "title": "Social Commitment",
+      "points": [
+        "Above-market compensation",
+        "Respectful and healthy working conditions",
+        "Internal mobility opportunities"
+      ]
+    },
+    "affordable": {
+      "title": "Affordable",
+      "points": [
+        "Accessible pricing adapted to your situation",
+        "Maintaining quality service for all budgets"
+      ]
+    },
+    "trust": {
+      "title": "Trust",
+      "points": [
+        "Measures to ensure service quality",
+        "Supervision by a Sahel operator to ensure processes are followed"
+      ]
+    }
+  },
+  "futureProjectsTitle": "Our Future Projects",
+  "futureProjectsText": "We aim to grow our offerings with high-value services that elevate your time in Morocco.",
+  "timeline": {
+    "2025": {
+      "title": "Launch of Core Services",
+      "description": "Cleaning, Cooking, and Small Repairs: Setting up essential services to meet our clients' immediate needs."
+    },
+    "2026_2030": {
+      "title": "New Services",
+      "services": {
+        "specialRequests": {
+          "title": "Custom Requests",
+          "description": "A dedicated service to fulfill personalized needs beyond standard offers."
+        },
+        "security": {
+          "title": "Security & Guarding Solutions",
+          "description": "A dedicated service to fulfill personalized needs beyond standard offers."
+        },
+        "feedback": {
+          "title": "Listening to Your Feedback",
+          "description": "We remain attentive to our clients’ needs to adapt our services accordingly."
+        }
+      }
+    }
+  }
+}

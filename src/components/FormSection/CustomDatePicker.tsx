@@ -8,6 +8,7 @@ import utc from 'dayjs/plugin/utc'
 import { setServiceStartDate } from '../../redux/slices/formSlice'
 import { useAppSelector } from '../../redux/hooks/useAppSelector'
 import getApiUrl from '../../utils/getApiUrl'
+import { useTranslation } from 'react-i18next'
 
 dayjs.extend(isSameOrBefore)
 dayjs.extend(utc)
@@ -20,7 +21,7 @@ interface ReservationCount {
 
 export const CustomDatePicker = () => {
   const apiUrl = getApiUrl()
-
+  const { t } = useTranslation('form')
   // Utiliser deux états séparés pour les réservations de ménage et de cuisine
   const [cleaningReservationCounts, setCleaningReservationCounts] = useState<
     ReservationCount[]
@@ -90,7 +91,7 @@ export const CustomDatePicker = () => {
         size="large"
         onChange={onChange}
         disabledDate={disabledDate}
-        placeholder="Choisir une date"
+        placeholder={t('booking.date')}
       />
     </Space>
   )

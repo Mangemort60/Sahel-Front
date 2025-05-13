@@ -1,0 +1,137 @@
+{
+  "serviceChoice": {
+    "title": "Sélectionnez un service",
+    "cleaning": {
+      "title": "Ménage",
+      "subtitle": "Un intérieur impeccable, sans lever le petit doigt !"
+    },
+    "cooking": {
+      "title": "Cuisine",
+      "subtitle": "Installez vous et dégustez vos plats préférés !"
+    },
+    "smallRepairs": {
+      "title": "Petits Travaux",
+      "subtitle": "Vos petits travaux pris en charge, rapidement et efficacement !"
+    }
+  },
+  "formCleaning": {
+    "title": "Formulaire de ménage",
+    "floors": "Nombre d'étages à nettoyer",
+    "area": "Surface à nettoyer en m² (par niveau)",
+    "arrival": "Souhaitez-vous un nettoyage avant ou après votre arrivée",
+    "fruit": "Souhaitez-vous une corbeille de fruits ?",
+    "before": "avant mon arrivée",
+    "after": "après mon arrivée",
+    "yes": "oui",
+    "no": "non",
+    "range1": "moins de 40m²",
+    "range2": "entre 40m² et 80m²",
+    "range3": "entre 80m² et 120m²",
+    "range4": "plus de 120m²",
+    "submit": "Calculer le prix",
+    "error": "Veuillez remplir tous les champs"
+  },
+  "formCooking": {
+    "title": "Formulaire de cuisine",
+    "period": "Période souhaitée",
+    "choosePeriod": "Choisissez une période",
+    "day": "Journée",
+    "eveningLunch": "Soir/Midi",
+    "people": "Nombre de personnes",
+    "choosePeople": "Choisissez le nombre de personnes",
+    "range1_8": "1 à 8 personnes",
+    "moreThan8": "Plus de 8 personnes",
+    "exactPeople": "Nombre exact de personnes",
+    "exactPeopleMin": "Veuillez entrer un nombre supérieur ou égal à 9.",
+    "error": "Veuillez remplir tous les champs obligatoires et entrer un nombre de personnes valide.",
+    "submit": "Calculer le prix"
+  },
+  "quoteReview": {
+    "title": "Récapitulatif du devis",
+    "cooking": {
+      "period": "Période souhaitée",
+      "people": "Nombre de personnes"
+    },
+    "cleaning": {
+      "floors": "Nombre d'étages à nettoyer",
+      "area": "Surface à nettoyer",
+      "timing": "Le nettoyage sera fait",
+      "fruit": "Vous souhaitez une corbeille de fruits"
+    },
+    "total": "Total TTC",
+    "reserve": "Réserver",
+    "loginMessage": {
+      "register": "Créez un compte",
+      "reservePrompt": "pour réserver",
+      "login": "Connectez-vous",
+      "already": "Déjà un compte ?"
+    }
+  },
+  "booking": {
+    "date": "Choisir une date",
+    "address": {
+      "city": "Ville (Maroc)*",
+      "address": "Adresse*",
+      "addressPlaceholder": "Entrez votre rue et numéro de maison",
+      "address2": "Complément d'adresse (facultatif)",
+      "address2Placeholder": "Appartement, bâtiment, étage",
+      "specialInstructions": "Instructions spéciales",
+      "phone": "Numéro de téléphone*"
+    },
+    "cities": {
+      "saidia": "Saïdia et ses alentours",
+      "berkane": "Berkane et ses alentours",
+      "ahfir": "Ahfir et ses alentours",
+      "rasElMa": "Ras El Ma et ses alentours"
+    },
+
+    "submit": "Réserver",
+    "dateError": "Veuillez sélectionner une date avant de soumettre.",
+    "amountError": "Montant invalide"
+  },
+
+  "smallRepairs": {
+    "title": "Formulaire de pré-demande",
+    "step1": {
+      "title": "Étape 1 : Informations personnelles",
+      "name": "Nom",
+      "firstname": "Prénom",
+      "phone": "Téléphone",
+      "next": "Suivant"
+    },
+    "step2": {
+      "title": "Étape 2 : Détails du lieu des travaux",
+      "address": "Adresse",
+      "city": "Ville",
+      "next": "Suivant"
+    },
+    "step3": {
+      "title": "Étape 3 : Description des travaux",
+      "category": "Catégorie(s) des travaux",
+      "electricity": "Électricité",
+      "plumbing": "Plomberie",
+      "masonry": "Maçonnerie",
+      "painting": "Peinture",
+      "other": "Autre",
+      "description": "Description des travaux",
+      "urgency": "Sélectionner l'urgence",
+      "urgency_immediate": "Immédiate",
+      "urgency_weeks": "Dans les semaines à venir",
+      "urgency_months": "Dans les mois à venir",
+      "submit": "Soumettre"
+    },
+    "step4": {
+      "success": "Votre pré-demande a bien été soumise !",
+      "followup": "Vous pouvez suivre son avancement dans votre espace personnel ou refaire une demande."
+    },
+    "notLoggedIn": {
+      "title": "Vous y êtes presque !",
+      "description": "Pour finaliser votre demande, connectez-vous à votre compte. Si vous n'avez pas encore de compte, il est rapide et facile d'en créer un !",
+      "login": "Se connecter",
+      "register": "S'inscrire"
+    }
+  },
+  "common": {
+    "back": "Retour"
+  }
+}

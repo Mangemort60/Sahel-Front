@@ -8,6 +8,7 @@ interface UserState {
   isLoggedIn: boolean
   role: string
   phone: string
+  paymentCompleted: boolean // ✅ ajout ici
 }
 
 const initialState: UserState = {
@@ -18,6 +19,7 @@ const initialState: UserState = {
   isLoggedIn: false,
   role: '',
   phone: '',
+  paymentCompleted: false, // ✅ valeur par défaut
 }
 
 export const userSlice = createSlice({
@@ -48,6 +50,9 @@ export const userSlice = createSlice({
     setPhone: (state, action: PayloadAction<string>) => {
       state.phone = action.payload
     },
+    setPaymentCompleted: (state, action: PayloadAction<boolean>) => {
+      state.paymentCompleted = action.payload
+    },
     resetUserState: () => initialState,
   },
 })
@@ -61,6 +66,7 @@ export const {
   setIsLoggedIn,
   setRole,
   setPhone,
+  setPaymentCompleted, // ✅ exporté
 } = userSlice.actions
 
 export default userSlice.reducer

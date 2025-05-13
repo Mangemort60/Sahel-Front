@@ -1,0 +1,17 @@
+{
+  "title": "Contact Us",
+  "subtitle": "A question, a need, or a suggestion? Our team is here for you! Don't hesitate to reach out using the form. We'll get back to you as soon as possible.",
+  "formTitle": "Fill out this form",
+  "firstname": "First name",
+  "name": "Last name",
+  "email": "Email",
+  "phoneNumber": "Phone number",
+  "details": "Details",
+  "submit": "Send",
+  "confirmation": "We will get back to you within 24 to 48 hours",
+  "success": "Message sent successfully",
+  "error": "Error sending the message",
+  "faqTitle": "FAQ",
+  "faqSubtitle": "Check out our FAQ — your question may already have an answer",
+  "faqCta": "Visit our FAQ"
+}

@@ -52,7 +52,14 @@ function App() {
               </PrivateRoutes>
             }
           />{' '}
-          <Route path="/stripe-checkout-form" element={<StripeCheckout />} />
+          <Route
+            path="/stripe-checkout-form"
+            element={
+              <PrivateRoutes redirectIfPaymentCompletedToHome>
+                <StripeCheckout />
+              </PrivateRoutes>
+            }
+          />
           <Route path="/payment-status" element={<PaymentStatus />} />
           <Route path="/step4" element={<Step4 />} />
         </Route>

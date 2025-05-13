@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux'
 import { setCurrentStep } from '../../redux/slices/formSlice'
 import { FaArrowLeft } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 export const CookingQuoteReview = () => {
   // Extraction des données nécessaires depuis Redux
@@ -15,6 +16,8 @@ export const CookingQuoteReview = () => {
   const totalPrice = useAppSelector((state) => state.form.quote)
   const isLoading = useAppSelector((state) => state.form.isLoading)
   const isLoggedIn = useAppSelector((state) => state.user.isLoggedIn)
+
+  const { t } = useTranslation('form')
 
   const dispatch = useDispatch()
 
@@ -59,15 +62,15 @@ export const CookingQuoteReview = () => {
         className="text-gray-400 mb-4 flex items-center gap-2"
       >
         <FaArrowLeft />
-        <p>Retour</p>
+        <p>{t('common.back')}</p>
       </button>
-      <div className="text-black text-2xl">Récapitulatif du devis</div>
+      <div className="text-black text-2xl">{t('quoteReview.title')}</div>
       <div className="text-black mt-6">
-        <p className="w-full mt-4">Période souhaitée :</p>
+        <p className="w-full mt-4">{t('quoteReview.cooking.period')} :</p>
         <p className="border-b-gray-100 border-b-2 mt-6 text-gray-500 font-thin text-end">
           {formatPeriod(period)}
         </p>
-        <p className="w-full mt-4">Nombre de personnes :</p>
+        <p className="w-full mt-4">{t('quoteReview.cooking.people')} :</p>
         <p className="border-b-gray-100 border-b-2 mt-6 text-gray-500 font-thin text-end">
           {formatNumberOfPeople(numberOfPeople)}
         </p>
@@ -76,11 +79,11 @@ export const CookingQuoteReview = () => {
         <div className="w-full flex flex-col gap-4 items-center justify-between mt-6">
           {isLoading ? (
             <div className="text-black text-2xl flex items-center font-thin w-full">
-              Total TTC : <Spinner /> €
+              {t('quoteReview.total')} : <Spinner /> €
             </div>
           ) : (
             <p className="text-black text-1xl font-thin">
-              Total TTC :{' '}
+              {t('quoteReview.total')} :{' '}
               <span className="font-bold text-4xl text-secondaryDarkBlue">
                 {totalPrice} €
               </span>
@@ -91,7 +94,7 @@ export const CookingQuoteReview = () => {
               hoverColor="hover:bg-secondaryRegularBlue"
               bgColor="bg-secondaryLightBlue"
               type="button"
-              label="Réserver"
+              label={t('quoteReview.reserve')}
               onClick={handleReserveClick}
               largeButton={true}
             />
@@ -101,11 +104,11 @@ export const CookingQuoteReview = () => {
         <div className="w-full text-gray-500 text-sm flex flex-col gap-1">
           {isLoading ? (
             <div className="text-black text-2xl flex items-center font-thin w-full">
-              Total TTC : <Spinner /> €
+              {t('quoteReview.total')} : <Spinner /> €
             </div>
           ) : (
             <p className="text-black text-1xl font-thin">
-              Total TTC :{' '}
+              {t('quoteReview.total')} :{' '}
               <span className="font-bold text-4xl text-secondaryDarkBlue">
                 {totalPrice} €
               </span>
@@ -117,17 +120,17 @@ export const CookingQuoteReview = () => {
                 to="/register"
                 className="text-blue-700 font-semibold underline"
               >
-                Créez un compte
+                {t('quoteReview.loginMessage.register')}
               </Link>{' '}
-              pour réserver
+              {t('quoteReview.loginMessage.reservePrompt')}
             </p>
             <p>
-              Déjà un compte ?{' '}
+              {t('quoteReview.loginMessage.already')}{' '}
               <Link
                 to="/login"
                 className="text-blue-700 font-semibold underline"
               >
-                Connectez-vous
+                {t('quoteReview.loginMessage.login')}
               </Link>
             </p>
           </div>

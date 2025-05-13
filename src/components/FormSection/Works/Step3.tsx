@@ -9,7 +9,7 @@ import { setSmallRepairsFormData } from '../../../redux/slices/formSlice'
 import { createPredemand } from '../../../utils/createPredemand'
 import { useAppSelector } from '../../../redux/hooks/useAppSelector'
 import toast from 'react-hot-toast'
-
+import { useTranslation } from 'react-i18next'
 // Définir le type basé sur le schéma Zod
 export type worksTypeFormData = z.infer<typeof worksDescFormSchema>
 
@@ -34,7 +34,7 @@ export const Step3 = ({ nextStep, formData }: StepProps) => {
   } = useForm<worksTypeFormData>({
     resolver: zodResolver(worksDescFormSchema), // Utiliser Zod pour la validation
   })
-
+  const { t } = useTranslation('form')
   const dispatch = useDispatch()
   const shortId = useAppSelector((state) => state.user.shortId)
   const email = useAppSelector((state) => state.user.email)
@@ -78,12 +78,12 @@ export const Step3 = ({ nextStep, formData }: StepProps) => {
       className="text-black w-full h-full flex flex-col gap-4 justify-between"
     >
       <h2 className="font-bold text-secondaryLightBlue">
-        Étape 3 : Description des travaux
+        {t('smallRepairs.step3.title')}
       </h2>
 
       <div className="w-full mb-2 flex flex-col justify-center h-full">
         <label id="workCategory" className="block mb-2 font-bold text-gray-900">
-          Catégorie(s) des travaux
+          {t('smallRepairs.step3.category')}
         </label>
         <div className="flex flex-col">
           <label>
@@ -91,13 +91,13 @@ export const Step3 = ({ nextStep, formData }: StepProps) => {
               type="checkbox"
               className="mr-2"
               value="éléctricité"
-              {...register('workCategory')} // Enregistre chaque checkbox dans react-hook-form
+              {...register('workCategory')}
               defaultChecked={
                 formData.workCategory &&
                 formData.workCategory.includes('éléctricité')
               }
             />
-            Électricité
+            {t('smallRepairs.step3.electricity')}
           </label>
           <label>
             <input
@@ -110,7 +110,7 @@ export const Step3 = ({ nextStep, formData }: StepProps) => {
                 formData.workCategory.includes('plomberie')
               }
             />
-            Plomberie
+            {t('smallRepairs.step3.plumbing')}
           </label>
           <label>
             <input
@@ -123,7 +123,7 @@ export const Step3 = ({ nextStep, formData }: StepProps) => {
                 formData.workCategory.includes('maçonnerie')
               }
             />
-            Maçonnerie
+            {t('smallRepairs.step3.masonry')}
           </label>
           <label>
             <input
@@ -136,7 +136,7 @@ export const Step3 = ({ nextStep, formData }: StepProps) => {
                 formData.workCategory.includes('peinture')
               }
             />
-            Peinture
+            {t('smallRepairs.step3.painting')}
           </label>
           <label>
             <input
@@ -148,63 +148,64 @@ export const Step3 = ({ nextStep, formData }: StepProps) => {
                 formData.workCategory && formData.workCategory.includes('autre')
               }
             />
-            Autre
+            {t('smallRepairs.step3.other')}
           </label>
           {errors.workCategory && (
             <p className="text-red-500">{errors.workCategory.message}</p>
           )}
         </div>
 
-        {/* Champ de texte pour la description des travaux */}
         <div className="max-w-sm mt-2 space-y-3">
           <label
             id="workDescription"
             className="block my-2 font-bold text-gray-900"
           >
-            Description des travaux
+            {t('smallRepairs.step3.description')}
           </label>
           <textarea
             {...register('workDescription')}
-            className="py-3 px-0 block w-full bg-transparent border-t-transparent border-b-2 border-x-transparent border-b-gray-200 text-sm focus:border-blue-500 focus:border-t-transparent focus:border-x-transparent focus:border-b-blue-500 focus:ring-0 disabled:opacity-50 disabled:pointer-events-none dark:border-b-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600 dark:focus:border-b-neutral-600"
+            className="py-3 px-0 block w-full bg-transparent border-t-transparent border-b-2 border-x-transparent border-b-gray-200 text-sm focus:border-blue-500 focus:ring-0 dark:border-b-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600 dark:focus:border-b-neutral-600"
             rows={6}
             defaultValue={formData.workDescription}
           ></textarea>
 
-          {/* Affichage des erreurs de validation pour workDescription */}
           {errors.workDescription && (
             <p className="text-red-500">{errors.workDescription.message}</p>
           )}
         </div>
+
         <div className="mt-4">
-          <label id="city" className="block mb-2 font-bold text-gray-900">
-            Sélectionner l'urgence
+          <label id="urgency" className="block mb-2 font-bold text-gray-900">
+            {t('smallRepairs.step3.urgency')}
           </label>
 
           <select
             {...register('urgency')}
             id="urgency"
             className="border-b-2 border-b-gray-200 border-0 text-gray-500 block w-full p-2.5 dark:border-gray-300"
-            defaultValue={formData.urgency || ''} // Option par défaut vide, mais non sélectionnable
+            defaultValue={formData.urgency || ''}
           >
             <option value="" disabled></option>
-            <option value="immediate">Immédiate</option>
-            <option value="dans les semaines à venir">
-              Dans les semaines à venir
+            <option value="immediate">
+              {t('smallRepairs.step3.urgency_immediate')}
             </option>
-            <option value="dans les mois à venir">Dans les mois à venir</option>
+            <option value="dans les semaines à venir">
+              {t('smallRepairs.step3.urgency_weeks')}
+            </option>
+            <option value="dans les mois à venir">
+              {t('smallRepairs.step3.urgency_months')}
+            </option>
           </select>
 
-          {/* Affichage des erreurs liées à urgency */}
           {errors.urgency && (
             <p className="text-red-500">{errors.urgency.message}</p>
           )}
         </div>
       </div>
 
-      {/* Bouton de soumission */}
       <Button
         type="submit"
-        label="Soumettre"
+        label={t('smallRepairs.step3.submit')}
         hoverColor="hover:bg-secondaryRegularBlue"
         bgColor="bg-secondaryLightBlue"
         largeButton

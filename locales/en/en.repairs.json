@@ -1,0 +1,53 @@
+{
+  "title": "Small Repairs",
+  "headline": "A repair service designed to simplify home maintenance outside the summer season",
+  "intro": "Easily book your small repair service and let our team assess your needs, organize and coordinate every step of the process. We take care of every detail from the initial evaluation to final completion, ensuring smooth and efficient management.",
+  "personalSpace": {
+    "title": "Your dedicated client space",
+    "description": "A chat is available within your client space to structure all communication needed:",
+    "points": [
+      "Our understanding of the repairs",
+      "Your tracking of the ongoing work",
+      "Proper project supervision"
+    ]
+  },
+  "stepsTitle": "Your booking in 8 steps",
+  "steps": {
+    "preRequest": {
+      "title": "Pre-request",
+      "text": "Fill out the dedicated form with all required information about the work."
+    },
+    "validation": {
+      "title": "Pre-request validation",
+      "text": "Our team reviews your request and may contact you through the dedicated space if needed."
+    },
+    "payment": {
+      "title": "Service fee payment",
+      "text": "Proceed with payment of fees covering logistics, including key delivery."
+    },
+    "keyReception": {
+      "title": "Key reception",
+      "text": "We receive your keys and schedule a visit to evaluate the work."
+    },
+    "technicalVisit": {
+      "title": "Technical evaluation",
+      "text": "A technical visit is carried out to assess the feasibility and cost of the repairs."
+    },
+    "quote": {
+      "title": "Custom quote",
+      "text": "Receive a detailed quote you can approve directly from your client area."
+    },
+    "execution": {
+      "title": "Work execution",
+      "text": "Once the quote is approved and paid, the work begins under our team’s supervision."
+    },
+    "completion": {
+      "title": "Completion",
+      "text": "After work is completed, we return your keys along with a final report."
+    }
+  },
+  "commitment": {
+    "title": "Strict Adherence to Our Service Charter",
+    "text": "At Sahel, we strictly adhere to our internal service charter to ensure top-quality service. This document outlines all the procedures we apply to each intervention for consistent and impeccable results. From using eco-friendly products to secure access handling, deadlines, and client follow-up, every part of our work is held to rigorous standards. This ensures a professional service that meets your expectations and gives you peace of mind."
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "confirm": "Valider et payer",
+  "summaryTitle": "Récapitulatif de votre commande",
+  "cleaning": {
+    "floors": "Nombre d'étages",
+    "area": "Surface",
+    "fruit": "Panier de fruits",
+    "timing": "Le nettoyage sera fait",
+    "arrival": "votre arrivée",
+    "date": "Date du nettoyage prévu",
+    "range1": "Moins de 40m²",
+    "range2": "Entre 40m² et 80m²",
+    "range3": "Entre 80m² et 120m²",
+    "range4": "Plus de 120m²"
+  },
+  "cooking": {
+    "address": "Adresse",
+    "period": {
+      "label": "Période souhaitée",
+      "day": "Journée",
+      "eveningLunch": "Soir/Midi"
+    },
+    "people": "Nombre de personnes",
+    "date": "Date de la prestation prévue"
+  },
+  "smallRepairs": {
+    "priceTitleDevis": "Devis",
+    "priceTitleServiceFee": "Frais de service"
+  },
+  "total": "Prix total TTC",
+  "yes": "oui",
+  "no": "non",
+  "before": "avant",
+  "after": "après"
+}

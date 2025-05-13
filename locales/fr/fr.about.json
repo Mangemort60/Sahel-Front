@@ -1,0 +1,84 @@
+{
+  "title": "Qui sommes nous ?",
+  "introHeadline": "Nos séjours au Maroc nous ont inspirés à rendre les vôtres exceptionnels",
+  "introText": "Comme beaucoup, nous empruntons la voiture ou l'avion chaque année afin de rentrer dans notre pays le temps d'un été. Après plusieurs années, nous sommes partis d'un constat assez simple. Réaliser le premier nettoyage de notre logement, payer nos factures annuelles ou entreprendre des petits travaux après un voyage plus ou moins long est éreintant et n’est plus adapté à nos modes de vie.",
+  "whySahel": "Pourquoi Sahel ?",
+  "whySahelText": "Notre idée ? Développer des services aux plus hauts standards internationaux : simple, efficace, fiable et abordables afin de profiter de notre séjour ! Dans l’objectif de concrétiser notre vision, nous mettons en place dès cette année le service de nettoyage avec pour ambition d'étoffer nos offres dans le futur.",
+  "quote": "Avec Sahel, les Marocains résidant à l'étranger bénéficient enfin d'un service simple et flexible pour optimiser leur séjour au Maroc.",
+  "valuesTitle": "Nos Valeurs",
+  "valuesText": "Au cœur de Sahel, nous établissons un socle de valeurs communes partagées par l’ensemble des membres. Nous souhaitons que chaque valeur s’incarne à travers nos intervention, garantissent votre satisfaction ainsi que les aspirations de notre personnel.",
+  "values": {
+    "discretion": {
+      "title": "Discrétion",
+      "points": [
+        "Interventions discrètes même en votre présence",
+        "Respect de votre intimité et de votre espace",
+        "Travail efficace sans perturber votre quotidien"
+      ]
+    },
+    "quality": {
+      "title": "Qualité",
+      "points": [
+        "Formation continue de notre personnel",
+        "Rémunération juste et équitable",
+        "Suivi rigoureux des prestations",
+        "Respect strict du cahier des charges"
+      ]
+    },
+    "transparency": {
+      "title": "Fiabilité & transparence",
+      "points": [
+        "Transparence totale depuis votre espace client",
+        "Chat interactif pour une communication en temps réel",
+        "Suivi des opérations en toute simplicité"
+      ]
+    },
+    "social": {
+      "title": "Engagement social",
+      "points": [
+        "Rémunération au-dessus des standards du marché",
+        "Conditions de travail respectueuses et saines",
+        "Opportunités de mobilité interne pour nos employés"
+      ]
+    },
+    "affordable": {
+      "title": "Abordable",
+      "points": [
+        "Tarification accessible et adaptée à votre situation",
+        "Maintien d'un service de qualité pour tous les budgets"
+      ]
+    },
+    "trust": {
+      "title": "Confiance",
+      "points": [
+        "Dispositions pour assurer la qualité du service",
+        "Supervision par un opérateur Sahel pour le respect des processus"
+      ]
+    }
+  },
+  "futureProjectsTitle": "Nos Projets futur",
+  "futureProjectsText": "Nous avons l’ambition de développer nos activités autour de la même thématique de services à forte valeur ajoutée vous permettant de magnifier vos séjours au Maroc",
+  "timeline": {
+    "2025": {
+      "title": "Lancement des Services de Base",
+      "description": "Ménage, Cuisine et Petits Travaux: Mise en place des services principaux pour répondre aux besoins immédiats de nos clients."
+    },
+    "2026_2030": {
+      "title": "Nouveaux Services",
+      "services": {
+        "specialRequests": {
+          "title": "Réalisation de demandes spéciales",
+          "description": "Un service dédié pour répondre aux demandes personnalisées de nos clients, au-delà des services standard."
+        },
+        "security": {
+          "title": "Solutions de gardiennage",
+          "description": "Un service dédié pour répondre aux demandes personnalisées de nos clients, au-delà des services standard."
+        },
+        "feedback": {
+          "title": "À l'écoute de vos suggestions",
+          "description": "Nous restons à l'écoute des besoins de nos clients pour ajuster nos services selon leurs attentes."
+        }
+      }
+    }
+  }
+}

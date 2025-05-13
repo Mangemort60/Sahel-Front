@@ -1,0 +1,56 @@
+{
+  "login": {
+    "title": "Login",
+    "emailLabel": "Email",
+    "passwordLabel": "Password",
+    "forgotPassword": "Forgot password?",
+    "submitButton": "Log in",
+    "noAccount": "Don't have an account?",
+    "signupLink": "Sign up",
+    "rememberMe": "Remember me",
+    "errors": {
+      "invalidCredentials": "The credentials provided are invalid.",
+      "wrongPassword": "The password is incorrect.",
+      "userNotFound": "No user found with this email.",
+      "generic": "An unexpected error occurred."
+    },
+    "success": "Successfully logged in, welcome!"
+  },
+  "register": {
+    "title": "Sign Up",
+    "firstNameLabel": "First name",
+    "lastNameLabel": "Last name",
+    "emailLabel": "Email",
+    "passwordLabel": "Password",
+    "confirmPasswordLabel": "Confirm password",
+    "phoneLabel": "Phone number",
+    "terms": "I accept the terms and conditions",
+    "submitButton": "Sign up",
+    "alreadyAccount": "Already have an account?",
+    "loginLink": "Log in",
+    "errors": {
+      "emailInUse": "This email address is already in use.",
+      "generic": "An error occurred. Please try again."
+    },
+    "success": "Registration successful!"
+  },
+  "forgotPassword": {
+    "title": "Password Reset",
+    "instruction": "Please enter the email address you used to create your Sahel account.",
+    "emailLabel": "Email",
+    "submitButton": "Send reset link",
+    "success": "A reset link has been sent to your email address.",
+    "error": "An error occurred while sending the reset email."
+  },
+  "resetPassword": {
+    "title": "Create a new password",
+    "newPasswordLabel": "New password",
+    "submitButton": "Reset password",
+    "success": "Your password has been successfully reset.",
+    "errors": {
+      "weakPassword": "The password is too weak.",
+      "reusePassword": "You cannot use the same password as before.",
+      "generic": "An error occurred."
+    }
+  }
+}

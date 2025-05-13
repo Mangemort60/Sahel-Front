@@ -1,59 +1,48 @@
-import React, { useState } from 'react'
-import { useForm, SubmitHandler } from 'react-hook-form'
-import { useLocation, useNavigate } from 'react-router-dom'
-import { getAuth, confirmPasswordReset } from 'firebase/auth'
+import { SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useState } from 'react'
 import { z } from 'zod'
-import resetPasswordSchema from '../schemas/resetPasswordSchema'
+import { forgotPasswordSchema } from '../schemas/forgotPasswordSchema'
+import axios from 'axios'
+import getApiUrl from '../utils/getApiUrl'
+import { useTranslation } from 'react-i18next' // ✅ Ajouté
 
-const ResetPassword: React.FC = () => {
-  type FormData = z.infer<typeof resetPasswordSchema>
+type FormData = z.infer<typeof forgotPasswordSchema>
 
+const apiUrl = getApiUrl()
+
+const ForgotPassword = () => {
+  const { t } = useTranslation('authForm') // ✅ Ajouté
+  const [email, setEmail] = useState('')
   const [message, setMessage] = useState<string | null>(null)
-  const [errorMessage, setErrorMessage] = useState<string | null>(null) // Pour le champ mot de passe
+  const [isLoading, setIsLoading] = useState(false)
+
+  const onSubmit: SubmitHandler<FormData> = async (data) => {
+    setIsLoading(true)
+    setMessage(null)
+
+    try {
+      const response = await axios.post(`${apiUrl}/auth/forgot-password`, {
+        email: data.email,
+      })
+      setMessage(t('forgotPassword.success')) // ✅
+      console.log(response.data)
+    } catch (error: any) {
+      setMessage(
+        error.response?.data?.error || t('forgotPassword.error'), // ✅
+      )
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>({
-    resolver: zodResolver(resetPasswordSchema),
+    resolver: zodResolver(forgotPasswordSchema),
   })
-  const location = useLocation()
-  const navigate = useNavigate()
-
-  // Récupération du oobCode de l'URL
-  const queryParams = new URLSearchParams(location.search)
-  const oobCode = queryParams.get('oobCode')
-
-  if (!oobCode) {
-    setMessage('Invalid or expired password reset code.')
-  }
-
-  const onSubmit: SubmitHandler<FormData> = async (data) => {
-    const auth = getAuth()
-
-    if (!oobCode) {
-      setMessage('Invalid or expired password reset code.')
-      return
-    }
-
-    try {
-      await confirmPasswordReset(auth, oobCode, data.newPassword)
-      setMessage('Le mot de passe a été réinitialisé avec succès.')
-      setTimeout(() => navigate('/login'), 3000)
-    } catch (error: any) {
-      // Gestion des erreurs spécifiques
-      if (error.code === 'auth/weak-password') {
-        setErrorMessage('Le mot de passe est trop faible.')
-      } else if (error.message.includes('last password')) {
-        setErrorMessage(
-          'Vous ne pouvez pas utiliser le même mot de passe que le précédent.',
-        )
-      } else {
-        setErrorMessage('Une erreur est survenue : ' + error.message)
-      }
-    }
-  }
 
   return (
     <div>
@@ -62,35 +51,45 @@ const ResetPassword: React.FC = () => {
           <div className="p-4 sm:p-7">
             <div className="text-center">
               <h1 className="block text-2xl font-bold text-gray-800">
-                Création d'un nouveau mot de passe
+                {t('forgotPassword.title')}
               </h1>
             </div>
+            <div
+              className="mt-2 bg-blue-100 border border-blue-200 text-sm text-blue-800 rounded-lg p-4 dark:bg-blue-800/10 dark:border-blue-900 dark:text-blue-500"
+              role="alert"
+            >
+              {t('forgotPassword.instruction')}
+            </div>
             <div className="mt-5">
+              {message && (
+                <div
+                  className="my-2 bg-green-100 border border-green-200 text-sm text-green-800 rounded-lg p-4 dark:bg-green-800/10 dark:border-green-900 dark:text-green-500"
+                  role="alert"
+                >
+                  {message}
+                </div>
+              )}
               <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="grid gap-y-4">
                   <div>
-                    <label htmlFor="newPassword" className="block text-sm mb-2">
-                      Nouveau mot de passe
+                    <label htmlFor="email" className="block text-sm mb-2">
+                      {t('forgotPassword.emailLabel')}
                     </label>
                     <div className="relative">
                       <input
-                        {...register('newPassword')}
-                        id="newPassword"
+                        {...register('email')}
+                        id="email"
                         className="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
                         required
-                        type="password"
-                        placeholder="Entrez un nouveau mot de passe"
+                        aria-describedby="email-error"
+                        type="email"
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="Entrez votre email"
                       />
                     </div>
-                    {/* Affichage des erreurs sous le champ mot de passe */}
-                    {errorMessage && (
+                    {errors.email && (
                       <p className="text-xs text-red-600 mt-2">
-                        {errorMessage}
-                      </p>
-                    )}
-                    {errors.newPassword && (
-                      <p className="text-xs text-red-600 mt-2">
-                        {errors.newPassword.message}
+                        {errors.email.message}
                       </p>
                     )}
                   </div>
@@ -98,8 +97,17 @@ const ResetPassword: React.FC = () => {
                     <button
                       type="submit"
                       className="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
+                      disabled={isLoading}
                     >
-                      Réinitialiser
+                      {isLoading ? (
+                        <div
+                          className="animate-spin inline-block h-5 w-5 border-[3px] border-current border-t-transparent rounded-full"
+                          role="status"
+                          aria-label="loading"
+                        ></div>
+                      ) : (
+                        t('forgotPassword.submitButton')
+                      )}
                     </button>
                   </div>
                 </div>
@@ -108,12 +116,8 @@ const ResetPassword: React.FC = () => {
           </div>
         </div>
       </main>
-      {/* Message général de succès ou d'erreur */}
-      {message && (
-        <p className="text-center mt-4 text-sm text-blue-600">{message}</p>
-      )}
     </div>
   )
 }
 
-export default ResetPassword
+export default ForgotPassword

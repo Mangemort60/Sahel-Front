@@ -1,0 +1,56 @@
+{
+  "login": {
+    "title": "Connexion",
+    "emailLabel": "Email",
+    "passwordLabel": "Mot de passe",
+    "forgotPassword": "Mot de passe oublié ?",
+    "submitButton": "Se connecter",
+    "noAccount": "Pas encore de compte ?",
+    "signupLink": "S'inscrire",
+    "rememberMe": "Se souvenir de moi",
+    "errors": {
+      "invalidCredentials": "Les identifiants fournis sont invalides.",
+      "wrongPassword": "Le mot de passe est incorrect.",
+      "userNotFound": "Aucun utilisateur trouvé avec cet email.",
+      "generic": "Une erreur inattendue est survenue."
+    },
+    "success": "Connexion réussie, bienvenue !"
+  },
+  "register": {
+    "title": "Inscription",
+    "firstNameLabel": "Prénom",
+    "lastNameLabel": "Nom",
+    "emailLabel": "Email",
+    "passwordLabel": "Mot de passe",
+    "confirmPasswordLabel": "Confirmer le mot de passe",
+    "phoneLabel": "Téléphone",
+    "terms": "J'accepte les termes et conditions",
+    "submitButton": "S'inscrire",
+    "alreadyAccount": "Déjà un compte ?",
+    "loginLink": "Connectez vous",
+    "errors": {
+      "emailInUse": "Cette adresse email est déjà utilisée.",
+      "generic": "Une erreur est survenue. Veuillez réessayer."
+    },
+    "success": "Inscription réussie !"
+  },
+  "forgotPassword": {
+    "title": "Réinitialisation du mot de passe",
+    "instruction": "Entrez ci-dessous l'adresse email avec laquelle vous avez créé votre compte Sahel.",
+    "emailLabel": "Email",
+    "submitButton": "Recevoir le lien",
+    "success": "Un lien de réinitialisation a été envoyé à votre adresse email.",
+    "error": "Erreur lors de l'envoi de l'email de réinitialisation."
+  },
+  "resetPassword": {
+    "title": "Création d'un nouveau mot de passe",
+    "newPasswordLabel": "Nouveau mot de passe",
+    "submitButton": "Réinitialiser",
+    "success": "Le mot de passe a été réinitialisé avec succès.",
+    "errors": {
+      "weakPassword": "Le mot de passe est trop faible.",
+      "reusePassword": "Vous ne pouvez pas utiliser le même mot de passe que le précédent.",
+      "generic": "Une erreur est survenue."
+    }
+  }
+}

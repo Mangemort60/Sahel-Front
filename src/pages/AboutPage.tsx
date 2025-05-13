@@ -7,56 +7,27 @@ import transparency from '../assets/transparency.png'
 import handshake from '../assets/handshake.png'
 import arrowRight from '../assets/arrowRight.png'
 import lookingForward from '../assets/looking-forward.webp'
+import { useTranslation } from 'react-i18next'
 
 const AboutPage = () => {
+  const { t } = useTranslation('about')
+
   return (
     <div className="font-sans sm:w-2/3 mx-2 sm:m-auto max-w-[900px]">
       <div className="my-12 space-y-5">
         <h1 className="text-start text-sahelRegular font-bold text-md ">
-          Qui sommes nous ?
+          {t('title')}
         </h1>
         <h1 className="text-4xl sm:text-6xl text-secondaryDarkBlue font-extrabold m-0">
-          Nos séjours au Maroc nous ont inspirés à rendre les vôtres
-          exceptionnels
+          {t('introHeadline')}
         </h1>
-        {/* <div className="flex justify-center space-x-12 py-4">
-          <div>
-            <img
-              className="rounded-full object-cover sm:w-52"
-              src="https://picsum.photos/150/150"
-              alt="Nessime"
-            />
-            <p className="text-center">nom-fonction</p>
-          </div>
-          <div>
-            <img
-              className="rounded-full object-cover sm:w-52"
-              src="https://picsum.photos/150/150"
-              alt="Hafid"
-            />
-            <p className="text-center">nom - fonction</p>
-          </div>
-        </div> */}
       </div>
       <div className="px-2 space-y-8">
-        <p>
-          Comme beaucoup, nous empruntons la voiture ou l'avion chaque année
-          afin de rentrer dans notre pays le temps d'un été. Après plusieurs
-          années, nous sommes partis d'un constat assez simple. Réaliser le
-          premier nettoyage de notre logement, payer nos factures annuelles ou
-          entreprendre des petits travaux après un voyage plus ou moins long est
-          éreintant et n’est plus adapté à nos modes de vie.
-        </p>
+        <p>{t('introText')}</p>
         <h2 className="text-4xl text-secondaryDarkBlue font-extrabold">
-          Pourquoi Sahel ?
+          {t('whySahel')}
         </h2>
-        <p>
-          Notre idée ? Développer des services aux plus hauts standards
-          internationaux : simple, efficace, fiable et abordables afin de
-          profiter de notre séjour ! Dans l’objectif de concrétiser notre
-          vision, nous mettons en place dès cette année le service de nettoyage
-          avec pour ambition d'étoffer nos offres dans le futur
-        </p>
+        <p>{t('whySahelText')}</p>
         <blockquote className="relative top-2 mb-12">
           <svg
             className="absolute -top-6 sm:-left-8 w-16 h-16 text-sahelLight"
@@ -72,123 +43,74 @@ const AboutPage = () => {
               fill="currentColor"
             ></path>
           </svg>
-
           <div className="relative">
             <p className="text-xl text-secondaryLightBlue md:text-4xl md:leading-normal dark:text-white my-20">
-              <em>
-                Avec Sahel, les Marocains résidant à l'étranger bénéficient
-                enfin d'un service simple et flexible pour optimiser leur séjour
-                au Maroc.{' '}
-              </em>
+              <em>{t('quote')}</em>
             </p>
           </div>
         </blockquote>
         <h2 className="text-4xl text-secondaryDarkBlue font-extrabold pt-8">
-          Nos Valeurs
+          {t('valuesTitle')}
         </h2>
-        <p className="mb-20">
-          Au cœur de Sahel, nous établissons un socle de valeurs communes
-          partagées par l’ensemble des membres. Nous souhaitons que chaque
-          valeur s’incarne à travers nos intervention, garantissent votre
-          satisfaction ainsi que les aspirations de notre personnel.
-        </p>
+        <p className="mb-20">{t('valuesText')}</p>
         <div className=" hidden sm:flex">
           <img src={valeur} alt="" className="" />
         </div>
         <div className="flex flex-col sm:flex-row">
           <div className="grid sm:grid-cols-2 sm:grid-rows-3 grid-cols-1 grid-rows-6 gap-4">
-            <div className="w-auto">
-              <img src={secure} alt="" className="w-12 h-12 mb-2" />
-              <p className="text-secondaryDarkBlue text-xl font-bold">
-                Discrétion
-              </p>
-              <ul className="list-disc list-inside">
-                <li>Interventions discrètes même en votre présence</li>
-                <li>Respect de votre intimité et de votre espace</li>
-                <li>Travail efficace sans perturber votre quotidien</li>
-              </ul>
-            </div>
-            <div>
-              <img src={quality} alt="" className="w-12 h-12 mb-2" />
-              <p className="text-secondaryDarkBlue text-xl font-bold">
-                Qualité
-              </p>
-              <ul className="list-disc list-inside">
-                <li>Formation continue de notre personnel</li>
-                <li>Rémunération juste et équitable</li>
-                <li>Suivi rigoureux des prestations</li>
-                <li>Respect strict du cahier des charges</li>
-              </ul>
-            </div>
-            <div>
-              <img src={transparency} alt="" className="w-12 h-12 mb-2" />
-              <p className="text-secondaryDarkBlue text-xl font-bold">
-                Fiabilité & transparence
-              </p>
-              <ul className="list-disc list-inside">
-                <li>Transparence totale depuis votre espace client</li>
-                <li>Chat interactif pour une communication en temps réel</li>
-                <li>Suivi des opérations en toute simplicité</li>
-              </ul>
-            </div>
-            <div>
-              <img src={ethical} alt="" className="w-12 h-12 mb-2" />
-              <p className="text-secondaryDarkBlue text-xl font-bold">
-                Engagement social
-              </p>
-              <ul className="list-disc list-inside">
-                <li>Rémunération au-dessus des standards du marché</li>
-                <li>Conditions de travail respectueuses et saines</li>
-                <li>Opportunités de mobilité interne pour nos employés</li>
-              </ul>
-            </div>
-            <div>
-              <img src={affordable} alt="" className="w-12 h-12 mb-2" />
-              <p className="text-secondaryDarkBlue text-xl font-bold">
-                Abordable
-              </p>
-              <ul className="list-disc list-inside">
-                <li>Tarification accessible et adaptée à votre situation</li>
-                <li>Maintien d'un service de qualité pour tous les budgets</li>
-              </ul>
-            </div>
-            <div>
-              <img src={handshake} alt="" className="w-12 h-12 mb-2" />
-              <p className="text-secondaryDarkBlue text-xl font-bold">
-                Confiance
-              </p>
-              <ul className="list-disc list-inside">
-                <li>Dispositions pour assurer la qualité du service</li>
-                <li>
-                  Supervision par un opérateur Sahel pour le respect des
-                  processus
-                </li>
-              </ul>
-            </div>
+            {[
+              'discretion',
+              'quality',
+              'transparency',
+              'social',
+              'affordable',
+              'trust',
+            ].map((key, i) => (
+              <div key={key} className="w-auto">
+                <img
+                  src={
+                    [
+                      secure,
+                      quality,
+                      transparency,
+                      ethical,
+                      affordable,
+                      handshake,
+                    ][i]
+                  }
+                  alt=""
+                  className="w-12 h-12 mb-2"
+                />
+                <p className="text-secondaryDarkBlue text-xl font-bold">
+                  {t(`values.${key}.title`)}
+                </p>
+                <ul className="list-disc list-inside">
+                  {t(`values.${key}.points`, { returnObjects: true }).map(
+                    (point, idx) => (
+                      <li key={idx}>{point}</li>
+                    ),
+                  )}
+                </ul>
+              </div>
+            ))}
           </div>
         </div>
         <h2 className="text-4xl text-secondaryDarkBlue font-extrabold">
-          Nos Projets futur
+          {t('futureProjectsTitle')}
         </h2>
         <div className=" hidden sm:flex  max-w-[800px]">
           <img src={lookingForward} alt="" className="" />
         </div>
-        <p className="mb-20">
-          Nous avons l’ambition de développer nos activités autour de la même
-          thématique de services à forte valeur ajoutée vous permettant de
-          magnifier vos séjours au Maroc
-        </p>
+        <p className="mb-20">{t('futureProjectsText')}</p>
       </div>
       <div className=" p-10 mt-8">
         <div className="bg-gradient-to-br from-[#dac3a3] to-white p-6 rounded-sm text-secondaryDarkBlue  mb-6 mx-auto">
           <div className="mr-auto text-3xl font-semibold mb-4">2025</div>
           <h2 className="text-3xl font-semibold mb-6  text-center">
-            Lancement des Services de Base{' '}
+            {t('timeline.2025.title')}
           </h2>
           <p className="text-secondaryDarkBlue  mt-4">
-            <strong>Ménage</strong>, <strong>Cuisine</strong> et
-            <strong> Petits Travaux</strong>: Mise en place des services
-            principaux pour répondre aux besoins immédiats de nos clients.
+            {t('timeline.2025.description')}
           </p>
         </div>
         <div className="flex justify-center mb-6">
@@ -197,34 +119,19 @@ const AboutPage = () => {
         <div className="bg-gradient-to-br from-[#daaf9e] to-white p-6 rounded-sm text-secondaryDarkBlue  mb-6 mx-auto">
           <div className="mr-auto text-3xl font-semibold mb-4">2026 - 2030</div>
           <h2 className="text-3xl font-semibold mb-6 text-center">
-            Nouveaux Services
+            {t('timeline.2026_2030.title')}
           </h2>
           <div className="space-y-6 ">
-            <div>
-              <h3 className="text-xl font-bold  ">
-                Réalisation de demandes spéciales
-              </h3>
-              <p className="text-secondaryDarkBlue">
-                Un service dédié pour répondre aux demandes personnalisées de
-                nos clients, au-delà des services standard.
-              </p>
-            </div>
-            <div>
-              <h3 className="text-xl font-bold  ">Solutions de gardiennage </h3>
-              <p className="text-secondaryDarkBlue">
-                Un service dédié pour répondre aux demandes personnalisées de
-                nos clients, au-delà des services standard.
-              </p>
-            </div>
-            <div>
-              <h3 className="text-xl font-bold  ">
-                À l'écoute de vos suggestions
-              </h3>
-              <p className="text-secondaryDarkBlue">
-                Nous restons à l'écoute des besoins de nos clients pour ajuster
-                nos services selon leurs attentes.
-              </p>
-            </div>
+            {['specialRequests', 'security', 'feedback'].map((key) => (
+              <div key={key}>
+                <h3 className="text-xl font-bold  ">
+                  {t(`timeline.2026_2030.services.${key}.title`)}
+                </h3>
+                <p className="text-secondaryDarkBlue">
+                  {t(`timeline.2026_2030.services.${key}.description`)}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </div>

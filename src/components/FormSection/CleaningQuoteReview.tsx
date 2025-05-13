@@ -5,10 +5,11 @@ import { useDispatch } from 'react-redux'
 import { setCurrentStep } from '../../redux/slices/formSlice'
 import { FaArrowLeft } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 export const CleaningQuoteReview = () => {
   const cleaningData = useAppSelector((state) => state.form.formData.cleaning)
-
+  const { t } = useTranslation('form')
   // Vérifiez si 'cleaning' existe avant d'accéder à ses propriétés
   const { numberOfFloors, sizeRange, fruitBasketSelected, beforeOrAfter } =
     cleaningData || {} // Default to an empty object if undefined
@@ -51,39 +52,39 @@ export const CleaningQuoteReview = () => {
         className="text-gray-400 mb-4 flex items-center gap-2"
       >
         <FaArrowLeft />
-        <p>Retour</p>
+        <p>{t('common.back')}</p>
       </button>
-      <div className="text-black text-2xl">Récapitulatif du devis</div>
+      <div className="text-black text-2xl">{t('quoteReview.title')}</div>
       <div className="text-black mt-6 ">
-        <p className="w-full mt-4">Nombre d'étages a nettoyer :</p>
-        <p className="border-b-gray-100 border-b-2 mt-6 text-gray-500 font-thin text-end  ">
+        <p className="w-full mt-4">{t('quoteReview.cleaning.floors')} :</p>
+        <p className="border-b-gray-100 border-b-2 mt-6 text-gray-500 font-thin text-end">
           {numberOfFloors}
         </p>
-        <p className="w-full mt-4">Surface a nettoyer :</p>
-        <p className="border-b-gray-100 border-b-2 mt-6 text-gray-500 font-thin text-end  ">
+        <p className="w-full mt-4">{t('quoteReview.cleaning.area')} :</p>
+        <p className="border-b-gray-100 border-b-2 mt-6 text-gray-500 font-thin text-end">
           {formatSizeRange(sizeRange)}
         </p>
-        <p className="w-full mt-4 ">Le nettoyage sera fait :</p>
-        <p className="border-b-gray-100 border-b-2 mt-6 text-gray-500 font-thin text-end  ">
+        <p className="w-full mt-4 ">{t('quoteReview.cleaning.timing')} :</p>
+        <p className="border-b-gray-100 border-b-2 mt-6 text-gray-500 font-thin text-end">
           {beforeOrAfter === 'before'
-            ? 'Avant mon arrivée'
-            : 'Après mon arrivée'}
+            ? t('formCleaning.before')
+            : t('formCleaning.after')}
         </p>
-        <p className="w-full mt-4 ">Vous souhaitez une corbeille de fruits</p>
-        <p className="border-b-gray-100 border-b-2 mt-6 text-gray-500 font-thin text-end  ">
-          {fruitBasketSelected ? 'oui' : 'non'}
+        <p className="w-full mt-4 ">{t('quoteReview.cleaning.fruit')}</p>
+        <p className="border-b-gray-100 border-b-2 mt-6 text-gray-500 font-thin text-end">
+          {fruitBasketSelected ? t('formCleaning.yes') : t('formCleaning.no')}
         </p>
       </div>
       {isLoggedIn ? (
         <div className="w-full flex flex-col gap-4 items-center justify-between mt-6">
           {isLoading ? (
-            <div className="text-black text-2xl flex items-center  font-thin w-full">
-              Total TTC : <Spinner /> €
+            <div className="text-black text-2xl flex items-center font-thin w-full">
+              {t('quoteReview.total')} : <Spinner /> €
             </div>
           ) : (
-            <p className="  text-black text-1xl font-thin">
-              Total TTC :{' '}
-              <span className="font-bold text-4xl text-secondaryDarkBlue ">
+            <p className="text-black text-1xl font-thin">
+              {t('quoteReview.total')} :{' '}
+              <span className="font-bold text-4xl text-secondaryDarkBlue">
                 {totalPrice} €
               </span>
             </p>
@@ -93,22 +94,22 @@ export const CleaningQuoteReview = () => {
               hoverColor={'hover:bg-secondaryRegularBlue'}
               bgColor={'bg-secondaryLightBlue'}
               type="submit"
-              label="Reserver"
+              label={t('quoteReview.reserve')}
               onClick={handleReserveClick}
               largeButton={true}
             />
           </div>
         </div>
       ) : (
-        <div className="w-full text-gray-500 text-sm flex flex-col gap-1  ">
+        <div className="w-full text-gray-500 text-sm flex flex-col gap-1">
           {isLoading ? (
-            <div className="text-black text-2xl flex items-center  font-thin w-full">
-              Total TTC : <Spinner /> €
+            <div className="text-black text-2xl flex items-center font-thin w-full">
+              {t('quoteReview.total')} : <Spinner /> €
             </div>
           ) : (
-            <p className="  text-black text-1xl font-thin">
-              Total TTC :{' '}
-              <span className="font-bold text-4xl text-secondaryDarkBlue ">
+            <p className="text-black text-1xl font-thin">
+              {t('quoteReview.total')} :{' '}
+              <span className="font-bold text-4xl text-secondaryDarkBlue">
                 {totalPrice} €
               </span>
             </p>
@@ -119,17 +120,17 @@ export const CleaningQuoteReview = () => {
                 to="/register"
                 className="text-blue-700 font-semibold underline"
               >
-                Créez un compte
+                {t('quoteReview.loginMessage.register')}
               </Link>{' '}
-              pour réserver
+              {t('quoteReview.loginMessage.reservePrompt')}
             </p>
             <p>
-              Déjà un compte ?{' '}
+              {t('quoteReview.loginMessage.already')}{' '}
               <Link
                 to="/login"
                 className="text-blue-700 font-semibold underline"
               >
-                Connectez vous
+                {t('quoteReview.loginMessage.login')}
               </Link>
             </p>
           </div>

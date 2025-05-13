@@ -6,6 +6,7 @@ import { addressFormSchema } from '../../../schemas/addressFormSchema'
 import { FormData } from './WorksInitialForm'
 import { useDispatch } from 'react-redux'
 import { setSmallRepairsFormData } from '../../../redux/slices/formSlice'
+import { useTranslation } from 'react-i18next'
 
 const addressFormSchemaStep2 = addressFormSchema.pick({
   address: true,
@@ -22,6 +23,7 @@ type StepProps = {
 }
 
 export const Step2 = ({ nextStep, formData }: StepProps) => {
+  const { t } = useTranslation('form')
   const {
     register,
     handleSubmit,
@@ -41,15 +43,16 @@ export const Step2 = ({ nextStep, formData }: StepProps) => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="text-black w-full h-full flex flex-col gap-4 justify-between "
+      className="text-black w-full h-full flex flex-col gap-4 justify-between"
     >
       <h2 className="font-bold text-secondaryLightBlue">
-        Étape 2 : Détails du lieu des travaux
+        {t('smallRepairs.step2.title')}
       </h2>
+
       <div className="w-full mx-auto flex flex-col gap-4 h-full justify-center space-y-6">
         <div>
           <label id="address" className="block mb-2 font-medium text-gray-900">
-            Adresse
+            {t('smallRepairs.step2.address')}
           </label>
           <input
             {...register('address')}
@@ -61,9 +64,10 @@ export const Step2 = ({ nextStep, formData }: StepProps) => {
             <p className="text-red-600">{errors.address.message}</p>
           )}
         </div>
+
         <div>
           <label id="city" className="block mb-2 font-medium text-gray-900">
-            Ville
+            {t('smallRepairs.step2.city')}
           </label>
           <select
             {...register('city')}
@@ -76,13 +80,13 @@ export const Step2 = ({ nextStep, formData }: StepProps) => {
               className="text-gray-200"
             ></option>
             <option value="Saidia et ses alentours">
-              Saidia et ses alentours
+              {t('booking.cities.saidia')}
             </option>
             <option value="Berkane et ses alentours">
-              Berkane et ses alentours
+              {t('booking.cities.berkane')}
             </option>
             <option value="Ahfir et ses alentours">
-              Ahfir et ses alentours
+              {t('booking.cities.ahfir')}
             </option>
           </select>
 
@@ -92,7 +96,7 @@ export const Step2 = ({ nextStep, formData }: StepProps) => {
 
       <Button
         type="submit"
-        label="Suivant"
+        label={t('smallRepairs.step2.next')}
         hoverColor="hover:bg-secondaryRegularBlue"
         bgColor="bg-secondaryLightBlue"
         largeButton

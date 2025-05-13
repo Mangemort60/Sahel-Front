@@ -16,13 +16,17 @@ import {
 import toast from 'react-hot-toast'
 import Badge from '@mui/material/Badge'
 import { useEffect } from 'react'
-
+import i18n from 'i18next'
 import { fetchBadgeStatus } from '../services/fetchBadgeStatus'
+import { MenuItem, Select } from '@mui/material'
+import { useTranslation } from 'react-i18next'
 
 const Header = () => {
   const isLoggedIn = useAppSelector((state) => state.user.isLoggedIn)
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
+  const { i18n: i18nextInstance } = useTranslation()
+  const { t } = useTranslation('header')
   const userId = useAppSelector((state) => state.user.shortId) as string
   const totalNotifications = useAppSelector(
     (state) => state.ui.totalNotifications || 0,
@@ -32,6 +36,11 @@ const Header = () => {
       fetchBadgeStatus(userId)
     }
   }, [userId])
+
+  const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+    const lang = event.target.value as string
+    i18n.changeLanguage(lang)
+  }
 
   const handleLogout = async () => {
     try {
@@ -107,7 +116,7 @@ const Header = () => {
                 to="/about-us"
                 aria-current="page"
               >
-                Qui sommes nous
+                {t('about')}
               </Link>
               <div className="hs-dropdown relative inline-flex">
                 <button
@@ -118,7 +127,7 @@ const Header = () => {
                   aria-expanded="false"
                   aria-label="Dropdown"
                 >
-                  Services
+                  {t('services')}
                 </button>
 
                 <div
@@ -131,19 +140,19 @@ const Header = () => {
                     className="flex items-center gap-x-3.5 py-2 px-3 rounded-sm text-sm text-gray-800 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700"
                     to={'/menage'}
                   >
-                    Ménage
+                    {t('cleaning')}
                   </Link>
                   <Link
                     className="flex items-center gap-x-3.5 py-2 px-3 rounded-sm text-sm text-gray-800 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700"
                     to={'/cuisine'}
                   >
-                    Cuisine
+                    {t('cooking')}
                   </Link>
                   <Link
                     className="flex items-center gap-x-3.5 py-2 px-3 rounded-sm text-sm text-gray-800 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700"
                     to={'/petits-travaux'}
                   >
-                    Petits-travaux
+                    {t('repairs')}
                   </Link>
                 </div>
               </div>
@@ -151,17 +160,16 @@ const Header = () => {
                 className="font-thin text-secondaryDarkBlue hover:text-gray-400 sm:py-6 dark:text-gray-400 dark:hover:text-secondaryDarkBlue"
                 to="/contact"
               >
-                Contact
+                {t('contact')}
               </Link>
               <div className="h-12 m-0">
                 <button
                   className="py-3 px-2 inline-flex items-center w-auto justify-center gap- rounded-sm border border-transparent text-white bg-sahelRegular disabled:pointer-events-none hover:bg-sahelDark"
                   onClick={handleSubscribeClick}
                 >
-                  Réserver
+                  {t('reserve')}
                 </button>
               </div>
-
               <div>
                 {isLoggedIn ? (
                   <div className="flex">
@@ -180,7 +188,8 @@ const Header = () => {
                             className="py-3 px-2 inline-flex items-center w-auto justify-center gap- rounded-sm border border-transparent text-white bg-sahelFlashDarkBlue disabled:pointer-events-none hover:bg-secondaryDarkBlue"
                             onClick={() => dispatch(setActiveTab('ménage'))}
                           >
-                            Mon espace
+                            {t('dashboard')}
+
                             <svg
                               className="flex-shrink-0 size-4 ml-1"
                               xmlns="http://www.w3.org/2000/svg"
@@ -214,7 +223,7 @@ const Header = () => {
                       >
                         <path d="M16 17l5-5-5-5M19.8 12H9M13 22a10 10 0 1 1 0-20" />
                       </svg>
-                      Se deconnecter
+                      {t('logout')}
                     </Link>
                   </div>
                 ) : (
@@ -232,10 +241,20 @@ const Header = () => {
                     >
                       <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
                     </svg>
-                    Se connecter
+                    {t('login')}
                   </Link>
                 )}
               </div>
+              <Select
+                labelId="language-selector-label"
+                value={i18nextInstance.language}
+                onChange={handleChange}
+                label="Langue"
+                sx={{ width: 60, border: 'none' }}
+              >
+                <MenuItem value="fr">🇫🇷 </MenuItem>
+                <MenuItem value="en">🇬🇧 </MenuItem>
+              </Select>{' '}
             </div>
           </div>
         </nav>

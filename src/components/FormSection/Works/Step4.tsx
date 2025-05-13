@@ -2,9 +2,11 @@ import { FaArrowLeft } from 'react-icons/fa'
 import { useDispatch, UseDispatch } from 'react-redux'
 import { resetFormState } from '../../../redux/slices/formSlice'
 import { resetUiState } from '../../../redux/slices/uiSlice'
+import { useTranslation } from 'react-i18next'
 
 const Step4 = () => {
   const dispatch = useDispatch()
+  const { t } = useTranslation('form')
 
   const handleClick = () => {
     dispatch(resetFormState())
@@ -19,13 +21,12 @@ const Step4 = () => {
           className="text-gray-400 mb-2 flex items-center gap-2"
         >
           <FaArrowLeft />
-          <p>Retour</p>
+          <p>{t('common.back')}</p>
         </button>
       </div>
       <div>
-        Votre pré-demande a bien été soumise ! <br />
-        Vous pouvez d’ores et déjà suivre l'avancement de celle ci dans votre
-        espace personnel ou refaire une demande
+        {t('smallRepairs.step4.success')} <br />
+        {t('smallRepairs.step4.followup')}
       </div>
     </div>
   )

@@ -1,0 +1,25 @@
+{
+  "title": "Cooking",
+  "headline": "A Simple, Flexible and Efficient Cooking Service",
+  "intro": "Enjoy your vacation to the fullest without worrying about meals! Let our cook prepare a delicious lunch while you explore the sunlit streets of Morocco or relax with your family. In the evening, go for a stroll under the Moroccan sky, knowing your dinner will be ready when you return. Whether to lighten your day or enjoy a serene holiday, our cooking service adapts to your needs so every moment is perfect. Sahel’s cooking service is designed to free you from this daily task and let you fully enjoy your stay. You can request an experienced cook to prepare traditional or common dishes. A special occasion? Just enter the number of guests and book a cook for the evening. Want daily peace of mind? Specify the number of people, dates and preferred frequency.",
+  "howItWorksTitle": "How does it work?",
+  "howItWorksIntro": "To meet your needs, we offer three flexible time slots: lunchtime for a savory meal, dinner time for an enjoyable evening, or the full day to handle all your meals. Adapt the service to your schedule and make the most of every moment of your stay.",
+  "slots": {
+    "lunch": {
+      "title": "Lunch Time",
+      "text": "The cook is available between 11 a.m. and 2 p.m. to prepare lunch as you like it."
+    },
+    "dinner": {
+      "title": "Evening - Dinner",
+      "text": "The cook is available between 6 p.m. and 9 p.m. to prepare your dinner, based on your culinary preferences."
+    },
+    "fullDay": {
+      "title": "Full Day",
+      "text": "Available from 9 a.m., the cook can prepare all your meals: breakfast, lunch, snack, and dinner, according to your needs."
+    }
+  },
+  "commitment": {
+    "title": "Strict Adherence to Our Service Charter",
+    "text": "At Sahel, we strictly follow our own service charter, designed to guarantee the highest quality standards. It defines all procedures applied to each intervention to ensure consistent and flawless service. From eco-friendly products to secure access management, timely interventions, and attentive follow-up — every aspect is governed by high standards. By adhering to this charter, we guarantee a professional service that meets your expectations with complete peace of mind."
+  }
+}

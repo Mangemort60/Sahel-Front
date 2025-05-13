@@ -9,9 +9,11 @@ import { CookingFormRequest } from './CookingFormRequest'
 import { CookingQuoteReview } from './CookingQuoteReview'
 import { WorksInitialForm } from './Works/WorksInitialForm'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useTranslation } from 'react-i18next'
 
 export const FormSection = React.forwardRef((_, ref) => {
   const currentStep = useAppSelector((state) => state.form.currentStep)
+  const { t } = useTranslation('home')
 
   // Variants pour les animations d'entrée et de sortie
   const variants = {
@@ -45,12 +47,10 @@ export const FormSection = React.forwardRef((_, ref) => {
       <div className="sm:flex py-8 sm:flex-row flex-col sm:justify-center justify-between items-center p-4 text-white sm:bg-cover sm:bg-center sm:bg-[url('../../assets/layeredWaves.webp')] bg-none">
         <div className="sm:w-1/2 mt-20 mr-6">
           <h1 className="text-secondaryDarkBlue font-extrabold sm:text-5xl  text-3xl sm:mt-0 mt-8">
-            Un devis instantané pour nos services de ménage et de cuisine !{' '}
+            {t('quote.title')}
           </h1>
           <p className="text-secondaryBlue my-4 text-lg">
-            Complétez simplement le formulaire ci-contre pour un prix juste et
-            transparent. Pour les petits travaux, une évaluation détaillée sera
-            réalisée pour répondre à vos besoins spécifiques.
+            {t('quote.description')}
           </p>
           <img
             src={imgForm}

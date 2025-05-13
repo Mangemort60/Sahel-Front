@@ -12,6 +12,7 @@ import {
   setCurrentMultiStepForm,
   setRedirectPath,
 } from '../../../redux/slices/uiSlice'
+import { useTranslation } from 'react-i18next'
 
 // Exemple d'animation de transition
 const variants = {
@@ -43,6 +44,7 @@ export type FormData = {
 
 export const WorksInitialForm = () => {
   const { formData } = useAppSelector((state) => state.form)
+  const { t } = useTranslation('form')
 
   const dispatch = useDispatch()
   const currentMultiStepForm = useAppSelector(
@@ -73,11 +75,11 @@ export const WorksInitialForm = () => {
             className="text-gray-400 mb-2 flex items-center gap-2"
           >
             <FaArrowLeft />
-            <p>Retour</p>
+            <p>{t('common.back')}</p>
           </button>
         </div>
       )}
-      <h2 className="text-2xl">Formulaire de pré-demande</h2>
+      <h2 className="text-2xl">{t('smallRepairs.title')}</h2>
 
       {/* AnimatePresence pour gérer les animations d'entrée et de sortie */}
       <AnimatePresence mode="wait">
@@ -131,16 +133,14 @@ export const WorksInitialForm = () => {
             ) : (
               <div className="flex flex-col items-center gap-2 justify-center h-full text-center">
                 <h2 className="text-3xl font-bold mb-4">
-                  Vous y êtes presque !
+                  {t('smallRepairs.notLoggedIn.title')}
                 </h2>
                 <p className="text-lg text-gray-700 mb-6">
-                  Pour finaliser votre demande, connectez-vous à votre compte.
-                  Si vous n'avez pas encore de compte, il est rapide et facile
-                  d'en créer un !
+                  {t('smallRepairs.notLoggedIn.description')}
                 </p>
                 <Button
                   type="submit"
-                  label={'Se connecter'}
+                  label={t('smallRepairs.notLoggedIn.login')}
                   hoverColor={'hover:bg-secondaryRegularBlue'}
                   bgColor={'bg-secondaryLightBlue'}
                   onClick={() => {
@@ -152,7 +152,7 @@ export const WorksInitialForm = () => {
                 />{' '}
                 <Button
                   type="submit"
-                  label={"S'inscrire"}
+                  label={t('smallRepairs.notLoggedIn.register')}
                   hoverColor={'hover:bg-gray-200'}
                   bgColor={'bg-white'}
                   onClick={() => {

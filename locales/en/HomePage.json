@@ -1,0 +1,60 @@
+{
+  "hero": {
+    "line1": "WE COOK.",
+    "line2": "WE CLEAN.",
+    "line3": "WE FIX.",
+    "line4": "NO STRESS.",
+    "line5": "PURE VACATION.",
+    "subtitle": "Enjoy every moment of your stay in Morocco — we handle the rest.",
+    "cta": "Book now"
+  },
+  "guarantees": {
+    "title": "The Sahel system guarantees",
+    "simple": {
+      "title": "Simple",
+      "description": "Book your services using a reservation system designed to be as quick and easy as possible"
+    },
+    "reactive": {
+      "title": "Responsive",
+      "description": "Track the progress of your service in real time. A dedicated messaging system is available for each service, allowing you to ask questions and get quick answers. With Sahel, you’re kept informed every step of the way."
+    },
+    "reliable": {
+      "title": "Reliable",
+      "description": "Leave us access to your home for a few hours with the confidence of a quality service provided by reliable staff and a dedicated operator throughout the process"
+    },
+    "flexible": {
+      "title": "Flexible",
+      "description": "We adapt to your scheduling constraints and offer the possibility of booking cleaning services as soon as the next day"
+    }
+  },
+  "quote": {
+    "title": "Instant quote for our cleaning and cooking services!",
+    "description": "Just fill out the form to get a fair and transparent price. For small repairs, a detailed evaluation will be carried out to meet your specific needs."
+  },
+  "faq": {
+    "q1": {
+      "question": "I don’t understand the key system, how will you access my home?",
+      "answer": "At Sahel, we adapt to your preferences to ensure secure access to your property. We offer several flexible options so you can choose the one that suits you best, while ensuring total peace of mind.",
+      "cta": "For more details, check out our infographic explaining the process here."
+    },
+    "q2": {
+      "question": "What measures have you taken to prevent theft?",
+      "answer": "At Sahel, protecting your property is a top priority. Our team — especially our cleaning staff — is trained and made aware of proper security practices. We value their work by paying fairly, which increases their commitment and professional satisfaction. A dedicated operator is also available to ensure everything runs smoothly, giving you complete peace of mind.",
+      "cta": "See our theft prevention policy"
+    },
+    "q3": {
+      "question": "What assurance do I have of receiving a quality service?",
+      "answer": "A clear service charter and commitment to quality are at the core of our model. We deliver what we promise and ensure each service is properly completed. Training is also a key foundation of our approach."
+    },
+    "q4": {
+      "question": "How can I contact you if I have an issue?",
+      "answer": "Once a service is booked, go to your client space to access your personal messaging area and share any concerns if needed."
+    },
+    "q5": {
+      "question": "How can I contact you if I haven’t made a booking?",
+      "answer": "Go to the contact section to use our contact form and ask us your question if no answer is available on the website."
+    },
+    "no_answer": "Still no answer to your question?",
+    "contact_support": "Contact our support team"
+  }
+}

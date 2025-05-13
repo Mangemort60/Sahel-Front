@@ -1,16 +1,25 @@
 import { Navigate, useLocation } from 'react-router-dom'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import { ReactNode, useEffect, useState } from 'react'
+import { useAppSelector } from '../redux/hooks/useAppSelector'
 
 interface PrivateRoutesProps {
   children: ReactNode
+  blockIfPaymentCompleted?: boolean
+  redirectIfPaymentCompletedToHome?: boolean
 }
 
-const PrivateRoutes = ({ children }: PrivateRoutesProps) => {
+const PrivateRoutes = ({
+  children,
+  redirectIfPaymentCompletedToHome,
+}: PrivateRoutesProps) => {
   const auth = getAuth()
   const [user, setUser] = useState(auth.currentUser)
   const [loading, setLoading] = useState(true)
   const location = useLocation()
+  const paymentCompleted = useAppSelector(
+    (state) => state.user.paymentCompleted,
+  )
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -29,6 +38,10 @@ const PrivateRoutes = ({ children }: PrivateRoutesProps) => {
   if (!user) {
     // Passe la page d'origine via `state`
     return <Navigate to="/login" state={{ from: location }} replace />
+  }
+
+  if (redirectIfPaymentCompletedToHome && paymentCompleted) {
+    return <Navigate to="/" replace />
   }
 
   return <>{children}</>
