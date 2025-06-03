@@ -9,9 +9,9 @@ import getApiUrl from '../../utils/getApiUrl'
 import { Message, Reservation } from '../../pages/ClientDashboard'
 import { useState, useEffect } from 'react'
 import { getStorage, ref, getDownloadURL } from 'firebase/storage'
-import { auth } from '../../../firebase-config'
 import { Button } from '../common/Button'
 import toast from 'react-hot-toast'
+import { useTranslation } from 'react-i18next'
 
 interface ChatBoxProps {
   reservationId: string
@@ -27,41 +27,52 @@ const ChatBox = ({
   reservation,
 }: ChatBoxProps) => {
   const [chatMessages, setChatMessages] = useState<Message[]>([])
-  const [imageUrls, setImageUrls] = useState<{ [key: number]: string }>({}) // Pour stocker les URLs d'images
   const sender = useAppSelector((state) => state.user.name)
   const clientEmail = useAppSelector((state) => state.user.email)
   const userRole = useAppSelector((state) => state.user.role)
   const apiUrl = getApiUrl()
+  const { t } = useTranslation('clientDashboard')
 
-  // Fonction pour récupérer les URL sécurisées des pièces jointes
-  const fetchAttachmentUrl = async (path: string, messageIndex: number) => {
-    const storage = getStorage()
-    const fileRef = ref(storage, path)
-
-    try {
-      const url = await getDownloadURL(fileRef)
-      setImageUrls((prevUrls) => ({
-        ...prevUrls,
-        [messageIndex]: url, // Stocke l'URL sécurisée
-      }))
-    } catch (error) {
-      console.error(
-        "Erreur lors de la récupération de l'URL sécurisée :",
-        error,
-      )
-    }
-  }
-
-  // Mise à jour pour gérer tous les fichiers
   useEffect(() => {
-    messages.forEach((message, index) => {
-      if (message.attachments && message.attachments.length > 0) {
-        message.attachments.forEach((attachment) => {
-          fetchAttachmentUrl(attachment.url, index)
-        })
-      }
-    })
-  }, [messages])
+    const fileMessages: Message[] = []
+
+    console.log('DEBUG devis.url in ChatBox:', reservation?.devis?.url)
+
+    // ✅ ne push que si l'URL existe vraiment
+    if (reservation?.devis) {
+      fileMessages.push({
+        sender: 'Sahel',
+        clientEmail,
+        text: `${t('chat.devisAvailable')} 👉`,
+        role: 'system',
+        created: new Date().toISOString(),
+        attachments: [
+          {
+            url: reservation.devis.url,
+            type: 'application/pdf',
+          },
+        ],
+      })
+    }
+
+    if (reservation?.finalReportUrl) {
+      fileMessages.push({
+        sender: 'Sahel',
+        clientEmail,
+        text: `${t('chat.finalReportAvailable')} 📎`,
+        role: 'system',
+        created: new Date().toISOString(),
+        attachments: [
+          {
+            url: reservation.finalReportUrl,
+            type: 'application/pdf',
+          },
+        ],
+      })
+    }
+
+    setChatMessages([...fileMessages, ...messages])
+  }, [messages, reservation?.devis?.url, reservation?.finalReportUrl])
 
   type MessageData = z.infer<typeof messageSchema>
 
@@ -91,24 +102,19 @@ const ChatBox = ({
       setChatMessages((prevMessages) => [...prevMessages, messagePayload])
       updateMessages(reservationId, messagePayload)
       reset()
-      // Remplacer l'alerte par un toast
-      toast.success(
-        'Message envoyé avec succès. Notre équipe vous répondra sous 48h.',
-        {
-          position: 'bottom-center', // Affiche ce toast au centre du haut de l'écran
-          duration: 5000, // Ce toast reste visible pendant 5 secondes
-          style: {
-            marginBottom: '200px',
-            fontSize: '16px',
-          },
+      toast.success(t('chat.success'), {
+        position: 'bottom-center',
+        duration: 5000,
+        style: {
+          marginBottom: '200px',
+          fontSize: '16px',
         },
-      )
+      })
     } catch (error) {
       console.error('Error sending message:', error)
-      // Toast en cas d'erreur
-      toast.success("Échec de l'envoi du message. Veuillez réessayer.", {
-        position: 'bottom-center', // Affiche ce toast au centre du haut de l'écran
-        duration: 5000, // Ce toast reste visible pendant 5 secondes
+      toast.error(t('chat.error'), {
+        position: 'bottom-center',
+        duration: 5000,
         style: {
           marginBottom: '200px',
           fontSize: '16px',
@@ -119,9 +125,9 @@ const ChatBox = ({
 
   return (
     <>
-      <ul className="space-y-5 flex flex-col h-full overflow-auto overscroll-contain  m-2">
-        {Array.isArray(messages) && messages.length > 0 ? (
-          messages.map((message, index) => (
+      <ul className="space-y-5 flex flex-col h-full overflow-auto overscroll-contain m-2">
+        {chatMessages.length > 0 ? (
+          chatMessages.map((message, index) => (
             <li
               key={index}
               className={`max-w-lg flex flex-col gap-x-2 sm:gap-x-4 ${
@@ -134,7 +140,7 @@ const ChatBox = ({
                 </div>
               )}
               <div
-                className={`border border-gray-200 rounded-2xl p-4 space-y-3 ${
+                className={`border border-gray-200 rounded-sm p-4 space-y-3 ${
                   message.role === 'client'
                     ? 'bg-kaki text-white'
                     : 'bg-slate-200'
@@ -144,51 +150,43 @@ const ChatBox = ({
                   <p className="text-sm">{message.text}</p>
 
                   {message.attachments &&
-                    message.attachments.length > 0 &&
-                    message.attachments.map((attachment, i) =>
-                      attachment.type.startsWith('image/') ? (
-                        <img
-                          key={i}
-                          src={imageUrls[index]} // Utiliser l'URL sécurisée récupérée
-                          alt={`attachment-${i}`}
-                          style={{ maxWidth: '100%' }}
-                        />
-                      ) : (
-                        <a
-                          key={i}
-                          className="text-blue-600 hover:text-blue-500 opacity-90"
-                          href={imageUrls[index]} // Utiliser l'URL sécurisée récupérée
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          Télécharger
-                        </a>
-                      ),
-                    )}
+                    message.attachments.map((attachment, i) => (
+                      <a
+                        key={i}
+                        className="text-blue-600 hover:text-blue-500 opacity-90 block"
+                        href={attachment.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Télécharger
+                      </a>
+                    ))}
                 </div>
               </div>
             </li>
           ))
         ) : (
           <h2 className="text-2xl text-center my-auto text-gray-600">
-            Bonjour {reservation?.firstName} ! en quoi pouvons nous vous aider
-            aujourd'hui ?
+            {t('chat.welcome', { name: reservation?.firstName })}
           </h2>
         )}
       </ul>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="">
-        <div className="space-y-3 m-2 flex gap-2 shadow-md rounded-lg">
-          <div className="flex w-full p-2">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="fixed bottom-0 left-0 right-0  p-2 bg-slate-100 shadow-lg sm:m-auto sm:mb-6 mb-6 mx-4 z-10 sm:w-2/3"
+      >
+        <div className="space-y-3 flex gap-2  rounded-lg">
+          <div className="flex w-full bg-slate-100 p-2">
             <textarea
               {...register('text')}
-              className="resize-none rounded-md border-none w-full focus:ring-0"
+              className="resize-none bg-slate-100 rounded-md border-none w-full focus:ring-0"
               rows={3}
-              placeholder="Écrivez votre message ici..."
+              placeholder={t('chat.placeholder')}
             ></textarea>
             <div className="flex flex-col justify-between mt-auto">
               <Button
-                label="Envoyer"
+                label={t('chat.send')}
                 bgColor="bg-secondaryBlue"
                 textColor="text-white"
                 hoverColor={'hover:bg-secondaryRegularBlue'}

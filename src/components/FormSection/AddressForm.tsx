@@ -12,24 +12,20 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useNavigate } from 'react-router-dom'
-import { createPaymentIntent } from '../../services/createPaymentIntent'
 import { useTranslation } from 'react-i18next'
-import { setPaymentCompleted } from '../../redux/slices/userSlice'
-
+import { db } from '../../../firebase-config'
+import { addDoc, collection, getDocs, query, where } from 'firebase/firestore'
+import { useReservationData } from '../../redux/hooks/useReservationData'
+import { useState } from 'react'
 // Typage des données du formulaire basé sur le schéma Zod
 type FormData = z.infer<typeof addressFormSchema>
 
 export const AddressForm = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const serviceStartDate = useAppSelector(
-    (state) => state.form.serviceStartDate,
-  )
-  const amount = useAppSelector((state) => state.form.quote)
-  const email = useAppSelector((state) => state.user.email)
-  const shortId = useAppSelector((state) => state.user.shortId)
-  const name = useAppSelector((state) => state.user.name)
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const reservationType = useAppSelector((state) => state.form.reservationType)
+
   const { t } = useTranslation('form')
 
   const {
@@ -39,46 +35,56 @@ export const AddressForm = () => {
   } = useForm<FormData>({
     resolver: zodResolver(addressFormSchema),
   })
+  const reservationBase = useReservationData()
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
-    if (!serviceStartDate) {
+    if (isSubmitting) return
+    if (!reservationBase.serviceStartDate) {
       alert('Veuillez sélectionner une date avant de soumettre.')
       return
     }
 
-    // Assurez-vous que amount est non null et est un nombre
-    if (typeof amount === 'number') {
+    if (typeof reservationBase.quote === 'number') {
       try {
-        const { clientSecret } = await createPaymentIntent(
-          amount,
-          email,
-          shortId,
-          name,
+        // Compter les réservations existantes pour ce shortId
+        const q = query(
+          collection(db, 'reservations'),
+          where('shortId', '==', reservationBase.shortId),
         )
-        console.log('Client Secret reçu:', clientSecret)
+        const snapshot = await getDocs(q)
+        const reservationCount = snapshot.size + 1
+        const reservationShortId = `${reservationBase.shortId}-${reservationCount}`
 
-        dispatch(setPaymentCompleted(false))
-
-        if (reservationType === 'ménage') {
-          dispatch(setCleaningFormData(data as Partial<CleaningFormData>))
-        }
-
-        if (reservationType === 'cuisine') {
-          dispatch(setCookingFormData(data as Partial<CookingFormData>))
-        }
-
-        navigate('/stripe-checkout-form', {
-          state: { clientSecret },
+        // Création de la réservation dans Firestore
+        await addDoc(collection(db, 'reservations'), {
+          ...reservationBase,
+          ...data, // city, address, instructions...
+          reservationType,
+          reservationShortId,
+          createdAt: new Date(),
+          bookingStatus: 'en attente',
+          paymentStatus: 'en attente de paiement',
+          emails: {
+            confirmationEmailSent: false,
+            instructionsKeysEmailSent: false,
+            defaultInstructionsEmailSent: false,
+            serviceFeeConfirmationEmailSent: false,
+            preRequestEmailSent: false,
+          },
+          chatStatus: false,
         })
+
+        navigate('/confirmation')
       } catch (error) {
-        console.error('Erreur lors de la création du PaymentIntent:', error)
-        // Gérer l'erreur...
+        console.error('Erreur lors de la création de la réservation :', error)
+        alert('Une erreur est survenue. Veuillez réessayer.')
       }
     } else {
-      console.error('Montant invalide')
-      // Gérer le cas où le montant est invalide (afficher un message à l'utilisateur, etc.)
+      alert('Montant invalide ou manquant.')
+      setIsSubmitting(false)
     }
   }
+
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
@@ -189,11 +195,13 @@ export const AddressForm = () => {
 
       <div className="w-full">
         <Button
-          hoverColor={'hover:bg-secondaryRegularBlue'}
-          bgColor={'bg-secondaryLightBlue'}
+          hoverColor="hover:bg-secondaryRegularBlue"
+          bgColor="bg-secondaryLightBlue"
           type="submit"
-          label={t('booking.submit')}
+          label={t(isSubmitting ? 'booking.submitting' : 'booking.submit')}
+          isLoading={isSubmitting}
           largeButton={true}
+          textColor="text-white"
         />
       </div>
     </form>

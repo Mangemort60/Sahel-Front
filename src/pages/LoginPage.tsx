@@ -25,7 +25,6 @@ import { useAppSelector } from '../redux/hooks/useAppSelector'
 import getApiUrl from '../utils/getApiUrl'
 import { createPredemand } from '../utils/createPredemand'
 import { selectIsReadyForPredemande } from '../redux/selectors/worksForm'
-import { fetchBadgeStatus } from '../services/fetchBadgeStatus'
 
 type FormData = z.infer<typeof loginSchema>
 
@@ -114,7 +113,6 @@ const LoginPage = ({ formSectionRef }: SectionProps) => {
         }, 100)
       }
 
-      fetchBadgeStatus(response.data.shortId)
       toast.success(t('login.success'), { position: 'bottom-right' })
     } catch (error: any) {
       if (error.code && error.code.startsWith('auth/')) {

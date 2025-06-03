@@ -3,10 +3,12 @@ import { useAppDispatch } from '../../redux/hooks/useAppDispatch'
 import { setActiveTab } from '../../redux/slices/uiSlice'
 import { useAppSelector } from '../../redux/hooks/useAppSelector'
 import { Badge } from '@mui/material'
+import { useTranslation } from 'react-i18next'
 
 const NavbarDashboard = () => {
   const selectedTab = useAppSelector((state) => state.ui.activeTab)
   const dispatch = useAppDispatch()
+  const { t } = useTranslation('clientDashboard')
 
   const notifDetails = useAppSelector((state) => state.ui.notifDetails)
 
@@ -31,7 +33,7 @@ const NavbarDashboard = () => {
               badgeContent={menageNotifications}
               color="error"
               anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-              className="absolute bottom-6 left-full" // Position du badge
+              className="absolute bottom-6 left-full"
             />
             <Link
               to={'/client-dashboard'}
@@ -44,7 +46,7 @@ const NavbarDashboard = () => {
                     : 'border-transparent hover:border-gray-500 text-gray-500'
                 }`}
               >
-                Ménage
+                {t('tabs.cleaning')}
               </div>
             </Link>
           </div>
@@ -66,7 +68,7 @@ const NavbarDashboard = () => {
                     : 'border-transparent hover:border-gray-500 text-gray-500'
                 }`}
               >
-                Cuisine
+                {t('tabs.cooking')}
               </div>
             </Link>
           </div>
@@ -88,7 +90,7 @@ const NavbarDashboard = () => {
                     : 'border-transparent hover:border-gray-500 text-gray-500'
                 }`}
               >
-                Petits travaux
+                {t('tabs.repairs')}
               </div>
             </Link>
           </div>

@@ -4,6 +4,7 @@ import { Reservation } from '../../pages/ClientDashboard'
 import { AnimatePresence, motion } from 'framer-motion'
 import { IoChatboxOutline } from 'react-icons/io5'
 import { Badge } from '@mui/material'
+import { useTranslation } from 'react-i18next'
 
 const variants = {
   enter: { opacity: 0, x: 30 },
@@ -19,9 +20,8 @@ export const ReservationHistory = ({
   reservations,
 }: ReservationHistoryProps) => {
   const activeTab = useAppSelector((state) => state.ui.activeTab)
-
-  // Récupération des notifications détaillées par réservation depuis le store Redux
   const notifDetails = useAppSelector((state) => state.ui.notifDetails)
+  const { t } = useTranslation('clientDashboard')
 
   function getTabColorClasses(activeTab: string): string {
     const colorMap: { [key: string]: string } = {
@@ -50,9 +50,8 @@ export const ReservationHistory = ({
             {reservations.filter(
               (reservation) => reservation.reservationType === activeTab,
             ).length === 0 ? (
-              // Affichez un message si aucune réservation n'est trouvée
               <div className="text-center text-gray-500 mt-10">
-                <p>Vous n'avez aucune réservation pour le moment.</p>
+                <p>{t('history.noReservation')}</p>
               </div>
             ) : (
               reservations
@@ -75,7 +74,7 @@ export const ReservationHistory = ({
                       >
                         <div className="flex flex-col mb-3 ">
                           <h2 className="text-white dark:text-white font-bold text-xl">
-                            Réservation
+                            {t('history.title')}
                           </h2>
                           <p className="text-base text-slate-200 font-thin">
                             #{reservation.reservationShortId}
@@ -83,17 +82,17 @@ export const ReservationHistory = ({
                         </div>
                         <div className="flex flex-col justify-between flex-grow">
                           <p className="text-white dark:text-gray-300">
-                            Montant : {reservation.quote}€
+                            {t('history.amount')} : {reservation.quote}€
                           </p>
                           <p className="text-white dark:text-gray-300 mb-2">
-                            Intervention prévue le : {reservation.serviceDate}
+                            {t('history.date')} : {reservation.serviceDate}
                           </p>
                           <hr className="border" />
                           <p className="text-white dark:text-gray-300 mt-2">
-                            Adresse : {reservation.address}
+                            {t('history.address')} : {reservation.address}
                           </p>
                           <p className="text-white dark:text-gray-300">
-                            Ville : {reservation.city}
+                            {t('history.city')} : {reservation.city}
                           </p>
                         </div>{' '}
                         <Link
@@ -101,7 +100,7 @@ export const ReservationHistory = ({
                           type="button"
                           className="relative mt-2 p-2 inline-flex items-center justify-center gap-x-2 rounded-sm border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-100 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
                         >
-                          Accéder au chat <IoChatboxOutline />
+                          {t('history.openChat')} <IoChatboxOutline />
                           {notificationCount > 0 && (
                             <Badge
                               badgeContent="!"

@@ -20,6 +20,7 @@ import PrivateRoutes from './components/PrivateRoutes'
 import { TheftPrevention } from './pages/TheftPrevention'
 import HowCookingWorks from './pages/HowCookingWorks'
 import HowPetitsTravauxWorks from './pages/HowPetitsTravauxWorks'
+import ConfirmationPage from './pages/ConfirmationPage'
 
 function App() {
   const formSectionRef: RefObject<HTMLDivElement> = useRef(null)
@@ -36,6 +37,7 @@ function App() {
           <Route path="/menage" element={<HowCleaningWorks />} />
           <Route path="/cuisine" element={<HowCookingWorks />} />
           <Route path="/petits-travaux" element={<HowPetitsTravauxWorks />} />
+          <Route path="/confirmation" element={<ConfirmationPage />} />
           <Route
             path="/login"
             element={<LoginPage formSectionRef={formSectionRef} />}
@@ -61,7 +63,6 @@ function App() {
             }
           />
           <Route path="/payment-status" element={<PaymentStatus />} />
-          <Route path="/step4" element={<Step4 />} />
         </Route>
       </Routes>
     </>

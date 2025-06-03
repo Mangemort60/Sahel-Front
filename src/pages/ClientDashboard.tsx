@@ -34,7 +34,18 @@ export interface Reservation {
   id: string
   reservationType: string
   reservationShortId: string
-  devis: Devis[] // Tableau de devis  city: string
+  devis: {
+    url: string
+    amount: number
+    status: string
+    createdAt: string
+    paymentStatus: string
+    validUntil: string
+    expired: boolean
+    notes: string
+    createdBy: string
+    viewedByClient: boolean
+  }
   address: string
   serviceDate: string
   serviceDates: { startDate: string; endDate: string }
@@ -72,6 +83,7 @@ export const ClientDashboard = () => {
 
   const shortID = useAppSelector((state) => state.user.shortId)
 
+  console.log('shortID', shortID)
   // Récupération des réservations
   useEffect(() => {
     if (shortID) {

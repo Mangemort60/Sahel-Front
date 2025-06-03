@@ -1,0 +1,57 @@
+{
+  "back": "Retour",
+  "reservationDetails": {
+    "number": "Réservation N°",
+    "type": "Service",
+    "address": "Lieu de la prestation",
+    "status": "Statut de la réservation"
+  },
+  "smallRepairs": {
+    "noReservations": "Vous n'avez aucune réservation pour le moment.",
+    "preRequestTitle": "Pré-demande",
+    "preRequestDescription": "Votre demande est en attente de confirmation. Si nous avons besoin de précisions, nous vous contacterons via le chat. Vous pouvez également nous écrire pour toute question ou information complémentaire.",
+    "accessChat": "Accéder au chat"
+  },
+  "chat": {
+    "send": "Envoyer",
+    "placeholder": "Écrivez votre message ici...",
+    "finalReportAvailable": "Le rapport final est disponible",
+    "success": "Message envoyé avec succès. Notre équipe vous répondra sous 48h.",
+    "error": "Échec de l'envoi du message. Veuillez réessayer.",
+    "welcome": "Bonjour {{name}} ! en quoi pouvons-nous vous aider aujourd'hui ?",
+    "devisAvailable": "Un devis est disponible pour cette réservation"
+  },
+  "tabs": {
+    "cleaning": "Ménage",
+    "cooking": "Cuisine",
+    "repairs": "Petits travaux"
+  },
+  "history": {
+    "title": "Réservation",
+    "amount": "Montant",
+    "date": "Intervention prévue le",
+    "address": "Adresse",
+    "city": "Ville",
+    "openChat": "Accéder au chat",
+    "noReservation": "Vous n'avez aucune réservation pour le moment."
+  },
+  "space": {
+    "reservationId": "Réservation N°",
+    "service": "Service",
+    "location": "Lieu de la prestation",
+    "status": "Statut de la réservation",
+    "back": "Retour",
+    "types": {
+      "ménage": "Ménage",
+      "cuisine": "Cuisine",
+      "petits-travaux": "Petits travaux"
+    },
+    "statusLabels": {
+      "en attente": "En attente",
+      "confirmé": "Confirmée",
+      "annulé": "Annulée",
+      "pré-demande": "Pré-demande",
+      "terminé": "Terminée"
+    }
+  }
+}

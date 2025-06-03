@@ -85,7 +85,8 @@
       "rasElMa": "Ras El Ma et ses alentours"
     },
 
-    "submit": "Réserver",
+    "submit": "Valider la réservation",
+    "submitting": "Envoi en cours...",
     "dateError": "Veuillez sélectionner une date avant de soumettre.",
     "amountError": "Montant invalide"
   },
@@ -133,5 +134,9 @@
   },
   "common": {
     "back": "Retour"
+  },
+  "confirmation": {
+    "title": "Votre demande a bien été envoyée",
+    "message": "Nous avons bien reçu votre demande. Un membre de notre équipe vous contactera par email sous 24h."
   }
 }

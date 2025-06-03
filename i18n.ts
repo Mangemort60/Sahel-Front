@@ -22,6 +22,8 @@ import fr_header from './locales/fr/fr.header.json'
 import en_header from './locales/en/en.header.json'
 import contact_fr from './locales/fr/fr.contact.json'
 import contact_en from './locales/en/en.contact.json'
+import clientDashboard_fr from './locales/fr/clientDashboard.json'
+import clientDashboard_en from './locales/en/clientDashboard.json'
 
 i18n.use(initReactI18next).init({
   resources: {
@@ -36,6 +38,7 @@ i18n.use(initReactI18next).init({
       repairs: repairs_fr,
       header: fr_header,
       contact: contact_fr,
+      clientDashboard: clientDashboard_fr,
     },
     en: {
       home: home_en,
@@ -48,6 +51,7 @@ i18n.use(initReactI18next).init({
       repairs: repairs_en,
       header: en_header,
       contact: contact_en,
+      clientDashboard: clientDashboard_en,
     },
   },
   lng: 'fr', // Langue par défaut
@@ -63,6 +67,7 @@ i18n.use(initReactI18next).init({
     'repairs',
     'header',
     'contact',
+    'clientDashboard',
   ], // ✅ Ajouté "about"
   defaultNS: 'home',
   interpolation: {

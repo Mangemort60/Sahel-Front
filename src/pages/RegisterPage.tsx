@@ -75,7 +75,13 @@ const RegisterPage = () => {
       dispatch(setRole(role))
       dispatch(setPhone(data.phone))
 
-      navigate('/', { state: { success: true } })
+      navigate('/', {
+        state: {
+          success: true,
+          scrollToForm: true, // 👈 ajoute ceci
+        },
+      })
+
       toast.success(t('register.success')) // ✅
     } catch (error) {
       if (axios.isAxiosError(error)) {

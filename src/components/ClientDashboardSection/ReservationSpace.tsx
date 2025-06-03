@@ -13,6 +13,7 @@ import { useAppSelector } from '../../redux/hooks/useAppSelector'
 import { useEffect } from 'react'
 import { markMessagesAsReadByClient } from '../../services/markMessagesAsReadByClient'
 import { auth } from '../../../firebase-config'
+import { useTranslation } from 'react-i18next'
 
 interface ReservationSpaceProps {
   messagesByReservation: Record<string, Message[]> // Messages groupés par réservation
@@ -33,16 +34,14 @@ const ReservationSpace = ({
 
   const dispatch = useDispatch()
   const activeTab = useAppSelector((state) => state.ui.activeTab)
+  const { t } = useTranslation('clientDashboard')
 
   if (!reservationId) {
-    return <div>Réservation non trouvée.</div>
+    return <div>{t('space.notFound')}</div>
   }
 
-  // Recherche de la réservation correspondante dans le tableau de réservations
   const reservation = reservations.find((res) => res.id === reservationId)
-
-  // Messages associés à la réservation sélectionnée
-  const messages = messagesByReservation[reservationId] || [] // Accéder aux messages de la réservation
+  const messages = messagesByReservation[reservationId] || []
 
   useEffect(() => {
     const markMessagesAsRead = async () => {
@@ -55,18 +54,8 @@ const ReservationSpace = ({
     }
 
     markMessagesAsRead()
-    dispatch(
-      markUiMessagesAsRead({
-        reservationId: reservationId,
-      }),
-    )
-
-    dispatch(
-      updateNotificationCount({
-        reservationId: reservationId,
-      }),
-    )
-
+    dispatch(markUiMessagesAsRead({ reservationId }))
+    dispatch(updateNotificationCount({ reservationId }))
     dispatch(decrementTotalNotifications())
   }, [reservationId])
 
@@ -78,21 +67,21 @@ const ReservationSpace = ({
       >
         <button className="text-gray-400 mb-4 flex items-center gap-2">
           <FaArrowLeft />
-          <p>Retour</p>
+          <p>{t('space.back')}</p>
         </button>
       </Link>
 
       <div className="flex gap-2 h-full  justify-between">
-        <div className="border w-1/3 p-4">
-          <ul className="max-w-md divide-y divide-gray-200 dark:divide-gray-700">
+        <div className=" w-1/3 p-4 shadow-md hidden sm:flex overflow-hidden">
+          <ul className="max-w-md divide-gray-200 dark:divide-gray-700">
             <li className="pb-3 sm:pb-4">
               <div className="flex items-center space-x-4 rtl:space-x-reverse">
                 <div className="flex-shrink-0"></div>
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-bold text-gray-900 truncate dark:text-white">
-                    Réservation N°
+                    {t('space.reservationId')}
                   </p>
-                  <p className="text-sm text-gray-500 truncate dark:text-gray-400">
+                  <p className="text-sm text-gray-500 truncate dark:text-gray-400 whitespace-normal break-words">
                     {reservation?.reservationShortId}
                   </p>
                 </div>
@@ -103,10 +92,10 @@ const ReservationSpace = ({
                 <div className="flex-shrink-0"></div>
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-bold text-gray-900 truncate dark:text-white">
-                    Service
+                    {t('space.service')}
                   </p>
-                  <p className="text-sm text-gray-500 truncate dark:text-gray-400">
-                    {reservation?.reservationType}
+                  <p className="text-sm text-gray-500 truncate dark:text-gray-400  whitespace-normal break-words">
+                    {t(`space.types.${reservation?.reservationType}`)}{' '}
                   </p>
                 </div>
               </div>
@@ -116,31 +105,30 @@ const ReservationSpace = ({
                 <div className="flex-shrink-0"></div>
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-bold text-gray-900 truncate dark:text-white">
-                    Lieu de la prestation
+                    {t('space.location')}
                   </p>
-                  <p className="text-sm text-gray-500 truncate dark:text-gray-400">
+                  <p className="text-sm text-gray-500 truncate dark:text-gray-400  whitespace-normal break-words">
                     {reservation?.address} - {reservation?.city}
                   </p>
                 </div>
               </div>
             </li>
-
             <li className="pt-3 pb-0 sm:pt-4">
               <div className="flex items-center space-x-4 rtl:space-x-reverse">
                 <div className="flex-shrink-0"></div>
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-bold text-gray-900 truncate dark:text-white">
-                    Status de la réservation
+                    {t('space.status')}
                   </p>
                   <p className="text-sm text-gray-500 truncate dark:text-gray-400">
-                    {reservation?.bookingStatus}
+                    {t(`space.statusLabels.${reservation?.bookingStatus}`)}
                   </p>
                 </div>
               </div>
             </li>
           </ul>
         </div>
-        <div className="h-full w-2/3 flex flex-col justify-between border p-4 ">
+        <div className="h-full shadow-md sm:w-2/3 w-full flex flex-col justify-between p-4 ">
           <ChatBox
             reservationId={reservationId}
             messages={messages}

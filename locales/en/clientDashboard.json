@@ -1,0 +1,57 @@
+{
+  "back": "Back",
+  "reservationDetails": {
+    "number": "Reservation No.",
+    "type": "Service",
+    "address": "Service location",
+    "status": "Reservation status"
+  },
+  "smallRepairs": {
+    "noReservations": "You have no reservations at the moment.",
+    "preRequestTitle": "Pre-request",
+    "preRequestDescription": "Your request is pending confirmation. If we need more information, we will contact you via chat. You can also write to us with any questions or additional information.",
+    "accessChat": "Access chat"
+  },
+  "chat": {
+    "send": "Send",
+    "placeholder": "Write your message here...",
+    "finalReportAvailable": "The final report is available",
+    "success": "Message sent successfully. Our team will reply within 48h.",
+    "error": "Failed to send message. Please try again.",
+    "welcome": "Hello {{name}}! How can we assist you today?",
+    "devisAvailable": "A quote is available for this reservation"
+  },
+  "tabs": {
+    "cleaning": "Cleaning",
+    "cooking": "Cooking",
+    "repairs": "Small repairs"
+  },
+  "history": {
+    "title": "Reservation",
+    "amount": "Amount",
+    "date": "Scheduled on",
+    "address": "Address",
+    "city": "City",
+    "openChat": "Open chat",
+    "noReservation": "You have no reservations at the moment."
+  },
+  "space": {
+    "reservationId": "Reservation No.",
+    "service": "Service",
+    "location": "Service location",
+    "status": "Reservation status",
+    "back": "Back",
+    "types": {
+      "ménage": "Cleaning",
+      "cuisine": "Cooking",
+      "petits-travaux": "Small Repairs"
+    },
+    "statusLabels": {
+      "en attente": "Pending",
+      "confirmé": "Confirmed",
+      "annulé": "Cancelled",
+      "pré-demande": "Pre-request",
+      "terminé": "Completed"
+    }
+  }
+}

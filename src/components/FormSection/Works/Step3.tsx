@@ -10,6 +10,9 @@ import { createPredemand } from '../../../utils/createPredemand'
 import { useAppSelector } from '../../../redux/hooks/useAppSelector'
 import toast from 'react-hot-toast'
 import { useTranslation } from 'react-i18next'
+import { Link, useNavigate } from 'react-router-dom'
+import { addDoc, collection, getDocs, query, where } from 'firebase/firestore'
+import { db } from '../../../../firebase-config'
 // Définir le type basé sur le schéma Zod
 export type worksTypeFormData = z.infer<typeof worksDescFormSchema>
 
@@ -42,35 +45,80 @@ export const Step3 = ({ nextStep, formData }: StepProps) => {
   const userFirstName = useAppSelector((state) => state.user.firstName)
   const userName = useAppSelector((state) => state.user.name)
   const phone = useAppSelector((state) => state.user.phone)
-
+  const navigate = useNavigate()
   // Récupérer uniquement les données smallRepairs du formData
   const smallRepairsData = useAppSelector(
     (state) => state.form.formData.smallRepairs,
   )
 
   const onSubmit = async (data: worksTypeFormData) => {
-    // Ne dispatcher que les données pertinentes pour smallRepairs
     dispatch(setSmallRepairsFormData({ ...smallRepairsData, ...data }))
-    console.log({ ...smallRepairsData, ...data })
-
     const reservationData = { ...smallRepairsData, ...data }
-
-    if (isLoggedIn) {
-      // Créer la pré-demande avec les données filtrées
-      createPredemand(
-        reservationData,
-        shortId,
-        email,
-        userName,
-        userFirstName,
-        phone,
-      )
-      toast.success('Pré-demande créée avec succès !', {
-        position: 'bottom-right',
+    if (!isLoggedIn) {
+      navigate('/login?redirectTo=/', {
+        state: { from: { pathname: '/', scrollToForm: true } },
       })
+
+      return
     }
 
-    nextStep()
+    try {
+      if (isLoggedIn) {
+        // 🔍 Compter les réservations existantes
+        const q = query(
+          collection(db, 'reservations'),
+          where('shortId', '==', shortId),
+        )
+        const snapshot = await getDocs(q)
+        const reservationCount = snapshot.size + 1
+        const reservationShortId = `${shortId}-${reservationCount}`
+
+        // ✅ Enregistrement direct dans Firestore
+        await addDoc(collection(db, 'reservations'), {
+          ...reservationData,
+          phone: phone,
+          bookingStatus: 'pré-demande',
+          reservationType: 'petits-travaux', // Statut indiquant que c'est une pré-demande
+          createdAt: new Date(), // Date de création de la pré-demande
+          emails: {
+            confirmationEmailSent: false,
+            instructionsKeysEmailSent: false,
+            defaultInstructionsEmailSent: false,
+            serviceFeeConfirmationEmailSent: false,
+            preRequestEmailSent: false,
+            serviceFeeEmailSent: false,
+          },
+          serviceFeeInfo: {
+            amount: 100,
+            viewedByClient: false,
+            status: '',
+            paid: false,
+          },
+          serviceDates: {
+            startDate: null,
+            endDate: null,
+          },
+          serviceStartDate: null,
+          keyReceived: false,
+          shortId: shortId,
+          paymentStatus: 'aucun paiement requis pour le moment',
+          email: email,
+          name: userName,
+          firstName: userFirstName,
+          chatStatus: false, // Statut du chat (par défaut à false)
+          reservationShortId: reservationShortId, // ID personnalisé de la réservation
+        })
+
+        toast.success('Pré-demande créée avec succès !', {
+          position: 'bottom-right',
+        })
+      }
+
+      navigate('/confirmation')
+    } catch (err) {
+      console.error('Erreur lors de la création de la réservation :', err)
+      toast.error('Une erreur est survenue. Veuillez réessayer.')
+    }
   }
   return (
     <form
@@ -202,15 +250,36 @@ export const Step3 = ({ nextStep, formData }: StepProps) => {
           )}
         </div>
       </div>
+      {!isLoggedIn && (
+        <div className="text-gray-500 text-sm">
+          <p>
+            <Link
+              to="/register"
+              className="text-blue-700 font-semibold underline"
+            >
+              Créer un compte
+            </Link>{' '}
+            pour valider votre demande.
+          </p>
+          <p>
+            Déjà inscrit ?{' '}
+            <Link to="/login" className="text-blue-700 font-semibold underline">
+              Se connecter
+            </Link>
+          </p>
+        </div>
+      )}
 
-      <Button
-        type="submit"
-        label={t('smallRepairs.step3.submit')}
-        hoverColor="hover:bg-secondaryRegularBlue"
-        bgColor="bg-secondaryLightBlue"
-        largeButton
-        textColor="text-white"
-      />
+      {isLoggedIn && (
+        <Button
+          label="Valider ma demande"
+          type="submit"
+          bgColor="bg-secondaryRegularBlue"
+          hoverColor="hover:bg-secondaryLightBlue"
+          textColor="text-white"
+          largeButton={true}
+        />
+      )}
     </form>
   )
 }

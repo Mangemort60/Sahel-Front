@@ -84,7 +84,8 @@
       "ahfir": "Ahfir and surrounding areas",
       "rasElMa": "Ras El Ma and surrounding areas"
     },
-    "submit": "Book",
+    "submit": "Submit reservation",
+    "submitting": "Submitting...",
     "dateError": "Please select a date before submitting.",
     "amountError": "Invalid amount"
   },
@@ -131,5 +132,10 @@
   },
   "common": {
     "back": "Back"
+  },
+  "confirmation": {
+    "title": "Your request has been submitted",
+    "message": "We’ve received your request. A member of our team will contact you by email within 24 hours.",
+    "backHome": "Back to homepage"
   }
 }

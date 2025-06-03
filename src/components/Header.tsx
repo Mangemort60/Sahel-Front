@@ -7,17 +7,11 @@ import { useAppDispatch } from '../redux/hooks/useAppDispatch'
 import { setIsLoggedIn } from '../redux/slices/userSlice'
 import Cookies from 'js-cookie'
 import { resetFormState } from '../redux/slices/formSlice'
-import {
-  resetUiState,
-  setActiveTab,
-  setTotalNotifications,
-  setNotificationDetails,
-} from '../redux/slices/uiSlice'
+import { resetUiState, setActiveTab } from '../redux/slices/uiSlice'
 import toast from 'react-hot-toast'
 import Badge from '@mui/material/Badge'
-import { useEffect } from 'react'
 import i18n from 'i18next'
-import { fetchBadgeStatus } from '../services/fetchBadgeStatus'
+
 import { MenuItem, Select } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 
@@ -27,15 +21,9 @@ const Header = () => {
   const dispatch = useAppDispatch()
   const { i18n: i18nextInstance } = useTranslation()
   const { t } = useTranslation('header')
-  const userId = useAppSelector((state) => state.user.shortId) as string
   const totalNotifications = useAppSelector(
     (state) => state.ui.totalNotifications || 0,
   )
-  useEffect(() => {
-    if (userId) {
-      fetchBadgeStatus(userId)
-    }
-  }, [userId])
 
   const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     const lang = event.target.value as string
