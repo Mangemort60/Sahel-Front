@@ -37,5 +37,60 @@
   "commitment": {
     "title": "Respect Rigoureux de Notre Cahier des Charges",
     "text": "Chez Sahel, nous adhérons strictement à notre propre cahier des charges, conçu pour garantir des prestations de ménage de la plus haute qualité. Ce document définit avec précision les normes et les procédures que nous appliquons lors de chaque intervention, assurant ainsi un service uniforme et irréprochable. De l'utilisation de produits écologiques à la gestion sécurisée des accès, en passant par le respect des délais et la qualité du suivi client, chaque aspect de notre travail est encadré par des standards rigoureux. En respectant ce cahier des charges, nous vous assurons un service de ménage professionnel qui répond à vos attentes, tout en garantissant une sérénité totale."
+  },
+  "specs": {
+    "title": "Cahier des charges",
+    "intro": "Notre prestation de ménage comprend les tâches suivantes, réalisées avec soin et professionnalisme :",
+    "includedTitle": "Prestations incluses",
+    "livingRoom": {
+      "title": "Salon / Pièces de vie",
+      "point1": "Dépoussiérage des meubles, étagères et objets décoratifs",
+      "point2": "Aspiration et/ou balayage des sols",
+      "point3": "Lavage des sols (carrelage, parquet, etc.)",
+      "point4": "Nettoyage des vitres intérieures (à hauteur accessible sans équipement spécifique)",
+      "point5": "Ramassage et tri des déchets"
+    },
+    "kitchen": {
+      "title": "Cuisine",
+      "point1": "Nettoyage des plans de travail et crédences",
+      "point2": "Lavage de l’évier et désinfection si nécessaire",
+      "point3": "Nettoyage extérieur des appareils électroménagers (four, micro-ondes, réfrigérateur, etc.)",
+      "point4": "Balayage et lavage du sol"
+    },
+    "bathroom": {
+      "title": "Salles de bains / Toilettes",
+      "point1": "Nettoyage et désinfection des lavabos, robinets et miroirs",
+      "point2": "Nettoyage de la douche ou baignoire",
+      "point3": "Nettoyage des toilettes (cuvette, abattant, surface extérieure)",
+      "point4": "Lavage du sol"
+    },
+    "bedroom": {
+      "title": "Chambres",
+      "point1": "Dépoussiérage des meubles et surfaces",
+      "point2": "Aspiration ou balayage du sol",
+      "point3": "Lavage des sols si nécessaire",
+      "point4": "Rangement du linge (pliages basiques sur demande)"
+    },
+    "extra": {
+      "title": "Tâches complémentaires",
+      "point1": "Lavage des vitres extérieures (si accessible en toute sécurité)"
+    },
+    "excludedTitle": "Tâches exclues",
+    "excluded": {
+      "point1": "Nettoyage de vitres ou surfaces en hauteur nécessitant un équipement spécifique (échelle, nacelle, etc.)",
+      "point2": "Nettoyage de gros travaux (après chantier, incendie, dégât des eaux important)",
+      "point3": "Manipulation de produits chimiques non fournis par le client (sauf accord préalable)",
+      "point4": "Nettoyage de linge délicat (soie, laine, etc.) ou repassage complexe",
+      "point5": "Déménagement ou déplacement de meubles lourds",
+      "point6": "Tâches administratives ou personnelles (tri de courrier, etc.)",
+      "point7": "Nettoyage de zones extérieures (terrasse, jardin, toiture)",
+      "point8": "Tâches impliquant des risques (toxi-infections, moisissures dangereuses, etc.)"
+    },
+    "conditionsTitle": "Conditions générales",
+    "conditions": {
+      "point1": "Les objets de valeur doivent être sécurisés par le client.",
+      "point2": "Les produits et matériaux sont fournis dans la prestation.",
+      "point3": "Les annulations doivent être signalées au moins 24h à l’avance."
+    }
   }
 }

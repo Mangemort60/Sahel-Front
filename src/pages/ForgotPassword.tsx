@@ -20,6 +20,7 @@ const ForgotPassword = () => {
   const onSubmit: SubmitHandler<FormData> = async (data) => {
     setIsLoading(true)
     setMessage(null)
+    console.log(data.email)
 
     try {
       const response = await axios.post(`${apiUrl}/auth/forgot-password`, {

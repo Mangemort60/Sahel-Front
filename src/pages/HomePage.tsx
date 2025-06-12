@@ -4,6 +4,7 @@ import { HeroSection } from '../components/HomeSection/HeroSection'
 import { useLocation } from 'react-router-dom'
 import { Faq } from '../components/Faq'
 import Guarantees from '../components/HomeSection/Guarantees'
+import OfferSummary from '../components/HomeSection/OfferSummary'
 
 const HomePage = () => {
   const formSectionRef = useRef<HTMLDivElement>(null)
@@ -26,6 +27,7 @@ const HomePage = () => {
   return (
     <>
       <HeroSection formSectionRef={formSectionRef} />
+      <OfferSummary />
       <Guarantees />
       <FormSection id="formSection" ref={formSectionRef} />
       <Faq ref={faqRef} />

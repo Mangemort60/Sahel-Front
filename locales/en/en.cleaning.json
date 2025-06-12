@@ -37,5 +37,60 @@
   "commitment": {
     "title": "Strict Adherence to Our Service Charter",
     "text": "At Sahel, we strictly adhere to our own service charter, designed to ensure the highest quality cleaning services. This document clearly defines the standards and procedures we apply during each visit, ensuring a consistent and impeccable service. From the use of eco-friendly products to secure access handling, punctuality and quality client follow-up, every aspect of our work is governed by strict guidelines. By respecting this charter, we guarantee a professional cleaning service that meets your expectations, while ensuring total peace of mind."
+  },
+  "specs": {
+    "title": "Service Specifications - Cleaning",
+    "intro": "Our cleaning service includes the following tasks, carried out with care and professionalism:",
+    "includedTitle": "Included Tasks",
+    "livingRoom": {
+      "title": "Living Room / Common Areas",
+      "point1": "Dusting of furniture, shelves, and decorative items",
+      "point2": "Vacuuming and/or sweeping of floors",
+      "point3": "Mopping of floors (tiles, parquet, etc.)",
+      "point4": "Cleaning of interior windows (reachable without special equipment)",
+      "point5": "Trash collection and sorting"
+    },
+    "kitchen": {
+      "title": "Kitchen",
+      "point1": "Cleaning of countertops and backsplashes",
+      "point2": "Sink cleaning and disinfection if necessary",
+      "point3": "Exterior cleaning of appliances (oven, microwave, refrigerator, etc.)",
+      "point4": "Sweeping and mopping of the floor"
+    },
+    "bathroom": {
+      "title": "Bathrooms / Toilets",
+      "point1": "Cleaning and disinfecting of sinks, faucets, and mirrors",
+      "point2": "Cleaning of shower or bathtub",
+      "point3": "Toilet cleaning (bowl, seat, exterior surface)",
+      "point4": "Mopping of the floor"
+    },
+    "bedroom": {
+      "title": "Bedrooms",
+      "point1": "Dusting of furniture and surfaces",
+      "point2": "Vacuuming or sweeping the floor",
+      "point3": "Mopping of the floor if necessary",
+      "point4": "Tidying of laundry (basic folding on request)"
+    },
+    "extra": {
+      "title": "Additional Tasks",
+      "point1": "Cleaning of exterior windows (if safely accessible)"
+    },
+    "excludedTitle": "Excluded Tasks",
+    "excluded": {
+      "point1": "Cleaning of windows or surfaces requiring specific equipment (ladder, lift, etc.)",
+      "point2": "Heavy-duty cleaning (post-construction, fire damage, major water damage)",
+      "point3": "Handling of chemical products not provided by the client (unless agreed in advance)",
+      "point4": "Washing of delicate fabrics (silk, wool, etc.) or complex ironing",
+      "point5": "Moving or lifting heavy furniture",
+      "point6": "Administrative or personal tasks (sorting mail, etc.)",
+      "point7": "Cleaning of outdoor areas (terrace, garden, roof)",
+      "point8": "Tasks involving risks (toxic mold, infections, hazardous materials, etc.)"
+    },
+    "conditionsTitle": "General Conditions",
+    "conditions": {
+      "point1": "Valuable items must be secured by the client.",
+      "point2": "Cleaning products and materials are included in the service.",
+      "point3": "Cancellations must be reported at least 24 hours in advance."
+    }
   }
 }

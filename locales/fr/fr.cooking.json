@@ -21,5 +21,46 @@
   "commitment": {
     "title": "Respect Rigoureux de Notre Cahier des Charges",
     "text": "Chez Sahel, nous adhérons strictement à notre propre cahier des charges, conçu pour garantir des prestations de ménage de la plus haute qualité. Ce document définit avec précision les normes et les procédures que nous appliquons lors de chaque intervention, assurant ainsi un service uniforme et irréprochable. De l'utilisation de produits écologiques à la gestion sécurisée des accès, en passant par le respect des délais et la qualité du suivi client, chaque aspect de notre travail est encadré par des standards rigoureux. En respectant ce cahier des charges, nous vous assurons un service de ménage professionnel qui répond à vos attentes, tout en garantissant une sérénité totale."
+  },
+  "specs": {
+    "title": "Cahier des charges",
+    "intro": "Notre prestation consiste en la mise à disposition d’une employée qualifiée pour réaliser des missions de cuisine à domicile selon vos besoins.",
+    "includedTitle": "Prestations incluses",
+    "preparation": {
+      "title": "Préparation culinaire",
+      "point1": "Cuisine de plats frais selon les demandes du client (recettes standards ou spécifiques sous réserve de faisabilité).",
+      "point2": "Respect des consignes alimentaires (régimes, allergies, préférences) si communiquées à l’avance.",
+      "point3": "Préparation des ingrédients (épluchage, découpe, marinades, etc.).",
+      "point4": "Cuisson et assemblage des plats.",
+      "point5": "Dressage des plats avant service (sur demande)."
+    },
+    "hygiene": {
+      "title": "Hygiène et organisation",
+      "point1": "Nettoyage basique de la zone de travail (plan de travail, ustensiles utilisés, évier).",
+      "point2": "Respect des normes d’hygiène alimentaire.",
+      "point3": "Gestion des déchets liés à la préparation (épluchures, emballages, etc.)."
+    },
+    "practical": {
+      "title": "Modalités pratiques",
+      "point1": "Intervention dans la résidence du client aux horaires convenus.",
+      "point2": "Adaptation au nombre de personnes précisé dans la réservation.",
+      "point3": "Durée déterminée à l’avance (par repas ou forfait temps)."
+    },
+    "excludedTitle": "Tâches exclues",
+    "excluded": {
+      "point1": "Courses : L’achat des ingrédients et produits nécessaires reste à la charge du client.",
+      "point2": "Fourniture d’ustensiles : Le client doit disposer du matériel de cuisine nécessaire (couteaux, casseroles, plaques de cuisson, etc.).",
+      "point3": "Service à table : La prestation se limite à la préparation culinaire (pas de service, ni de vaisselle post-repas).",
+      "point4": "Nettoyage approfondi : L’employée nettoie uniquement les espaces et ustensiles utilisés pendant la préparation (pas de ménage général sauf prestation demandée au préalable).",
+      "point5": "Garde d’enfants ou animaux : L’employée n’est pas responsable des personnes ou animaux présents sur place.",
+      "point6": "Plats complexes sans préavis : Les demandes de dernière minute (ex : pâtisserie élaborée) doivent être validées à l’avance."
+    },
+    "conditionsTitle": "Conditions générales",
+    "conditions": {
+      "point1": "Les ingrédients doivent être disponibles et accessibles dès l’arrivée de l’employée.",
+      "point2": "Toute annulation doit être signalée au moins 24h à l’avance (sauf cas de force majeure).",
+      "point3": "Les retards du client ne prolongent pas automatiquement la durée de la prestation.",
+      "point4": "Le client s’engage à fournir un espace de travail sécurisé et fonctionnel."
+    }
   }
 }
